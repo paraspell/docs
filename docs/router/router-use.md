@@ -1,0 +1,152 @@
+# XCM Router Implementation Guide
+
+XCM Router is able to perform cross-chain transactions between Polkadot/Kusama Parachains and Relay chains as well. 
+It works across 9 open source Parachain DEXes.
+
+These are:
+- Acala / 36 Pools available
+- Basilisk / 15 Pools available
+- BifrostKusama / 66 Pools available / Requires native token for swaps
+- BifrostPolkadot / 45 Pools available / Requires native token for swaps
+- HydraDX / 210 Pools available
+- Interlay / 10 Pools available / Requires native token for swaps
+- Karura / 136 Pools available
+- Kintsugi / 6 Pools available / Requires native token for swaps
+- Mangata / 55 Pools available / Requires native token for swaps
+
+Totaling to 579 pools available for cross-chain swap transactions.
+
+**NOTE: Some exchanges require native tokens in order to proceed with swaps.**
+
+## XCM Router allows you to construct your calls in four ways:
+- [Via Builder pattern (recommended, easy to use) - Automatic exchange selection (Based on best price)](https://paraspell.github.io/docs/router/router-use.html#builder-pattern-xcm-router-example-automatic-exchange-selection-based-on-best-price)
+- [Via Builder pattern (recommended, easy to use) - Manual exchange selection](https://paraspell.github.io/docs/router/router-use.html#builder-pattern-xcm-router-example-manual-exchange-selection)
+- [Classic function-like way - Automatic exchange selection (Based on best price)](https://paraspell.github.io/docs/router/router-use.html#function-pattern-xcm-router-example-automatic-exchange-selection-based-on-best-price)
+- [Classic function-like way - Manual exchange selection](https://paraspell.github.io/docs/router/router-use.html#function-pattern-xcm-router-example-manual-exchange-selection)
+
+All four of these ways will be explained.
+
+## Builder pattern XCM Router example - Automatic exchange selection (Based on best price)
+If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
+
+```js
+await RouterBuilder
+        .from('Polkadot')   //Origin Parachain/Relay chain
+        .to('Astar')    //Destination Parachain/Relay chain
+        .currencyFrom('DOT')    // Currency to send
+        .currencyTo('ASTR')    // Currency to receive
+        .amount('1000000')  // Amount to send
+        .slippagePct('1')   // Max slipppage percentage
+        .injectorAddress(selectedAccount.address)   //Injector address
+        .recipientAddress(recipientAddress) //Recipient address
+        .signer(injector.signer)    //Signer
+        .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
+          console.log(status.hashes);   //Transaction hashes
+          console.log(status.status);   //Transaction statuses
+          console.log(status.type);    //Transaction types
+        })
+        .buildAndSend()
+```
+
+AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
+## Builder pattern XCM Router example - Manual exchange selection
+If you wish to select your exchange chain manually you can do that by providing aditional parameter `.exchange()` in the call. Router will then use exchange chainn of your choice.
+
+```js
+await RouterBuilder
+        .from('Polkadot')   //Origin Parachain/Relay chain
+        .exchange('HydraDxDex')    //Exchange Parachain
+        .to('Astar')    //Destination Parachain/Relay chain
+        .currencyFrom('DOT')    // Currency to send
+        .currencyTo('ASTR')    // Currency to receive
+        .amount('1000000')  // Amount to send
+        .slippagePct('1')   // Max slipppage percentage
+        .injectorAddress(selectedAccount.address)   //Injector address
+        .recipientAddress(recipientAddress) //Recipient address
+        .signer(injector.signer)    //Signer
+        .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
+          console.log(status.hashes);   //Transaction hashes
+          console.log(status.status);   //Transaction statuses
+          console.log(status.type);    //Transaction types
+        })
+        .buildAndSend()
+```
+
+AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
+## Function pattern XCM Router example - Automatic exchange selection (Based on best price)
+If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
+  
+```js
+await transfer({
+        from: 'Polkadot', //Origin Parachain/Relay chain
+        to: 'Interlay', //Destination Parachain/Relay chain
+        currencyFrom: 'DOT', // Currency to send
+        currencyTo: 'INTR', // Currency to receive
+        amount: '100000', // Amount to send
+        slippagePct: '1', // Max slipppage percentage
+        injectorAddress: selectedAccount.address, //Injector address
+        address: recipientAddress, //Recipient address
+        signer: injector.signer,  //Signer
+        onStatusChange: (status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
+          console.log(status.hashes);   //Transaction hashes
+          console.log(status.status);   //Transaction statuses
+          console.log(status.type);     //Transaction types
+        },
+      });
+
+```
+
+AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
+## Function pattern XCM Router example - Manual exchange selection
+If you wish to select your exchange chain manually you can do that by providing aditional parameter `exchange:` in the call. Router will then use exchange chainn of your choice.
+
+```js
+await transfer({
+        from: 'Polkadot', //Origin Parachain/Relay chain
+        exchange: 'AcalaDex', //Exchange Parachain
+        to: 'Interlay', //Destination Parachain/Relay chain
+        currencyFrom: 'DOT', // Currency to send
+        currencyTo: 'INTR', // Currency to receive
+        amount: '100000', // Amount to send
+        slippagePct: '1', // Max slipppage percentage
+        injectorAddress: selectedAccount.address, //Injector address
+        address: recipientAddress, //Recipient address
+        signer: injector.signer,  //Signer
+        onStatusChange: (status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
+          console.log(status.hashes);   //Transaction hashes
+          console.log(status.status);   //Transaction statuses
+          console.log(status.type);     //Transaction types
+        },
+      });
+
+```
+AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
+## List of DEX chains, assets and Parachains supported by XCM Router
+
+| DEX | Can send to/receive from | Supported assets | Notes |
+| ------------- | ------------- | ------------- |------------- |
+| Acala DEX |Polkadot Relay, Astar, HydraDX, Interlay, Moonbeam, Parallel, AssetHubPolkadot, Unique network|ACA, DOT, aSEED, USDCet, UNQ, IBTC, INTR, lcDOT, LDOT| Fees are paid by either ACA or DOT|
+|Karura DEX| Kusama Relay, Altair, Basilisk, BifrostKusama, Calamari, Crab, Parallel Heiko, Kintsugi, Moonriver, Quartz, Crust Shadow, Shiden, AssetHubKusama| BNC, USDCet, RMRK, ARIS, AIR, QTZ, CSM, USDT, KAR, KBTC, KINT, KSM, aSEED, LKSM, PHA, tKSM, TAI | Fees are paid by either KAR or KSM|
+|HydraDX DEX| Polkadot Relay, Acala, Interlay, AssetHubPolkadot, Zeitgeist, Astar, Centrifuge, BifrostPolkadot| USDT, HDX, WETH, GLMR, IBTC, BNC, WBTC, vDOT, DAI, CFG, DOT, DAI, ZTG, WBTC, INTR, ASTR, LRNA, USDC| Chain automatically gives you native asset to pay for fees.|
+| Basilisk DEX | Kusama Relay, Karura, AssetHubKusama, Tinkernet, Robonomics| BSX, USDT, aSEED, XRT, KSM, TNKR| Chain automatically gives you native asset to pay for fees.|
+|Mangata DEX| Kusama Relay, AssetHubKusama, BifrostPolkadot, Moonriver, Turing, Imbue| MGX, IMBU, TUR, ZLK, BNC, USDT, RMRK, MOVR, vsKSM, KSM, vKSM| Chain requires native MGX asset to pay for fees.|
+|Bifrost Kusama DEX| Kusama Relay, AssetHubKusama, Karura, Moonriver, Kintsugi, Mangata| BNC, vBNC, vsKSM, vKSM, USDT, aSEED, KAR, ZLK, RMRK, KBTC, MOVR, vMOVR| Chain requires native BNC asset for fees.|
+|Bifrost Polkadot DEX| Polkadot Relay, AssetHubPolkadot, Moonbeam, Astar, Interlay| BNC, vDOT, vsDOT, USDT, FIL, vFIL, ASTR, vASTR, GLMR, vGLMR, MANTA, vMANTA|Chain requires native BNC asset for fees.|
+|Interlay DEX| Polkadot Relay, Acala, Astar, Parallel, PolkadotAssetHub, HydraDX, BifrostPolkadot |INTR, DOT, IBTC, USDT, VDOT| Chain requires native INTR asset for fees.|
+|Kintsugi DEX| Kusama Relay, Karura, KusamaAssetHub, Parallel Heiko, BifrostKusama|KINT,KSM,KBTC,USDT|Chain requires native KINT asset for fees.|

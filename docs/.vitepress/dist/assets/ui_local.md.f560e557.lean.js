@@ -1,0 +1,1 @@
+import{_ as a,c as s,o as n,d as e}from"./app.033c03ff.js";const h=JSON.parse('{"title":"Starting local network","description":"","frontmatter":{},"headers":[],"relativePath":"ui/local.md"}'),l={name:"ui/local.md"},o=e("",11),t=[o];function p(i,c,r,d,u,C){return n(),s("div",null,t)}const y=a(l,[["render",p]]);export{h as __pageData,y as default};
