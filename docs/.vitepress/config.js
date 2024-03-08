@@ -36,13 +36,9 @@ export default {
             text: 'LightSpell⚡️ XCM API',
             items: [
               { text: 'Getting started', link: '/api/g-started' },
-              { text: 'Asset pallet', link: '/api/assetP' },
-              { text: 'HRMP pallet', link: '/api/hrmpP' },
-              { text: 'Node pallets', link: '/api/nodeP' },
-              { text: 'XCM pallet', link: '/api/xcmP' },
+              { text: 'XCM SDK✨', link: '/api/xcmP' },
               { text: 'XCM Router☄️', link: '/api/xcmRouter' },
               { text: 'Upgrade request amount', link: '/api/upgrade' },
-              { text: 'API playground', link: '/api/playground' },
               { text: 'Deploy API yourself', link: '/api/deploy' },
 
 
@@ -52,8 +48,14 @@ export default {
             text: 'SpellRouter☄️ XCM ROUTER',
             items: [
               { text: 'Getting started', link: '/router/getting-strtd' },
-              { text: 'Router implementation', link: '/router/router-use' },
-              { text: 'Router playground', link: '/router/playground' },
+              { text: 'Send routed XCM', link: '/router/router-use' },
+            ]
+          },
+          {
+            text: 'XCM playground 🛝',
+            items: [
+              { text: 'Getting started', link: '/tools/playground' },
+
             ]
           },
           {

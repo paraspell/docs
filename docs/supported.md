@@ -1,15 +1,17 @@
-# List of nodes supported by ParaSpell✨
+# List of chains supported by ParaSpell✨
 
-This page contains a list of chains that are implemented in our XCM API and XCM SDK.
+This page contains a list of chains that are implemented in our XCM Router, XCM API and XCM SDK. As XCM API implements both XCM SDK and XCM Router packages it supports all chains mentioned below also (It is just not mentioned).
 
-## Relay chains
+## XCM SDK✨
+
+### Relay chains
 
 | Node name | Website                           | Github | Polkadot.js                                                                                   | Supported XCM Pallet | Current latest XCM Version |
 | --------- | --------------------------------- | ------ | --------------------------------------------------------------------------------------------- | -------------------- | -------------------------- |
 | Polkadot  | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer)        | polkadotXCM          | XCM V3                     |
 | Kusama    | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama-rpc.polkadot.io#/explorer) | polkadotXCM          | XCM V3                     |
 
-## Polkadot Parachains
+### Polkadot Parachains
 
 | Node name         | Website                                                | Github                                                                     | Polkadot.js                                                                                                                | Node id | Supported XCM Pallet | Current latest XCM Version |
 | ----------------- | ------------------------------------------------------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
@@ -38,7 +40,7 @@ This page contains a list of chains that are implemented in our XCM API and XCM 
 | Phala         | [Website](https://phala.network/?ref=parachains-info)                       | [Github](https://github.com/Phala-Network/phala-blockchain)                         | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fapi.phala.network%2Fws#/explorer)                          | 2035    | xTransfer              | XCM V3                     |
 | Collectives         | [Website](https://polkadot.network/blog/proposal-for-common-good-parachains?ref=parachains-info)                       | [Github](https://github.com/paritytech/polkadot-sdk)                         | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-collectives-rpc.polkadot.io#/explorer)                          | 1001    | PolkadotXCM              | XCM V3                     |
 
-## Kusama Parachains
+### Kusama Parachains
 
 | Node name      | Website                                                                                                                    | Github                                                                        | Polkadot.js                                                                                                            | Node id | Supported XCM Pallet | Current latest XCM Version |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
@@ -70,7 +72,7 @@ This page contains a list of chains that are implemented in our XCM API and XCM 
 | Khala         | [Website](https://phala.network/khala?ref=parachains-info)                       | [Github](https://github.com/Phala-Network/phala-blockchain)                         | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkhala-api.phala.network%2Fws#/explorer)                          | 2004    | xTransfer              | XCM V3                     |
 
 
-## XCM Router☄️ support
+## XCM Router☄️
 
 | DEX | Can send to/receive from | Supported assets | Notes |
 | ------------- | ------------- | ------------- |------------- |

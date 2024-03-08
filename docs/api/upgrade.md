@@ -58,7 +58,7 @@ You should receive an email similar to this one:
 
 **Please verify** that confirmation email comes from address `info.lightspell@gmail.com`. **This only applies to the official deployed version**. If you plan on deploying your own XCM-API fork you can set a custom email address. More on this in the [Deploy API yourself](https://paraspell.github.io/docs/api/deploy.html) section.
 
-## How to implement token into dApp or REST API client
+## Implement into dApp/REST API
 
 ### REST API Client
 This guide shows how to implement token into API Client ([Insomnia](https://insomnia.rest/download) in this case)
@@ -90,10 +90,3 @@ As observed in the above snippet, adding the following line to fetch requests al
 { headers: new Headers({ 'X-API-KEY': '<API_KEY>' }) }, //This is where you implement your API token
 ```
 
-
-## Testing request limits in Playground
-You can now test request limits in Playground. Just navigate to the API KEY testing category and click the Test API request limit button to proceed. The API Key is an optional parameter (You can test both captcha-verified and higher-request users).
-
-The interface of this test can be seen in the picture below.
-
-<img width="572" alt="Screenshot 2023-09-15 at 21 38 43" src="https://user-images.githubusercontent.com/55763425/268379056-0b370fe2-2368-43af-a51b-487f72be909b.png">

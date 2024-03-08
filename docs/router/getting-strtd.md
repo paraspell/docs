@@ -1,30 +1,16 @@
 # Getting started with SpellRouter☄️
-##### Step 1. Install peer dependencies
+This guide guides you through implementation of XCM Router that allows you to do various exciting actions on Polkadot and Kusama chains.
+
+## Install peer dependencies
 ```sh
 # npm
-npm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
-```
-```sh
-# yarn
-yarn add @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
-```
-```sh
-#pnpm
-pnpm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
+pnpm | npm | yarn install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
 ```
 
-##### Step 2. Install XCM Router package (depending on your package manager of choice):
+## Install XCM Router package
 ```sh
 # npm
-npm install @paraspell/xcm-router
-```
-```sh
-# yarn
-yarn add @paraspell/xcm-router
-```
-```sh
-# pnpm
-pnpm install @paraspell/xcm-router
+pnpm | yarn | npm install @paraspell/xcm-router
 ```
 
 ## Importing package

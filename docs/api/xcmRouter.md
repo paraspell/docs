@@ -2,11 +2,7 @@
 
 Following section covers XCM Router implementation in LightSpell XCM API. Users can use XCM Router to perform cross-chain transactions between compatible two chains and receive different assets than assets that were sent. This helps with liquidity and user experience as users do not need to perform multiple transactions to achieve the same result.
 
-### There are two scenarios XCM Router offers in API implementation:
-- [Exchange asset cross-chain with automatic exchange chain selection (Based on best price)](https://paraspell.github.io/docs/api/xcmRouter.html#xcm-router-example-automatic-exchange-selection-based-on-best-price)
-- [Exchange asset cross-chain with manual exchange chain selection](https://paraspell.github.io/docs/api/xcmRouter.html#xcm-router-example-manual-exchange-selection)
-
-We will explore both scenarios in the following sections.
+For list of supported chains/assets/dexes head over to [List of supported chains](https://paraspell.github.io/docs/supported.html#xcm-router%E2%98%84)
 
 ### Package-less implementation of XCM API Router features into your application
 
@@ -73,7 +69,7 @@ await submitTransaction(swapApi, buildTx(swapApi, toDest), signer, injectorAddre
 ```
 
 
-## XCM Router example - Automatic exchange selection (Based on best price)
+## Automatic exchange selection 
 
 If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
@@ -125,7 +121,7 @@ const response = await fetch(
 ```
 
 
-## XCM Router example - Manual exchange selection
+## Manual exchange selection
 
 If you wish to select your exchange chain manually you can do that by providing aditional parameter `exchange:` in the call. Router will then use exchange chainn of your choice.
 
@@ -178,16 +174,3 @@ const response = await fetch(
     })
 );
 ```
-
-## List of DEX chains, assets and Parachains supported by XCM Router
-| DEX | Can send to/receive from | Supported assets | Notes |
-| ------------- | ------------- | ------------- |------------- |
-| Acala DEX |Polkadot Relay, Astar, HydraDX, Interlay, Moonbeam, Parallel, AssetHubPolkadot, Unique network|ACA, DOT, aSEED, USDCet, UNQ, IBTC, INTR, lcDOT, LDOT| Fees are paid by either ACA or DOT|
-|Karura DEX| Kusama Relay, Altair, Basilisk, BifrostKusama, Calamari, Crab, Parallel Heiko, Kintsugi, Moonriver, Quartz, Crust Shadow, Shiden, AssetHubKusama| BNC, USDCet, RMRK, ARIS, AIR, QTZ, CSM, USDT, KAR, KBTC, KINT, KSM, aSEED, LKSM, PHA, tKSM, TAI | Fees are paid by either KAR or KSM|
-|HydraDX DEX| Polkadot Relay, Acala, Interlay, AssetHubPolkadot, Zeitgeist, Astar, Centrifuge, BifrostPolkadot| USDT, HDX, WETH, GLMR, IBTC, BNC, WBTC, vDOT, DAI, CFG, DOT, DAI, ZTG, WBTC, INTR, ASTR, LRNA, USDC| Chain automatically gives you native asset to pay for fees.|
-| Basilisk DEX | Kusama Relay, Karura, AssetHubKusama, Tinkernet, Robonomics| BSX, USDT, aSEED, XRT, KSM, TNKR| Chain automatically gives you native asset to pay for fees.|
-|Mangata DEX| Kusama Relay, AssetHubKusama, BifrostPolkadot, Moonriver, Turing, Imbue| MGX, IMBU, TUR, ZLK, BNC, USDT, RMRK, MOVR, vsKSM, KSM, vKSM| Chain requires native MGX asset to pay for fees.|
-|Bifrost Kusama DEX| Kusama Relay, AssetHubKusama, Karura, Moonriver, Kintsugi, Mangata| BNC, vBNC, vsKSM, vKSM, USDT, aSEED, KAR, ZLK, RMRK, KBTC, MOVR, vMOVR| Chain requires native BNC asset for fees.|
-|Bifrost Polkadot DEX| Polkadot Relay, AssetHubPolkadot, Moonbeam, Astar, Interlay| BNC, vDOT, vsDOT, USDT, FIL, vFIL, ASTR, vASTR, GLMR, vGLMR, MANTA, vMANTA|Chain requires native BNC asset for fees.|
-|Interlay DEX| Polkadot Relay, Acala, Astar, Parallel, PolkadotAssetHub, HydraDX, BifrostPolkadot |INTR, DOT, IBTC, USDT, VDOT| Chain requires native INTR asset for fees.|
-|Kintsugi DEX| Kusama Relay, Karura, KusamaAssetHub, Parallel Heiko, BifrostKusama|KINT,KSM,KBTC,USDT|Chain requires native KINT asset for fees.|

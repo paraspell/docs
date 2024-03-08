@@ -76,7 +76,7 @@ Paste in following details and input following link to test out sentry:
 LightSpell have integrated this test for you so you can test out error 500 in localhost mode.
 Once you pasted the link into browser sentry should notify you about new error 500. It should look like this in your project:
 
-<img width="1094" alt="Screenshot 2023-11-16 at 10 53 04" src="https://github.com/paraspell/docs/assets/55763425/fc06d018-35c4-46ae-987c-b09ce7e65b69">
+<img width="1223" alt="Snímka obrazovky 2024-03-08 o 19 16 35" src="https://gist.github.com/assets/55763425/c342e184-a7df-4a58-ad70-9d08fd7c59ff">
 
 You can see, that exact line of where error was triggered is shown and you can even try to ask AI for help with resolving the task for you.
 
