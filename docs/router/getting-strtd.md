@@ -4,13 +4,13 @@ This guide guides you through implementation of XCM Router that allows you to do
 ## Install peer dependencies
 ```sh
 # npm
-pnpm | npm | yarn install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
+yarn add || pnpm | npm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
 ```
 
 ## Install XCM Router package
 ```sh
 # npm
-pnpm | yarn | npm install @paraspell/xcm-router
+yarn add || pnpm | npm install @paraspell/xcm-router
 ```
 
 ## Importing package

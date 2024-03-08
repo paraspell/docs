@@ -5,13 +5,13 @@ This guide guides you through implementation of XCM SDK that allows you to do va
 ## Install dependencies
 Choose your package provider and proceed to install dependencies to your project.
 ```sh
-pnpm | npm | yarn install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
+yarn add || pnpm | npm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
 ```
 
 ## Install XCM SDK package
 Choose your package provider and proceed to install XCM SDK to your project.
 ```sh
-pnpm | npm | yarn install @paraspell/sdk
+yarn add || pnpm | npm install @paraspell/sdk
 ```
 
 ## Import package
