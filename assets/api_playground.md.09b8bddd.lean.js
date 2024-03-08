@@ -1,1 +1,0 @@
-import{_ as s,c as a,o as n,d as l}from"./app.38caa334.js";const h=JSON.parse('{"title":"LightSpell API Playground","description":"","frontmatter":{},"headers":[],"relativePath":"api/playground.md"}'),p={name:"api/playground.md"},e=l("",5),o=[e];function t(r,c,i,y,C,d){return n(),a("div",null,o)}const A=s(p,[["render",t]]);export{h as __pageData,A as default};
