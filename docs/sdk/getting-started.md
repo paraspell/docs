@@ -1,51 +1,34 @@
-# Getting started
+# Getting started with your journey accross Paraverse 👨‍🚀
 
-#### Since version 1.0.0
-Our SDK introduced all Polkadot libraries as peer dependencies. The reason for this is, that most of the projects use these libraries in some way already and it fixes issues with unmet dependency warnings. Make sure your project has them. You can install them by the following command:
+This guide guides you through implementation of XCM SDK that allows you to do various exciting actions on Polkadot and Kusama chains. To start proceed with steps mentioned below. Good luck adventurer!
 
-##### Install dependencies
+## Install dependencies
+Choose your package provider and proceed to install dependencies to your project.
 ```sh
-# npm
-npm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
-```
-```sh
-# yarn
-yarn add @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
-```
-```sh
-# pnpm
-pnpm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
+pnpm | npm | yarn install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
 ```
 
-**To get started install the following package (depending on your package manager of choice):**
+## Install XCM SDK package
+Choose your package provider and proceed to install XCM SDK to your project.
 ```sh
-# npm
-npm install @paraspell/sdk
-```
-```sh
-# yarn
-yarn add @paraspell/sdk
-```
-```sh
-# pnpm
-pnpm install @paraspell/sdk
+pnpm | npm | yarn install @paraspell/sdk
 ```
 
-## Importing package
-After installing the package there are two ways of importing it:
+## Import package
+There are two ways to import package to your project. Importing builder or classic import.
 
-### 1. Builder pattern - in case you plan to use XCM & XCMP functionality only
-This way allows you to enhance builder patterns and construct your calls in a simple way.
+### Builder import
+Builder import is restricted for sending XCM messages and opening HRMP channels.
 ```js
 import { Builder } from '@paraspell/sdk'
 ```
 
-### 2. Classic pattern and Asset pallet functionality
+### Classic import
+Classic import allows you to use every functionality XCM SDK offers.
 ```js
 // ESM
 import * as paraspell from '@paraspell/sdk'
-```
-```js
+
 // CommonJS
 const { } = require('@paraspell/sdk')
 ```

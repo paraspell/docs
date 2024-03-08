@@ -1,23 +1,20 @@
-# HRMP pallet, every possible call variation explained
-### There are two scenarios we use in our SDK. These are:
-- Opening HRMP channels between Parachains
-- Closing HRMP channels between Parachains
+# Create channels between Parachains 🌐
+### SDK allows you to:
+- Open HRMP channels between Parachains
+- Close HRMP channels between Parachains
 
-## New video guide for this section:
+*(This pallet only works on Locally launched network. These functions require sudo access)*
+
+
+### Video guide for this section:
 [
 ![hrmpPallets](https://user-images.githubusercontent.com/55763425/238154733-cef698ac-f00f-4e74-8c4f-1e0d7cfe4059.png)
 ](https://youtu.be/8iXQZhyNrPM)
 
-### There are also two possible ways that our SDK allows you to construct your HRMP calls:
-- Construct your calls via Builder pattern (recommended, easy to use)
-- Construct them in classic function-like way
-
-Both of these ways will be explained.
-
-*(This pallet only works on Locally launched network. These functions require sudo access)*
-
-## Builder pattern HRMP call to open channels
+## Open HRMP channel
 When opening a new channel the operation has to be specified by providing `origin` & `destination` Parachains, calling the `openChannel()` method and then providing `maxSize` and `maxMessageSize` parameters.
+
+### Builder pattern
 
 ```js
     Builder(api)
@@ -29,8 +26,25 @@ When opening a new channel the operation has to be specified by providing `origi
       .build()
 ```
 
-## Builder pattern HRMP call to close channels
+### Function pattern
+
+```js
+paraspell.openChannels.openChannel(
+    {
+        api,
+        origin,             // Origin Parachain
+        destination,        // Destination Parachain
+        maxSize,            // Max size
+        maxMessageSize      // Max message size
+    }
+)
+```
+
+## Close HRMP channel
 When closing channels the operation has to be specified by providing the `origin` Parachain, calling the `closeChannel()` method and then providing `inbound` and `outbound` parameters.
+
+### Builder pattern 
+
 ```js
     Builder(api)
       .from('Karura')          //Origin Parachain
@@ -40,30 +54,19 @@ When closing channels the operation has to be specified by providing the `origin
       .build()
 ```
 
-## Function pattern HRMP call to open channel
-Same as the Builder pattern, this pattern requires the same details to construct. When opening a new channel the operation has to be specified by providing `origin` & `destination` Parachains, calling the `openChannel()` method and then providing `maxSize` and `maxMessageSize` parameters.
+### Function pattern
 
-```js
-paraspell.openChannels.openChannel(
-    api,
-    origin,             // Origin Parachain
-    destination,        // Destination Parachain
-    maxSize,            // Max size
-    maxMessageSize      // Max message size
-    )
-
-```
-## Function pattern HRMP call to close the channel
-Same as the Builder pattern, this pattern requires the same details to construct. When closing channels the operation has to be specified by providing the `origin` Parachain, calling the `closeChannel()` method and then providing `inbound` and `outbound` parameters.
 ```js
 paraspell.closeChannels.closeChannel(
-    api,              
-    origin,            // Origin Parachain 
-    inbound,           // Inbound
-    outbound           // Outbound
-    )
-
+    {
+        api,              
+        origin,            // Origin Parachain 
+        inbound,           // Inbound
+        outbound           // Outbound
+    }
+)
 ```
+
 
 ## Developer experience
 

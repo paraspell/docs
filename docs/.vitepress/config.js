@@ -23,6 +23,16 @@ export default {
             ]
           },
           {
+            text: 'ParaSpell✨ XCM SDK',
+            items: [
+              { text: 'Getting started', link: '/sdk/getting-started' },
+              { text: 'Send XCM', link: '/sdk/xcmPallet' },
+              { text: 'Asset query', link: '/sdk/AssetPallet' },
+              { text: 'Create HRMP channels', link: '/sdk/HRMP' },
+              { text: 'Query XCM pallets', link: '/sdk/NodePallets' },
+            ]
+          },
+          {
             text: 'LightSpell⚡️ XCM API',
             items: [
               { text: 'Getting started', link: '/api/g-started' },
@@ -45,15 +55,6 @@ export default {
               { text: 'Router implementation', link: '/router/router-use' },
               { text: 'Router playground', link: '/router/playground' },
             ]
-          },
-          {
-            text: 'ParaSpell✨ XCM SDK',
-            items: [
-              { text: 'Getting started', link: '/sdk/getting-started' },
-              { text: 'Asset pallet', link: '/sdk/AssetPallet' },
-              { text: 'HRMP pallet', link: '/sdk/HRMP' },
-              { text: 'Node pallets', link: '/sdk/NodePallets' },
-              { text: 'XCM pallet', link: '/sdk/xcmPallet' },            ]
           },
           {
             text: 'Might interest you 🔭',

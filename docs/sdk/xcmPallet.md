@@ -1,22 +1,19 @@
-# xcmPallet, every possible call variation explained
-### There are three scenarios we use in our SDK. These are:
+# Send XCM messages across Paraverse 🪐
+### You can use our SDK in all three scenarios:
 - Relay chain to Parachain XCM transfer 
 - Parachain to Relay chain XCM transfer
 - Parachain to Parachain XCM transfer
 
-## New video guide for this section:
+### Video guide for this section:
 [
 ![xcmPallet](https://user-images.githubusercontent.com/55763425/238154617-0b57c5c8-76cf-490c-812d-481f097f4977.png)
 ](https://youtu.be/MoCrt2vYJJU)
 
-### There are also two possible ways that our SDK allows you to construct your XCM calls:
-- Construct your calls via Builder pattern (recommended, easy to use)
-- Construct them classic function-like way
 
-Both of these ways will be explained.
-
-## Builder pattern XCM call from Relay chain to Parachain
+## Relay chain to Parachain
 Only the `to` parameter is provided, thus the Relay chain to Parachain scenario will be used.
+
+### Builder pattern
 
 ```js
   await Builder(api)        //Api parameter is optional
@@ -26,13 +23,30 @@ Only the `to` parameter is provided, thus the Relay chain to Parachain scenario 
       .build()              // Function called to build call
 ```
 
+### Function pattern 
+
+```js
+await paraspell.xcmPallet.transferRelayToPara(
+  {
+    api?,                 //Api parameter (Optional)
+    destination,          // Destination Parachain
+    amount,               // Token amount
+    to                    // AccountId32 or AccountKey20 address
+    paraIdTo?,            //Custom destination parachain ID (Optional)
+    destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
+  }
+)
+```
+
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
-## Builder pattern XCM call from Parachain chain to Relay chain
+## Parachain to Relay chain
 Only the `from` parameter is provided, thus the Parachain to Relay chain scenario will be used.
+
+### Builder pattern
 
 ```js
   await Builder(api)            //Api parameter is optional
@@ -41,15 +55,32 @@ Only the `from` parameter is provided, thus the Parachain to Relay chain scenari
       .address(address)         // AccountId32 address
       .build()                  // Function called to build call
 ```
+
+### Function pattern
+
+```js
+await paraspell.xcmPallet.send(
+  {
+    api?,                 //Api parameter (Optional)
+    origin,               // Origin Parachain
+    amount,               // Token amount
+    to                    // AccountId32 or AccountKey20 address
+    paraIdTo?,            //Custom destination parachain ID (Optional)
+    destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
+  }
+)
+```
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
-## Builder pattern XCM call from Parachain to Parachain
+## Parachain to Parachain
 Both `from` and `to` parameters are provided, thus the Parachain to Parachain scenario will be used.
 
 **NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `.currency(42259045809535163221576417993425387648n)` will mean you transfer xcDOT.
+
+### Builder pattern
 
 ```js
   await Builder(api)            //Api parameter is optional
@@ -60,66 +91,30 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
       .address(address)         // AccountId32 or AccountKey20 address
       .build()                  // Function called to build call
 ```
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
-
-## Function pattern XCM call from Relay chain to Parachain
-This XCM constructor uses a native Relay chain XCM pallet. It is very straightforward to implement.
-
-```js
-await paraspell.xcmPallet.transferRelayToPara(
-  api?,          //Api parameter is optional
-  destination,  // Destination Parachain
-  amount,       // Token amount
-  to            // AccountId32 or AccountKey20 address
-  )
-
-```
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
-
-## Function pattern XCM call from Parachain to Relay chain
-This XCM constructor uses the send function same as the Parachain to Parachain scenario. The difference is, that this scenario does `not specify destination Parachain`. This way function knows that the transfer is to the Relay chain.
+### Function pattern
 
 ```js
 await paraspell.xcmPallet.send(
-  api?,         //Api parameter is optional
-  origin,       // Origin Parachain
-  amount,       // Token amount
-  to            // AccountId32 or AccountKey20 address
-  )
-
+  {
+    api?,                 //Api parameter (Optional)
+    origin,               // Origin Parachain
+    currency,             // Token symbol (String) || TokenID (Number)
+    amount,               // Token amount
+    to,                   // AccountId32 or AccountKey20 address
+    destination,          // Destination Parachain
+    paraIdTo?,            //Custom destination parachain ID (Optional)
+    destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
+  }
+)
 ```
+
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
-## Function pattern XCM call from Parachain to Parachain
-This XCM constructor uses the send function same as the Parachain to Relay chain scenario. The difference is, that this scenario `does specify destination Parachain`. This way function knows that the transfer is to another Parachain.
-
-**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency = 42259045809535163221576417993425387648n` will mean you transfer xcDOT.
-
-```js
-await paraspell.xcmPallet.send(
-  api?,          //Api parameter is optional
-  origin,       // Origin Parachain
-  currency,     // Token symbol (String) || TokenID (Number)
-  amount,       // Token amount
-  to,           // AccountId32 or AccountKey20 address
-  destination   // Destination Parachain
-  )
-```
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
-
-## Query existential deposit & keepAlive transfers
+## Query existential deposit
 Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
 
 ```ts
@@ -127,29 +122,6 @@ import { getExistentialDeposit } from "@paraspell/sdk";
 
 const ed = getExistentialDeposit('Acala')
 ```
-
-SDK also offers keepAlive option for all three XCM transfer scenarios and for both Builder and Function patterns. This option will check for existencial deposit on destination chain, query destination address balance and determine whether the amount you wish to send is sufficient for XCM transfer.
-
-Builder pattern example:
-```ts
-  await Builder(api) //Api parameter is optional
-      .from('Acala')         
-      .amount(amount)       
-      .address(address)
-      .useKeepAlive(destinationNodeAPI) //Destination node API    
-      .build()   
-```
-
-Function pattern example:
-```ts
-  await paraspell.xcmPallet.send(
-    api?, //Api parameter is optional
-    destination, 
-    amount, 
-    to, 
-    destApiForKeepAlive //API of destination Node)
-```
-
 
 ## Developer experience
 
@@ -162,16 +134,16 @@ When developing with the Builder pattern, the developer is guided by the typescr
 Once the call is being constructed developer is warned about major details regarding the call into the console. This way they can ensure, that the call they wanted to create is being created.
 <img width="409" alt="212045110-c001fcb7-8cc2-421c-9cd0-6d8205b3b11f" src="https://user-images.githubusercontent.com/55763425/212065770-48ff4b35-2463-48b3-bd51-bae56b2105a8.png">
 
-# List of nodes supported by ParaSpell✨
+## Supported chains
 
-## Relay chains
+### Relay chains
 
 | Node name | Website                           | Github | Polkadot.js                                                                                   | Supported XCM Pallet | Current latest XCM Version |
 | --------- | --------------------------------- | ------ | --------------------------------------------------------------------------------------------- | -------------------- | -------------------------- |
 | Polkadot  | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer)        | polkadotXCM          | XCM V3                     |
 | Kusama    | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama-rpc.polkadot.io#/explorer) | polkadotXCM          | XCM V3                     |
 
-## Polkadot Parachains
+### Polkadot Parachains
 
 | Node name         | Website                                                | Github                                                                     | Polkadot.js                                                                                                                | Node id | Supported XCM Pallet | Current latest XCM Version |
 | ----------------- | ------------------------------------------------------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
@@ -200,7 +172,7 @@ Once the call is being constructed developer is warned about major details regar
 | Phala         | [Website](https://phala.network/?ref=parachains-info)                       | [Github](https://github.com/Phala-Network/phala-blockchain)                         | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fapi.phala.network%2Fws#/explorer)                          | 2035    | xTransfer              | XCM V3                     |
 | Collectives         | [Website](https://polkadot.network/blog/proposal-for-common-good-parachains?ref=parachains-info)                       | [Github](https://github.com/paritytech/polkadot-sdk)                         | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-collectives-rpc.polkadot.io#/explorer)                          | 1001    | PolkadotXCM              | XCM V3                     |
 
-## Kusama Parachains
+### Kusama Parachains
 
 | Node name      | Website                                                                                                                    | Github                                                                        | Polkadot.js                                                                                                            | Node id | Supported XCM Pallet | Current latest XCM Version |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
