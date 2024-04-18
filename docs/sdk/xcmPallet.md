@@ -17,9 +17,9 @@ Only the `to` parameter is provided, thus the Relay chain to Parachain scenario 
 
 ```js
   await Builder(api)        //Api parameter is optional
-      .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024)
+      .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
       .amount(amount)       // Token amount
-      .address(address)     // AccountId32 or AccountKey20 address
+      .address(address)     // AccountId32 or AccountKey20 address or custom Multilocation
       .build()              // Function called to build call
 ```
 
@@ -29,9 +29,9 @@ Only the `to` parameter is provided, thus the Relay chain to Parachain scenario 
 await paraspell.xcmPallet.transferRelayToPara(
   {
     api?,                 //Api parameter (Optional)
-    destination,          // Destination Parachain
+    destination,          // Destination Parachain or custom Multilocation
     amount,               // Token amount
-    to                    // AccountId32 or AccountKey20 address
+    to                    // AccountId32 or AccountKey20 address or custom Multilocation
     paraIdTo?,            //Custom destination parachain ID (Optional)
     destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
   }
@@ -43,6 +43,9 @@ AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
+To find out more about custom multilocations reffer to the [following PR](https://github.com/paraspell/xcm-tools/pull/199).
+
+
 ## Parachain to Relay chain
 Only the `from` parameter is provided, thus the Parachain to Relay chain scenario will be used.
 
@@ -52,7 +55,7 @@ Only the `from` parameter is provided, thus the Parachain to Relay chain scenari
   await Builder(api)            //Api parameter is optional
       .from('Acala')            // Origin Parachain
       .amount(amount)           // Token amount
-      .address(address)         // AccountId32 address
+      .address(address)         // AccountId32 address or custom Multilocation
       .build()                  // Function called to build call
 ```
 
@@ -64,7 +67,7 @@ await paraspell.xcmPallet.send(
     api?,                 //Api parameter (Optional)
     origin,               // Origin Parachain
     amount,               // Token amount
-    to                    // AccountId32 or AccountKey20 address
+    to                    // AccountId32 or AccountKey20 address or custom Multilocation
     paraIdTo?,            //Custom destination parachain ID (Optional)
     destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
   }
@@ -74,6 +77,8 @@ AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
+To find out more about custom multilocations reffer to the [following PR](https://github.com/paraspell/xcm-tools/pull/199).
 
 ## Parachain to Parachain
 Both `from` and `to` parameters are provided, thus the Parachain to Parachain scenario will be used.
@@ -85,10 +90,10 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
 ```js
   await Builder(api)            //Api parameter is optional
       .from('Karura')           // Origin Parachain
-      .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024)
-      .currency('KSM')          // Token symbol (String) || TokenID (Number)
+      .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
+      .currency('KSM')          // Token symbol (String) || TokenID (Number) or custom Multilocation
       .amount(amount)           // Token amount
-      .address(address)         // AccountId32 or AccountKey20 address
+      .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
       .build()                  // Function called to build call
 ```
 
@@ -99,10 +104,10 @@ await paraspell.xcmPallet.send(
   {
     api?,                 //Api parameter (Optional)
     origin,               // Origin Parachain
-    currency,             // Token symbol (String) || TokenID (Number)
+    currency,             // Token symbol (String) || TokenID (Number) or custom Multilocation
     amount,               // Token amount
-    to,                   // AccountId32 or AccountKey20 address
-    destination,          // Destination Parachain
+    to,                   // AccountId32 or AccountKey20 address or custom Multilocation
+    destination,          // Destination Parachain or custom Multilocation
     paraIdTo?,            //Custom destination parachain ID (Optional)
     destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
   }
@@ -113,6 +118,8 @@ AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
+To find out more about custom multilocations reffer to the [following PR](https://github.com/paraspell/xcm-tools/pull/199).
 
 ## Query existential deposit
 Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
