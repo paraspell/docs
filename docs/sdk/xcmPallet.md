@@ -54,6 +54,7 @@ Only the `from` parameter is provided, thus the Parachain to Relay chain scenari
 ```js
   await Builder(api)            //Api parameter is optional
       .from('Acala')            // Origin Parachain
+      .feeAsset(feeAsset)       // Fee asset select id - optional
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 address or custom Multilocation
       .build()                  // Function called to build call
@@ -67,6 +68,7 @@ await paraspell.xcmPallet.send(
     api?,                 //Api parameter (Optional)
     origin,               // Origin Parachain
     amount,               // Token amount
+    feeAsset?             // Fee asset select id
     to                    // AccountId32 or AccountKey20 address or custom Multilocation
     paraIdTo?,            //Custom destination parachain ID (Optional)
     destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
@@ -92,6 +94,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
       .from('Karura')           // Origin Parachain
       .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
       .currency('KSM')          // Token symbol (String) || TokenID (Number) or custom Multilocation
+      .feeAsset(feeAsset)       // Fee asset select id - optional
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
       .build()                  // Function called to build call
@@ -105,6 +108,7 @@ await paraspell.xcmPallet.send(
     api?,                 //Api parameter (Optional)
     origin,               // Origin Parachain
     currency,             // Token symbol (String) || TokenID (Number) or custom Multilocation
+    feeAsset?             // Fee asset select id,
     amount,               // Token amount
     to,                   // AccountId32 or AccountKey20 address or custom Multilocation
     destination,          // Destination Parachain or custom Multilocation
