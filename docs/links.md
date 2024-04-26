@@ -1,6 +1,6 @@
 # List of interesting ParaSpell✨ repositories
 
-## Fully maintained [monorepo](https://github.com/paraspell/xcm-tools/tree/main) packages 🧰
+## [Monorepo](https://github.com/paraspell/xcm-tools/tree/main) packages and applications 🧰
 
 ### XCM-API (LightSpell⚡️)
 [API Link](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api) |
@@ -13,6 +13,17 @@ XCM Router is latest ParaSpell innovation, that allows for seameless XCM Exchang
 ### XCM-SDK
 [SDK Link](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) |
 SDK groups different pallets in a uniform way. These Pallets consist of: `XCM`, `HRMP`, `Asset pallet` and `XYK pallet`. SDK includes support for 50 XCM compatible Parachains and is easy to implement as it hides most of the complex logic from a user that needs to enter only a few necessary easy-to-understand details.
+
+### XCM-Analyser
+[Analyser Link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) | Tool to convert XCM multilocations into human readable format.
+
+### XCM-Playground
+[Playground Link](https://github.com/paraspell/xcm-tools/tree/main/apps/playground) | Playground that allows you to test all ParaSpell applications and packages (XCM SDK, XCM API, XCM Router, XCM Analyser)
+
+### XCM-API Landing page
+[Landing page Link](https://github.com/paraspell/xcm-tools/tree/main/apps/landing-page) | Professional XCM API landing page meant to provide clear overview of what can be achieved through XCM API.
+
+## Other ParaSpell repositories 🛠️
 
 ### Presskit
 [Presskit link](https://github.com/paraspell/presskit)
