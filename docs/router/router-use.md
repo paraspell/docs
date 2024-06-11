@@ -1,7 +1,7 @@
 # XCM Router Implementation Guide
 
-XCM Router is able to perform cross-chain transactions between Polkadot/Kusama Parachains and Relay chains as well. 
-It works across 9 open source Parachain DEXes.
+XCM Router can perform cross-chain transactions between Polkadot/Kusama Parachains and Relay chains as well. 
+It works across 9 open-source Parachain DEXes.
 
 **These are:**
 - Acala / 36 Pools available
@@ -14,12 +14,12 @@ It works across 9 open source Parachain DEXes.
 - Kintsugi / 6 Pools available / Requires native token for swaps
 - Mangata / 55 Pools available / Requires native token for swaps
 
-Totaling to 579 pools available for cross-chain swap transactions.
+Totalling to 579 pools available for cross-chain swap transactions.
 
-**NOTE: Some exchanges require native tokens in order to proceed with swaps.**
+**NOTE: Some exchanges require native tokens to proceed with swaps.**
 
 ## Automatic exchange selection
-If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
+If you wish to have an exchange chain selection based on the best price outcome, you can opt for the automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. The router will then automatically select the best exchange chain for you based on the best price outcome.
 
 ### Builder pattern
 
@@ -34,6 +34,9 @@ await RouterBuilder
         .injectorAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
         .signer(injector.signer)    //Signer
+        //.evmInjectorAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
+        //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+
         .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
           console.log(status.hashes);   //Transaction hashes
           console.log(status.status);   //Transaction statuses
@@ -55,6 +58,9 @@ await transfer({
         injectorAddress: selectedAccount.address, //Injector address
         address: recipientAddress, //Recipient address
         signer: injector.signer,  //Signer
+        //evmInjectorAddress: evmInjector address,   //Optional parameters when origin node is EVM based (Required with evmSigner)
+        //evmSigner: EVM signer,                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+
         onStatusChange: (status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
           console.log(status.hashes);   //Transaction hashes
           console.log(status.status);   //Transaction statuses
@@ -70,7 +76,7 @@ Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
 ## Manual exchange selection
-If you wish to select your exchange chain manually you can do that by providing aditional parameter `.exchange()` in the call. Router will then use exchange chainn of your choice.
+If you wish to select your exchange chain manually you can do that by providing additional parameter `.exchange()` in the call. The router will then use the exchange chain of your choice.
 
 ### Builder pattern
 
@@ -86,6 +92,9 @@ await RouterBuilder
         .injectorAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
         .signer(injector.signer)    //Signer
+        //.evmInjectorAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
+        //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+
         .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
           console.log(status.hashes);   //Transaction hashes
           console.log(status.status);   //Transaction statuses
@@ -108,6 +117,9 @@ await transfer({
         injectorAddress: selectedAccount.address, //Injector address
         address: recipientAddress, //Recipient address
         signer: injector.signer,  //Signer
+        //evmInjectorAddress: evmInjector address,   //Optional parameters when origin node is EVM based (Required with evmSigner)
+        //evmSigner: EVM signer,                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+
         onStatusChange: (status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
           console.log(status.hashes);   //Transaction hashes
           console.log(status.status);   //Transaction statuses
