@@ -59,6 +59,13 @@ export default {
             ]
           },
           {
+            text: 'XCM visualizator 🖼️',
+            items: [
+              { text: 'Getting started', link: '/visualizator/getting-start' },
+              { text: 'User guide', link: '/visualizator/user-guide' },
+            ]
+          },
+          {
             text: 'XCM playground 🛝',
             items: [
               { text: 'Getting started', link: '/tools/playground' },
