@@ -11,24 +11,31 @@ Project is deployed on following link: https://xcm-visualizator.tech.
 For user guide reffer to following section: [User guide](https://paraspell.github.io/docs/visualizator/user-guide.html)
 
 ## Developer startup guide
-To run the project locally, you need to have Node.js installed, as well as PostgreSQL database.
+To run the project locally, you need to have Node.js v.20^ installed, as well as PostgreSQL database.
 
 In backend folder create .env file following .env.example file. After your database is set up, you can import the database dump from the [xcm_database_dump.tar](https://drive.google.com/file/d/1mBYi9zh8iuEWtQtcZdg-sgGtRwJFRLje/view?usp=sharing) file to try the XCM Visualizator with the example data.
 
 Then, run the following commands:
 
-Install dependencies and run backend from [backend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-be):
+Before you begin with any commands make sure to run following from monorepository root:
+
+```bash
+pnpm install
+pnpm build
+```
+
+Then run backend from [backend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-be):
 
 ```bash
 cd ./apps/visualizator-be
-pnpm install
-pnpm start:be
+pnpm start
 ```
 
-Install dependencies and run frontend from [frontend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe):
+And run frontend from [frontend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe):
 
 ```bash
 cd ./apps/visualizator-fe
-pnpm install
-pnpm start:fe
+pnpm dev
 ```
+
+Both front-end and back-end must run in their own terminal at the same time.
