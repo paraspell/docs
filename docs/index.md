@@ -19,9 +19,9 @@ Set of XCM tools for Polkadot and Kusama Paraverse
 - [XCM ROUTER](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router) (SpellRouter☄️): Meant to allow you to create XCM calls where you receive different assets than assets you send (Eg. Send -> DOT from Polkadot, receive ASTR on Astar)—all in just one call.
 - [XCM SDK](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk): Meant to unify cross-chain experience on Polkadot and become a layer 2 protocol that allows for seamless integration of XCM into your dApps
 - [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) - Tool to convert XCM Multilocations to human readable format.
+- [XCM Visualizator](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe) - Tool to visualize XCM in Polkadot ecosystem.
 
 A complete guide on how to use these tools will be mentioned throughout the document.
-
 
 ## What is ParaSpell✨ in general
 

@@ -41,7 +41,7 @@ import { convertMultilocationToUrl } from '@paraspell/xcm-analyser';
       },
     };*/
 
-const result = convertMultilocationToUrl(multiplication);
+const result = convertMultilocationToUrl(multilocation);
 
 /*
 This should result into:
