@@ -29,7 +29,7 @@ import{_ as s,c as n,o as a,d as l}from"./app.a12b413a.js";const D=JSON.parse('{
 <span class="line"><span style="color:#676E95;font-style:italic;">      },</span></span>
 <span class="line"><span style="color:#676E95;font-style:italic;">    };*/</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#C792EA;">const</span><span style="color:#A6ACCD;"> result </span><span style="color:#89DDFF;">=</span><span style="color:#A6ACCD;"> </span><span style="color:#82AAFF;">convertMultilocationToUrl</span><span style="color:#A6ACCD;">(multiplication)</span><span style="color:#89DDFF;">;</span></span>
+<span class="line"><span style="color:#C792EA;">const</span><span style="color:#A6ACCD;"> result </span><span style="color:#89DDFF;">=</span><span style="color:#A6ACCD;"> </span><span style="color:#82AAFF;">convertMultilocationToUrl</span><span style="color:#A6ACCD;">(multilocation)</span><span style="color:#89DDFF;">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#676E95;font-style:italic;">/*</span></span>
 <span class="line"><span style="color:#676E95;font-style:italic;">This should result into:</span></span>
