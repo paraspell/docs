@@ -20,7 +20,7 @@ Only the `to` parameter is provided, thus the Relay chain to Parachain scenario 
       .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
       .amount(amount)       // Token amount
       .address(address)     // AccountId32 or AccountKey20 address or custom Multilocation
-      /*.xcmVersion(Version.V1/V2/V3/V4  //Optional parameter for manual override of XCM Version used in call*/
+      /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call*/
       .build()              // Function called to build call
 ```
 
@@ -57,7 +57,7 @@ Only the `from` parameter is provided, thus the Parachain to Relay chain scenari
       .from('Acala')            // Origin Parachain
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 address or custom Multilocation
-      /*.xcmVersion(Version.V1/V2/V3/V4  //Optional parameter for manual override of XCM Version used in call*/
+      /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call*/
       .build()                  // Function called to build call
 ```
 
@@ -97,7 +97,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
       /*.feeAsset(feeAsset) - Parameter required when using MultilocationArray*/
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
-      /*.xcmVersion(Version.V1/V2/V3/V4  //Optional parameter for manual override of XCM Version used in call*/
+      /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call*/
       .build()                  // Function called to build call
 ```
 
