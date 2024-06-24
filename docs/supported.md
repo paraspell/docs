@@ -8,8 +8,8 @@ This page contains a list of chains that are implemented in our XCM Router, XCM 
 
 | Node name | Website                           | Github | Polkadot.js                                                                                   | Supported XCM Pallet | Current latest XCM Version |
 | --------- | --------------------------------- | ------ | --------------------------------------------------------------------------------------------- | -------------------- | -------------------------- |
-| Polkadot  | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-rpc.dwellir.com#/explorer)        | polkadotXCM          | XCM V3                     |
-| Kusama    | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama-rpc.dwellir.com#/explorer) | polkadotXCM          | XCM V3                     |
+| Polkadot  | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-rpc.dwellir.com#/explorer)        | palletXCM          | XCM V3                     |
+| Kusama    | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama-rpc.dwellir.com#/explorer) | palletXCM          | XCM V3                     |
 
 ### Polkadot Parachains
 
