@@ -157,9 +157,9 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 You can now customize multilocations for Address, Currency and Destination within all three scenarios (where possible).
 
    - **Parameters**:
-    - Same as in above scenarios
+        - Same as in above scenarios
    - **Errors**:
-    - Same as in above scenarios
+        - Same as in above scenarios
 
 **Example of request:**
 
