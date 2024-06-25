@@ -46,10 +46,11 @@ The following endpoint constructs the Relay chain to the Parachain XCM message. 
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
 
    - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when parameter 'to' is not provided
+     - `400`  (Bad request exception) - Returned when parameter 'to' is not a valid Parachain
+     - `400`  (Bad request exception) - Returned when parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when parameter 'address' is not a valid address
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
@@ -83,10 +84,11 @@ The following endpoint constructs Parachain to Relay chain XCM message. This mes
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
 
    - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when parameter 'from' is not provided
+     - `400`  (Bad request exception) - Returned when parameter 'from' is not a valid Parachain
+     - `400`  (Bad request exception) - Returned when parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when parameter 'amount' is not a valid amount
+    - `400`  (Bad request exception) - Returned when parameter 'address' is not a valid address
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
@@ -127,6 +129,9 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
      - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
      - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
      - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
@@ -186,6 +191,43 @@ const response = await fetch("http://localhost:3001/x-transfer", {
     })
 });
 ```
+
+## Asset claim
+Assets, that have been trapped in the cross-chain transfers can now be recovered through asset claim feature.
+
+**Endpoint**: `POST /asset-claim`
+
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain on which the asset will be claimed.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `fungible` (Inside JSON body): (required): Represents the asset being claimed. It should be a multilocation.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'from' is not provided
+     - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'fungible' is expected but not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/asset-claim", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Amount" with the numeric value you wish to transfer
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+        fungible: "Multilocation" //Replace "Multilocation" with specific asset multilocation
+    })
+});
+```
+
+AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
 
 ## Asset query
 This functionality allows you to perform various asset queries with compatible Parachains.
