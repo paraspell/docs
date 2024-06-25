@@ -41,9 +41,9 @@ The following endpoint constructs the Relay chain to the Parachain XCM message. 
 **Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
-     - `to` (Query parameter): (required): Represents the Parachain to which the assets will be transferred.
-     - `amount` (Query parameter): (required): Specifies the amount of assets to transfer. It should be a numeric value.
-     - `address` (Query parameter): (required): Specifies the address of the recipient.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
@@ -54,14 +54,17 @@ The following endpoint constructs the Relay chain to the Parachain XCM message. 
 
 **Example of request:**
 ```js
-const response = await fetch(
-    "http://localhost:3001/x-transfer?" +
-    new URLSearchParams({
-        to: "Statemine",
-        amount: "1000000000000",
-        address: "5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96"
+const response = await fetch("http://localhost:3001/x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     })
-);
+});
 ```
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
@@ -75,9 +78,9 @@ The following endpoint constructs Parachain to Relay chain XCM message. This mes
 **Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
-     - `from` (Query parameter): (required): Represents the Parachain from which the assets will be transferred.
-     - `amount` (Query parameter): (required): Specifies the amount of assets to transfer. It should be a numeric value.
-     - `address` (Query parameter): (required): Specifies the address of the recipient.
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
@@ -88,14 +91,17 @@ The following endpoint constructs Parachain to Relay chain XCM message. This mes
 
 **Example of request:**
 ```js
-const response = await fetch(
-    "http://localhost:3001/x-transfer?" +
-    new URLSearchParams({
-        from: "Basilisk",
-        amount: "1000000000000",
-        address: "5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96"
+const response = await fetch("http://localhost:3001/x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     })
-);
+});
 ```
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
@@ -109,11 +115,11 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
 **Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
-     - `from` (Query parameter): (required): Represents the Parachain from which the assets will be transferred.
-     - `to` (Query parameter): (required): Represents the Parachain to which the assets will be transferred.
-     - `currency` (Query parameter): (required): Represents the asset being sent. It should be a string value.
-     - `amount` (Query parameter): (required): Specifies the amount of assets to transfer. It should be a numeric value.
-     - `address` (Query parameter): (required): Specifies the address of the recipient.
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
@@ -127,22 +133,59 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
 
 **Example of request:**
 ```js
-const response = await fetch(
-    "http://localhost:3001/x-transfer?" +
-    new URLSearchParams({
-        from: "Basilisk",
-        to: "Karura",
-        currency: "KSM",
-        amount: "1000000000000",
-        address: "5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96"
+const response = await fetch("http://localhost:3001/x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        currency: "Currency", // Replace "Currency" with asset id or symbol, e.g., "DOT" or custom Multilocation
+        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     })
-);
+});
 ```
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
+### Custom multilocation call
+You can now customize multilocations for Address, Currency and Destination within all three scenarios (where possible).
+
+   - **Parameters**:
+    - Same as in above scenarios
+   - **Errors**:
+    - Same as in above scenarios
+
+**Example of request:**
+
+```js
+const response = await fetch("http://localhost:3001/x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain",   // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        to: "Parachain",    // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+        currency: {         // Replace "Currency" with asset id, symbol, e.g., "DOT" or custom Multilocation
+            parents: 0,
+            interior: {
+                X2: [
+                    { PalletInstance: "50" },
+                    { GeneralIndex: "41" }
+                ]
+            }
+        },
+        amount: "Amount" // Replace "Amount" with the numeric value you wish to transfer
+    })
+});
+```
 
 ## Asset query
 This functionality allows you to perform various asset queries with compatible Parachains.
