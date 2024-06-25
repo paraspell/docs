@@ -217,7 +217,7 @@ const response = await fetch("http://localhost:3001/asset-claim", {
     },
     body: JSON.stringify({
         from: "Parachain", // Replace "Amount" with the numeric value you wish to transfer
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+        address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         fungible: "Multilocation" //Replace "Multilocation" with specific asset multilocation
     })
 });
