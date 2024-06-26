@@ -245,6 +245,44 @@ Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
 
+## Transfer info query
+Following functionality gives you all necessary information about your transfer including fee, sufficiency to transfer and more.
+
+**Endpoint**: `GET /transfer-info`
+
+  - **Parameters**:
+    - `origin` (Query parameter): (required): Represents the Parachain from which the assets will be transferred.
+    - `destination` (Query parameter): (required): Represents the Parachain to which the assets will be transferred.
+    - `currency`: (Query parameter): (required): Represents the asset being sent. It should be a string value.
+    - `amount`:  (Query parameter): (required): Specifies the amount of assets to transfer. It should be a numeric value.
+    - `accountOrigin`:  (Query parameter): (required): Specifies the address of the origin. 
+    - `accountDestination`:  (Query parameter): (required): Specifies the address of the recipient. 
+
+  - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'origin/destination' is not provided or existing
+     - `400`  (Bad request exception) - Returned when parameter 'accountOrigin/accountDestination' is not provided or correct
+     - `400`  (Bad request exception) - Returned when query parameter 'currency/amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not positive number
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+**Example of request:**
+```js
+const response = await fetch(
+    "http://localhost:3001/transfer-info?" +
+    new URLSearchParams({
+        origin: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        destination: "Parachain", // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" 
+        currency: "Currency", // Replace "Currency" with asset id or symbol, e.g., "DOT"
+        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        accountOrigin: "Account address", // Replace "Address" with origin wallet address (In AccountID32 or AccountKey20 Format)
+        accountDestination: "Account address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
+    })
+);
+
+AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+
 ## Asset query
 This functionality allows you to perform various asset queries with compatible Parachains.
 
