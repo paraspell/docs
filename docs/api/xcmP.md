@@ -277,6 +277,7 @@ const response = await fetch(
         accountDestination: "Account address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
     })
 );
+```
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
