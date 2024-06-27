@@ -44,6 +44,7 @@ The following endpoint constructs the Relay chain to the Parachain XCM message. 
      - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
      - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when parameter 'to' is not provided
@@ -64,6 +65,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
         amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
 });
 ```
@@ -82,6 +84,7 @@ The following endpoint constructs Parachain to Relay chain XCM message. This mes
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
      - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when parameter 'from' is not provided
@@ -102,6 +105,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
 });
 ```
@@ -122,6 +126,7 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
      - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
      - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
@@ -149,6 +154,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         currency: "Currency", // Replace "Currency" with asset id or symbol, e.g., "DOT" or custom Multilocation
         amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
 });
 ```
@@ -188,6 +194,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
             }
         },
         amount: "Amount" // Replace "Amount" with the numeric value you wish to transfer
+        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
 });
 ```
