@@ -91,7 +91,7 @@ The following endpoint constructs Parachain to Relay chain XCM message. This mes
      - `400`  (Bad request exception) - Returned when parameter 'from' is not a valid Parachain
      - `400`  (Bad request exception) - Returned when parameter 'amount' is expected but not provided
      - `400`  (Bad request exception) - Returned when parameter 'amount' is not a valid amount
-    - `400`  (Bad request exception) - Returned when parameter 'address' is not a valid address
+     - `400`  (Bad request exception) - Returned when parameter 'address' is not a valid address
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
