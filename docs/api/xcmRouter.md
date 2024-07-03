@@ -40,19 +40,22 @@ const buildTx = (api, {module, section, parameters}) => {
   return api.tx[module][section](...parameters)
 };
 
-const response = await fetch(
-  'http://localhost:3001/router?' +
-    new URLSearchParams({
-      from: 'Astar', //Your origin chain
-      to: 'Moonbeam', //Your destination chain
-      currencyFrom: 'ASTR', //Currency to send
-      currencyTo: 'GLMR', //Currency to receive
-      amount: '10000000000000000000', //Amount to send
-      recipientAddress: '5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96', //Address of receiver
-      injectorAddress: '5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96', //Address of sender
-      slippagePct: '1', //Max slippage percentage
-    }),
-);
+const response = await fetch("http://localhost:3001/router", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Chain", //Origin Parachain/Relay chain
+        to: "Chain", //Destination Parachain/Relay chain
+        currencyFrom: "Currency", // Currency to send
+        currencyTo: "Currency", // Currency to receive
+        amount: "Amount", // Amount to send
+        slippagePct: "Pct", // Max slipppage percentage
+        address: "Address", //Recipient address
+        injectorAddress: 'InjectorAddress', //Address of sender
+    })
+});
 
 const {
         txs: [toExchange, swap, toDest],
@@ -73,17 +76,17 @@ await submitTransaction(swapApi, buildTx(swapApi, toDest), signer, injectorAddre
 
 If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
-**Endpoint**: `GET /router`
+**Endpoint**: `POST /router`
 
    - **Parameters**:
-     - `from` (Query parameter): (required): Represents the Parachain from which the assets will be transferred.
-     - `to` (Query parameter): (required): Represents the Parachain to which the assets will be transferred.
-     - `currencyFrom` (Query parameter): (required): Represents the asset being sent.
-     - `currencyTo` (Query parameter): (required): Represents the asset being received. 
-     - `amount` (Query parameter): (required): Specifies the amount of assets to transfer.
-     - `slippagePct` (Query parameter): (required): Specifies the slipeage percentage. 
-     - `address` (Query parameter): (required): Specifies the address of the recipient.
-     - `injectorAddress` (Query parameter): (required): Specifies the address of the sender.
+     - `from`: (required): Represents the Parachain from which the assets will be transferred.
+     - `to`: (required): Represents the Parachain to which the assets will be transferred.
+     - `currencyFrom`: (required): Represents the asset being sent.
+     - `currencyTo`: (required): Represents the asset being received. 
+     - `amount`: (required): Specifies the amount of assets to transfer.
+     - `slippagePct`: (required): Specifies the slipeage percentage. 
+     - `address`: (required): Specifies the address of the recipient.
+     - `injectorAddress`: (required): Specifies the address of the sender.
 
 
    - **Errors**:
@@ -105,19 +108,22 @@ If you wish to have exchange chain selection based on best price outcome, you ca
 
 **Example of request:**
 ```js
-const response = await fetch(
-    "http://localhost:3001/router?" +
-    new URLSearchParams({
-        from: "Polkadot", //Origin Parachain/Relay chain
-        to: "Interlay", //Destination Parachain/Relay chain
-        currencyFrom: "DOT", // Currency to send
-        currencyTo: "INTR", // Currency to receive
-        amount: "100000", // Amount to send
-        slippagePct: "1", // Max slipppage percentage
-        address: "5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96", //Recipient address
-        injectorAddress: '5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96', //Address of sender
+const response = await fetch("http://localhost:3001/router", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Chain", //Origin Parachain/Relay chain
+        to: "Chain", //Destination Parachain/Relay chain
+        currencyFrom: "Currency", // Currency to send
+        currencyTo: "Currency", // Currency to receive
+        amount: "Amount", // Amount to send
+        slippagePct: "Pct", // Max slipppage percentage
+        address: "Address", //Recipient address
+        injectorAddress: 'InjectorAddress', //Address of sender
     })
-);
+});
 ```
 
 
@@ -125,18 +131,18 @@ const response = await fetch(
 
 If you wish to select your exchange chain manually you can do that by providing aditional parameter `exchange:` in the call. Router will then use exchange chainn of your choice.
 
-**Endpoint**: `GET /router`
+**Endpoint**: `POST /router`
 
    - **Parameters**:
-     - `from` (Query parameter): (required): Represents the Parachain from which the assets will be transferred.
-     - `exchange` (Query parameter): (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
-     - `to` (Query parameter): (required): Represents the Parachain to which the assets will be transferred.
-     - `currencyFrom` (Query parameter): (required): Represents the asset being sent.
-     - `currencyTo` (Query parameter): (required): Represents the asset being received. 
-     - `amount` (Query parameter): (required): Specifies the amount of assets to transfer.
-     - `slippagePct` (Query parameter): (required): Specifies the slippage percentage. 
-     - `address` (Query parameter): (required): Specifies the address of the recipient.
-     - `injectorAddress` (Query parameter): (required): Specifies the address of the sender.
+     - `from`: (required): Represents the Parachain from which the assets will be transferred.
+     - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+     - `to`: (required): Represents the Parachain to which the assets will be transferred.
+     - `currencyFrom`: (required): Represents the asset being sent.
+     - `currencyTo`: (required): Represents the asset being received. 
+     - `amount`: (required): Specifies the amount of assets to transfer.
+     - `slippagePct`: (required): Specifies the slippage percentage. 
+     - `address`: (required): Specifies the address of the recipient.
+     - `injectorAddress`: (required): Specifies the address of the sender.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
@@ -159,18 +165,21 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 **Example of request:**
 ```js
-const response = await fetch(
-    "http://localhost:3001/router?" +
-    new URLSearchParams({
-        from: "Polkadot", //Origin Parachain/Relay chain
-        exchange: "AcalaDex", //Exchange Parachain/Relay chain
-        to: "Interlay", //Destination Parachain/Relay chain
-        currencyFrom: "DOT", // Currency to send
-        currencyTo: "INTR", // Currency to receive
-        amount: "100000", // Amount to send
-        slippagePct: "1", // Max slipppage percentage
-        address: "5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96", //Recipient address
-        injectorAddress: '5F5586mfsnM6durWRLptYt3jSUs55KEmahdodQ5tQMr9iY96', //Address of sender
+const response = await fetch("http://localhost:3001/router", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Chain", //Origin Parachain/Relay chain
+        exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
+        to: "Chain", //Destination Parachain/Relay chain
+        currencyFrom: "Currency", // Currency to send
+        currencyTo: "Currency", // Currency to receive
+        amount: "Amount", // Amount to send
+        slippagePct: "Pct", // Max slipppage percentage
+        address: "Address", //Recipient address
+        injectorAddress: 'InjectorAddress', //Address of sender
     })
-);
+});
 ```
