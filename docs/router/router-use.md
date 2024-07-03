@@ -1,7 +1,7 @@
 # XCM Router Implementation Guide
 
 XCM Router can perform cross-chain transactions between Polkadot/Kusama Parachains and Relay chains as well. 
-It works across 9 open-source Parachain DEXes.
+It works across 8 open-source Parachain DEXes.
 
 **These are:**
 - Acala / 36 Pools available
