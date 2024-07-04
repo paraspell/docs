@@ -38,10 +38,9 @@ export default {
               { text: 'Getting started', link: '/api/g-started' },
               { text: 'XCM SDK✨', link: '/api/xcmP' },
               { text: 'XCM Router☄️', link: '/api/xcmRouter' },
+              { text: 'XCM Analyser🔎', link: '/api/xcmAnalyser' },
               { text: 'Upgrade request amount', link: '/api/upgrade' },
               { text: 'Deploy API yourself', link: '/api/deploy' },
-
-
             ]
           },
           {
