@@ -45,6 +45,7 @@ Implementing Polkadot's flagship feature called XCM into your application could 
 - 🏭 Web 3 Foundation phase 5 grant (Build XCM-Router) Milestone 2/2 delivered [Application](https://github.com/w3f/Grants-Program/pull/2057), [Delivery 1](https://github.com/w3f/Grant-Milestone-Delivery/pull/1081), [Delivery 2](https://github.com/w3f/Grant-Milestone-Delivery/pull/1087)
 - 🪜 Maintenance funded by Kusama treasury from March 2024 until July 2024 [Referenda link](https://kusama.polkassembly.io/referenda/344 ), [March report](https://docs.google.com/document/d/1AAukuZ-H2ecb1kahwO5beMHL5dKo74OC5JA-przJgqA/edit?usp=sharing), [April report](https://docs.google.com/document/d/15cRKcqdNAJFhpfon4brvIKpaJoomnFIET2eI9AgYlIo/edit?usp=sharing), [May report](https://docs.google.com/document/d/1I5mKA_t7uLW7I2ujF8JagfpYA2s97ADUZKDdv9ITnJE/edit?usp=sharing), [June report](https://docs.google.com/document/d/1vy696HHpgiFVn3Xr4eP40NGg-PY5S05aP-yZZEMHI2U/edit?usp=sharing)
 - 📗 Article about Polkadot and cross-chain(covered by ParaSpell XCM SDK) Apartment booking use case created and accepted on international conference ACM SAC 2024 held in Avila - [Cross-Chain Payments on Blockchain Networks: An Apartment Booking Use-Case](https://dl.acm.org/doi/10.1145/3605098.3636137)
+- 🧱 Maintenance funded by Kusama treasury from August 2024 until January 2024 [Referenda link](https://kusama.polkassembly.io/referenda/417)
 
 ## Project is supported by
 
@@ -53,7 +54,7 @@ Implementing Polkadot's flagship feature called XCM into your application could 
     <a href="https://github.com/w3f/Grants-Program/pull/1245">
       <img width="200" alt="version" src="https://user-images.githubusercontent.com/55763425/211145923-f7ee2a57-3e63-4b7d-9674-2da9db46b2ee.png" />
     </a>
-    <a href="https://kusama.subsquare.io/referenda/277">
+    <a href="https://kusama.subsquare.io/referenda/417">
       <img width="200" alt="version" src="https://github.com/paraspell/xcm-sdk/assets/55763425/9ed74ebe-9b29-4efd-8e3e-7467ac4caed6" />
     </a>
  </p>
