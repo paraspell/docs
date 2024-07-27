@@ -8,11 +8,11 @@ API serves as `XCM`, `HRMP` and `Asset pallet` enhancement to ease developers' l
 
 ### XCM-Router (SpellRouter☄️)
 [Router link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router) |
-XCM Router is latest ParaSpell innovation, that allows for seameless XCM Exchanges. Send one token type and receive different one you choose on destination chain cross-chain. All within one call and three signatures. This seamless operation allows for a better user experience limiting possiblities of user error. Router currently implements 9 largest Parachain DEXes and is easy to extend as the amount of DEXes with public SDKs increases. Together there are 579 asset pools to choose from making XCM Router largest liquidity bridging tool in the ecosystem.
+XCM Router is latest ParaSpell innovation, that allows for seameless XCM Exchanges. Send one token type and receive different one you choose on destination chain cross-chain. All within one call and three signatures. This seamless operation allows for a better user experience limiting possiblities of user error. Router currently implements 8 largest Parachain DEXes and is easy to extend as the amount of DEXes with public SDKs increases. Together there are 524 asset pools to choose from making XCM Router largest liquidity bridging tool in the ecosystem.
 
 ### XCM-SDK
 [SDK link](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) |
-SDK groups different pallets in a uniform way. These Pallets consist of: `XCM`, `HRMP`, `Asset pallet`. SDK includes support for 50 XCM compatible Parachains and is easy to implement as it hides most of the complex logic from a user that needs to enter only a few necessary easy-to-understand details.
+SDK groups different pallets in a uniform way. These Pallets consist of: `XCM`, `HRMP`, `Asset pallet`. SDK includes support for all XCM compatible Parachains in both Kusama and Polkadot ecosystems and is easy to implement as it hides most of the complex logic from a user that needs to enter only a few necessary easy-to-understand details.
 
 ### XCM-Analyser
 [Analyser link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) | Tool to convert XCM multilocations into human readable format.

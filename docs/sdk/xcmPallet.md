@@ -126,6 +126,50 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
 To find out more about custom multilocations reffer to the [following PR](https://github.com/paraspell/xcm-tools/pull/199).
 
+## Ecosystem Bridges
+This section sums up currently available and implemented ecosystem bridges that are offered in the XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
+
+### Polkadot <> Kusama bridge
+Latest SDK versions support Polkadot <> Kusama bridge in very native and intuitive way. You just construct the Polkadot <> Kusama transfer as standard Parachain to Parachain scenario transfer.
+
+```js
+  await Builder(api)            //Api parameter is optional
+        .from('AssetHubPolkadot')  //Either AHP or AHK
+        .to('AssetHubKusama')     //Either AHP or AHK
+        .currency('DOT')        // Either KSM or DOT
+        .amount(amount)
+        .address(address)
+        .build()
+```
+
+### Polkadot <> Ethereum bridge (Snowbridge)
+Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitive and native form as possible. The implementations for Polkadot -> Ethereum and Ethereum -> Polkadot differ due to different architecure so we will mention both scenarios.
+
+#### Polkadot -> Ethereum transfer
+```js
+await Builder(api)
+          .from('AssetHubPolkadot')
+          .to('Ethereum')           
+          .currency('WETH')   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more
+          .amount(amount)
+          .address(eth_address)  //AccountKey20 recipient address
+          .build()
+```
+
+#### Ethereum -> Polkadot transfer
+```js
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
+
+await EvmBuilder(provider)      //Ethereum provider
+  .to('AssetHubPolkadot')
+  .amount(amount)
+  .currency('WETH')    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more
+  .address(address)   //AccountID32 recipient address
+  .signer(signer)     //Ethereum signer address
+  .build();
+```
+
 ## Query existential deposit
 Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
 
