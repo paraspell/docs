@@ -1,6 +1,6 @@
 # List of chains supported by ParaSpell✨
 
-This page contains a list of chains that are implemented in our XCM Router, XCM API and XCM SDK. As XCM API implements both XCM SDK and XCM Router packages it supports all chains mentioned below also (It is just not mentioned).
+This page provides a comprehensive list of chains that are integrated within our XCM Router, XCM API, and XCM SDK. Since the XCM API incorporates both the XCM SDK and XCM Router packages, it inherently supports all the chains listed below, even though this is not explicitly stated.
 
 ## XCM SDK✨
 

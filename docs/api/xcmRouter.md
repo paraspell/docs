@@ -5,6 +5,7 @@ Following section covers XCM Router implementation in LightSpell XCM API. Users 
 For list of supported chains/assets/dexes head over to [List of supported chains](https://paraspell.github.io/docs/supported.html#xcm-router%E2%98%84)
 
 ### Package-less implementation of XCM API Router features into your application
+```NOTE:``` We recently introduced new much simpler way to implement XCM API! You can now request hashed response of built call which offlifts you from parsing and works right away!
 
 ```JS
 const submitTransaction = async (
@@ -36,11 +37,7 @@ const submitTransaction = async (
   });
 };
 
-const buildTx = (api, {module, section, parameters}) => {
-  return api.tx[module][section](...parameters)
-};
-
-const response = await fetch("http://localhost:3001/router", {
+const response = await fetch("http://localhost:3001/router-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -58,7 +55,7 @@ const response = await fetch("http://localhost:3001/router", {
 });
 
 const {
-        txs: [toExchange, swap, toDest],
+        txs: [toExchangeHash, swapHash, toDestHash],
         exchangeNode,
       } = await response.data;
 
@@ -66,9 +63,9 @@ const {
 const originApi = await ApiPromise.create({ wsProvider: '...' });
 // create api promise for exchange node (use echangeNode variable returned from API)
 const swapApi = await ApiPromise.create({ wsProvider: '...' });
-await submitTransaction(originApi, buildTx(originApi, toExchange), signer, injectorAddress);
-await submitTransaction(swapApi, buildTx(swapApi, swap), signer, injectorAddress);
-await submitTransaction(swapApi, buildTx(swapApi, toDest), signer, injectorAddress);
+await submitTransaction(originApi, originApi.tx(toExchangeHash), signer, injectorAddress);
+await submitTransaction(swapApi, swapApi.tx(swapHash), signer, injectorAddress);
+await submitTransaction(swapApi, swapApi.tx(toDestHash), signer, injectorAddress);
 ```
 
 
@@ -76,7 +73,7 @@ await submitTransaction(swapApi, buildTx(swapApi, toDest), signer, injectorAddre
 
 If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
-**Endpoint**: `POST /router`
+**Endpoint**: `POST /router-hash`
 
    - **Parameters**:
      - `from`: (required): Represents the Parachain from which the assets will be transferred.
@@ -108,7 +105,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/router", {
+const response = await fetch("http://localhost:3001/router-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -131,7 +128,7 @@ const response = await fetch("http://localhost:3001/router", {
 
 If you wish to select your exchange chain manually you can do that by providing aditional parameter `exchange:` in the call. Router will then use exchange chainn of your choice.
 
-**Endpoint**: `POST /router`
+**Endpoint**: `POST /router-hash`
 
    - **Parameters**:
      - `from`: (required): Represents the Parachain from which the assets will be transferred.
@@ -165,7 +162,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/router", {
+const response = await fetch("http://localhost:3001/router-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

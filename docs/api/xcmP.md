@@ -2,7 +2,9 @@
 Following guide guides you through XCM SDK functionality implemented in XCM API.
 ## Send XCM
 This functionality allows you to send XCM messages across Paraverse.
+
 ### Package-less implementation of XCM API XCM features into your application
+```NOTE:``` We recently introduced new much simpler way to implement XCM API! You can now request hashed response of built call which offlifts you from parsing and works right away!
 
 ```JS
 //Chain WS API instance that will send generated XCM Call
@@ -10,35 +12,31 @@ const wsProvider = new WsProvider('YourChainWSPort'); //Specify "YourChainWSPort
 const api = await ApiPromise.create({ provider: wsProvider });
 
 const response = await fetch(
-    "http://localhost:3001/x-transfer?" +
-    new URLSearchParams({
-        //Method parameters should be here
-        //For eg. from: 'Basilisk'
-    })
-);
+    "http://localhost:3001/x-transfer-hash”,
+{
+	method: ‘POST’,
+           	body: JSON.stringify({
+                  "from": "origin",
+                  "to": "destination",
+                  "address": "address",
+                  "currency": "currency",
+                  "amount": "amount"
+             })
+});
 
-//Constant required for every endpoint (As this is output they will provide)
-const {   
-    module,
-    section,
-    parameters
-} =
+const hash = await response.json();
 
-await response.json();
+//Received response is parsed to the call
+const call = api.tx(hash)
 
-//Response received is parsed to the call
-const promise = api.tx[module][section](
-    ...parameters
-);
-
-//Promise is then signed and can be subscribed to extrinsics
-promise.signAndSend(address, { signer: injector.signer }, ({ status, txHash }) => {
+//Call is then signed and can be subscribed to extrinsics
+call.signAndSend(address, { signer: injector.signer }, ({ status, txHash }) => {
 ```
 
 ### Relay chain to Parachain (DMP)
 The following endpoint constructs the Relay chain to the Parachain XCM message. This message is constructed by providing the `to` parameter.
 
-**Endpoint**: `POST /x-transfer`
+**Endpoint**: `POST /x-transfer-hash`
 
    - **Parameters**:
      - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
@@ -56,7 +54,7 @@ The following endpoint constructs the Relay chain to the Parachain XCM message. 
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/x-transfer-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -78,7 +76,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 ### Parachain chain to Relay chain (UMP)
 The following endpoint constructs Parachain to Relay chain XCM message. This message is constructed by providing the `from` parameter.
 
-**Endpoint**: `POST /x-transfer`
+**Endpoint**: `POST /x-transfer-hash`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -96,7 +94,7 @@ The following endpoint constructs Parachain to Relay chain XCM message. This mes
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/x-transfer-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -118,7 +116,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 ### Parachain to Parachain (HRMP)
 The following endpoint allows got creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
 
-**Endpoint**: `POST /x-transfer`
+**Endpoint**: `POST /x-transfer-hash`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -143,7 +141,7 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/x-transfer-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -175,7 +173,7 @@ You can now customize multilocations for Address, Currency and Destination withi
 **Example of request:**
 
 ```js
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/x-transfer-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -199,10 +197,134 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 });
 ```
 
+## Ecosystem Bridges
+This section sums up currently available and implemented ecosystem bridges that are offered in the XCM API. Implementing cross-ecosystem asset transfers was never this easy!
+
+### Kusama<>Polkadot bridge
+Latest API versions support Polkadot <> Kusama bridge in very native and intuitive way. You just construct the Polkadot <> Kusama transfer as standard Parachain to Parachain scenario transfer.
+
+   - **Parameters**:
+        - Same as in Parachain -> Parachain scenario
+   - **Errors**:
+        - Same as in Parachain -> Parachain scenario
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/x-transfer-hash", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "AssetHubPolkadot", // Or AssetHubKusama
+        to: "AssetHubKusama",   // Or AssetHubPolkadot
+        currency: "KSM", // Or DOT
+        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        address: "Address" // AccountID 32 address
+    })
+});
+```
+
+### Snowbridge Ethereum -> AssetHubPolkadot
+Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitive and native form as possible. The implementations for Polkadot -> Ethereum and Ethereum -> Polkadot differ due to different architecure so we will mention both scenarios.
+
+   - **Parameters**:
+        - Same as in Parachain -> Parachain scenario
+   - **Errors**:
+        - Same as in Parachain -> Parachain scenario
+
+**Example of request:**
+```js
+//As Ethereum module is different from Polkadot modules (Thus Ethereum is not compatible with new hash response system), we provide complete implementation snippet.
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
+
+const response = await axios(`https://api.lightspell.xyz/x-transfer-eth`, {
+      method: "POST",
+      data: {
+        to: 'AssetHubPolkadot',
+        amount: '1000000000',
+        destAddress: address,
+        address: await signer.getAddress(),
+        currency: currencySymbol,
+      }
+    });
+
+const apiResponse = response.data;
+
+   const GATEWAY_CONTRACT = "0xEDa338E4dC46038493b885327842fD3E301CaB39";
+
+    const contract = IGateway__factory.connect(GATEWAY_CONTRACT, signer);
+
+    const abi = ethers.AbiCoder.defaultAbiCoder();
+
+    const address: MultiAddressStruct = {
+      data: abi.encode(["bytes32"], [formValues.address]),
+      kind: 1,
+    };
+
+    const response = await contract.sendToken(
+      apiResonse.token,
+      apiResonse.destinationParaId,
+      address,
+      apiResonse.destinationFee,
+      apiResonse.amount,
+      {
+        value: apiResonse.fee,
+      }
+    );
+    const receipt = await response.wait(1);
+
+    if (receipt === null) {
+      throw new Error("Error waiting for transaction completion");
+    }
+
+    if (receipt?.status !== 1) {
+      throw new Error("Transaction failed");
+    }
+
+    const events: LogDescription[] = [];
+    receipt.logs.forEach((log) => {
+      const event = contract.interface.parseLog({
+        topics: [...log.topics],
+        data: log.data,
+      });
+      if (event !== null) {
+        events.push(event);
+      }
+    });
+
+```
+
+
+### Snowbridge AssetHubPolkadot -> Ethereum
+
+   - **Parameters**:
+        - Same as in Parachain -> Parachain scenario
+   - **Errors**:
+        - Same as in Parachain -> Parachain scenario
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/x-transfer-hash", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "AssetHubPolkadot", 
+        to: "Ethereum",   
+        currency: "WETH", // Any supported asset - WBTC, WETH..
+        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        address: "Address" // Ethereum Address
+    })
+});
+```
+
 ## Asset claim
 Assets, that have been trapped in the cross-chain transfers can now be recovered through asset claim feature.
 
-**Endpoint**: `POST /asset-claim`
+**Endpoint**: `POST /asset-claim-hash`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain on which the asset will be claimed.
@@ -217,7 +339,7 @@ Assets, that have been trapped in the cross-chain transfers can now be recovered
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/asset-claim", {
+const response = await fetch("http://localhost:3001/asset-claim-hash", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

@@ -25,12 +25,11 @@ A complete guide on how to use these tools will be mentioned throughout the docu
 
 ## What is ParaSpell✨ in general
 
-ParaSpell focuses on enhancing `XCM` functionality by doing research on every XCM-compatible Parachain. Research is then composed into XCM API and XCM SDK repositories that group diversity in XCM into uniform easy to implement tools that allow you to implement interoperability benefits of Polkadot ecosystem into your application within moments.
+ParaSpell is dedicated to enhancing `XCM` functionality by conducting in-depth research on every XCM-compatible Parachain. This research is then consolidated into XCM Tools, which standardize the diverse XCM implementations into easy-to-use, uniform tools. These tools enable you to seamlessly integrate the interoperability benefits of the Polkadot and Kusama ecosystems into your application within moments.
 
 **Why should I use ParaSpell✨?**
 
-Implementing Polkadot's flagship feature called XCM into your application could be a `complicated` matter sometimes. Parachains tend to customize their XCM Pallets to fit their needs which creates lots of diversity. This means, that implementing support for different Parachains in a uniform way is a lengthy task. Luckily, ParaSpell `wrapped` these pallets from every compatible Parachain and did this `research` for you. In the end, `saving time` can be essential when delivering a product. Time `never` stops, so we all should use it wisely.
-
+Implementing Polkadot's flagship feature, XCM, into your application can sometimes be a complex task. Each Parachain may customize its XCM Pallets to meet specific needs, resulting in a wide variety of implementations. Supporting multiple Parachains in a consistent manner is therefore time-consuming. Fortunately, ParaSpell has already conducted this research and wrapped the necessary pallets from every compatible Parachain into its tools. Saving time is crucial when delivering a product, and ParaSpell helps you use it wisely.
 
 ## Project achievements in chronological order ⌛️
 

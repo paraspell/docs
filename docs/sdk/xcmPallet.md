@@ -93,7 +93,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
   await Builder(api)            //Api parameter is optional
       .from('Karura')           // Origin Parachain
       .to('Basilisk')           // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency('KSM')         // CurrencyString | CurrencyID | Multilocation object | MultilocationArray
+      .currency('KSM')         // CurrencyString | CurrencyID | Multilocation object | MultilocationArray | { symbol: string | number | bigint} | { id: string | number | bigint} // Object selection is used when there are duplicate assets found and selector is unable to pick based on details provided (You will get an error from SDK when this happens).
       /*.feeAsset(feeAsset) - Parameter required when using MultilocationArray*/
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
@@ -108,7 +108,7 @@ await paraspell.xcmPallet.send(
   {
     api?,                 //Api parameter (Optional)
     origin,               // Origin Parachain
-    currency,             // CurrencyString | CurrencyID | Multilocation object | MultilocationArray
+    currency,             // CurrencyString | CurrencyID | Multilocation object | MultilocationArray | { symbol: string | number | bigint} | { id: string | number | bigint} // Object selection is used when there are duplicate assets found and selector is unable to pick based on details provided (You will get an error from SDK when this happens).
     feeAsset?             // Fee asset select id,
     amount,               // Token amount
     to,                   // AccountId32 or AccountKey20 address or custom Multilocation

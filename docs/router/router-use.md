@@ -133,6 +133,61 @@ AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
+## Snowbridge
+You can now use Ethereum <> Polkadot bridge in the XCM Router. There are two scenarios to this transfer.
+
+### Polkadot -> Ethereum
+Following scenario works just like normal transfer, you just select Ethereum as destination chain. See example below.
+
+```js
+await RouterBuilder
+        .from('Origin')   //Origin Parachain/Relay chain
+        .to('Ethereum')   
+        .currencyFrom('DOT')    // Currency to send
+        .currencyTo('WETH')    // Any currency supported by Ethereum bridge (WETH, WBTC and more)
+        .amount('1000000')  // Amount to send
+        .slippagePct('1')   // Max slipppage percentage
+        .injectorAddress(selectedAccount.address)   //Injector address
+        .recipientAddress(recipientAddress) //Recipient address
+        .signer(injector.signer)    //Signer
+        //.evmInjectorAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
+        //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+
+        .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
+          console.log(status.hashes);   //Transaction hashes
+          console.log(status.status);   //Transaction statuses
+          console.log(status.type);    //Transaction types
+        })
+        .buildAndSend()
+```
+
+### Ethereum -> Polkadot
+The other scenario is a little different as it requires other parameters because Ethereum has different wallets and signers.
+
+```js
+await RouterBuilder()
+    .from('Ethereum')     
+    .to('Destination')     //Destination Chain
+    .currencyTo('WETH')    // Any currency supported by Ethereum bridge (WETH, WBTC and more)
+    .currencyTo('GLMR')   // Currency to receive
+    .amount('1000000')  // Amount to send
+    .injectorAddress(selectedAccount.address)   //Injector address
+    .recipientAddress(recipientAddress) //Recipient address
+    .signer(injector.signer)    //Signer
+    .slippagePct('1')   // Max slipppage percentage
+    .onStatusChange(onStatusChange)
+    .assetHubAddress(address) //Asset Hub address where currency from Ethereum will be sent
+    .ethSigner(ethSigner) // Ethereum signer
+    .build();
+
+    .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
+      console.log(status.hashes);   //Transaction hashes
+      console.log(status.status);   //Transaction statuses
+      console.log(status.type);    //Transaction types
+    })
+    .buildAndSend()
+```
+
 ## Ready to use in SpellRouter
 
 | DEX | Can send to/receive from | Supported assets | Notes |

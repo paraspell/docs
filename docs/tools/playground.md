@@ -1,8 +1,9 @@
 # Getting started with XCM Playground 🛝
 
-Playground allows you to demo-test every xcm tool ParaSpell✨ offers. It can also be used for various dex operations.
+The Playground allows you to demo-test every XCM tool offered by ParaSpell✨. It can also be utilized for various DEX operations.
 
-Playground is currently deployed and ready to use on the following link: [https://playground.paraspell.xyz/](https://playground.paraspell.xyz/)
+The Playground is currently deployed and available for use at the following link: [https://playground.paraspell.xyz/](https://playground.paraspell.xyz/)
+
 
 ## Prerequisites
 - Node.js
