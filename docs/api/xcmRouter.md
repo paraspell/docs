@@ -43,29 +43,44 @@ const response = await fetch("http://localhost:3001/router-hash", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        from: "Chain", //Origin Parachain/Relay chain
-        to: "Chain", //Destination Parachain/Relay chain
+        from: "Chain", // Origin Parachain/Relay chain
+        to: "Chain", // Destination Parachain/Relay chain
         currencyFrom: "Currency", // Currency to send
         currencyTo: "Currency", // Currency to receive
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
-        address: "Address", //Recipient address
-        injectorAddress: 'InjectorAddress', //Address of sender
+        address: "Address", // Recipient address
+        injectorAddress: 'InjectorAddress', // Address of sender
+        evmInjectorAddress: 'EvmInjectorAddress', // EVM address of sender
     })
 });
 
-const {
-        txs: [toExchangeHash, swapHash, toDestHash],
-        exchangeNode,
-      } = await response.data;
+const txs = await response.json();
 
-// create api promise for origin node
-const originApi = await ApiPromise.create({ wsProvider: '...' });
-// create api promise for exchange node (use echangeNode variable returned from API)
-const swapApi = await ApiPromise.create({ wsProvider: '...' });
-await submitTransaction(originApi, originApi.tx(toExchangeHash), signer, injectorAddress);
-await submitTransaction(swapApi, swapApi.tx(swapHash), signer, injectorAddress);
-await submitTransaction(swapApi, swapApi.tx(toDestHash), signer, injectorAddress);
+for (const txInfo of txs) {
+    // Use the WS provider URL retrieved from the API to create an ApiPromise instance
+    const api = await ApiPromise.create({
+      provider: new WsProvider(txInfo.wsProvider),
+    });
+
+    if (txInfo.statusType === "TO_EXCHANGE") {
+      // When submitting to exchange, prioritize the evmSigner if available
+      const txHash = txInfo.tx
+      await submitTransaction(
+        api,
+        api.tx(txHash),
+        evmSigner ?? signer,
+        evmInjectorAddress ?? injectorAddress
+      );
+    } else {
+      await submitTransaction(
+        api,
+        api.tx(txHash),
+        signer,
+        injectorAddress
+      );
+    }
+}
 ```
 
 
@@ -84,6 +99,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
      - `slippagePct`: (required): Specifies the slipeage percentage. 
      - `address`: (required): Specifies the address of the recipient.
      - `injectorAddress`: (required): Specifies the address of the sender.
+     - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
 
 
    - **Errors**:
@@ -140,6 +156,8 @@ If you wish to select your exchange chain manually you can do that by providing 
      - `slippagePct`: (required): Specifies the slippage percentage. 
      - `address`: (required): Specifies the address of the recipient.
      - `injectorAddress`: (required): Specifies the address of the sender.
+     - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
@@ -184,6 +202,8 @@ const response = await fetch("http://localhost:3001/router-hash", {
 ## Snowbridge implementation
 Following section provides XCM API Snowbridge implementation snippet:
 ```js
+
+// Request Ethereum wallets and create signer
 if (!window.ethereum) {
   alert("Please install MetaMask!");
   return;
@@ -196,7 +216,7 @@ const signer = await provider.getSigner();
 const account = await signer.getAddress();
 
 const submitTransaction = () => {
-  // Function implementation goes here
+  // Implementation same as before
 };
 
 const submitEthTransaction = async (apiResponse, assetHubAddress) => {
@@ -277,18 +297,20 @@ for (const txInfo of txs) {
       provider: new WsProvider(txInfo.wsProvider),
     });
 
+    const txHash = txInfo.tx;
+
     if (txInfo.statusType === "TO_EXCHANGE") {
       // When submitting to exchange, prioritize the evmSigner if available
       await submitTransaction(
         api,
-        buildTx(api, txInfo.tx),
+        api.tx(txHash),
         evmSigner ?? signer,
         evmInjectorAddress ?? injectorAddress
       );
     } else {
       await submitTransaction(
         api,
-        buildTx(api, txInfo.tx),
+        api.tx(txHash),
         signer,
         injectorAddress
       );
