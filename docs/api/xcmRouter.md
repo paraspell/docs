@@ -180,3 +180,121 @@ const response = await fetch("http://localhost:3001/router-hash", {
     })
 });
 ```
+
+## Snowbridge implementation
+Following section provides XCM API Snowbridge implementation snippet:
+```js
+if (!window.ethereum) {
+  alert("Please install MetaMask!");
+  return;
+}
+
+const provider = new ethers.BrowserProvider(window.ethereum);
+await provider.send("eth_requestAccounts", []);
+
+const signer = await provider.getSigner();
+const account = await signer.getAddress();
+
+const submitTransaction = () => {
+  // Function implementation goes here
+};
+
+const submitEthTransaction = async (apiResponse, assetHubAddress) => {
+  const tx = apiResponse.tx;
+  const GATEWAY_CONTRACT = "0xEDa338E4dC46038493b885327842fD3E301CaB39";
+
+  const contract = IGateway__factory.connect(GATEWAY_CONTRACT, signer);
+  const abi = ethers.AbiCoder.defaultAbiCoder();
+
+  const address = {
+    data: abi.encode(
+      ["bytes32"],
+      [u8aToHex(decodeAddress(assetHubAddress))]
+    ),
+    kind: 1,
+  };
+
+  const response = await contract.sendToken(
+    tx.token,
+    tx.destinationParaId,
+    address,
+    tx.destinationFee,
+    tx.amount,
+    {
+      value: tx.fee,
+    }
+  );
+
+  const receipt = await response.wait(1);
+
+  if (receipt === null) {
+    throw new Error("Error waiting for transaction completion");
+  }
+
+  if (receipt?.status !== 1) {
+    throw new Error("Transaction failed");
+  }
+
+  const events = [];
+  receipt.logs.forEach((log) => {
+    const event = contract.interface.parseLog({
+      topics: [...log.topics],
+      data: log.data,
+    });
+    if (event !== null) {
+      events.push(event);
+    }
+  });
+};
+
+const response = await fetch("http://localhost:3001/router-hash", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    from: "Chain", // Origin Parachain/Relay chain/Ethereum
+    to: "Chain", // Destination Parachain/Relay chain/Ethereum
+    exchange: “AcalaDex”, //Either empty for automatic selection or use preffered DEX
+    currencyFrom: "Currency", // Currency to send
+    currencyTo: "Currency", // Currency to receive
+    amount: "Amount", // Amount to send
+    slippagePct: "Pct", // Max slippage percentage
+    address: "Address", // Recipient address
+    injectorAddress: "InjectorAddress", // Address of sender
+    evmInjectorAddress: "", // Evm address of sender if needed
+    ethAddress: "", // Needed only if transferring FROM Ethereum
+  }),
+});
+
+const txs = await response.json();
+
+
+for (const txInfo of txs) {
+  if (txInfo.type === "EXTRINSIC") {
+    // Handling of Polkadot transaction
+    const api = await ApiPromise.create({
+      provider: new WsProvider(txInfo.wsProvider),
+    });
+
+    if (txInfo.statusType === "TO_EXCHANGE") {
+      // When submitting to exchange, prioritize the evmSigner if available
+      await submitTransaction(
+        api,
+        buildTx(api, txInfo.tx),
+        evmSigner ?? signer,
+        evmInjectorAddress ?? injectorAddress
+      );
+    } else {
+      await submitTransaction(
+        api,
+        buildTx(api, txInfo.tx),
+        signer,
+        injectorAddress
+      );
+    }
+  } else {
+    await submitEthTransaction(txInfo.tx, assetHubAddress);
+  }
+}
+```
