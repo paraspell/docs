@@ -86,7 +86,12 @@ Then select color by color picker. There are 4 options to customize:
 ## Rearange chains
 To rearange chains simply select same option button highlighted in section above. Then select from options in dropdown. The chains can rearange either by amount of received, sent or by both kinds of XCM messages.
 
-<img width="443" alt="Snímka obrazovky 2024-06-19 o 21 22 16" src="https://gist.github.com/assets/55763425/8279c393-7b2b-41b8-bedd-ed7863ac48d2">
+<img width="443" alt="Img2" src="https://gist.github.com/assets/55763425/8279c393-7b2b-41b8-bedd-ed7863ac48d2">
+
+## Rearange individual chains
+You can now rearange individual chains by simply selecting them with right click. The rearangement can be done to any coordinate in 3D space (x,y,z). The channels will follow.
+
+<img width="807" alt="Img" src="https://gist.github.com/user-attachments/assets/01294b24-df4a-4a92-99e6-aa17bc097e5d">
 
 ## Send XCM
 Sending XCM messages in XCM Visualization tool is only logical. You can try technology in action.
