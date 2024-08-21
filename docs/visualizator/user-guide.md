@@ -35,7 +35,7 @@ You can select chains either in 3D Visualization by simply clicking on desired c
 <img width="550" alt="selection" src="https://gist.github.com/assets/55763425/86f3a1d1-cedb-4e9e-9824-10a338552772">
 
 ### Multiselect dropdown selection
-<img width="372" alt="dropdown" src="https://gist.github.com/assets/55763425/59cb27ef-67cd-4e0c-911c-64f29f924177">
+<img width="550" alt="dropdown" src="https://gist.github.com/assets/55763425/59cb27ef-67cd-4e0c-911c-64f29f924177">
 
 ### Specific channel selection
 To choose specific channel and display its information, click directly on channel in 3D Visualization, you will then be able to display total of how many messages went through that channel.
@@ -74,7 +74,6 @@ To customize color scheme firstly locate option button at the bottom right corne
 
 <img width="550" alt="optionsbutton" src="https://gist.github.com/assets/55763425/c2f674df-973e-4e96-8c2c-a3501c5f2706">
 
-
 Then select color by color picker. There are 4 options to customize:
 - Primary channel color (Unselected chains)
 - Highlighted channel color (Selected specific chain)
@@ -83,15 +82,26 @@ Then select color by color picker. There are 4 options to customize:
 
 <img width="550" alt="color picker" src="https://gist.github.com/assets/55763425/3d00b85c-ed65-4f57-897b-fa30765c3ee6">
 
+## Customize background
+You can now fully customize your skybox background. This can be done by either [generating](https://tools.wwwtyro.net/space-3d/index.html) or providing images. The option to customize the background can be found in the "options" button.
+
+<img width="550" alt="Skybox" src="https://github.com/user-attachments/assets/bda01a2c-8393-4c8b-b6d9-ca4a54c53ec6">
+
+Once all the necessary images are provided, click the "save skybox" button.
+
+<img width="550" alt="NewSkybox" src="https://github.com/user-attachments/assets/69a52dc9-93f1-4650-ba31-5cd0c72b0ce6">
+
+Your background should appear immediately after you close options button.
+
 ## Rearange chains
 To rearange chains simply select same option button highlighted in section above. Then select from options in dropdown. The chains can rearange either by amount of received, sent or by both kinds of XCM messages.
 
-<img width="443" alt="Img2" src="https://gist.github.com/assets/55763425/8279c393-7b2b-41b8-bedd-ed7863ac48d2">
+<img width="550" alt="Img2" src="https://gist.github.com/assets/55763425/8279c393-7b2b-41b8-bedd-ed7863ac48d2">
 
 ## Rearange individual chains
 You can now rearange individual chains by simply selecting them with right click. The rearangement can be done to any coordinate in 3D space (x,y,z). The channels will follow.
 
-<img width="807" alt="Img" src="https://gist.github.com/user-attachments/assets/01294b24-df4a-4a92-99e6-aa17bc097e5d">
+<img width="550" alt="Img" src="https://gist.github.com/user-attachments/assets/01294b24-df4a-4a92-99e6-aa17bc097e5d">
 
 ## Send XCM
 Sending XCM messages in XCM Visualization tool is only logical. You can try technology in action.
