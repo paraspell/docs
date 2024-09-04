@@ -28,7 +28,6 @@ export default {
               { text: 'Getting started', link: '/sdk/getting-started' },
               { text: 'Send XCM', link: '/sdk/xcmPallet' },
               { text: 'Asset query', link: '/sdk/AssetPallet' },
-              { text: 'Create HRMP channels', link: '/sdk/HRMP' },
               { text: 'Query XCM pallets', link: '/sdk/NodePallets' },
             ]
           },
