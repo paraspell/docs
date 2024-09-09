@@ -93,7 +93,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
   await Builder(api)            //Api parameter is optional
       .from('Karura')           // Origin Parachain
       .to('Basilisk')           // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency('KSM')         // CurrencyString | CurrencyID | Multilocation object | MultilocationArray | { symbol: string | number | bigint} | { id: string | number | bigint} // Object selection is used when there are duplicate assets found and selector is unable to pick based on details provided (You will get an error from SDK when this happens).
+      .currency({symbol: 'KSM'}) //{id: currencyID} | {symbol: currencySymbol}, | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray}   
       /*.feeAsset(feeAsset) - Parameter required when using MultilocationArray*/
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
@@ -108,7 +108,7 @@ await paraspell.xcmPallet.send(
   {
     api?,                 //Api parameter (Optional)
     origin,               // Origin Parachain
-    currency,             // CurrencyString | CurrencyID | Multilocation object | MultilocationArray | { symbol: string | number | bigint} | { id: string | number | bigint} // Object selection is used when there are duplicate assets found and selector is unable to pick based on details provided (You will get an error from SDK when this happens).
+    currency,             // {id: currencyID} | {symbol: currencySymbol}, | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray}
     feeAsset?             // Fee asset select id,
     amount,               // Token amount
     to,                   // AccountId32 or AccountKey20 address or custom Multilocation
@@ -136,7 +136,7 @@ Latest SDK versions support Polkadot <> Kusama bridge in very native and intuiti
   await Builder(api)            //Api parameter is optional
         .from('AssetHubPolkadot')  //Either AHP or AHK
         .to('AssetHubKusama')     //Either AHP or AHK
-        .currency('DOT')        // Either KSM or DOT
+        .currency({symbol: 'DOT'})        // Either KSM or DOT
         .amount(amount)
         .address(address)
         .build()
@@ -150,7 +150,7 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 await Builder(api)
           .from('AssetHubPolkadot')
           .to('Ethereum')           
-          .currency('WETH')   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more
+          .currency({symbol: 'WETH'})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more
           .amount(amount)
           .address(eth_address)  //AccountKey20 recipient address
           .build()
@@ -164,7 +164,7 @@ const signer = await provider.getSigner();
 await EvmBuilder(provider)      //Ethereum provider
   .to('AssetHubPolkadot')
   .amount(amount)
-  .currency('WETH')    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more
+  .currency('WETH')    //Any supported asset (symbol) by bridge eg. WETH, WBTC, SHIB and more
   .address(address)   //AccountID32 recipient address
   .signer(signer)     //Ethereum signer address
   .build();
@@ -208,16 +208,16 @@ You can now query all important information about your XCM call including inform
 import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails } from "@paraspell/sdk"; 
 
 //Get balance of foreign currency
-await getBalanceForeign(address, Parachain name, currency)
+await getBalanceForeign(address, Parachain name, currency /*- {id: currencyID} | {symbol: currencySymbol}*/)
 
 //Get balance of native currency
 await getBalanceNative(address, Parachain name)
 
 //Get fee information regarding XCM call
-await getOriginFeeDetails(from, to, currency, amount, originAddress)
+await getOriginFeeDetails(from, to, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount, originAddress)
 
 //Get all the information about XCM transfer
-await getTransferInfo(from, to, address, destinationAddress, currency, amount)
+await getTransferInfo(from, to, address, destinationAddress, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount)
 ```
 
 ## Developer experience
