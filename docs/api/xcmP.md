@@ -19,7 +19,7 @@ const response = await fetch(
                   "from": "origin",
                   "to": "destination",
                   "address": "address",
-                  "currency": "currency",
+                  "currency": {currencySpec},
                   "amount": "amount"
              })
 });
