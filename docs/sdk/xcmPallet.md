@@ -136,7 +136,7 @@ Latest SDK versions support Polkadot <> Kusama bridge in very native and intuiti
   await Builder(api)            //Api parameter is optional
         .from('AssetHubPolkadot')  //Either AHP or AHK
         .to('AssetHubKusama')     //Either AHP or AHK
-        .currency({symbol: 'DOT'})        // Either KSM or DOT
+        .currency({symbol: 'DOT'})        // Either KSM or DOT 
         .amount(amount)
         .address(address)
         .build()
@@ -150,7 +150,7 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 await Builder(api)
           .from('AssetHubPolkadot')
           .to('Ethereum')           
-          .currency({symbol: 'WETH'})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more
+          .currency({symbol: 'WETH'})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .amount(amount)
           .address(eth_address)  //AccountKey20 recipient address
           .build()
@@ -164,7 +164,7 @@ const signer = await provider.getSigner();
 await EvmBuilder(provider)      //Ethereum provider
   .to('AssetHubPolkadot')
   .amount(amount)
-  .currency('WETH')    //Any supported asset (symbol) by bridge eg. WETH, WBTC, SHIB and more
+  .currency({symbol: 'WETH'})    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
   .address(address)   //AccountID32 recipient address
   .signer(signer)     //Ethereum signer address
   .build();

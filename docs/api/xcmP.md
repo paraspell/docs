@@ -245,7 +245,7 @@ const response = await axios(`https://api.lightspell.xyz/x-transfer-eth`, {
         amount: '1000000000',
         destAddress: address,
         address: await signer.getAddress(),
-        currency: currencySymbol,
+        currency: {currencySpec}, // {symbol: currencySymbol} | {id: currencyID}
       }
     });
 
@@ -313,7 +313,7 @@ const response = await fetch("http://localhost:3001/x-transfer-hash", {
     body: JSON.stringify({
         from: "AssetHubPolkadot", 
         to: "Ethereum",   
-        currency: {symbol: "WETH"}, // Any supported asset - WBTC, WETH..
+        currency: {symbol: "WETH"}, // Any supported asset - WBTC, WETH.. - {symbol: currencySymbol} | {id: currencyID}
         amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
         address: "Address" // Ethereum Address
     })
@@ -404,7 +404,7 @@ const response = await fetch(
   body: JSON.stringify({
     origin: 'Parachain', // Replace "Parachain" with chain you wish to query transfer info for as origin
     destination: 'Parachain', // Replace "Parachain" with chain you wish to query transfer info for as destination
-    currency: 'Asset Multilocation array', //Replace "Asset Multilocation array" with specific asset multilocation array along with the amount (example in docs)
+    currency: {currencySpec}, //{symbol: currencySymbol} | {id: currencyID}
     amount: 'Amount', // Replace "Amount" with the numeric value you wish to transfer
     accountOrigin: 'Account address', // Replace "Address" with origin wallet address (In AccountID32 or AccountKey20 Format)
     accountDestination: 'Account address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)

@@ -45,8 +45,8 @@ const response = await fetch("http://localhost:3001/router-hash", {
     body: JSON.stringify({
         from: "Chain", // Origin Parachain/Relay chain
         to: "Chain", // Destination Parachain/Relay chain
-        currencyFrom: "Currency", // Currency to send
-        currencyTo: "Currency", // Currency to receive
+        currencyFrom: {currencySpec}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
+        currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         address: "Address", // Recipient address
@@ -129,8 +129,8 @@ const response = await fetch("http://localhost:3001/router-hash", {
     body: JSON.stringify({
         from: "Chain", //Origin Parachain/Relay chain
         to: "Chain", //Destination Parachain/Relay chain
-        currencyFrom: "Currency", // Currency to send
-        currencyTo: "Currency", // Currency to receive
+        currencyFrom: {currencySpec}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
+        currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         address: "Address", //Recipient address
@@ -189,8 +189,8 @@ const response = await fetch("http://localhost:3001/router-hash", {
         from: "Chain", //Origin Parachain/Relay chain
         exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
         to: "Chain", //Destination Parachain/Relay chain
-        currencyFrom: "Currency", // Currency to send
-        currencyTo: "Currency", // Currency to receive
+        currencyFrom: {currencySpec}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
+        currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         address: "Address", //Recipient address
@@ -276,8 +276,8 @@ const response = await fetch("http://localhost:3001/router-hash", {
     from: "Chain", // Origin Parachain/Relay chain/Ethereum
     to: "Chain", // Destination Parachain/Relay chain/Ethereum
     exchange: “AcalaDex”, //Either empty for automatic selection or use preffered DEX
-    currencyFrom: "Currency", // Currency to send
-    currencyTo: "Currency", // Currency to receive
+    currencyFrom: {currencySpec}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
+    currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
     amount: "Amount", // Amount to send
     slippagePct: "Pct", // Max slippage percentage
     address: "Address", // Recipient address
