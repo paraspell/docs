@@ -1,4 +1,4 @@
-# XCM Visualizator user guide 📚
+# XCM Visualizator user guide 🕹️
 
 Following section explores possibilities of XCM Visualizator tool.
 

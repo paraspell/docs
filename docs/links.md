@@ -4,7 +4,7 @@
 
 ### XCM-API (LightSpell⚡️)
 [API link](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api) |  
-The XCM API serves as an enhancement for `XCM`, `HRMP`, and `Asset pallet`, designed to simplify the development process. By integrating the XCM-SDK, it enables dApp developers to incorporate XCM interoperability without the need to install additional packages, thereby saving both time and costs by offloading heavy computing tasks (such as call generation) from the application.
+The XCM API serves as an enhancement for `XCM` and `Asset pallet`, designed to simplify the development process. By integrating the `XCM SDK` and `XCM Router`, it enables dApp developers to incorporate XCM interoperability without the need to install additional packages, thereby saving both time and costs by offloading heavy computing tasks (such as call generation) from the application.
 
 ### XCM-Router (SpellRouter☄️)
 [Router link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router) |  
@@ -12,7 +12,7 @@ The XCM Router enables seamless XCM exchanges. It allows users to send one token
 
 ### XCM-SDK
 [SDK link](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) |  
-The SDK unifies various pallets, including `XCM`, `HRMP`, and `Asset pallet`, in a cohesive manner. It supports all XCM-compatible Parachains within both the Kusama and Polkadot ecosystems and is designed for ease of implementation, abstracting much of the complex logic and requiring only a few simple, user-friendly inputs.
+The SDK unifies various pallets, including `XCM`, and `Asset pallet`, in a cohesive manner. It supports all XCM-compatible Parachains within the Kusama and the Polkadot ecosystems and is designed for ease of implementation, abstracting much of the complex logic and requiring only a few simple, user-friendly inputs.
 
 ### XCM-Analyser
 [Analyser link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) |  

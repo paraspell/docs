@@ -1,4 +1,4 @@
-# Deploy our API on your server
+# Deploy API on your server 💻
 
 To deploy our API on your server you only need to create a `.env` file and fill it with your secret phrase to allow for token autentification. This file should be located in the root folder. You can also set request limits in that file.
 

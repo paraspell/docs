@@ -1,4 +1,4 @@
-# Upgrade your amount of requests per minute
+# Upgrade amount of requests per minute 🔢
 
 As the requested amount per minute is limited to prevent possibilities of DDoS attacks we offer three different levels of limits to best suit your project needs. All levels are completely free and this page covers a guide on how to acquire each one of them. 
 
