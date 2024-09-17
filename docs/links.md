@@ -33,7 +33,7 @@ A professional landing page for the XCM API, providing a clear overview of the c
 ## Other ParaSpell repositories 🛠️
 
 ### Presskit
-[Presskit link](https://github.com/paraspell/presskit)  
+[Presskit link](https://github.com/paraspell/presskit) |
 The Presskit contains ParaSpell logos for media and press use.
 
 ### Docs
