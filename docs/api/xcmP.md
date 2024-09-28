@@ -1,4 +1,4 @@
-# Use XCM SDK✨ within XCM API
+# Use XCM SDK🪄 within XCM API
 Following guide guides you through XCM SDK functionality implemented in XCM API.
 ## Send XCM
 This functionality allows you to send XCM messages across Paraverse.

@@ -19,11 +19,11 @@ export default {
         sidebar: [
           {
             items: [
-                { text: 'Welcome to ParaSpell✨', link: '/' },
+                { text: '<div style="display: flex; align-items: center;"><span>Welcome to</span><img width="90" alt="ParaSpell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png" style="margin: 0 5px;"></div>', link: '/' },
             ]
           },
           {
-            text: 'ParaSpell✨ XCM SDK',
+            text: '<div style="display: flex; align-items: center;"><img width="90" alt="ParaSpell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png"><span>XCM SDK</span></div>',
             items: [
               { text: 'Getting started', link: '/sdk/getting-started' },
               { text: 'Send XCM', link: '/sdk/xcmPallet' },
@@ -32,10 +32,10 @@ export default {
             ]
           },
           {
-            text: 'LightSpell⚡️ XCM API',
+            text: ' <div style="display: flex; align-items: center;"><img width="90" alt="Lightspell logo" src="https://user-images.githubusercontent.com/55763425/251588168-4855abc3-445a-4207-9a65-e891975be62c.png"><span>XCM API</span></div>',
             items: [
               { text: 'Getting started', link: '/api/g-started' },
-              { text: 'XCM SDK✨', link: '/api/xcmP' },
+              { text: 'XCM SDK🪄', link: '/api/xcmP' },
               { text: 'XCM Router☄️', link: '/api/xcmRouter' },
               { text: 'XCM Analyser🔎', link: '/api/xcmAnalyser' },
               { text: 'Upgrade request amount', link: '/api/upgrade' },
@@ -43,7 +43,7 @@ export default {
             ]
           },
           {
-            text: 'SpellRouter☄️ XCM ROUTER',
+            text: '<div style="display: flex; align-items: center;"><img width="90" alt="Spellrouter logo" src="https://raw.githubusercontent.com/paraspell/presskit/refs/heads/main/logos_spellrouter/Full%20name.png"><span>XCM ROUTER</span></div>',
             items: [
               { text: 'Getting started', link: '/router/getting-strtd' },
               { text: 'Send routed XCM', link: '/router/router-use' },

@@ -2,7 +2,7 @@
 
 This page provides a comprehensive list of chains that are integrated within our XCM Router, XCM API, and XCM SDK. Since the XCM API incorporates both the XCM SDK and XCM Router packages, it inherently supports all the chains listed below, even though this is not explicitly stated.
 
-## XCM SDK✨
+## XCM SDK 🪄
 
 ### Relay chains
 
@@ -82,7 +82,7 @@ This page provides a comprehensive list of chains that are integrated within our
 | Ethereum         | [Website](https://ethereum.org/en/)                       | [Github](https://github.com/ethereum)                         | -                      | 1    | -              | -                     |
 
 
-## XCM Router☄️
+## XCM Router ☄️
 
 | DEX | Can send to/receive from | Supported assets | Notes |
 | ------------- | ------------- | ------------- |------------- |
