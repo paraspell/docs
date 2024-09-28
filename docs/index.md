@@ -14,7 +14,7 @@ Let us introduce you to
 Set of XCM tools for Polkadot and Kusama Paraverse
 </h3>
 
-## 🧰 This is what we are working on:
+## 🧰 Our Development Focus:
 - [XCM SDK](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk): A tool designed to unify the cross-chain experience on Polkadot and serve as a layer 2 protocol that enables seamless integration of XCM into your decentralized applications.
 - [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api) (LightSpell⚡️): An API that provides the ability to integrate XCM interoperability into your decentralized application in package-less way offloading heavy computing tasks from your decentralized application, and reducing associated costs.
 - [XCM ROUTER](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router) (SpellRouter☄️): A tool aiming to provide the capability of cross-chain swaps where you receive different assets than those you send (e.g. send DOT from Polkadot and receive ASTR on Astar) — all within a single command.
@@ -25,15 +25,17 @@ All of our tools are **completely free** and **fully open source** 🧙‍♂️
 
 A complete guide on how to use these tools will be mentioned throughout the document.
 
-## What is ParaSpell✨ in general
+## What is ParaSpell✨?
 
-ParaSpell is dedicated to enhancing `XCM` functionality by conducting in-depth research on every XCM-compatible Parachain. This research is then consolidated into XCM Tools, which standardize the diverse XCM implementations into easy-to-use, uniform tools. These tools enable you to seamlessly integrate the interoperability benefits of the Polkadot and Kusama ecosystems into your application within moments.
+ParaSpell is dedicated to enhancing `XCM` functionality by conducting in-depth research on every XCM-compatible Parachain. This research is then consolidated into `XCM Tools`, which standardize the diverse XCM implementations into easy-to-use, uniform tools. These tools enable you to seamlessly integrate the interoperability benefits of the Polkadot and Kusama ecosystems into your application within moments.
 
 **Why should I use ParaSpell✨?**
 
-Implementing Polkadot's flagship feature, XCM, into your application can sometimes be a complex task. Each Parachain may customize its XCM Pallets to meet specific needs, resulting in a wide variety of implementations. Supporting multiple Parachains in a consistent manner is therefore time-consuming. Fortunately, ParaSpell has already conducted this research and wrapped the necessary pallets from every compatible Parachain into its tools. Saving time is crucial when delivering a product, and ParaSpell helps you use it wisely.
+Implementing Polkadot's flagship feature, XCM, into your application can sometimes be a complex task. Each Parachain may customize its XCM Pallets to meet specific needs, resulting in a wide variety of implementations. Supporting multiple Parachains in a consistent manner is therefore time-consuming. Fortunately, ParaSpell has already conducted this research and wrapped the necessary pallets from every compatible Parachain into its tools. **Saving time is crucial when delivering a product, and ParaSpell helps you use it wisely.**
 
-## Project achievements in chronological order ⌛️
+## Project achievements 🏆
+
+We take great pride in our achievements, which reflect our commitment to enhancing cross-chain communication and our dedication to building a strong reputation through diligent effort. These achievements are sorted in chronological order (oldest to latest) ⌛️.
 
 - 📙 Article about early ParaSpell and Polkadot created & accepted to ICECET2022 held in Prague - [IEEE Sharing Fungible Assets Across Polkadot Paraverse](https://ieeexplore.ieee.org/document/9872938/)
 - 🎈 Web 3 Foundation base grant [Application](https://github.com/w3f/Grants-Program/pull/1118), [Delivery](https://github.com/w3f/Grant-Milestone-Delivery/pull/584)
@@ -48,15 +50,19 @@ Implementing Polkadot's flagship feature, XCM, into your application can sometim
 - 📗 Article about Polkadot and cross-chain(covered by ParaSpell XCM SDK) Apartment booking use case created and accepted on international conference ACM SAC 2024 held in Avila - [Cross-Chain Payments on Blockchain Networks: An Apartment Booking Use-Case](https://dl.acm.org/doi/10.1145/3605098.3636137)
 - 🧱 Maintenance funded by Kusama treasury from August 2024 until January 2025 [Referenda link](https://kusama.polkassembly.io/referenda/417), [August report](https://docs.google.com/document/d/1yaNIXZOPTSaMGTqahvcEt7gAqlSqsIVCydvkf7T1dbQ/edit?usp=sharing)
 
-## Project is supported by
-
 <div>
- <p>
-    <a href="https://github.com/w3f/Grants-Program/pull/1245">
-      <img width="200" alt="version" src="https://user-images.githubusercontent.com/55763425/211145923-f7ee2a57-3e63-4b7d-9674-2da9db46b2ee.png" />
+  <h3 align="center">
+    Project is supported by
+  </h3>
+  <p style="display: flex; justify-content: center; flex-wrap: wrap; margin: 0;">
+    <a href="https://github.com/w3f/Grants-Program/pull/1245" style="flex: 1 1 200px; display: flex; justify-content: center;">
+      <img width="200" alt="version" src="https://user-images.githubusercontent.com/55763425/211145923-f7ee2a57-3e63-4b7d-9674-2da9db46b2ee.png" style="max-width: 100%; height: auto;"/>
     </a>
-    <a href="https://kusama.subsquare.io/referenda/417">
-      <img width="200" alt="version" src="https://github.com/paraspell/xcm-sdk/assets/55763425/9ed74ebe-9b29-4efd-8e3e-7467ac4caed6" />
+    <a href="https://kusama.subsquare.io/referenda/417" style="flex: 1 1 200px; display: flex; justify-content: center;">
+      <img width="200" alt="version" src="https://github.com/paraspell/xcm-sdk/assets/55763425/9ed74ebe-9b29-4efd-8e3e-7467ac4caed6" style="max-width: 100%; height: auto;"/>
     </a>
- </p>
+  </p>
 </div>
+
+
+
