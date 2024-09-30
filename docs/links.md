@@ -26,14 +26,21 @@ A visualization tool for exploring XCM within the Polkadot ecosystem. It allows 
 [Playground link](https://github.com/paraspell/xcm-tools/tree/main/apps/playground) |  
 A sandbox environment that allows users to test all ParaSpell applications and packages, including the XCM SDK, XCM API, XCM Router, and XCM Analyser.
 
+### ParaSpell XCM Tools Landing page
+[ParaSpell page link](https://github.com/paraspell/xcm-tools/tree/main/apps/site) |
+
+A professional landing page for the XCM Tools, providing a clear overview of the capabilities that can be achieved through the XCM Tools.
+
 ### XCM-API Landing page 🛬
-[Landing page link](https://github.com/paraspell/xcm-tools/tree/main/apps/landing-page) |  
+[Landing page link](https://github.com/paraspell/xcm-tools/tree/main/apps/lightspell-site) |  
+
 A professional landing page for the XCM API, providing a clear overview of the capabilities that can be achieved through the XCM API.
 
 ## Other ParaSpell repositories 🛠️
 
 ### Presskit 🤵‍♂️
 [Presskit link](https://github.com/paraspell/presskit) |
+
 The Presskit contains ParaSpell logos for media and press use.
 
 ### Docs 📖

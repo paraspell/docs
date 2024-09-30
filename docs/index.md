@@ -23,9 +23,11 @@ Set of XCM tools for Polkadot and Kusama Paraverse
 
 All of our tools are **completely free** and **fully open source** 🧙‍♂️🪄
 
+Find out more about these tools at our [landing page](https://paraspell.xyz)!
+
 A complete guide on how to use these tools will be mentioned throughout the document.
 
-## What is ParaSpell✨?
+## What is [ParaSpell✨](https://paraspell.xyz)?
 
 ParaSpell is dedicated to enhancing `XCM` functionality by conducting in-depth research on every XCM-compatible Parachain. This research is then consolidated into `XCM Tools`, which standardize the diverse XCM implementations into easy-to-use, uniform tools. These tools enable you to seamlessly integrate the interoperability benefits of the Polkadot and Kusama ecosystems into your application within moments.
 
