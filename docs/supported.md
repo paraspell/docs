@@ -43,6 +43,8 @@ This page provides a comprehensive list of chains that are integrated within our
 | Mythos         | [Website](https://mythos.foundation/)                       | -                         | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-mythos-rpc.polkadot.io#/explorer)                          | 3369    | polkadotXCM              | XCM V3                     |
 | Peaq         | [Website](https://www.peaq.network/)                       | [Github](https://github.com/peaqnetwork/peaq-network-node)                         | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpeaq.api.onfinality.io%2Fpublic-ws#/explorerr)                          | 3338    | xTokens              | XCM V2                    |
 | CoretimePolkadot  | [Website](https://www.parity.io/)  |[Github](https://github.com/paritytech/polkadot-sdk)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-coretime-rpc.polkadot.io#/explorer)             | 1005    | polkadotXCM          | XCM V3                     |
+| Polimec  | [Website](https://www.polimec.org)  |[Github](https://github.com/Polimec/polimec-node)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polimec.org#/explorer)             | 3344    | polkadotXCM          | XCM V3                     |
+| Subsocial  | [Website](https://www.subsocial.network/)  |[Github](https://github.com/dappforce/subsocial-parachain)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpara.subsocial.network#/explorer)             | 2101    | polkadotXCM          | XCM V3                     |
 
 ### Kusama Parachains
 
