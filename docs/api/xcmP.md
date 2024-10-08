@@ -335,7 +335,7 @@ XCM API allows you to batch your XCM calls and send multiple at the same time vi
 **Example of request:**
 ```js
 //mode options: - BATCH
-		- BATCH_ALL
+//		- BATCH_ALL
 
 const response = await fetch("http://localhost:3001/x-transfer-batch", {
     method: 'POST',
