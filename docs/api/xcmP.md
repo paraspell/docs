@@ -320,6 +320,49 @@ const response = await fetch("http://localhost:3001/x-transfer-hash", {
 });
 ```
 
+## Batch call
+XCM API allows you to batch your XCM calls and send multiple at the same time via batch feature.
+
+**Endpoint** `POST /x-transfer-batch`
+
+   - **Parameters**
+     - `transfers` (Inside JSON body): (required): Represents array of XCM calls along with optional parameter "options" which contains "mode" to switch between BATCH and BATCH_ALL call forms.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameter 'transfers' is expected but not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/x-transfer-batch", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        transfers: "Parachain", // Replace "transfers" with array of XCM transfers
+    })
+});
+
+//Example of JSON body
+/*{
+	"transfers": [
+		{
+			"to": "Moonriver",
+			"amount": "10000",
+			"address": "0x939229F9c6E2b97589c4a5A0B3Eb8664FFc00502"
+		},
+		{
+			"to": "Basilisk",
+			"amount": "10000",
+			"address": "bXgnPigqWnUTb9PxgCvnt61bsQoRQFnzLYYyRPV1bvB6DLu87"
+		}
+	],
+	"options": {
+		"mode": "BATCH"
+	}
+}*/
+```
 ## Asset claim
 Assets, that have been trapped in the cross-chain transfers can now be recovered through asset claim feature.
 
@@ -344,8 +387,8 @@ const response = await fetch("http://localhost:3001/asset-claim-hash", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        from: "Parachain", // Replace "Amount" with the numeric value you wish to transfer
-        address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+        from: "Parachain", // Replace "from" with the numeric value you wish to transfer
+        address: "Address", // Replace "address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         fungible: "Asset Multilocation array" //Replace "Asset Multilocation array" with specific asset multilocation along with amount specification
     })
 });
@@ -403,7 +446,7 @@ const response = await fetch(
   },  
   body: JSON.stringify({
     origin: 'Parachain', // Replace "Parachain" with chain you wish to query transfer info for as origin
-    destination: 'Parachain', // Replace "Parachain" with chain you wish to query transfer info for as destination
+    destination: 'Parachain', // Replace "destination" with chain you wish to query transfer info for as destination
     currency: {currencySpec}, //{symbol: currencySymbol} | {id: currencyID}
     amount: 'Amount', // Replace "Amount" with the numeric value you wish to transfer
     accountOrigin: 'Account address', // Replace "Address" with origin wallet address (In AccountID32 or AccountKey20 Format)
