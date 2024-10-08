@@ -476,6 +476,59 @@ const response = await fetch(
 console.log(response) //use response data as necessary
 ```
 
+### Query native asset balance
+The following endpoint allows you to query native asset balance for on specific chain.
+
+**Endpoint**: `POST /balance/:node/native`
+
+   - **Parameters**:
+     - `node` (Path parameter): Specifies the name of the Parachain.
+     - `address` (Inside JSON body): (required): Specifies the address of the account.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/balance/:node/native", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        address: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+    })
+});
+```
+
+### Query foreign asset balance
+The following endpoint allows you to query foreign asset balance for on specific chain.
+
+**Endpoint**: `POST /balance/:node/foreign`
+
+   - **Parameters**:
+     - `node` (Path parameter): Specifies the name of the Parachain.
+     - `address` (Inside JSON body): (required): Specifies the address of the account.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/balance/:node/foreign", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        address: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+        currency: "Currency" //Replace "Currency" with either symbol { symbol: "KSM" } or  id { id: 123 }
+    })
+});
+```
+
 ### Query assets object
 The following endpoint retrieves all assets on a specific Parachain as an object.
 
