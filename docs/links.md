@@ -26,7 +26,7 @@ A visualization tool for exploring XCM within the Polkadot ecosystem. It allows 
 [Playground link](https://github.com/paraspell/xcm-tools/tree/main/apps/playground) |  
 A sandbox environment that allows users to test all ParaSpell applications and packages, including the XCM SDK, XCM API, XCM Router, and XCM Analyser.
 
-### ParaSpell XCM Tools Landing page
+### ParaSpell XCM Tools Landing page 🛬
 [ParaSpell page link](https://github.com/paraspell/xcm-tools/tree/main/apps/site) |
 
 A professional landing page for the XCM Tools, providing a clear overview of the capabilities that can be achieved through the XCM Tools.
