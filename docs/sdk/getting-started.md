@@ -2,6 +2,12 @@
 
 This guide guides you through implementation of XCM SDK that allows you to do various exciting actions on Polkadot and Kusama chains. To start proceed with steps mentioned below. Good luck adventurer!
 
+## Starter template
+Don't want to go through setup and build from ground up? 
+- Our team has created a [XCM SDK Starter template](https://github.com/paraspell/xcm-sdk-template) for you! 
+
+This template is programmed with React & Vite framework. It contains basic components ready to set you off on your cross-chain dApp journey.
+
 ## Install dependencies
 Choose your package provider and proceed to install dependencies to your project.
 ```sh

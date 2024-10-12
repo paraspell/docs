@@ -1,6 +1,12 @@
 # Getting started with SpellRouter☄️
 This guide guides you through implementation of XCM Router that allows you to do various exciting actions on Polkadot and Kusama chains.
 
+## Starter template
+Don't want to go through setup and build from ground up? 
+- Our team has created a [XCM Router Starter template](https://github.com/paraspell/xcm-router-template) for you! 
+
+This template is programmed with React & Vite framework. It contains basic components ready to set you off on your cross-chain dApp journey.
+
 ## Install peer dependencies
 ```sh
 # npm

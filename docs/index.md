@@ -35,11 +35,16 @@ Set of XCM tools for Polkadot and Kusama Paraverse
 
 All of our tools are **completely free** and **fully open source** 🧙‍♂️🪄
 
-Tired of reading? Listen to this AI-generated podcast about ParaSpell XCM Tools here - [AI Podcast about ParaSpell](https://notebooklm.google.com/notebook/4707adaa-0abf-417d-b48f-0f387e3625d3/audio)
+Tired of reading? Listen to [AI-generated podcast about ParaSpell XCM Tools](https://notebooklm.google.com/notebook/4707adaa-0abf-417d-b48f-0f387e3625d3/audio)
 
 Find out more about these tools at our [landing page](https://paraspell.xyz)!
 
 A complete guide on how to use these tools will be mentioned throughout the document.
+
+### 🛫 Starting fresh? Try our starter templates!
+- [XCM SDK (React + Vite) starter template](https://github.com/paraspell/xcm-sdk-template)
+- [XCM API (React + Vite) starter template](https://github.com/paraspell/xcm-api-template)
+- [XCM Router (React + Vite) starter template](https://github.com/paraspell/xcm-router-template)
 
 ## What is [ParaSpell✨](https://paraspell.xyz)?
 
