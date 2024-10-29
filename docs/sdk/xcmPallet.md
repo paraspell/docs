@@ -196,7 +196,10 @@ await Builder(/*node api - optional*/)
 Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
 
 ```ts
+//PJS
 import { getExistentialDeposit } from "@paraspell/sdk";
+//PAPI
+import { getExistentialDeposit } from "@paraspell/sdk/papi";
 
 const ed = getExistentialDeposit('Acala')
 ```
@@ -205,7 +208,10 @@ const ed = getExistentialDeposit('Acala')
 You can now query all important information about your XCM call including information about fees (If your balance is sufficient to transfer XCM message) and more.
 
 ```ts
-import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails } from "@paraspell/sdk"; 
+//PJS
+import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails } from "@paraspell/sdk";
+//PAPI
+import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails } from "@paraspell/sdk/papi";
 
 //Get balance of foreign currency
 await getBalanceForeign(address, Parachain name, currency /*- {id: currencyID} | {symbol: currencySymbol}*/)
