@@ -22,7 +22,6 @@ import{_ as s,c as a,o as n,d as l}from"./app.5dd1b422.js";const A=JSON.parse('{
 <span class="line"></span>
 <span class="line"><span style="color:#676E95;font-style:italic;">// CommonJS PAPI</span></span>
 <span class="line"><span style="color:#C792EA;">const</span><span style="color:#A6ACCD;"> paraspell </span><span style="color:#89DDFF;">=</span><span style="color:#A6ACCD;"> </span><span style="color:#82AAFF;">require</span><span style="color:#A6ACCD;">(</span><span style="color:#89DDFF;">&#39;</span><span style="color:#C3E88D;">@paraspell/sdk/papi</span><span style="color:#89DDFF;">&#39;</span><span style="color:#A6ACCD;">)</span></span>
-<span class="line"></span>
 <span class="line"><span style="color:#676E95;font-style:italic;">// CommonJS PJS</span></span>
 <span class="line"><span style="color:#C792EA;">const</span><span style="color:#A6ACCD;"> paraspell </span><span style="color:#89DDFF;">=</span><span style="color:#A6ACCD;"> </span><span style="color:#82AAFF;">require</span><span style="color:#A6ACCD;">(</span><span style="color:#89DDFF;">&#39;</span><span style="color:#C3E88D;">@paraspell/sdk</span><span style="color:#89DDFF;">&#39;</span><span style="color:#A6ACCD;">)</span></span>
 <span class="line"></span></code></pre></div>`,22),o=[p];function t(r,c,i,y,d,C){return n(),a("div",null,o)}const F=s(e,[["render",t]]);export{A as __pageData,F as default};
