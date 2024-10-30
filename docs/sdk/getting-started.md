@@ -60,7 +60,6 @@ import * as paraspell from '@paraspell/sdk'
 
 // CommonJS PAPI
 const paraspell = require('@paraspell/sdk/papi')
-
 // CommonJS PJS
 const paraspell = require('@paraspell/sdk')
 ```
