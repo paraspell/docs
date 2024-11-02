@@ -16,7 +16,7 @@ Only the `to` parameter is provided, thus the Relay chain to Parachain scenario 
 ### Builder pattern
 
 ```js
-  await Builder(api)        //Api parameter is optional
+  await Builder(api)        //Api parameter is optional and can also be ws_url_string
       .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
       .amount(amount)       // Token amount
       .address(address)     // AccountId32 or AccountKey20 address or custom Multilocation
@@ -29,7 +29,7 @@ Only the `to` parameter is provided, thus the Relay chain to Parachain scenario 
 ```js
 await paraspell.xcmPallet.transferRelayToPara(
   {
-    api?,                 //Api parameter (Optional)
+    api?,                 //Api parameter (Optional) + can also be ws_url_string
     destination,          // Destination Parachain or custom Multilocation
     amount,               // Token amount
     to                    // AccountId32 or AccountKey20 address or custom Multilocation
@@ -53,7 +53,7 @@ Only the `from` parameter is provided, thus the Parachain to Relay chain scenari
 ### Builder pattern
 
 ```js
-  await Builder(api)            //Api parameter is optional
+  await Builder(api)            //Api parameter is optional and can also be ws_url_string
       .from('Acala')            // Origin Parachain
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 address or custom Multilocation
@@ -66,7 +66,7 @@ Only the `from` parameter is provided, thus the Parachain to Relay chain scenari
 ```js
 await paraspell.xcmPallet.send(
   {
-    api?,                 //Api parameter (Optional)
+    api?,                 //Api parameter (Optional) + can also be ws_url_string
     origin,               // Origin Parachain
     amount,               // Token amount
     to                    // AccountId32 or AccountKey20 address or custom Multilocation
@@ -90,7 +90,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
 ### Builder pattern
 
 ```js
-  await Builder(api)            //Api parameter is optional
+  await Builder(api)            //Api parameter is optional and can also be ws_url_string
       .from('Karura')           // Origin Parachain
       .to('Basilisk')           // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
       .currency({symbol: 'KSM'}) //{id: currencyID} | {symbol: currencySymbol}, | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray}   
@@ -106,7 +106,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
 ```js
 await paraspell.xcmPallet.send(
   {
-    api?,                 //Api parameter (Optional)
+    api?,                 //Api parameter (Optional) + can also be ws_url_string
     origin,               // Origin Parachain
     currency,             // {id: currencyID} | {symbol: currencySymbol}, | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray}
     feeAsset?             // Fee asset select id,
@@ -133,7 +133,7 @@ This section sums up currently available and implemented ecosystem bridges that 
 Latest SDK versions support Polkadot <> Kusama bridge in very native and intuitive way. You just construct the Polkadot <> Kusama transfer as standard Parachain to Parachain scenario transfer.
 
 ```js
-  await Builder(api)            //Api parameter is optional
+  await Builder(api)            //Api parameter is optional and can also be ws_url_string
         .from('AssetHubPolkadot')  //Either AHP or AHK
         .to('AssetHubKusama')     //Either AHP or AHK
         .currency({symbol: 'DOT'})        // Either KSM or DOT 
@@ -172,7 +172,7 @@ await EvmBuilder(provider)      //Ethereum provider
 ## Batch calls
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
 ```js
-await Builder(/*node api - optional*/)
+await Builder(/*node api||ws_url_string - optional*/)
       .from(NODE) //Ensure, that origin node is the same in all batched XCM Calls.
       .to(NODE_2) //Any compatible Parachain
       .currency(currency) //Currency to transfer (If Para->Para), otherwise you do not need to specify .currency()
@@ -214,16 +214,19 @@ import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetai
 import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails } from "@paraspell/sdk/papi";
 
 //Get balance of foreign currency
-await getBalanceForeign(address, Parachain name, currency /*- {id: currencyID} | {symbol: currencySymbol}*/)
+await getBalanceForeign({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, api /* api/ws_url_string optional */})
 
 //Get balance of native currency
-await getBalanceNative(address, Parachain name)
+await getBalanceNative({address, node, api /* api/ws_url_string optional */})
 
 //Get fee information regarding XCM call
-await getOriginFeeDetails(from, to, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount, originAddress, api /* optional */, feeMargin /* 10% by default */)
+await getOriginFeeDetails({from, to, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount, originAddress, api /* api/ws_url_string optional */, feeMargin /* 10% by default */})
+
+//Retrieves the asset balance for a given account on a specified node.
+await getAssetBalance({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, api /* api/ws_url_string optional */});
 
 //Get all the information about XCM transfer
-await getTransferInfo(from, to, address, destinationAddress, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount)
+await getTransferInfo({from, to, address, destinationAddress, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount, api /* api/ws_url_string optional */})
 ```
 
 ## Developer experience
