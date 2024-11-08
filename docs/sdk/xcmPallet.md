@@ -93,7 +93,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
   await Builder(api)            //Api parameter is optional and can also be ws_url_string
       .from('Karura')           // Origin Parachain
       .to('Basilisk')           // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency({symbol: 'KSM'}) //{id: currencyID} | {symbol: currencySymbol}, | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray}   
+      .currency({symbol: 'KSM'}) //{id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray})
       /*.feeAsset(feeAsset) - Parameter required when using MultilocationArray*/
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
@@ -108,7 +108,7 @@ await paraspell.xcmPallet.send(
   {
     api?,                 //Api parameter (Optional) + can also be ws_url_string
     origin,               // Origin Parachain
-    currency,             // {id: currencyID} | {symbol: currencySymbol}, | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray}
+    currency,             // {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray})
     feeAsset?             // Fee asset select id,
     amount,               // Token amount
     to,                   // AccountId32 or AccountKey20 address or custom Multilocation

@@ -63,3 +63,9 @@ const paraspell = require('@paraspell/sdk/papi')
 // CommonJS PJS
 const paraspell = require('@paraspell/sdk')
 ```
+
+Interaction with further asset symbol abstraction:
+```js 
+import { Native, Foreign, ForeignAbstract } from '@paraspell/sdk'; //Only needed when advanced asset symbol selection is used. PJS version.
+import { Native, Foreign, ForeignAbstract } from '@paraspell/sdk/papi'; //Only needed when advanced asset symbol selection is used. PAPI version.
+```
