@@ -93,7 +93,7 @@ Both `from` and `to` parameters are provided, thus the Parachain to Parachain sc
   await Builder(api)            //Api parameter is optional and can also be ws_url_string
       .from('Karura')           // Origin Parachain
       .to('Basilisk')           // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency({symbol: 'KSM'}) //{id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray})
+      .currency({symbol: 'KSM'}) //{id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson} | {multilocation: Override('Custom Multilocation')} | {multiasset: multilocationJsonArray}
       /*.feeAsset(feeAsset) - Parameter required when using MultilocationArray*/
       .amount(amount)           // Token amount
       .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
@@ -108,7 +108,7 @@ await paraspell.xcmPallet.send(
   {
     api?,                 //Api parameter (Optional) + can also be ws_url_string
     origin,               // Origin Parachain
-    currency,             // {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: multilocationJson} | {multiasset: multilocationJsonArray})
+    currency,             // {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson} | {multilocation: Override('Custom Multilocation')} | {multiasset: multilocationJsonArray}
     feeAsset?             // Fee asset select id,
     amount,               // Token amount
     to,                   // AccountId32 or AccountKey20 address or custom Multilocation
@@ -214,19 +214,19 @@ import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetai
 import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails } from "@paraspell/sdk/papi";
 
 //Get balance of foreign currency
-await getBalanceForeign({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, api /* api/ws_url_string optional */})
+await getBalanceForeign({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, api /* api/ws_url_string optional */})
 
 //Get balance of native currency
 await getBalanceNative({address, node, api /* api/ws_url_string optional */})
 
 //Get fee information regarding XCM call
-await getOriginFeeDetails({from, to, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount, originAddress, destinationAddress, api /* api/ws_url_string optional */, feeMargin /* 10% by default */})
+await getOriginFeeDetails({from, to, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, amount, originAddress, destinationAddress, api /* api/ws_url_string optional */, feeMargin /* 10% by default */})
 
 //Retrieves the asset balance for a given account on a specified node.
-await getAssetBalance({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, api /* api/ws_url_string optional */});
+await getAssetBalance({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, api /* api/ws_url_string optional */});
 
 //Get all the information about XCM transfer
-await getTransferInfo({from, to, address, destinationAddress, currency /*- {id: currencyID} | {symbol: currencySymbol}*/, amount, api /* api/ws_url_string optional */})
+await getTransferInfo({from, to, address, destinationAddress, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, amount, api /* api/ws_url_string optional */})
 ```
 
 ## Developer experience
