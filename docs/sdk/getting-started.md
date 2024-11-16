@@ -20,15 +20,13 @@ For example on PNPM: `pnpm config set auto-install-peers false`
 ```
 
 ```bash
-#NOTE: apps-config will soon be removed entirely from the peer dependency list
-
 #Choose a package and install its dependencies below (SDK is built in a way, that only one library has to be installed)
 
 #Polkadot API peer dependencies
-pnpm | npm install || yarn add polkadot-api @polkadot/apps-config
+pnpm | npm install || yarn add polkadot-api
 
 #PolkadotJS peer dependencies
-pnpm | npm install || yarn add @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
+pnpm | npm install || yarn add @polkadot/api @polkadot/types @polkadot/api-base @polkadot/util
 ```
 
 ## Install XCM SDK package
