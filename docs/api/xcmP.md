@@ -662,6 +662,23 @@ The following endpoint returns a boolean value that confirms if the asset is reg
 const response = await fetch("http://localhost:3001/assets/HydraDX/has-support?symbol=DOT");
 ```
 
+### Query asset support between two chains
+The following endpoint retrieves assets supported by both chains.
+
+**Endpoint**: `GET /supported-assets?origin=:node&destination=:node`
+
+- **Parameters**:
+    - `node` (path parameter): Specifies the name of the Parachain.
+
+- **Errors**:
+    - `400` (Bad request): When a specified Parachain does not exist.
+    - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/supported-assets?origin=Acala&destination=Astar");
+```
+
 
 ### Query asset decimals
 The following endpoint retrieves specific asset decimals on specific Parachain.
@@ -681,6 +698,24 @@ The following endpoint retrieves specific asset decimals on specific Parachain.
 **Example of request:**
 ```js
 const response = await fetch("http://localhost:3001/assets/Basilisk/decimals?symbol=BSX");
+```
+
+### Query Parachain ws endpoints
+The following endpoint retrieves the Parachain's WS endpoints.
+
+**Endpoint**: `GET /ws-endpoints/:parachain`
+
+- **Parameters**:
+    - `parachain` (path parameter): Specifies the parachain ID.
+
+- **Errors**:
+    - `404` (Bad request): When a Parachain with a specified name does not exist.
+    - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/ws-endpoints/Acala");
 ```
 
 ### Query Parachain ID
@@ -721,7 +756,7 @@ const response = await fetch("http://localhost:3001/assets/2090");
 ### Query list of implemented Parachains
 The following endpoint retrieves an array of implemented Parachains.
 
-**Endpoint**: `GET /assets`
+**Endpoint**: `GET /nodes`
 
    - **Parameters**: None.
    - **Errors**: 
@@ -730,7 +765,7 @@ The following endpoint retrieves an array of implemented Parachains.
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/assets");
+const response = await fetch("http://localhost:3001/nodes");
 ```
 
 ## Query XCM pallets
