@@ -703,7 +703,7 @@ const response = await fetch("http://localhost:3001/assets/Basilisk/decimals?sym
 ### Query Parachain ws endpoints
 The following endpoint retrieves the Parachain's WS endpoints.
 
-**Endpoint**: `GET /ws-endpoints/:parachain`
+**Endpoint**: `GET /nodes/:node/ws-endpoints`
 
 - **Parameters**:
     - `parachain` (path parameter): Specifies the parachain ID.
@@ -715,7 +715,7 @@ The following endpoint retrieves the Parachain's WS endpoints.
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/ws-endpoints/Acala");
+const response = await fetch("http://localhost:3001/nodes/Acala/ws-endpoints");
 ```
 
 ### Query Parachain ID
@@ -738,7 +738,7 @@ const response = await fetch("http://localhost:3001/assets/Acala/para-id");
 ### Query Parachain name
 The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
-**Endpoint**: `GET /assets/:paraId`
+**Endpoint**: `GET /nodes/:paraId?ecosystem=eco`
 
 - **Parameters**:
     - `paraId` (path parameter): Specifies the parachain ID.
@@ -750,7 +750,7 @@ The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/assets/2090");
+const response = await fetch("http://localhost:3001/nodes/2090?ecosystem=polkadot");
 ```
 
 ### Query list of implemented Parachains
