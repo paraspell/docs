@@ -12,7 +12,7 @@ const wsProvider = new WsProvider('YourChainWSPort'); //Specify "YourChainWSPort
 const api = await ApiPromise.create({ provider: wsProvider });
 
 const response = await fetch(
-    "http://localhost:3001/x-transfer-hash”,
+    "http://localhost:3001/x-transfer”,
 {
 	method: ‘POST’,
            	body: JSON.stringify({
@@ -36,7 +36,7 @@ call.signAndSend(address, { signer: injector.signer }, ({ status, txHash }) => {
 ### Relay chain to Parachain (DMP)
 The following endpoint constructs the Relay chain to the Parachain XCM message. This message is constructed by providing the `to` parameter.
 
-**Endpoint**: `POST /x-transfer-hash`
+**Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
      - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
@@ -54,7 +54,7 @@ The following endpoint constructs the Relay chain to the Parachain XCM message. 
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer-hash", {
+const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 ### Parachain chain to Relay chain (UMP)
 The following endpoint constructs Parachain to Relay chain XCM message. This message is constructed by providing the `from` parameter.
 
-**Endpoint**: `POST /x-transfer-hash`
+**Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -94,7 +94,7 @@ The following endpoint constructs Parachain to Relay chain XCM message. This mes
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer-hash", {
+const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 ### Parachain to Parachain (HRMP)
 The following endpoint allows got creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
 
-**Endpoint**: `POST /x-transfer-hash`
+**Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -141,7 +141,7 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer-hash", {
+const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -173,7 +173,7 @@ You can now customize multilocations for Address, Currency and Destination withi
 **Example of request:**
 
 ```js
-const response = await fetch("http://localhost:3001/x-transfer-hash", {
+const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -211,7 +211,7 @@ Latest API versions support Polkadot <> Kusama bridge in very native and intuiti
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer-hash", {
+const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -307,7 +307,7 @@ const apiResponse = response.data;
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/x-transfer-hash", {
+const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -371,7 +371,7 @@ const response = await fetch("http://localhost:3001/x-transfer-batch", {
 ## Asset claim
 Assets, that have been trapped in the cross-chain transfers can now be recovered through asset claim feature.
 
-**Endpoint**: `POST /asset-claim-hash`
+**Endpoint**: `POST /asset-claim`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain on which the asset will be claimed.
@@ -386,7 +386,7 @@ Assets, that have been trapped in the cross-chain transfers can now be recovered
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/asset-claim-hash", {
+const response = await fetch("http://localhost:3001/asset-claim", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
