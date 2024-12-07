@@ -512,6 +512,7 @@ The following endpoint allows you to query foreign asset balance for on specific
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
      - `address` (Inside JSON body): (required): Specifies the address of the account.
+     - `currency` (Inside JSON body): (required): Specifies the currency to query.
 
    - **Errors**:
      - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
@@ -525,11 +526,134 @@ const response = await fetch("http://localhost:3001/balance/:node/foreign", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        address: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson} | {multilocation: "type": "Override","value": "CustomAssetMultilocationJson"}
+        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
     })
 });
 ```
+
+### Query max foreign currency transferable amount
+The following endpoint allows you to query the maximum native currency transferable amount for a specific chain.
+
+**Endpoint**: `POST /balance/:node/max-foreign-transferable-amount
+`
+
+   - **Parameters**:
+     - `node` (Path parameter): Specifies the name of the Parachain.
+     - `address` (Inside JSON body): (required): Specifies the address of the account.
+     - `currency` (Inside JSON body): (required): Specifies the currency to query.
+
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/balance/:node/max-foreign-transferable-amount", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
+    })
+});
+```
+
+### Query max native currency transferable amount
+The following endpoint allows you to query the maximum native currency transferable amount for a specific chain.
+
+**Endpoint**: `POST /balance/:node/max-native-transferable-amount
+`
+
+   - **Parameters**:
+     - `node` (Path parameter): Specifies the name of the Parachain.
+     - `address` (Inside JSON body): (required): Specifies the address of the account.
+     - `currency` (Inside JSON body): (optional): Specifies the currency to query (Has to be currency symbol as native assets do not have IDs).
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided and has to be provided (Otherwise optional)
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/balance/:node/max-native-transferable-amount", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+        currency?: "Currency" //Replace "Currency" with {symbol: currencySymbol}
+    })
+});
+```
+
+### Query max transferable amount
+The following endpoint allows you to query the maximum currency transferable amount for a specific chain.
+
+**Endpoint**: `POST /balance/:node/transferable-amount`
+
+   - **Parameters**:
+     - `node` (Path parameter): Specifies the name of the Parachain.
+     - `address` (Inside JSON body): (required): Specifies the address of the account.
+     - `currency` (Inside JSON body): (required): Specifies the currency to query.
+
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/balance/:node/transferable-amount", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
+    })
+});
+```
+
+### Query asset existential deposit
+The following endpoint allows you to query the existential deposit for currency in a specific chain.
+
+**Endpoint**: `POST /balance/:node/existential-deposit`
+
+   - **Parameters**:
+     - `node` (Path parameter): Specifies the name of the Parachain.
+     - `currency` (Inside JSON body): (required): Specifies the currency to query.
+
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/balance/:node/existential-deposit", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
+    })
+});
+```
+
 
 ### Query assets object
 The following endpoint retrieves all assets on a specific Parachain as an object.
