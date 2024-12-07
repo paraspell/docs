@@ -203,7 +203,7 @@ import { getExistentialDeposit } from "@paraspell/sdk/papi";
 
 //Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
 //Currency can be either {symbol: assetSymbol}, {id: assetId}, {multilocation: assetMultilocation}.
-const ed = getExistentialDeposit(node, currency?')
+const ed = getExistentialDeposit(node, currency?)
 ```
 
 ## XCM Transfer info
