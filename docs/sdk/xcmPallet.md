@@ -11,120 +11,59 @@
 
 
 ## Relay chain to Parachain
-Only the `to` parameter is provided, thus the Relay chain to Parachain scenario will be used.
-
-### Builder pattern
 
 ```js
-  await Builder(api)        //Api parameter is optional and can also be ws_url_string
-      .to('Basilisk')       // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .amount(amount)       // Token amount
-      .address(address)     // AccountId32 or AccountKey20 address or custom Multilocation
+await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
+      .from(RELAY_NODE) //Kusama or Polkadot
+      .to(NODE/*,customParaId - optional*/ | Multilocation object)  // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
+      .currency({symbol: 'DOT', amount: amount})
+      .address(address | Multilocation object) // AccountId32 or AccountKey20 address or custom Multilocation
       /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call*/
-      .build()              // Function called to build call
-```
-
-### Function pattern 
-
-```js
-await paraspell.xcmPallet.transferRelayToPara(
-  {
-    api?,                 //Api parameter (Optional) + can also be ws_url_string
-    destination,          // Destination Parachain or custom Multilocation
-    amount,               // Token amount
-    to                    // AccountId32 or AccountKey20 address or custom Multilocation
-    paraIdTo?,            //Custom destination parachain ID (Optional)
-    destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
-  }
-)
+      .build()  // Function called to build call
 ```
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
-
-To find out more about custom multilocations reffer to the [following PR](https://github.com/paraspell/xcm-tools/pull/199).
-
 
 ## Parachain to Relay chain
-Only the `from` parameter is provided, thus the Parachain to Relay chain scenario will be used.
-
-### Builder pattern
 
 ```js
-  await Builder(api)            //Api parameter is optional and can also be ws_url_string
-      .from('Acala')            // Origin Parachain
-      .amount(amount)           // Token amount
-      .address(address)         // AccountId32 address or custom Multilocation
+await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
+      .from(NODE) // Origin Parachain
+      .to(RELAY_NODE) //Kusama or Polkadot
+      .currency({symbol: 'DOT', amount: amount}) 
+      .address(address | Multilocation object) // AccountId32 address or custom Multilocation
       /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call*/
-      .build()                  // Function called to build call
+      .build()  // Function called to build call
 ```
 
-### Function pattern
-
-```js
-await paraspell.xcmPallet.send(
-  {
-    api?,                 //Api parameter (Optional) + can also be ws_url_string
-    origin,               // Origin Parachain
-    amount,               // Token amount
-    to                    // AccountId32 or AccountKey20 address or custom Multilocation
-    paraIdTo?,            //Custom destination parachain ID (Optional)
-    destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
-  }
-)
-```
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
-To find out more about custom multilocations reffer to the [following PR](https://github.com/paraspell/xcm-tools/pull/199).
-
 ## Parachain to Parachain
-Both `from` and `to` parameters are provided, thus the Parachain to Parachain scenario will be used.
 
 **NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `.currency(42259045809535163221576417993425387648n)` will mean you transfer xcDOT.
 
 ### Builder pattern
 
 ```js
-  await Builder(api)            //Api parameter is optional and can also be ws_url_string
-      .from('Karura')           // Origin Parachain
-      .to('Basilisk')           // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency({symbol: 'KSM'}) //{id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson} | {multilocation: Override('Custom Multilocation')} | {multiasset: multilocationJsonArray}
-      /*.feeAsset(feeAsset) - Parameter required when using MultilocationArray*/
-      .amount(amount)           // Token amount
-      .address(address)         // AccountId32 or AccountKey20 address or custom Multilocation
+await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
+      .from(NODE) // Origin Parachain
+      .to(NODE /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
+      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+      .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/)  // AccountId32 or AccountKey20 address or custom Multilocation
       /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call*/
-      .build()                  // Function called to build call
-```
-
-### Function pattern
-
-```js
-await paraspell.xcmPallet.send(
-  {
-    api?,                 //Api parameter (Optional) + can also be ws_url_string
-    origin,               // Origin Parachain
-    currency,             // {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson} | {multilocation: Override('Custom Multilocation')} | {multiasset: multilocationJsonArray}
-    feeAsset?             // Fee asset select id,
-    amount,               // Token amount
-    to,                   // AccountId32 or AccountKey20 address or custom Multilocation
-    destination,          // Destination Parachain or custom Multilocation
-    paraIdTo?,            //Custom destination parachain ID (Optional)
-    destApiForKeepAlive?  //Api parameter for keep alive check (Optional)
-  }
-)
+      .build() // Function called to build call
 ```
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
-
-To find out more about custom multilocations reffer to the [following PR](https://github.com/paraspell/xcm-tools/pull/199).
 
 ## Ecosystem Bridges
 This section sums up currently available and implemented ecosystem bridges that are offered in the XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
@@ -136,8 +75,7 @@ Latest SDK versions support Polkadot <> Kusama bridge in very native and intuiti
   await Builder(api)            //Api parameter is optional and can also be ws_url_string
         .from('AssetHubPolkadot')  //Either AHP or AHK
         .to('AssetHubKusama')     //Either AHP or AHK
-        .currency({symbol: 'DOT'})        // Either KSM or DOT 
-        .amount(amount)
+        .currency({symbol: 'DOT', amount: amount})        // Either KSM or DOT 
         .address(address)
         .build()
 ```
@@ -150,8 +88,7 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 await Builder(api)
           .from('AssetHubPolkadot')
           .to('Ethereum')           
-          .currency({symbol: 'WETH'})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .amount(amount)
+          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .address(eth_address)  //AccountKey20 recipient address
           .build()
 ```
@@ -172,18 +109,16 @@ await EvmBuilder(provider)      //Ethereum provider
 ## Batch calls
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
 ```js
-await Builder(/*node api||ws_url_string - optional*/)
+await Builder(/*node api/ws_url_string - optional*/)
       .from(NODE) //Ensure, that origin node is the same in all batched XCM Calls.
       .to(NODE_2) //Any compatible Parachain
-      .currency(currency) //Currency to transfer (If Para->Para), otherwise you do not need to specify .currency()
-      .amount(amount) 
+      .currency({currencySelection, amount}) //Currency to transfer - options as in scenarios above
       .address(address | Multilocation object)
       .addToBatch()
 
       .from(NODE) //Ensure, that origin node is the same in all batched XCM Calls.
       .to(NODE_3) //Any compatible Parachain
-      .currency(currency) //Currency to transfer (If Para->Para), otherwise you do not need to specify .currency()
-      .amount(amount)
+      .currency({currencySelection, amount}) //Currency to transfer - options as in scenarios above
       .address(address | Multilocation object)
       .addToBatch()
       .buildBatch({ 
