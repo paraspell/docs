@@ -1,10 +1,10 @@
 # Use XCM SDK🪄 within XCM API
-Following guide guides you through XCM SDK functionality implemented in XCM API.
+The following guide guides you through the XCM SDK functionality implemented in XCM API.
 ## Send XCM
-This functionality allows you to send XCM messages across Paraverse.
+This functionality allows you to send XCM messages across the Paraverse.
 
 ### Package-less implementation of XCM API XCM features into your application
-```NOTE:``` We recently introduced new much simpler way to implement XCM API! You can now request hashed response of built call which offlifts you from parsing and works right away!
+```NOTE:``` We recently introduced a new, much simpler way to implement XCM API! You can now request a hashed response to the built call, which will offlift you from parsing and work right away!
 
 ```JS
 //Chain WS API instance that will send generated XCM Call
@@ -19,8 +19,7 @@ const response = await fetch(
                   "from": "origin",
                   "to": "destination",
                   "address": "address",
-                  "currency": {currencySpec},
-                  "amount": "amount"
+                  "currency": {currencySpec, amount: amount},
              })
 });
 
@@ -34,13 +33,14 @@ call.signAndSend(address, { signer: injector.signer }, ({ status, txHash }) => {
 ```
 
 ### Relay chain to Parachain (DMP)
-The following endpoint constructs the Relay chain to the Parachain XCM message. This message is constructed by providing the `to` parameter.
+The following endpoint constructs the Relay chain to the Parachain XCM message.
 
 **Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Relay chain from which the assets will be transferred.
      - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
-     - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
+     - `currency` (Inside JSON body): (required): Specifies the currency and amount of assets to transfer.
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
      - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
@@ -60,9 +60,10 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+	from: "Polkadot" // Or Kusama
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+	currency: { symbol: 'DOT', amount: amount},
+        address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
 });
@@ -74,13 +75,14 @@ Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
 ### Parachain chain to Relay chain (UMP)
-The following endpoint constructs Parachain to Relay chain XCM message. This message is constructed by providing the `from` parameter.
+The following endpoint constructs Parachain to Relay chain XCM message.
 
 **Endpoint**: `POST /x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
-     - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
+     - `to` (Inside JSON body): (required): Represents the Relay chain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Specifies the currency and amount of assets to transfer.
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
      - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
@@ -100,9 +102,10 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
-        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+	from: "Parachain" // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        to: "Polkadot",   // Or Kusama
+	currency: { symbol: 'DOT', amount: amount},
+        address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
 });
@@ -122,7 +125,6 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
      - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
      - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-     - `amount` (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
      - `address` (Inside JSON body): (required): Specifies the address of the recipient.
      - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
@@ -149,8 +151,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: {currencySpec}, // {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson} | {multilocation: "type": "Override","value": "CustomAssetMultilocationJson"} | {multiasset: multilocationJsonArray}
-        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
@@ -190,9 +191,9 @@ const response = await fetch("http://localhost:3001/x-transfer", {
             interior: {
               X2: [{ PalletInstance: '50' }, { GeneralIndex: '41' }],
             },
-          }
+          },
+	amount: amount
         },
-        amount: "Amount" // Replace "Amount" with the numeric value you wish to transfer
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
     })
 });
@@ -219,15 +220,14 @@ const response = await fetch("http://localhost:3001/x-transfer", {
     body: JSON.stringify({
         from: "AssetHubPolkadot", // Or AssetHubKusama
         to: "AssetHubKusama",   // Or AssetHubPolkadot
-        currency: {symbol: "KSM"}, // Or DOT
-        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        currency: {symbol: "KSM", amount: amount}, // Or DOT
         address: "Address" // AccountID 32 address
     })
 });
 ```
 
 ### Snowbridge Ethereum -> AssetHubPolkadot
-Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitive and native form as possible. The implementations for Polkadot -> Ethereum and Ethereum -> Polkadot differ due to different architecure so we will mention both scenarios.
+Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitive and native form as possible. The implementations for Polkadot -> Ethereum and Ethereum -> Polkadot differ due to different architecture, so we will mention both scenarios.
 
    - **Parameters**:
         - Same as in Parachain -> Parachain scenario
@@ -244,10 +244,9 @@ const response = await axios(`https://api.lightspell.xyz/x-transfer-eth`, {
       method: "POST",
       data: {
         to: 'AssetHubPolkadot',
-        amount: '1000000000',
         destAddress: address,
         address: await signer.getAddress(),
-        currency: {currencySpec}, // {symbol: currencySymbol} | {id: currencyID}
+        currency: {currencySpec}, // {symbol: currencySymbol, amount: amount} | {id: currencyID, amount: amount}
       }
     });
 
@@ -315,8 +314,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
     body: JSON.stringify({
         from: "AssetHubPolkadot", 
         to: "Ethereum",   
-        currency: {symbol: "WETH"}, // Any supported asset - WBTC, WETH.. - {symbol: currencySymbol} | {id: currencyID}
-        amount: "Amount", // Replace "Amount" with the numeric value you wish to transfer
+        currency: {symbol: "WETH", amount: amount}, // Any supported asset - WBTC, WETH.. - {symbol: currencySymbol} | {id: currencyID}
         address: "Address" // Ethereum Address
     })
 });
@@ -353,13 +351,15 @@ const response = await fetch("http://localhost:3001/x-transfer-batch", {
 /*{
 	"transfers": [
 		{
+			"from": "Kusama"
 			"to": "Moonriver",
-			"amount": "10000",
+			"currency": { symbol: "DOT", amount: amount},
 			"address": "0x939229F9c6E2b97589c4a5A0B3Eb8664FFc00502"
 		},
 		{
+			"from": "Kusama"
 			"to": "Basilisk",
-			"amount": "10000",
+			"currency": { symbol: "DOT", amount: amount},
 			"address": "bXgnPigqWnUTb9PxgCvnt61bsQoRQFnzLYYyRPV1bvB6DLu87"
 		}
 	],
@@ -369,7 +369,7 @@ const response = await fetch("http://localhost:3001/x-transfer-batch", {
 }*/
 ```
 ## Asset claim
-Assets, that have been trapped in the cross-chain transfers can now be recovered through asset claim feature.
+Assets that have been trapped in the cross-chain transfers can now be recovered through the asset claim feature.
 
 **Endpoint**: `POST /asset-claim`
 
@@ -422,7 +422,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
 
 ## Transfer info query
-Following functionality gives you all necessary information about your transfer including fee, sufficiency to transfer and more.
+The following functionality gives you all the necessary information about your transfer, including fees, sufficiency to transfer and more.
 
 **Endpoint**: `GET /transfer-info`
 
