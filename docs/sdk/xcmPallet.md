@@ -100,8 +100,7 @@ const signer = await provider.getSigner();
 
 await EvmBuilder(provider)      //Ethereum provider
   .to('AssetHubPolkadot')
-  .amount(amount)
-  .currency({symbol: 'WETH'})    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+  .currency({symbol: 'WETH', amount: amount})    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
   .address(address)   //AccountID32 recipient address
   .signer(signer)     //Ethereum signer address
   .build();
