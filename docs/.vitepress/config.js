@@ -11,17 +11,16 @@ export default {
     themeConfig: {
         logo: '/paraspell.png',
 
+        nav: [
+          { text: 'HOME', link: '/' },
+        ],
+
         socialLinks: [
             { icon: 'github', link: 'https://github.com/paraspell' },
             { icon: 'twitter', link: 'https://twitter.com/paraspell' },
         ],
 
         sidebar: [
-          {
-            items: [
-                { text: '<div style="display: flex; align-items: center;"><span>Welcome to</span><img width="90" alt="ParaSpell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png" style="margin: 0 5px;"></div>', link: '/' },
-            ]
-          },
           {
             text: '<div style="display: flex; align-items: center;"><img width="90" alt="ParaSpell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png"><span>XCM SDK</span></div>',
             items: [
