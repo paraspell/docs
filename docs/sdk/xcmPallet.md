@@ -105,6 +105,24 @@ await EvmBuilder(provider)      //Ethereum provider
   .signer(signer)     //Ethereum signer address
   .build();
 ```
+
+## Dry run your XCM Calls
+
+Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` instead of `.build()`
+
+```js
+//Builder pattern
+const result = await Builder(API /*optional*/)
+        .from(NODE)
+        .to(NODE_2)
+        .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+        .address(ADDRESS)
+        .dryRun()
+
+//Function pattern
+getDryRun({Api, /*optional*/ node, node, address, tx /* Extrinsic object*/})
+```
+
 ## Batch calls
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
 ```js

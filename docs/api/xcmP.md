@@ -368,6 +368,44 @@ const response = await fetch("http://localhost:3001/x-transfer-batch", {
 	}
 }*/
 ```
+
+## Dry run
+You can find out whether you XCM message will execute successfuly or with error. XCM Message dry run should write you concrete error so you can find out if the XCM message will execute without it ever being submitted.
+
+**Endpoint**: `POST /dry-run`
+
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+
+**Example of request:**
+```js
+const response = await fetch('http://localhost:3001/dry-run', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
+    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
+    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+  }),
+```
+
 ## Asset claim
 Assets that have been trapped in the cross-chain transfers can now be recovered through the asset claim feature.
 
