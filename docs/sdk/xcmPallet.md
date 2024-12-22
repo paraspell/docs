@@ -144,6 +144,19 @@ await Builder(/*node api/ws_url_string - optional*/)
       })
 ```
 
+## Moonbeam / Moonriver xTokens smart-contract
+If you need to sign Moonbeam / Moonriver transactions with other than Polkadot wallets (eg. Metamask), you can interact with their smart contract to perform operations with other wallets. Both Ethers and Viem are supported.
+
+```ts
+const hash = EvmBuilder()
+      .from('Moonbeam') // Moonbeam or Moonriver
+      .to(node) //Parachains or Relay chains
+      .currency(({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount}) //Select currency by ID or Symbol
+      .address(address)
+      .signer(signer) // Ethers Signer or Viem Wallet Client
+      .build()
+```
+
 ## Query existential deposit
 Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
 
