@@ -144,7 +144,7 @@ await Builder(/*node api/ws_url_string - optional*/)
       })
 ```
 
-## Moonbeam / Moonriver xTokens smart-contract
+## Moonbeam xTokens smart-contract
 If you need to sign Moonbeam / Moonriver transactions with other than Polkadot wallets (eg. Metamask), you can interact with their smart contract to perform operations with other wallets. Both Ethers and Viem are supported.
 
 ```ts
