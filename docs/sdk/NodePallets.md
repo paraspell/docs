@@ -11,10 +11,10 @@ This functionality allows developers to query the `XCM pallets` that Parachains 
 
 To use this functionality you first have to import it in the following way.
 ```js
-//PJS
-import { getDefaultPallet, getSupportedPallets, SUPPORTED_PALLETS } from  '@paraspell/sdk'
 //PAPI
-import { getDefaultPallet, getSupportedPallets, SUPPORTED_PALLETS } from  '@paraspell/sdk/papi'
+import { getDefaultPallet, getSupportedPallets, SUPPORTED_PALLETS } from  '@paraspell/sdk'
+//PJS
+import { getDefaultPallet, getSupportedPallets, SUPPORTED_PALLETS } from  '@paraspell/sdk-pjs'
 ```
 
 ## Get default XCM pallet

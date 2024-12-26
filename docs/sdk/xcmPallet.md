@@ -161,10 +161,10 @@ const hash = EvmBuilder()
 Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
 
 ```ts
-//PJS
-import { getExistentialDeposit } from "@paraspell/sdk";
 //PAPI
-import { getExistentialDeposit } from "@paraspell/sdk/papi";
+import { getExistentialDeposit } from "@paraspell/sdk";
+//PJS
+import { getExistentialDeposit } from "@paraspell/sdk-pjs";
 
 //Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
 //Currency can be either {symbol: assetSymbol}, {id: assetId}, {multilocation: assetMultilocation}.
@@ -175,10 +175,10 @@ const ed = getExistentialDeposit(node, currency?)
 You can now query all important information about your XCM call including information about fees (If your balance is sufficient to transfer XCM message) and more.
 
 ```ts
-//PJS
-import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails, getMaxNativeTransferableAmount, getMaxForeignTransferableAmount, getTransferableAmount } from "@paraspell/sdk";
 //PAPI
-import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails, getMaxNativeTransferableAmount, getMaxForeignTransferableAmount, getTransferableAmount } from "@paraspell/sdk/papi";
+import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails, getMaxNativeTransferableAmount, getMaxForeignTransferableAmount, getTransferableAmount } from "@paraspell/sdk";
+//PJS
+import { getTransferInfo, getBalanceForeign, getBalanceNative, getOriginFeeDetails, getMaxNativeTransferableAmount, getMaxForeignTransferableAmount, getTransferableAmount } from "@paraspell/sdk-pjs";
 
 //Get balance of foreign currency
 await getBalanceForeign({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, api /* api/ws_url_string optional */})
