@@ -17,7 +17,7 @@ Set of XCM tools for Polkadot and Kusama Paraverse
 ## 🧰 Our Development Focus
 <ul style="list-style-type: none; padding: 0;">
   <li>
-    <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk">XCM SDK</a> 🪄: A tool designed to unify the cross-chain experience on Polkadot and serve as a layer 2 protocol that enables seamless integration of XCM into your decentralized applications.
+    <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk">XCM SDK</a> 🪄:  A tool designed to unify the cross-chain experience on Polkadot and serve as a layer 2 protocol that enables seamless integration of XCM into your decentralized applications. Having <strong>two</strong> versions: <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk">PolkadotAPI Version</a> & <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk-pjs">PolkadotJS Version</a> as the <code>first</code> and <code>only</code> XCM SDK in the ecosystem.
   </li>
   <li>
     <a href="https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api">XCM API</a> ⚡️ (<img width="50" alt="Lightspell logo" src="https://user-images.githubusercontent.com/55763425/251588168-4855abc3-445a-4207-9a65-e891975be62c.png" style="display: inline; vertical-align: middle; ">): An API that provides the ability to integrate XCM interoperability into your decentralized application in a package-less way, offloading heavy computing tasks from your decentralized application and reducing associated costs.
