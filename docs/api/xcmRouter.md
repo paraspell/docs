@@ -37,7 +37,7 @@ const submitTransaction = async (
   });
 };
 
-const response = await fetch("http://localhost:3001/router-hash", {
+const response = await fetch("http://localhost:3001/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/router-hash", {
+const response = await fetch("http://localhost:3001/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -180,7 +180,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 **Example of request:**
 ```js
-const response = await fetch("http://localhost:3001/router-hash", {
+const response = await fetch("http://localhost:3001/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -267,7 +267,7 @@ const submitEthTransaction = async (apiResponse, assetHubAddress) => {
   });
 };
 
-const response = await fetch("http://localhost:3001/router-hash", {
+const response = await fetch("http://localhost:3001/router", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
