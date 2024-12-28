@@ -49,7 +49,7 @@ const response = await fetch("http://localhost:3001/router", {
         currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
-        address: "Address", // Recipient address
+        recipientAddress: "Address", // Recipient address
         injectorAddress: 'InjectorAddress', // Address of sender
         evmInjectorAddress: 'EvmInjectorAddress', // EVM address of sender
     })
@@ -97,7 +97,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
      - `currencyTo`: (required): Represents the asset being received. 
      - `amount`: (required): Specifies the amount of assets to transfer.
      - `slippagePct`: (required): Specifies the slipeage percentage. 
-     - `address`: (required): Specifies the address of the recipient.
+     - `recipientAddress`: (required): Specifies the address of the recipient.
      - `injectorAddress`: (required): Specifies the address of the sender.
      - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
 
@@ -113,8 +113,8 @@ If you wish to have exchange chain selection based on best price outcome, you ca
      - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
      - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
      - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'address' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
      - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
      - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
@@ -133,7 +133,7 @@ const response = await fetch("http://localhost:3001/router", {
         currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
-        address: "Address", //Recipient address
+        recipientAddress: "Address", //Recipient address
         injectorAddress: 'InjectorAddress', //Address of sender
     })
 });
@@ -154,7 +154,7 @@ If you wish to select your exchange chain manually you can do that by providing 
      - `currencyTo`: (required): Represents the asset being received. 
      - `amount`: (required): Specifies the amount of assets to transfer.
      - `slippagePct`: (required): Specifies the slippage percentage. 
-     - `address`: (required): Specifies the address of the recipient.
+     - `recipientAddress`: (required): Specifies the address of the recipient.
      - `injectorAddress`: (required): Specifies the address of the sender.
      - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
 
@@ -171,8 +171,8 @@ If you wish to select your exchange chain manually you can do that by providing 
      - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
      - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
      - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'address' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
      - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
      - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
@@ -193,7 +193,7 @@ const response = await fetch("http://localhost:3001/router", {
         currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
-        address: "Address", //Recipient address
+        recipientAddress: "Address", //Recipient address
         injectorAddress: 'InjectorAddress', //Address of sender
     })
 });
@@ -280,7 +280,7 @@ const response = await fetch("http://localhost:3001/router", {
     currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
     amount: "Amount", // Amount to send
     slippagePct: "Pct", // Max slippage percentage
-    address: "Address", // Recipient address
+    recipientAddress: "Address", // Recipient address
     injectorAddress: "InjectorAddress", // Address of sender
     evmInjectorAddress: "", // Evm address of sender if needed
     ethAddress: "", // Needed only if transferring FROM Ethereum
