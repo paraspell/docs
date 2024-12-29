@@ -65,6 +65,8 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 	currency: { symbol: 'DOT', amount: amount},
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
+        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
+	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -107,6 +109,8 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 	currency: { symbol: 'DOT', amount: amount},
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
+        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
+	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -154,6 +158,8 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
+        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
+	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -195,6 +201,8 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 	amount: amount
         },
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
+        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
+	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
