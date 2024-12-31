@@ -44,31 +44,6 @@ await RouterBuilder
         .buildAndSend()
 ```
 
-### Function pattern
-
-```js
-await transfer({
-        from: 'Polkadot', //Origin Parachain/Relay chain
-        to: 'Interlay', //Destination Parachain/Relay chain
-        currencyFrom: {symbol: 'DOT'}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
-        currencyTo: {symbol: 'INTR'}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
-        amount: '100000', // Amount to send
-        slippagePct: '1', // Max slipppage percentage
-        injectorAddress: selectedAccount.address, //Injector address
-        address: recipientAddress, //Recipient address
-        signer: injector.signer,  //Signer
-        //evmInjectorAddress: evmInjector address,   //Optional parameters when origin node is EVM based (Required with evmSigner)
-        //evmSigner: EVM signer,                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
-
-        onStatusChange: (status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
-          console.log(status.hashes);   //Transaction hashes
-          console.log(status.status);   //Transaction statuses
-          console.log(status.type);     //Transaction types
-        },
-      });
-
-```
-
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
@@ -100,32 +75,6 @@ await RouterBuilder
           console.log(status.type);    //Transaction types
         })
         .buildAndSend()
-```
-
-### Function pattern
-
-```js
-await transfer({
-        from: 'Polkadot', //Origin Parachain/Relay chain
-        exchange: 'AcalaDex', //Exchange Parachain
-        to: 'Interlay', //Destination Parachain/Relay chain
-        currencyFrom: {symbol: 'DOT'}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
-        currencyTo: {symbol: 'INTR'}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
-        amount: '100000', // Amount to send
-        slippagePct: '1', // Max slipppage percentage
-        injectorAddress: selectedAccount.address, //Injector address
-        address: recipientAddress, //Recipient address
-        signer: injector.signer,  //Signer
-        //evmInjectorAddress: evmInjector address,   //Optional parameters when origin node is EVM based (Required with evmSigner)
-        //evmSigner: EVM signer,                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
-
-        onStatusChange: (status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
-          console.log(status.hashes);   //Transaction hashes
-          console.log(status.status);   //Transaction statuses
-          console.log(status.type);     //Transaction types
-        },
-      });
-
 ```
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
