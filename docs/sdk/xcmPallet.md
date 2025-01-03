@@ -153,7 +153,7 @@ If you need to sign Moonbeam / Moonriver transactions with other than Polkadot w
 ```ts
 const hash = EvmBuilder()
       .from('Moonbeam') // Moonbeam or Moonriver
-      .to(node) //Parachain
+      .to(node) //Parachain | Relay chain
       .currency(({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount}) //Select currency by ID or Symbol
       .address(address)
       .signer(signer) // Ethers Signer or Viem Wallet Client
