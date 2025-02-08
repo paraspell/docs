@@ -109,6 +109,13 @@ await EvmBuilder(provider)      //Ethereum provider
   .build();
 ```
 
+**Helper functions:**
+```
+depositToken = async (signer: Signer, amount: bigint, symbol: string) //Deposit token to contract
+getTokenBalance = async (signer: Signer, symbol: string) //Get token balance
+approveToken = async (signer: Signer, amount: bigint, symbol: string) //Approve token
+```
+
 ## Dry run your XCM Calls
 
 Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` instead of `.build()`
