@@ -50,8 +50,8 @@ const response = await fetch("http://localhost:3001/router", {
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", // Recipient address
-        injectorAddress: 'InjectorAddress', // Address of sender
-        evmInjectorAddress: 'EvmInjectorAddress', // EVM address of sender
+        senderAddress: 'InjectorAddress', // Address of sender
+        evmSenderAddress: 'EvmInjectorAddress', // EVM address of sender
     })
 });
 
@@ -127,14 +127,14 @@ const response = await fetch("http://localhost:3001/router", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        from: "Chain", //Origin Parachain/Relay chain
-        to: "Chain", //Destination Parachain/Relay chain
-        currencyFrom: {currencySpec}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
-        currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
+        from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        currencyFrom: {currencySpec}, // Currency to send - {symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
+        currencyTo: {currencySpec}, // Currency to receive - {symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", //Recipient address
-        injectorAddress: 'InjectorAddress', //Address of sender
+        senderAddress: 'InjectorAddress', //Address of sender
     })
 });
 ```
@@ -186,137 +186,15 @@ const response = await fetch("http://localhost:3001/router", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        from: "Chain", //Origin Parachain/Relay chain
+        from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
-        to: "Chain", //Destination Parachain/Relay chain
-        currencyFrom: {currencySpec}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
-        currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
+        to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        currencyFrom: {currencySpec}, // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
+        currencyTo: {currencySpec}, // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", //Recipient address
-        injectorAddress: 'InjectorAddress', //Address of sender
+        senderAddress: 'InjectorAddress', //Address of sender
     })
 });
-```
-
-## Snowbridge implementation
-Following section provides XCM API Snowbridge implementation snippet:
-```js
-
-// Request Ethereum wallets and create signer
-if (!window.ethereum) {
-  alert("Please install MetaMask!");
-  return;
-}
-
-const provider = new ethers.BrowserProvider(window.ethereum);
-await provider.send("eth_requestAccounts", []);
-
-const signer = await provider.getSigner();
-const account = await signer.getAddress();
-
-const submitTransaction = () => {
-  // Implementation same as before
-};
-
-const submitEthTransaction = async (apiResponse, assetHubAddress) => {
-  const tx = apiResponse.tx;
-  const GATEWAY_CONTRACT = "0xEDa338E4dC46038493b885327842fD3E301CaB39";
-
-  const contract = IGateway__factory.connect(GATEWAY_CONTRACT, signer);
-  const abi = ethers.AbiCoder.defaultAbiCoder();
-
-  const address = {
-    data: abi.encode(
-      ["bytes32"],
-      [u8aToHex(decodeAddress(assetHubAddress))]
-    ),
-    kind: 1,
-  };
-
-  const response = await contract.sendToken(
-    tx.token,
-    tx.destinationParaId,
-    address,
-    tx.destinationFee,
-    tx.amount,
-    {
-      value: tx.fee,
-    }
-  );
-
-  const receipt = await response.wait(1);
-
-  if (receipt === null) {
-    throw new Error("Error waiting for transaction completion");
-  }
-
-  if (receipt?.status !== 1) {
-    throw new Error("Transaction failed");
-  }
-
-  const events = [];
-  receipt.logs.forEach((log) => {
-    const event = contract.interface.parseLog({
-      topics: [...log.topics],
-      data: log.data,
-    });
-    if (event !== null) {
-      events.push(event);
-    }
-  });
-};
-
-const response = await fetch("http://localhost:3001/router", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    from: "Chain", // Origin Parachain/Relay chain/Ethereum
-    to: "Chain", // Destination Parachain/Relay chain/Ethereum
-    exchange: “AcalaDex”, //Either empty for automatic selection or use preffered DEX
-    currencyFrom: {currencySpec}, // Currency to send - {symbol: currencySymbol} | {id: currencyID}
-    currencyTo: {currencySpec}, // Currency to receive - {symbol: currencySymbol} | {id: currencyID}
-    amount: "Amount", // Amount to send
-    slippagePct: "Pct", // Max slippage percentage
-    recipientAddress: "Address", // Recipient address
-    injectorAddress: "InjectorAddress", // Address of sender
-    evmInjectorAddress: "", // Evm address of sender if needed
-    ethAddress: "", // Needed only if transferring FROM Ethereum
-  }),
-});
-
-const txs = await response.json();
-
-
-for (const txInfo of txs) {
-  if (txInfo.type === "EXTRINSIC") {
-    // Handling of Polkadot transaction
-    const api = await ApiPromise.create({
-      provider: new WsProvider(txInfo.wsProvider),
-    });
-
-    const txHash = txInfo.tx;
-
-    if (txInfo.statusType === "TO_EXCHANGE") {
-      // When submitting to exchange, prioritize the evmSigner if available
-      await submitTransaction(
-        api,
-        api.tx(txHash),
-        evmSigner ?? signer,
-        evmInjectorAddress ?? injectorAddress
-      );
-    } else {
-      await submitTransaction(
-        api,
-        api.tx(txHash),
-        signer,
-        injectorAddress
-      );
-    }
-  } else {
-    await submitEthTransaction(txInfo.tx, assetHubAddress);
-  }
-}
 ```
