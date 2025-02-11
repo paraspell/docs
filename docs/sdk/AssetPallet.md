@@ -64,3 +64,9 @@ Import all compatible Parachains as constant
 ```js
 paraspell.NODE_NAMES
 ```
+
+## Convert id or symbol to multilocation
+Get multilocation for asset id or symbol.
+```js
+getAssetMultiLocation(chainFrom, { symbol: symbol } | { id: assetId })
+```
