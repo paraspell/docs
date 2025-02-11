@@ -87,12 +87,23 @@ Latest SDK versions support Polkadot <> Kusama bridge in very native and intuiti
 Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitive and native form as possible. The implementations for Polkadot -> Ethereum and Ethereum -> Polkadot differ due to different architecure so we will mention both scenarios.
 
 #### Polkadot -> Ethereum transfer
+
+**AssetHub**
 ```js
 await Builder(api)
           .from('AssetHubPolkadot')
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .address(eth_address)  //AccountKey20 recipient address
+          .build()
+```
+**Other Parachains**
+```js
+await Builder(api)
+          .from('Hydration')
+          .to('Ethereum')           
+          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+          .address(eth_address, ah_address)  //AccountKey20 recipient address + asset hub address (Needs to be sender address)
           .build()
 ```
 
@@ -197,7 +208,7 @@ await getBalanceForeign({address, node, currency /*- {id: currencyID} | {symbol:
 await getBalanceNative({address, node, api /* api/ws_url_string optional */})
 
 //Get fee information regarding XCM call
-await getOriginFeeDetails({from, to, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, amount, originAddress, destinationAddress, api /* api/ws_url_string optional */, feeMargin /* 10% by default */})
+await getOriginFeeDetails({from, to, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, amount, originAddress, destinationAddress, ahAddress /* optional parameter when destination is Ethereum and origin is Parachain other than AssetHub*/, api /* api/ws_url_string optional */, feeMargin /* 10% by default */})
 
 //Retrieves the asset balance for a given account on a specified node (You do not need to specify if it is native or foreign).
 await getAssetBalance({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, api /* api/ws_url_string optional */});
