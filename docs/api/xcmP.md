@@ -702,7 +702,6 @@ const response = await fetch("http://localhost:3001/balance/:node/existential-de
 });
 ```
 
-
 ### Query assets object
 The following endpoint retrieves all assets on a specific Parachain as an object.
 
@@ -720,6 +719,33 @@ The following endpoint retrieves all assets on a specific Parachain as an object
 **Example of request:**
 ```js
 const response = await fetch("http://localhost:3001/assets/Statemint");
+```
+
+### Query asset multilocation
+The following endpoint retrieves asset multilocation from the asset ID or asset symbol.
+
+**Endpoint**: `POST /assets/:node/multilocation`
+
+
+   - **Parameters**:
+     - `node` (path parameter): Specifies the name of the Parachain.
+
+   - **Errors**:
+     - `400` (Bad request): When a specified Parachain does not exist.
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```js
+const response = await fetch("http://localhost:3001/assets/:node/multilocation", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"}
+    })
+});
 ```
 
 ### Query asset ID
