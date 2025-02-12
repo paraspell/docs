@@ -8,14 +8,18 @@ Don't want to go through setup and build from ground up?
 This template is programmed with React & Vite framework. It contains basic components ready to set you off on your cross-chain dApp journey.
 
 ## Install peer dependencies
+
+```
+⚠️ NOTE
+Enabling Wasm is required by Hydration SDK in order for XCM-Router to work in your dAPP. You can either enable it in web app config or by plugin.
+```
+
 ```sh
-# npm
 yarn add || pnpm | npm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
 ```
 
 ## Install XCM Router package
 ```sh
-# npm
 yarn add || pnpm | npm install @paraspell/xcm-router
 ```
 
