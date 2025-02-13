@@ -12,6 +12,7 @@ This template is programmed with React & Vite framework. It contains basic compo
 ```
 ⚠️ NOTE
 Enabling Wasm is required by Hydration SDK in order for XCM-Router to work in your dAPP. You can either enable it in web app config or by plugin.
+Hydration also requires augment package - https://github.com/galacticcouncil/sdk/issues/114
 ```
 
 ```sh
