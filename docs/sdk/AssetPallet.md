@@ -56,7 +56,7 @@ paraspell.assets.getParaId('Basilisk')
 ## Query Parachain name
 Function to get specific TNode from Parachain id
 ```js
-paraspell.assets.getTNode(nodeID: number)
+paraspell.assets.getTNode(nodeID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill nodeID as 1 to select Ethereum.
 ```
 
 ## Import Parachains as constant

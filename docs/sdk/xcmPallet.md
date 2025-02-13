@@ -115,7 +115,7 @@ const signer = await provider.getSigner();
 await EvmBuilder(provider)      //Ethereum provider
   .to('AssetHubPolkadot')
   .currency({symbol: 'WETH', amount: amount})    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-  .address(address)   //AccountID32 recipient address
+  .address(address,ahAddress /*optional*/)   //AccountID32 recipient address //ahAddress is optional and used in Moonbeam>Ethereum transfer.
   .signer(signer)     //Ethereum signer address
   .build();
 ```
