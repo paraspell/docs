@@ -234,8 +234,3 @@ await getParaEthTransferFees(/*api - optional (Can also be WS port string or arr
 ### Builder pattern experience
 When developing with the Builder pattern, the developer is guided by the typescript and thus knows which parameter can be added next. This increases the developer experience and makes SDK easier to use.
 <img width="459" alt="builder" src="https://user-images.githubusercontent.com/55763425/214562882-dd1a052e-c420-4131-bb50-3b656fabd10c.png">
-
-
-### Control messages into the console 
-Once the call is being constructed developer is warned about major details regarding the call into the console. This way they can ensure, that the call they wanted to create is being created.
-<img width="409" alt="212045110-c001fcb7-8cc2-421c-9cd0-6d8205b3b11f" src="https://user-images.githubusercontent.com/55763425/212065770-48ff4b35-2463-48b3-bd51-bae56b2105a8.png">
