@@ -28,8 +28,8 @@ $ pnpm run:playground
 
 ## User interface
 
-Once launched, you should see the following user interface and be able to perform various actions offered by playground:
+Once launched, you should see the following user interface and be able to perform various actions offered by Playground:
 
-<img width="1470" alt="Snímka obrazovky 2024-03-08 o 18 06 16" src="https://gist.github.com/assets/55763425/5955de48-4a88-433f-b3d7-6fa3cba51d47">
+<img width="1697" alt="Playground" src="https://github.com/user-attachments/assets/5644307f-217a-4bff-9a28-db60ccb91c47" />
 
 
