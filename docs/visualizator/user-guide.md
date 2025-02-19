@@ -72,7 +72,7 @@ To select custom time frame to observe how XCM scaled over time click on select 
 
 Once selected you can see XCM interpreted for selected time period. All 2D Visualizations are updated for selected period also.
 
-<img width="550" alt="selected time" src="https://github.com/user-attachments/assets/9b92eeff-b18b-4e42-ba75-dd94fcc68c6a" />
+<img width="550" alt="selectedtime" src="https://github.com/user-attachments/assets/3612fb30-6f22-4512-9f63-2bce80fb6540" />
 
 ## Customize color scheme 
 To customize color scheme firstly locate option button at the bottom right corner of 3D Visualization screen.
@@ -94,7 +94,7 @@ You can now fully customize your skybox background. This can be done by either [
 
 Once all the necessary images are provided, click the "save skybox" button.
 
-<img width="550" alt="newskybox" src="https://github.com/user-attachments/assets/c0f0d1d8-f138-4fa1-8086-bc83e42a1d39" />
+<img width="550" alt="newskybox" src="https://github.com/user-attachments/assets/ce2dc405-450b-4fca-8ebe-4cd9bbe22086" />
 
 Your background should appear immediately after you close options button.
 
