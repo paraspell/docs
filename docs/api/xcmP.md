@@ -6,7 +6,7 @@ This functionality allows you to send XCM messages across the Paraverse.
 ### Package-less implementation of XCM API XCM features into your application
 ```NOTE:``` We recently introduced a new, much simpler way to implement XCM API! You can now request a hashed response to the built call, which will offlift you from parsing and work right away!
 
-```JS
+```ts
 //Chain WS API instance that will send generated XCM Call
 const wsProvider = new WsProvider('YourChainWSPort'); //Specify "YourChainWSPort" with WS Port of sender chain 
 const api = await ApiPromise.create({ provider: wsProvider });
@@ -53,7 +53,7 @@ The following endpoint constructs the Relay chain to the Parachain XCM message.
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
@@ -97,7 +97,7 @@ The following endpoint constructs Parachain to Relay chain XCM message.
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
@@ -146,7 +146,7 @@ The following endpoint allows got creation of Parachain to Parachain XCM call. T
 **NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
@@ -179,7 +179,7 @@ You can now customize multilocations for Address, Currency and Destination withi
 
 **Example of request:**
 
-```js
+```ts
 const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
@@ -219,7 +219,7 @@ Latest API versions support Polkadot <> Kusama bridge in very native and intuiti
         - Same as in Parachain -> Parachain scenario
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
@@ -243,7 +243,7 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
         - Same as in Parachain -> Parachain scenario
 
 **Example of request:**
-```js
+```ts
 //As Ethereum module is different from Polkadot modules (Thus Ethereum is not compatible with new hash response system), we provide complete implementation snippet.
 const provider = new ethers.BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
@@ -313,7 +313,7 @@ const apiResponse = response.data;
         - Same as in Parachain -> Parachain scenario
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/x-transfer", {
     method: 'POST',
     headers: {
@@ -341,7 +341,7 @@ XCM API allows you to batch your XCM calls and send multiple at the same time vi
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 //mode options: - BATCH
 //		- BATCH_ALL
 
@@ -401,7 +401,7 @@ You can find out whether you XCM message will execute successfuly or with error.
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
 
 **Example of request:**
-```js
+```ts
 const response = await fetch('http://localhost:3001/dry-run', {
   method: 'POST',
   headers: {
@@ -433,7 +433,7 @@ Assets that have been trapped in the cross-chain transfers can now be recovered 
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/asset-claim", {
     method: 'POST',
     headers: {
@@ -490,7 +490,7 @@ The following functionality gives you all the necessary information about your t
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
      
 **Example of request:**
-```js
+```ts
 const response = await fetch(
   'http://localhost:3001/transfer-info?' , {
   method: 'POST',
@@ -518,7 +518,7 @@ This functionality allows you to perform various asset queries with compatible P
 
 ### Package-less implementation of XCM API Asset features into your application
 
-```JS
+```ts
 const response = await fetch(
     "http://localhost:3001/assets/<action>" + //Replace "action" with your desired action eg. "Acala/native" 
 );
@@ -540,7 +540,7 @@ The following endpoint allows you to query native asset balance for on specific 
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/balance/:node/native", {
     method: 'POST',
     headers: {
@@ -567,7 +567,7 @@ The following endpoint allows you to query foreign asset balance for on specific
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/balance/:node/foreign", {
     method: 'POST',
     headers: {
@@ -599,7 +599,7 @@ The following endpoint allows you to query the maximum native currency transfera
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/balance/:node/max-foreign-transferable-amount", {
     method: 'POST',
     headers: {
@@ -630,7 +630,7 @@ The following endpoint allows you to query the maximum native currency transfera
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/balance/:node/max-native-transferable-amount", {
     method: 'POST',
     headers: {
@@ -661,7 +661,7 @@ The following endpoint allows you to query the maximum currency transferable amo
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/balance/:node/transferable-amount", {
     method: 'POST',
     headers: {
@@ -690,7 +690,7 @@ The following endpoint allows you to query the existential deposit for currency 
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/balance/:node/existential-deposit", {
     method: 'POST',
     headers: {
@@ -717,8 +717,8 @@ The following endpoint retrieves all assets on a specific Parachain as an object
 
 
 **Example of request:**
-```js
-const response = await fetch("http://localhost:3001/assets/Statemint");
+```ts
+const response = await fetch("http://localhost:3001/assets/Moonbeam");
 ```
 
 ### Query asset multilocation
@@ -736,7 +736,7 @@ The following endpoint retrieves asset multilocation from the asset ID or asset 
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/assets/:node/multilocation", {
     method: 'POST',
     headers: {
@@ -764,7 +764,7 @@ The following endpoint returns the asset id for the specific asset on a specific
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/assets/Interlay/id?symbol=USDT");
 ```
 
@@ -782,7 +782,7 @@ The following endpoint returns the Relay chain asset symbol for a specific Parac
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/assets/Astar/relay-chain-symbol");
 ```
 
@@ -800,8 +800,8 @@ The following endpoint returns native assets of specific Parachain.
 
 
 **Example of request:**
-```js
-const response = await fetch("http://localhost:3001/assets/Kylin/native");
+```ts
+const response = await fetch("http://localhost:3001/assets/Hydration/native");
 ```
 
 ### Query foreign assets
@@ -818,8 +818,8 @@ The following endpoint returns foreign assets of specific Parachain.
 
 
 **Example of request:**
-```js
-const response = await fetch("http://localhost:3001/assets/Statemine/other");
+```ts
+const response = await fetch("http://localhost:3001/assets/Astar/other");
 ```
 
 ### Query all asset symbols
@@ -836,7 +836,7 @@ The following endpoint returns all asset symbols for specific Parachain.
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/assets/Moonbeam/all-symbols");
 ```
 
@@ -856,8 +856,8 @@ The following endpoint returns a boolean value that confirms if the asset is reg
 
 
 **Example of request:**
-```js
-const response = await fetch("http://localhost:3001/assets/HydraDX/has-support?symbol=DOT");
+```ts
+const response = await fetch("http://localhost:3001/assets/Hydration/has-support?symbol=DOT");
 ```
 
 ### Query asset support between two chains
@@ -873,7 +873,7 @@ The following endpoint retrieves assets supported by both chains.
     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/supported-assets?origin=Acala&destination=Astar");
 ```
 
@@ -894,7 +894,7 @@ The following endpoint retrieves specific asset decimals on specific Parachain.
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/assets/Basilisk/decimals?symbol=BSX");
 ```
 
@@ -912,7 +912,7 @@ The following endpoint retrieves the Parachain's WS endpoints.
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/nodes/Acala/ws-endpoints");
 ```
 
@@ -929,7 +929,7 @@ The following endpoint retrieves Parachain's ID from Parachain's name
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/assets/Acala/para-id");
 ```
 
@@ -947,7 +947,7 @@ The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/nodes/2090?ecosystem=polkadot");
 ```
 
@@ -962,7 +962,7 @@ The following endpoint retrieves an array of implemented Parachains.
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/nodes");
 ```
 
@@ -972,7 +972,7 @@ This functionality allows you to query the `XCM pallets` that Parachains current
 
 ### Package-less implementation of XCM API XCM Pallet Query features into your application
 
-```JS
+```ts
 const response = await fetch(
     "http://localhost:3001/pallets/<action>" + //Replace "action" with your desired action eg. "Acala/default" 
 );
@@ -993,7 +993,7 @@ The following endpoint returns the default pallet for specific Parachain
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/pallets/Acala/default");
 ```
 
@@ -1010,6 +1010,6 @@ The following endpoint returns all XCM Pallets that are supported on specific Pa
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/pallets/Basilisk");
 ```

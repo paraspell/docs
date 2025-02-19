@@ -22,7 +22,7 @@ If you wish to have an exchange chain selection based on the best price outcome,
 
 ### Builder pattern
 
-```js
+```ts
 await RouterBuilder
         .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         .to('Astar')    //Destination Parachain/Relay chain - OPTIONAL PARAMETER
@@ -54,7 +54,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 ### Builder pattern
 
-```js
+```ts
 await RouterBuilder
         .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         .exchange('HydraDxDex')    //Exchange Parachain

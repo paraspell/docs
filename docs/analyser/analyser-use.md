@@ -22,7 +22,7 @@ GlobalConsensus
 
 To compile a single multilocation object to url use the following structure:
 
-```js
+```ts
 //Importing the call
 import { convertMultilocationToUrl } from '@paraspell/xcm-analyser';
 
@@ -52,7 +52,7 @@ This should result into:
 #### Compile a single multilocation JSON to the URL
 To compile a single multilocation JSON to url use the following structure:
 
-```js
+```ts
 //Importing the call
 import { convertMultilocationToUrlJson } from '@paraspell/xcm-analyser';
 
@@ -82,7 +82,7 @@ This should result into:
 #### Compile the entire XCM call to the URL
 To compile the entire XCM call to the URL use the following structure:
 
-```js
+```ts
 //Importing the call
 import { convertXCMToUrls } from '@paraspell/xcm-analyser';
 

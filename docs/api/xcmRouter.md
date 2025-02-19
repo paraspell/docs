@@ -7,7 +7,7 @@ For list of supported chains/assets/dexes head over to [List of supported chains
 ### Package-less implementation of XCM API Router features into your application
 ```NOTE:``` We recently introduced new much simpler way to implement XCM API! You can now request hashed response of built call which offlifts you from parsing and works right away!
 
-```JS
+```ts
 const submitTransaction = async (
   api: ApiPromise,
   tx: Extrinsic,
@@ -120,7 +120,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/router", {
     method: 'POST',
     headers: {
@@ -179,7 +179,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 
 **Example of request:**
-```js
+```ts
 const response = await fetch("http://localhost:3001/router", {
     method: 'POST',
     headers: {

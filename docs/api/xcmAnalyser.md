@@ -13,7 +13,7 @@ Following section covers implementation of XCM Analyser in LightSpell XCM API. U
      - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
-```js
+```ts
 const response = await fetch("http://localhost:3001/xcm-analyser", {
     method: 'POST',
     headers: {
@@ -35,7 +35,7 @@ const response = await fetch("http://localhost:3001/xcm-analyser", {
      - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
-```js
+```ts
 const response = await fetch("http://localhost:3001/xcm-analyser", {
     method: 'POST',
     headers: {

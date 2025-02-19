@@ -10,7 +10,7 @@ yarn add || pnpm | npm install @paraspell/xcm-analyser
 ## Importing package
 After installing the XCM-Analyser package you can import its functionality in following way:
 
-```js
+```ts
 import { convertMultilocationToUrl } from '@paraspell/xcm-analyser'; //To import conversion from object
 import { convertMultilocationToUrlJson } from '@paraspell/xcm-analyser'; //To import conversion from JSON
 import { convertXCMToUrls } from '@paraspell/xcm-analyser'; //To import conversion from XCM message

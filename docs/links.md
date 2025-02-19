@@ -12,7 +12,7 @@ The XCM API serves as an enhancement for `XCM` and `Asset pallet`, designed to s
 
 ### XCM-Router (SpellRouter☄️)
 [Router link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router) |  
-The XCM Router enables seamless XCM exchanges. It allows users to send one token type and receive a different one of their choice on the destination chain, all within a single call and three signatures. This streamlined process enhances the user experience by minimizing the possibility of errors. Currently, the Router integrates with the eight largest Parachain DEXes and is designed for easy expansion as the number of DEXes with public SDKs grows. With 524 asset pools available, the XCM Router is the largest liquidity bridging tool in the ecosystem.
+The XCM Router enables seamless XCM exchanges. It allows users to send one token type and receive a different one of their choice on the destination chain, all within a single call and only two signatures. This streamlined process enhances the user experience by minimizing the possibility of errors. Currently, the Router integrates with the eight largest Parachain DEXes and is designed for easy expansion as the number of DEXes with public SDKs grows. With 524 asset pools available, the XCM Router is the largest liquidity bridging tool in the ecosystem.
 
 ### XCM-Analyser 🔎
 [Analyser link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) |  

@@ -4,15 +4,9 @@
 - Parachain to Relay chain XCM transfer
 - Parachain to Parachain XCM transfer
 
-### Video guide for this section:
-[
-![xcmPallet](https://user-images.githubusercontent.com/55763425/238154617-0b57c5c8-76cf-490c-812d-481f097f4977.png)
-](https://youtu.be/MoCrt2vYJJU)
-
-
 ## Relay chain to Parachain
 
-```js
+```ts
 await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
       .from(RELAY_NODE) //Kusama or Polkadot
       .to(NODE/*,customParaId - optional*/ | Multilocation object)  // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
@@ -30,7 +24,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
 ## Parachain to Relay chain
 
-```js
+```ts
 await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
       .from(NODE) // Origin Parachain
       .to(RELAY_NODE) //Kusama or Polkadot
@@ -52,7 +46,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
 ### Builder pattern
 
-```js
+```ts
 await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
       .from(NODE) // Origin Parachain
       .to(NODE /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
@@ -74,7 +68,7 @@ This section sums up currently available and implemented ecosystem bridges that 
 ### Polkadot <> Kusama bridge
 Latest SDK versions support Polkadot <> Kusama bridge in very native and intuitive way. You just construct the Polkadot <> Kusama transfer as standard Parachain to Parachain scenario transfer.
 
-```js
+```ts
   await Builder(api)            //Api parameter is optional and can also be ws_url_string
         .from('AssetHubPolkadot')  //Either AHP or AHK
         .to('AssetHubKusama')     //Either AHP or AHK
@@ -89,7 +83,7 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 #### Polkadot -> Ethereum transfer
 
 **AssetHub**
-```js
+```ts
 await Builder(api)
           .from('AssetHubPolkadot')
           .to('Ethereum')           
@@ -98,7 +92,7 @@ await Builder(api)
           .build()
 ```
 **Other Parachains**
-```js
+```ts
 await Builder(api)
           .from('Hydration')
           .to('Ethereum')           
@@ -108,7 +102,7 @@ await Builder(api)
 ```
 
 #### Ethereum -> Polkadot transfer
-```js
+```ts
 const provider = new ethers.BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
 
@@ -121,17 +115,17 @@ await EvmBuilder(provider)      //Ethereum provider
 ```
 
 **Helper functions:**
-```
-depositToken = async (signer: Signer, amount: bigint, symbol: string) //Deposit token to contract
-getTokenBalance = async (signer: Signer, symbol: string) //Get token balance
-approveToken = async (signer: Signer, amount: bigint, symbol: string) //Approve token
+```js
+await depositToken(signer: Signer, amount: bigint, symbol: string); //Deposit token to contract
+await getTokenBalance(signer: Signer, symbol: string); //Get token balance
+await approveToken(signer: Signer, amount: bigint, symbol: string); //Approve token
 ```
 
 ## Dry run your XCM Calls
 
 Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` instead of `.build()`
 
-```js
+```ts
 //Builder pattern
 const result = await Builder(API /*optional*/)
         .from(NODE)
@@ -141,12 +135,12 @@ const result = await Builder(API /*optional*/)
         .dryRun(SENDER_ADDRESS)
 
 //Function pattern
-getDryRun({Api, /*optional*/ node, address /*sender address*/, tx /* Extrinsic object*/})
+await getDryRun({Api, /*optional*/ node, address /*sender address*/, tx /* Extrinsic object*/})
 ```
 
 ## Batch calls
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
-```js
+```ts
 await Builder(/*node api/ws_url_string - optional*/)
       .from(NODE) //Ensure, that origin node is the same in all batched XCM Calls.
       .to(NODE_2) //Any compatible Parachain
@@ -169,7 +163,7 @@ await Builder(/*node api/ws_url_string - optional*/)
 If you need to sign Moonbeam / Moonriver transactions with other than Polkadot wallets (eg. Metamask), you can interact with their smart contract to perform operations with other wallets. Both Ethers and Viem are supported.
 
 ```ts
-const hash = EvmBuilder()
+const hash = await EvmBuilder()
       .from('Moonbeam') // Moonbeam or Moonriver
       .to(node) //Parachain | Relay chain
       .currency(({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount}) //Select currency by ID or Symbol
@@ -225,8 +219,8 @@ await getTransferableAmount({address, node, currency /*- {id: currencyID} | {sym
 //Get all the information about XCM transfer
 await getTransferInfo({from, to, address, destinationAddress, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, amount, api /* api/ws_url_string optional */})
 
-//Get bridge and execution fee for transfer from Parachain to Ethereum. Returns as an object of 2 values
-await getParaEthTransferFees(/*api - optional (Can also be WS port string or array o WS ports. Must be AssetHubPolkadot WS!)*/): [bridgeFee, executionFee]
+//Get bridge and execution fee for transfer from Parachain to Ethereum. Returns as an object of 2 values - [bridgeFee, executionFee]
+await getParaEthTransferFees(/*api - optional (Can also be WS port string or array o WS ports. Must be AssetHubPolkadot WS!)*/)
 ```
 
 ## Developer experience

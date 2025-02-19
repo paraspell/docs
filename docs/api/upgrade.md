@@ -74,7 +74,7 @@ Make sure to name the key as `X-API-KEY` otherwise your key won't be recognized.
 
 ### In-app token integration
 The following snippet can be observed. See the `Headers` section where the API key is inserted.
-```js
+```ts
 const response = await fetch(
         'http://localhost:3001/x-transfer?' +
           new URLSearchParams({
@@ -86,7 +86,7 @@ const response = await fetch(
 ```
 
 As observed in the above snippet, adding the following line to fetch requests allows for updating the request count per minute.
-```js
+```ts
 { headers: new Headers({ 'X-API-KEY': '<API_KEY>' }) }, //This is where you implement your API token
 ```
 
