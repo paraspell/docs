@@ -94,7 +94,7 @@ await Builder(api)
 **Other non-evm Parachains**
 ```ts
 await Builder(api)
-          .from('Hydration')
+          .from('Hydration') //Non-evm Parachain
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .address(eth_address, ah_address, sender_address)  //AccountKey20 recipient address + Asset hub address (Needs to be sender address) + Origin chain sender address - Only needed temporary as PAPI doesn't accept hex parameter.
