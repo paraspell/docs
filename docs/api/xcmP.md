@@ -348,7 +348,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         currency: {symbol: "WETH", amount: amount}, // Any supported asset - WBTC, WETH.. - {symbol: currencySymbol} | {id: currencyID}
         address: "Address", // Ethereum Address
         ahAddress: "Address", //Asset hub address (Needs to be sender address)
-        senderAddress: "Address" //Origin chain sender address (Address used on origin chain (Needs to be provided, because EVM chains don't support Substrate wallet format as it is EVM chain). Accepts both EVM and Substrate addresses - Soon will be optional for non-evm chains and will be derived from ah_address))
+        senderAddress: "Address" //Origin chain sender address
     })
 });
 ```

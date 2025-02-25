@@ -91,13 +91,23 @@ await Builder(api)
           .address(eth_address)  //AccountKey20 recipient address
           .build()
 ```
-**Other Parachains**
+**Other non-evm Parachains**
 ```ts
 await Builder(api)
           .from('Hydration')
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address, ah_address, sender_address)  //AccountKey20 recipient address + Asset hub address (Needs to be sender address) + origin chain sender address (Address used on origin chain (Needs to be provided, because EVM chains don't support Substrate wallet format as it is EVM chain). Accepts both EVM and Substrate addresses - Soon will be optional for non-evm chains and will be derived from ah_address))
+          .address(eth_address, ah_address, sender_address)  //AccountKey20 recipient address + Asset hub address (Needs to be sender address) + Origin chain sender address - Only needed temporary as PAPI doesn't accept hex parameter.
+          .build()
+```
+
+**Other evm Parachains**
+```ts
+await EvmBuilder(provider)
+          .from('Moonbeam') //EVM Parachain
+          .to('Ethereum')           
+          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+          .address(eth_address, ah_address)  //AccountKey20 recipient address + Asset hub address (Needs to be sender address)
           .build()
 ```
 
@@ -106,7 +116,8 @@ await Builder(api)
 const provider = new ethers.BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
 
-await EvmBuilder(provider)      //Ethereum provider
+await EvmBuilder(provider)   //Ethereum provider
+  .from('Ethereum')   
   .to('AssetHubPolkadot')
   .currency({symbol: 'WETH', amount: amount})    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
   .address(address,ahAddress /*optional*/)   //AccountID32 recipient address //ahAddress is optional and used in Moonbeam>Ethereum transfer.
