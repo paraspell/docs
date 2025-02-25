@@ -97,7 +97,7 @@ await Builder(api)
           .from('Hydration') //Non-evm Parachain
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address, ah_address, sender_address)  //AccountKey20 recipient address + Asset hub address (Needs to be sender address) + Origin chain sender address - Only needed temporary as PAPI doesn't accept hex parameter.
+          .address(eth_address, sender_address)  //AccountKey20 recipient address + Injector SS58 address
           .build()
 ```
 
@@ -107,7 +107,7 @@ await EvmBuilder(provider)
           .from('Moonbeam') //EVM Parachain
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address, ah_address)  //AccountKey20 recipient address + Asset hub address (Needs to be sender address)
+          .address(eth_address, sender_address)  //AccountKey20 recipient address + Asset hub address (Needs to be sender address)
           .build()
 ```
 
@@ -232,6 +232,9 @@ await getTransferInfo({from, to, address, destinationAddress, currency /*- {id: 
 
 //Get bridge and execution fee for transfer from Parachain to Ethereum. Returns as an object of 2 values - [bridgeFee, executionFee]
 await getParaEthTransferFees(/*api - optional (Can also be WS port string or array o WS ports. Must be AssetHubPolkadot WS!)*/)
+
+//Verify whether XCM message you wish to send will reach above existential deposit on destination chain.
+await verifyEdOnDestination(node,  currency: {symbol: || id: || multilocation: .. ,amount: 100000n}, address)
 ```
 
 ## Developer experience

@@ -902,6 +902,35 @@ The following endpoint retrieves assets supported by both chains.
 const response = await fetch("http://localhost:3001/supported-assets?origin=Acala&destination=Astar");
 ```
 
+### Query destination existential deposit
+The following endpoint retrieves whether sent XCM message will be above existential deposit on destination chain.
+
+**Endpoint**: `POST /balance/${node}/verify-ed-on-destination`
+
+
+- **Parameters**:
+    - `node` (path parameter): Specifies the name of the destination Parachain.
+    - `address` (body parameter): Destination account
+    - `currency` (body parameter): Currency spec
+
+- **Errors**:
+    - `400` (Bad request): When a specified Parachain does not exist.
+    - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/balance/:node/foreign", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
+    })
+});
+```
 
 ### Query asset decimals
 The following endpoint retrieves specific asset decimals on specific Parachain.
