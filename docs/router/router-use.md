@@ -1,7 +1,7 @@
 # Ready to make cross-chain swap messages with ease? 🤝
 
 XCM Router can perform cross-chain transactions between Polkadot/Kusama Parachains and Relay chains as well. 
-It works across 8 open-source Parachain DEXes.
+It works across 10 open-source Parachain DEXes.
 
 **These are:**
 - Acala / 36 Pools available
@@ -12,8 +12,11 @@ It works across 8 open-source Parachain DEXes.
 - Interlay / 10 Pools available / Requires native token for swaps
 - Karura / 136 Pools available
 - Kintsugi / 6 Pools available / Requires native token for swaps
+- AssetHubPolkadot / 32 Pools available / Requires specific native tokens for swaps
+- AssetHubKusama / 16 Pools available / Requires specific native tokens for swaps
 
-Totalling to 524 pools available for cross-chain swap transactions.
+
+Totalling to 572 pools available for cross-chain swap transactions.
 
 **NOTE: Some exchanges require native tokens to proceed with swaps.**
 
@@ -82,6 +85,24 @@ AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as
 Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
 Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 
+## Get amount out for your currency pair
+
+To retrieve exchange amount, that you receive for your desired asset pair you can use following function. This function returns 2 parameters. Name of best fitting DEX (Automatic selection - can be further used for manual selection) and Amount out
+
+```
+const result = await RouterBuilder()
+      .from('Astar') //Optional parameter
+      .to('Acala') //Optional parameter
+      .exchange('Hydration') //Optional parameter
+      .currencyFrom({ symbol: 'ASTR' }) 
+      .currencyTo({ symbol: 'DOT' })
+      .amount(10000000000n)
+      .getBestAmountOut();
+
+console.log(result.amountOut)
+console.log(result.exchange)
+```
+
 ## Ready to use in SpellRouter
 
 | DEX | Can send to/receive from | Supported assets | Notes |
@@ -94,3 +115,5 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 |Bifrost Polkadot DEX| Polkadot Relay, AssetHubPolkadot, Moonbeam, Astar, Interlay| BNC, vDOT, vsDOT, USDT, FIL, vFIL, ASTR, vASTR, GLMR, vGLMR, MANTA, vMANTA|Chain requires native BNC asset for fees.|
 |Interlay DEX| Polkadot Relay, Acala, Astar, Parallel, PolkadotAssetHub, HydraDX, BifrostPolkadot |INTR, DOT, IBTC, USDT, VDOT| Chain requires native INTR asset for fees.|
 |Kintsugi DEX| Kusama Relay, Karura, KusamaAssetHub, Parallel Heiko, BifrostKusama|KINT,KSM,KBTC,USDT|Chain requires native KINT asset for fees.|
+|AssetHubPolkadot| Polkadot Relay, Any Parachain it has HRMP channel with | DOT, WETH.e, USDC, USDT, LAOS, MYTH, WBBTC.e, ASX, BILL, DEMO, TATE, PINK, MODE, MVPW, PIGS, DED, wstETH.e, TTT, KSM, tBTC.e, PEPE.e, SHIB.e, TON.e, NAT, NT2, DOTA, STINK, MTC, AJUN, GGI, GLMR, NIN | Requires specific native tokens for swaps |
+|AssetHubKusama| Kusama Relay, Any Parachain it has HRMP channel with | KSM, DOT, USDC, USDT, BILLCOIN, WOOD, dUSD, TACP, TSM, MA42, USDT, DMO, JAM | Requires specific native tokens for swaps |
