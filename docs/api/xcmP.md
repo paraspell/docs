@@ -1067,3 +1067,20 @@ The following endpoint returns all XCM Pallets that are supported on specific Pa
 ```ts
 const response = await fetch("http://localhost:3001/pallets/Basilisk");
 ```
+
+### Get node DryRun support
+The following endpoint returns whether selected Parachain has DryRun support
+
+**Endpoint**: `GET /nodes/:node/has-dry-run-support`
+
+   - **Parameters**:
+     - `node` (path parameter): Specifies the name of the Parachain.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when path parameter 'node' is not a valid Parachain
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/nodes/:node/has-dry-run-support');
+```
