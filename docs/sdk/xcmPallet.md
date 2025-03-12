@@ -10,9 +10,10 @@
 await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
       .from(RELAY_NODE) //Kusama or Polkadot
       .to(NODE/*,customParaId - optional*/ | Multilocation object)  // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency({symbol: 'DOT', amount: amount})
+      .currency({symbol: 'DOT', amount: amount}) //Or KSM
       .address(address | Multilocation object) // AccountId32 or AccountKey20 address or custom Multilocation
-    /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
+      /*
+      .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
       .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
       .build()  // Function called to build call
 ```
@@ -28,7 +29,7 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
       .from(NODE) // Origin Parachain
       .to(RELAY_NODE) //Kusama or Polkadot
-      .currency({symbol: 'DOT', amount: amount}) 
+      .currency({symbol: 'DOT', amount: amount}) //Or KSM
       .address(address | Multilocation object) // AccountId32 address or custom Multilocation
     /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
       .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
@@ -50,9 +51,10 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
 await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
       .from(NODE) // Origin Parachain
       .to(NODE /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation */ , amount: amount}, {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation */ , amount: amount}, ... })
       .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/)  // AccountId32 or AccountKey20 address or custom Multilocation
-    /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
+    /*.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub - so user can pay in fees different than DOT
+      .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
       .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
       .build() // Function called to build call
 ```
