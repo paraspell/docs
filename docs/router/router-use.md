@@ -138,7 +138,7 @@ Below, you can find helpful functions that are exported from XCM Router to help 
 import {getExchangeAssets} from @paraspell/xcm-router
 
 //Returns all assets that DEX supports
-getExchangeAssets('AssetHubPolkadotDex')
+const assets = getExchangeAssets('AssetHubPolkadotDex')
 ```
 
 ## Ready to use in SpellRouter
