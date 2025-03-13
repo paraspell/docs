@@ -23,8 +23,6 @@ Totalling to 572 pools available for cross-chain swap transactions.
 ## Automatic exchange selection
 If you wish to have an exchange chain selection based on the best price outcome, you can opt for the automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. The router will then automatically select the best exchange chain for you based on the best price outcome.
 
-### Builder pattern
-
 ```ts
 await RouterBuilder
         .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
@@ -49,18 +47,47 @@ await RouterBuilder
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
+
+## Whitelist exchange selection
+If you wish to have specific exchanges selection and select the best one among them based on the best price outcome, you can opt for the whitelist automatic exchange selection method. This method can be selected by **using** `.exchange()` parameter in the call and feeding it with **array of exchanges**. The router will then automatically select the best exchange chain for you based on the best price outcome.
+
+```ts
+await RouterBuilder
+        .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        .exchange(['HydrationDex','AcalaDex','AssetHubPolkadotDex'])    //Exchange Parachains
+        .to('Astar')    //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} 
+        .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
+        .amount('1000000')  // Amount to send
+        .slippagePct('1')   // Max slipppage percentage
+        .senderAddress(selectedAccount.address)   //Injector address
+        .recipientAddress(recipientAddress) //Recipient address
+        .signer(injector.signer)    //Signer
+        //.evmSenderAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
+        //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+
+        .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
+          console.log(status.hashes);   //Transaction hashes
+          console.log(status.status);   //Transaction statuses
+          console.log(status.type);    //Transaction types
+        })
+        .buildAndSend()
+```
+
+AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 ## Manual exchange selection
 If you wish to select your exchange chain manually you can do that by providing additional parameter `.exchange()` in the call. The router will then use the exchange chain of your choice.
 
-### Builder pattern
-
 ```ts
 await RouterBuilder
         .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
-        .exchange('HydraDxDex')    //Exchange Parachain
+        .exchange('HydrationDex')    //Exchange Parachain
         .to('Astar')    //Destination Parachain/Relay chain - OPTIONAL PARAMETER
         .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} 
         .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
@@ -82,14 +109,14 @@ await RouterBuilder
 
 AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
 
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftn7U`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9b2b`
+Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
+Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 ## Get amount out for your currency pair
 
 To retrieve exchange amount, that you receive for your desired asset pair you can use following function. This function returns 2 parameters. Name of best fitting DEX (Automatic selection - can be further used for manual selection) and Amount out
 
-```
+```ts
 const result = await RouterBuilder()
       .from('Astar') //Optional parameter
       .to('Acala') //Optional parameter
@@ -101,6 +128,17 @@ const result = await RouterBuilder()
 
 console.log(result.amountOut)
 console.log(result.exchange)
+```
+
+## Helpful functions
+
+Below, you can find helpful functions that are exported from XCM Router to help you enhance front end usability of XCM Router.
+
+```ts
+import {getExchangeAssets} from @paraspell/xcm-router
+
+//Returns all assets that DEX supports
+getExchangeAssets('AssetHubPolkadotDex')
 ```
 
 ## Ready to use in SpellRouter
