@@ -91,8 +91,8 @@ If you wish to have exchange chain selection based on best price outcome, you ca
 **Endpoint**: `POST /router-hash`
 
    - **Parameters**:
-     - `from`: (required): Represents the Parachain from which the assets will be transferred.
-     - `to`: (required): Represents the Parachain to which the assets will be transferred.
+     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+     - `to`: (optional): Represents the Parachain to which the assets will be transferred.
      - `currencyFrom`: (required): Represents the asset being sent.
      - `currencyTo`: (required): Represents the asset being received. 
      - `amount`: (required): Specifies the amount of assets to transfer.
@@ -147,9 +147,9 @@ If you wish to select your exchange chain manually you can do that by providing 
 **Endpoint**: `POST /router-hash`
 
    - **Parameters**:
-     - `from`: (required): Represents the Parachain from which the assets will be transferred.
+     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
      - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
-     - `to`: (required): Represents the Parachain to which the assets will be transferred.
+     - `to`: (optional): Represents the Parachain to which the assets will be transferred.
      - `currencyFrom`: (required): Represents the asset being sent.
      - `currencyTo`: (required): Represents the asset being received. 
      - `amount`: (required): Specifies the amount of assets to transfer.
@@ -195,6 +195,52 @@ const response = await fetch("http://localhost:3001/router", {
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", //Recipient address
         senderAddress: 'InjectorAddress', //Address of sender
+    })
+});
+```
+
+## Best amount out
+
+If you wish to find out what is the `best amount out` from specified dex or from any dex you can use following query.
+
+**Endpoint**: `POST /router/best-amount-out`
+
+   - **Parameters**:
+     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+     - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+     - `to`: (required): Represents the Parachain to which the assets will be transferred.
+     - `currencyFrom`: (required): Represents the asset being sent.
+     - `currencyTo`: (required): Represents the asset being received. 
+     - `amount`: (required): Specifies the amount of assets to transfer.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+     - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+     - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/router/best-amount-out", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
+        to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        currencyFrom: {currencySpec}, // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
+        currencyTo: {currencySpec}, // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
+        amount: "Amount", // Amount to send
     })
 });
 ```
