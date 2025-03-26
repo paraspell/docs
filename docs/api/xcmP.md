@@ -4,12 +4,16 @@ The following guide guides you through the XCM SDK functionality implemented in 
 This functionality allows you to send XCM messages across the Paraverse.
 
 ### Package-less implementation of XCM API XCM features into your application
-```NOTE:``` We recently introduced a new, much simpler way to implement XCM API! You can now request a hashed response to the built call, which will offlift you from parsing and work right away!
+```
+NOTES: 
+- We recently introduced a new, much simpler way to implement XCM API! You can now request a hashed response to the built call, which will offlift you from parsing and work right away!
+- XCM API is now migrated to Polkadot API (PAPI), so PolkadotJS signers are no longer compatible!
+```
 
 ```ts
 //Chain WS API instance that will send generated XCM Call
-const wsProvider = new WsProvider('YourChainWSPort'); //Specify "YourChainWSPort" with WS Port of sender chain 
-const api = await ApiPromise.create({ provider: wsProvider });
+const provider = getWsProvider('YourChainWSPort') // Specify "YourChainWSPort" with WS Port of sender chain 
+const client = createClient(withPolkadotSdkCompat(provider))
 
 const response = await fetch(
     "http://localhost:3001/x-transfer”,
@@ -26,10 +30,18 @@ const response = await fetch(
 const hash = await response.json();
 
 //Received response is parsed to the call
-const call = api.tx(hash)
+const callData = Binary.fromHex(hash)
+
+// Also possibility to use .getTypedApi()
+const tx = await client.getUnsafeApi().txFromCallData(callData)
 
 //Call is then signed and can be subscribed to extrinsics
-call.signAndSend(address, { signer: injector.signer }, ({ status, txHash }) => {
+tx.signAndSubmit(signer)
+  .then(() => "Transaction completed")
+  .catch((err) => {
+    console.log(err)
+  })
+
 ```
 
 ### Relay chain to Parachain (DMP)
@@ -234,76 +246,6 @@ const response = await fetch("http://localhost:3001/x-transfer", {
         address: "Address" // AccountID 32 address
     })
 });
-```
-
-### Snowbridge Ethereum -> AssetHubPolkadot
-Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitive and native form as possible. The implementations for Polkadot -> Ethereum and Ethereum -> Polkadot differ due to different architecture, so we will mention both scenarios.
-
-   - **Parameters**:
-        - Same as in Parachain -> Parachain scenario
-   - **Errors**:
-        - Same as in Parachain -> Parachain scenario
-
-**Example of request:**
-```ts
-//As Ethereum module is different from Polkadot modules (Thus Ethereum is not compatible with new hash response system), we provide complete implementation snippet.
-const provider = new ethers.BrowserProvider(window.ethereum);
-const signer = await provider.getSigner();
-
-const response = await axios(`https://api.lightspell.xyz/x-transfer-eth`, {
-      method: "POST",
-      data: {
-        to: 'AssetHubPolkadot',
-        destAddress: address,
-        address: await signer.getAddress(),
-        currency: {currencySpec}, // {symbol: currencySymbol, amount: amount} | {id: currencyID, amount: amount}
-      }
-    });
-
-const apiResponse = response.data;
-
-   const GATEWAY_CONTRACT = "0xEDa338E4dC46038493b885327842fD3E301CaB39";
-
-    const contract = IGateway__factory.connect(GATEWAY_CONTRACT, signer);
-
-    const abi = ethers.AbiCoder.defaultAbiCoder();
-
-    const address: MultiAddressStruct = {
-      data: abi.encode(["bytes32"], [formValues.address]),
-      kind: 1,
-    };
-
-    const response = await contract.sendToken(
-      apiResonse.token,
-      apiResonse.destinationParaId,
-      address,
-      apiResonse.destinationFee,
-      apiResonse.amount,
-      {
-        value: apiResonse.fee,
-      }
-    );
-    const receipt = await response.wait(1);
-
-    if (receipt === null) {
-      throw new Error("Error waiting for transaction completion");
-    }
-
-    if (receipt?.status !== 1) {
-      throw new Error("Transaction failed");
-    }
-
-    const events: LogDescription[] = [];
-    receipt.logs.forEach((log) => {
-      const event = contract.interface.parseLog({
-        topics: [...log.topics],
-        data: log.data,
-      });
-      if (event !== null) {
-        events.push(event);
-      }
-    });
-
 ```
 
 
