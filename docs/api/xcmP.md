@@ -297,6 +297,25 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 });
 ```
 
+### Snowbridge health check
+Query for Snowbridge status 
+
+**Endpoint**: `GET /x-transfer/eth-bridge-status`
+
+
+   - **Parameters**:
+     - No parameters required
+
+   - **Errors**:
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/x-transfer/eth-bridge-status");
+```
+
+
 ## Batch call
 XCM API allows you to batch your XCM calls and send multiple at the same time via batch feature.
 

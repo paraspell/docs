@@ -134,6 +134,13 @@ await getTokenBalance(signer: Signer, symbol: string); //Get token balance
 await approveToken(signer: Signer, amount: bigint, symbol: string); //Approve token
 ```
 
+### Snowbridge status check
+Query for Snowbridge status 
+
+```ts
+const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
+```
+
 ## Dry run your XCM Calls
 
 Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` instead of `.build()`
