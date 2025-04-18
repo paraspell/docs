@@ -6,7 +6,7 @@ Following guide contains information about XCM Visualizator. It is designed to i
 
 ## User startup guide
 
-Project is deployed on following link: https://xcm-visualizator.tech.
+Project is deployed on following link: https://xcm-visualizator.paraspell.xyz/.
 
 For user guide reffer to following section: [User guide](https://paraspell.github.io/docs/visualizator/user-guide.html)
 
