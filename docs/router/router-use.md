@@ -45,11 +45,6 @@ await RouterBuilder
         .buildAndSend()
 ```
 
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
-
 ## Whitelist exchange selection
 If you wish to have specific exchanges selection and select the best one among them based on the best price outcome, you can opt for the whitelist automatic exchange selection method. This method can be selected by **using** `.exchange()` parameter in the call and feeding it with **array of exchanges**. The router will then automatically select the best exchange chain for you based on the best price outcome.
 
@@ -76,11 +71,6 @@ await RouterBuilder
         .buildAndSend()
 ```
 
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
-
 ## Manual exchange selection
 If you wish to select your exchange chain manually you can do that by providing additional parameter `.exchange()` in the call. The router will then use the exchange chain of your choice.
 
@@ -106,11 +96,6 @@ await RouterBuilder
         })
         .buildAndSend()
 ```
-
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 ## Get amount out for your currency pair
 

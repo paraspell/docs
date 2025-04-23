@@ -83,11 +83,6 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 });
 ```
 
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
-
 ### Parachain chain to Relay chain (UMP)
 The following endpoint constructs Parachain to Relay chain XCM message.
 
@@ -127,13 +122,8 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 });
 ```
 
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
-
 ### Parachain to Parachain (HRMP)
-The following endpoint allows got creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
+The following endpoint allows creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
 
 **Endpoint**: `POST /x-transfer`
 
@@ -178,10 +168,46 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 });
 ```
 
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
+### Local transfers
+The following endpoint allows  creation of Local asset transfers for any chain and any currency registered on it. This call is specified by same Parachain selected as origin - `from` and destination - `to` parameters.
 
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
+**Endpoint**: `POST /x-transfer`
+
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain on which the asset is transfered locally.
+     - `to` (Inside JSON body): (required): Represents the Parachain on which the asset is transfered locally.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/x-transfer', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'Parachain', // Replace "Parachain" with sender Parachain, e.g., "Acala"
+    to: 'Parachain' // Replace Parachain with same parameter as "from" parameter
+    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+  }),
+});
+```
+
 
 ### Custom multilocation call
 You can now customize multilocations for Address, Currency and Destination within all three scenarios (where possible).
@@ -451,10 +477,6 @@ const response = await fetch("http://localhost:3001/asset-claim", {
 }]*/
 ```
 
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 
 ## Transfer info query
@@ -495,11 +517,6 @@ const response = await fetch(
   }),
 });
 ```
-
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 ## Asset query
 This functionality allows you to perform various asset queries with compatible Parachains.
