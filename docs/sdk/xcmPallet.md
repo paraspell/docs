@@ -7,39 +7,71 @@
 ## Relay chain to Parachain
 
 ```ts
-await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
+const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
       .from(RELAY_NODE) //Kusama or Polkadot
-      .to(NODE/*,customParaId - optional*/ | Multilocation object)  // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency({symbol: 'DOT', amount: amount}) //Or KSM
-      .address(address | Multilocation object) // AccountId32 or AccountKey20 address or custom Multilocation
-      /*
+      .to(NODE/*,customParaId - optional*/ | Multilocation object)
+      .currency({symbol: 'DOT', amount: amount})
+      .address(address | Multilocation object)
       .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
       .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
-      .build()  // Function called to build call
+
+const tx = await builder.build()
+
+//Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+
+/*
+EXAMPLE:
+const builder = await Builder()
+  .from('Polkadot')
+  .to('Astar')
+  .currency({
+    symbol: 'DOT',
+    amount: '1000000000'
+  })
+  .address(address)
+
+const tx = await builder.build()
+
+//Disconnect API after TX
+await builder.disconnect()
+*/
 ```
-
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 ## Parachain to Relay chain
 
 ```ts
-await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
-      .from(NODE) // Origin Parachain
+const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+      .from(NODE)
       .to(RELAY_NODE) //Kusama or Polkadot
-      .currency({symbol: 'DOT', amount: amount}) //Or KSM
-      .address(address | Multilocation object) // AccountId32 address or custom Multilocation
-    /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-      .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
-      .build()  // Function called to build call
+      .currency({symbol: 'DOT', amount: amount})
+      .address(address | Multilocation object)
+      /*.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub - so user can pay in fees different than DOT
+        .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
+        .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
+
+const tx = await builder.build()
+
+//Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+
+/*
+EXAMPLE:
+const builder = await Builder()
+  .from('Astar')
+  .to('Polkadot')
+  .currency({
+    symbol: 'DOT',
+    amount: '1000000000'
+  })
+  .address(address)
+
+const tx = await builder.build()
+
+//Disconnect API after TX
+await builder.disconnect()
+*/
 ```
-
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 ## Parachain to Parachain
 
@@ -48,21 +80,37 @@ Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 ### Builder pattern
 
 ```ts
-await Builder(/*node api/ws_url_string - optional*/) //Api parameter is optional and can also be ws_url_string
-      .from(NODE) // Origin Parachain
-      .to(NODE /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) // Destination Parachain //You can now add custom ParachainID eg. .to('Basilisk', 2024) or use custom Multilocation
-      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation */ , amount: amount}, {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation */ , amount: amount}, ... })
-      .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/, /*senderAddress - OPTIONAL - used when origin is AssetHub and feeAsset parameter is provided*/)  // AccountId32 or AccountKey20 address or custom Multilocation
-    /*.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub - so user can pay in fees different than DOT
-      .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-      .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
-      .build() // Function called to build call
+const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+      .from(NODE)
+      .to(NODE /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) 
+      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+      .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/, /*senderAddress - OPTIONAL - used when origin is AssetHub and feeAsset parameter is provided*/)
+      /*.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub - so user can pay in fees different than DOT
+        .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
+        .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
+
+const tx = await builder.build()
+
+//Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+
+/*
+EXAMPLE:
+const builder = Builder()
+  .from('Acala')
+  .to('Astar')
+  .currency({
+    symbol: 'ACA',
+    amount: '1000000000'
+  })
+  .address(address)
+
+const tx = await builder.build()
+
+//Disconnect API after TX
+await builder.disconnect()
+*/
 ```
-
-AccountId32 and AccountKey20 addresses can be directly copied from PolkadotJS as our SDK has a handler to convert it into the desired hex string automatically. 
-
-Eg. use standard public key `141NGS2jjZca5Ss2Nysth2stJ6rimcnufCNHnh5ExSsftnAA`
-Instead of `0x84fc49ce30071ea611731838cc7736113c1ec68fbc47119be8a0805066df9bAA`
 
 ## Ecosystem Bridges
 This section sums up currently available and implemented ecosystem bridges that are offered in the XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
@@ -195,6 +243,37 @@ const hash = await EvmBuilder()
       .address(address)
       .signer(signer) // Ethers Signer or Viem Wallet Client
       .build()
+```
+
+## Local transfers
+```ts
+const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+      .from(NODE)
+      .to(NODE) //Has to be same as origin (from)
+      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+      .address(address)
+
+const tx = await builder.build()
+
+//Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+
+/*
+EXAMPLE:
+const builder = Builder()
+  .from('Hydration')
+  .to('Hydration')
+  .currency({
+    symbol: 'DOT',
+    amount: '1000000000'
+  })
+  .address(address)
+
+const tx = await builder.build()
+
+//Disconnect API after TX
+await builder.disconnect()
+*/
 ```
 
 ## Query existential deposit
