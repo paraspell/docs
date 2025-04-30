@@ -249,6 +249,10 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 ## XCM Fee query (With DryRun)
 The following endpoint allows is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This endpoint requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin)
 
+```
+NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
+```
+
 **Endpoint**: `POST /xcm-fee`
 
    - **Parameters**:
@@ -290,6 +294,10 @@ const response = await fetch("http://localhost:3001/xcm-fee", {
 
 ## XCM Fee query (Payment info)
 The following endpoint allows is designed to retrieve you approximate fee and doesn't require any token balance.
+
+```
+NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price.
+```
 
 **Endpoint**: `POST /xcm-fee-estimate`
 
