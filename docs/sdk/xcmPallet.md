@@ -127,7 +127,7 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .to(DESTINATION_CHAIN)
           .currency(CURRENCY)
           .address(RECIPIENT_ADDRESS, SENDER_ADDRESS) // Both sender and recipient addresses are required!
-          .getXcmFee({disableFallback: true / false})  //When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
+          .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
 ```
 
 ### Less accurate query using Payment info
