@@ -486,7 +486,7 @@ const response = await fetch("http://localhost:3001/x-transfer-batch", {
 ## Dry run
 You can find out whether you XCM message will execute successfuly or with error. XCM Message dry run should write you concrete error so you can find out if the XCM message will execute without it ever being submitted.
 
-**Endpoint**: `POST /dry-run`
+**Endpoint**: `POST /v2/dry-run`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -508,7 +508,7 @@ You can find out whether you XCM message will execute successfuly or with error.
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/dry-run', {
+const response = await fetch('http://localhost:3001/v2/dry-run', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
