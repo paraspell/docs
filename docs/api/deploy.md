@@ -59,7 +59,7 @@ Based on the UserID received in the email we can edit the maximum request amount
 # Setting up sentry
 Recently LightSpell introducet sentry error tracking service implementation. This guide covers how to use it.
 
-- First step is to register at this [website](https://paraspell.sentry.io/).
+- First step is to register at this [website](https://sentry.io/welcome/).
 - Create new project to get DSN token for .env file used by LightSpell 
 <img width="420" alt="Screenshot 2023-11-16 at 10 23 28" src="https://user-images.githubusercontent.com/55763425/283396658-98339f19-04ab-4ee8-9dfa-a0efec722e73.png">
 - Monitor your issues through dashboard, if you receive any unhandled issues you should be notified by email also

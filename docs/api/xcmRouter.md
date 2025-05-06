@@ -88,7 +88,7 @@ for (const txInfo of txs) {
 
 If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
-**Endpoint**: `POST /router-hash`
+**Endpoint**: `POST /v2/router-hash`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
@@ -144,7 +144,7 @@ const response = await fetch("http://localhost:3001/v2/router", {
 
 If you wish to select your exchange chain manually you can do that by providing aditional parameter `exchange:` in the call. Router will then use exchange chainn of your choice.
 
-**Endpoint**: `POST /router-hash`
+**Endpoint**: `POST /v2/router-hash`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
@@ -203,7 +203,7 @@ const response = await fetch("http://localhost:3001/v2/router", {
 
 If you wish to find out what is the `best amount out` from specified dex or from any dex you can use following query.
 
-**Endpoint**: `POST /router/best-amount-out`
+**Endpoint**: `POST /v2/router/best-amount-out`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
