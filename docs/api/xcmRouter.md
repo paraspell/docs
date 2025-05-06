@@ -37,7 +37,7 @@ const submitTransaction = async (
   });
 };
 
-const response = await fetch("http://localhost:3001/router", {
+const response = await fetch("http://localhost:3001/v2/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/router", {
+const response = await fetch("http://localhost:3001/v2/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -180,7 +180,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/router", {
+const response = await fetch("http://localhost:3001/v2/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -229,7 +229,7 @@ If you wish to find out what is the `best amount out` from specified dex or from
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/router/best-amount-out", {
+const response = await fetch("http://localhost:3001/v2/router/best-amount-out", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

@@ -18,7 +18,7 @@ Before you proceed with verification note the following:
  
  You can claim your token on the following site (API has to be running):  
 
-`http://localhost:3001/app/generate-api-key`
+`http://localhost:3001/v2/app/generate-api-key`
 
 The limit for this level is:
 `100 requests per minute`
@@ -40,7 +40,7 @@ Before you proceed with the request note the following:
 
 Request for higher limit can be done in the following form (API and Database have to be running. Both need to be correctly configured):
 
-`http://localhost:3001/app/higher-request-limit`
+`http://localhost:3001/v2/app/higher-request-limit`
 
 The limit for this level is:
 `Per request`
@@ -76,7 +76,7 @@ Make sure to name the key as `X-API-KEY` otherwise your key won't be recognized.
 The following snippet can be observed. See the `Headers` section where the API key is inserted.
 ```ts
 const response = await fetch(
-        'http://localhost:3001/x-transfer?' +
+        'http://localhost:3001/v2/x-transfer?' +
           new URLSearchParams({
             //Method parameters should be here
             //For eg. from: 'Basilisk'

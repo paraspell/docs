@@ -16,7 +16,7 @@ const provider = getWsProvider('YourChainWSPort') // Specify "YourChainWSPort" w
 const client = createClient(withPolkadotSdkCompat(provider))
 
 const response = await fetch(
-    "http://localhost:3001/x-transfer”,
+    "http://localhost:3001/v2/x-transfer”,
 {
 	method: ‘POST’,
            	body: JSON.stringify({
@@ -47,7 +47,7 @@ tx.signAndSubmit(signer)
 ### Relay chain to Parachain (DMP)
 The following endpoint constructs the Relay chain to the Parachain XCM message.
 
-**Endpoint**: `POST /x-transfer`
+**Endpoint**: `POST /v2/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Relay chain from which the assets will be transferred.
@@ -66,7 +66,7 @@ The following endpoint constructs the Relay chain to the Parachain XCM message.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/v2/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 ### Parachain chain to Relay chain (UMP)
 The following endpoint constructs Parachain to Relay chain XCM message.
 
-**Endpoint**: `POST /x-transfer`
+**Endpoint**: `POST /v2/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -105,7 +105,7 @@ The following endpoint constructs Parachain to Relay chain XCM message.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/v2/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -125,7 +125,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 ### Parachain to Parachain (HRMP)
 The following endpoint allows creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
 
-**Endpoint**: `POST /x-transfer`
+**Endpoint**: `POST /v2/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -149,7 +149,7 @@ The following endpoint allows creation of Parachain to Parachain XCM call. This 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/v2/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 ### Local transfers
 The following endpoint allows  creation of Local asset transfers for any chain and any currency registered on it. This call is specified by same Parachain selected as origin - `from` and destination - `to` parameters.
 
-**Endpoint**: `POST /x-transfer`
+**Endpoint**: `POST /v2/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain on which the asset is transfered locally.
@@ -194,7 +194,7 @@ The following endpoint allows  creation of Local asset transfers for any chain a
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/x-transfer', {
+const response = await fetch('http://localhost:3001/v2/x-transfer', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ You can now customize multilocations for Address, Currency and Destination withi
 **Example of request:**
 
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/v2/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -253,7 +253,7 @@ The following endpoint allows is designed to retrieve you XCM fee at any cost, b
 NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
 ```
 
-**Endpoint**: `POST /xcm-fee`
+**Endpoint**: `POST /v2/xcm-fee`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -277,7 +277,7 @@ NOTICE: When Payment info is performed, it retrieves fees for destination in des
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/xcm-fee", {
+const response = await fetch("http://localhost:3001/v2/xcm-fee", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -300,7 +300,7 @@ The following endpoint allows is designed to retrieve you approximate fee and do
 NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price.
 ```
 
-**Endpoint**: `POST /xcm-fee-estimate`
+**Endpoint**: `POST /v2/xcm-fee-estimate`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -324,7 +324,7 @@ NOTICE: When Payment info is performed, it retrieves fees for destination in des
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/xcm-fee-estimate", {
+const response = await fetch("http://localhost:3001/v2/xcm-fee-estimate", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -352,7 +352,7 @@ Latest API versions support Polkadot <> Kusama bridge in very native and intuiti
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/v2/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -376,7 +376,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/v2/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -399,7 +399,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer", {
+const response = await fetch("http://localhost:3001/v2/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -418,7 +418,7 @@ const response = await fetch("http://localhost:3001/x-transfer", {
 ### Snowbridge health check
 Query for Snowbridge status 
 
-**Endpoint**: `GET /x-transfer/eth-bridge-status`
+**Endpoint**: `GET /v2/x-transfer/eth-bridge-status`
 
 
    - **Parameters**:
@@ -430,14 +430,14 @@ Query for Snowbridge status
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/x-transfer/eth-bridge-status");
+const response = await fetch("http://localhost:3001/v2/x-transfer/eth-bridge-status");
 ```
 
 
 ## Batch call
 XCM API allows you to batch your XCM calls and send multiple at the same time via batch feature.
 
-**Endpoint** `POST /x-transfer-batch`
+**Endpoint** `POST /v2/x-transfer-batch`
 
    - **Parameters**
      - `transfers` (Inside JSON body): (required): Represents array of XCM calls along with optional parameter "options" which contains "mode" to switch between BATCH and BATCH_ALL call forms.
@@ -451,7 +451,7 @@ XCM API allows you to batch your XCM calls and send multiple at the same time vi
 //mode options: - BATCH
 //		- BATCH_ALL
 
-const response = await fetch("http://localhost:3001/x-transfer-batch", {
+const response = await fetch("http://localhost:3001/v2/x-transfer-batch", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -525,7 +525,7 @@ const response = await fetch('http://localhost:3001/v2/dry-run', {
 ## Asset claim
 Assets that have been trapped in the cross-chain transfers can now be recovered through the asset claim feature.
 
-**Endpoint**: `POST /asset-claim`
+**Endpoint**: `POST /v2/asset-claim`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain on which the asset will be claimed.
@@ -540,7 +540,7 @@ Assets that have been trapped in the cross-chain transfers can now be recovered 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/asset-claim", {
+const response = await fetch("http://localhost:3001/v2/asset-claim", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -574,7 +574,7 @@ const response = await fetch("http://localhost:3001/asset-claim", {
 ## Transfer info query
 The following functionality gives you all the necessary information about your transfer, including fees, sufficiency to transfer and more.
 
-**Endpoint**: `GET /transfer-info`
+**Endpoint**: `GET /v2/transfer-info`
 
   - **Parameters**:
     - `origin` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -594,7 +594,7 @@ The following functionality gives you all the necessary information about your t
 **Example of request:**
 ```ts
 const response = await fetch(
-  'http://localhost:3001/transfer-info?' , {
+  'http://localhost:3001/v2/transfer-info?' , {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -617,7 +617,7 @@ This functionality allows you to perform various asset queries with compatible P
 
 ```ts
 const response = await fetch(
-    "http://localhost:3001/assets/<action>" + //Replace "action" with your desired action eg. "Acala/native" 
+    "http://localhost:3001/v2/assets/<action>" + //Replace "action" with your desired action eg. "Acala/native" 
 );
 
 console.log(response) //use response data as necessary
@@ -626,7 +626,7 @@ console.log(response) //use response data as necessary
 ### Query native asset balance
 The following endpoint allows you to query native asset balance for on specific chain.
 
-**Endpoint**: `POST /balance/:node/native`
+**Endpoint**: `POST /v2/balance/:node/native`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -638,7 +638,7 @@ The following endpoint allows you to query native asset balance for on specific 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/balance/:node/native", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/native", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -652,7 +652,7 @@ const response = await fetch("http://localhost:3001/balance/:node/native", {
 ### Query foreign asset balance
 The following endpoint allows you to query foreign asset balance for on specific chain.
 
-**Endpoint**: `POST /balance/:node/foreign`
+**Endpoint**: `POST /v2/balance/:node/foreign`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -665,7 +665,7 @@ The following endpoint allows you to query foreign asset balance for on specific
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/balance/:node/foreign", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/foreign", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -680,7 +680,7 @@ const response = await fetch("http://localhost:3001/balance/:node/foreign", {
 ### Query max foreign currency transferable amount
 The following endpoint allows you to query the maximum native currency transferable amount for a specific chain.
 
-**Endpoint**: `POST /balance/:node/max-foreign-transferable-amount
+**Endpoint**: `POST /v2/balance/:node/max-foreign-transferable-amount
 `
 
    - **Parameters**:
@@ -697,7 +697,7 @@ The following endpoint allows you to query the maximum native currency transfera
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/balance/:node/max-foreign-transferable-amount", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/max-foreign-transferable-amount", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -712,7 +712,7 @@ const response = await fetch("http://localhost:3001/balance/:node/max-foreign-tr
 ### Query max native currency transferable amount
 The following endpoint allows you to query the maximum native currency transferable amount for a specific chain.
 
-**Endpoint**: `POST /balance/:node/max-native-transferable-amount
+**Endpoint**: `POST /v2/balance/:node/max-native-transferable-amount
 `
 
    - **Parameters**:
@@ -728,7 +728,7 @@ The following endpoint allows you to query the maximum native currency transfera
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/balance/:node/max-native-transferable-amount", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/max-native-transferable-amount", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -743,7 +743,7 @@ const response = await fetch("http://localhost:3001/balance/:node/max-native-tra
 ### Query max transferable amount
 The following endpoint allows you to query the maximum currency transferable amount for a specific chain.
 
-**Endpoint**: `POST /balance/:node/transferable-amount`
+**Endpoint**: `POST /v2/balance/:node/transferable-amount`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -759,7 +759,7 @@ The following endpoint allows you to query the maximum currency transferable amo
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/balance/:node/transferable-amount", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/transferable-amount", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -774,7 +774,7 @@ const response = await fetch("http://localhost:3001/balance/:node/transferable-a
 ### Query asset existential deposit
 The following endpoint allows you to query the existential deposit for currency in a specific chain.
 
-**Endpoint**: `POST /balance/:node/existential-deposit`
+**Endpoint**: `POST /v2/balance/:node/existential-deposit`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -788,7 +788,7 @@ The following endpoint allows you to query the existential deposit for currency 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/balance/:node/existential-deposit", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/existential-deposit", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -802,7 +802,7 @@ const response = await fetch("http://localhost:3001/balance/:node/existential-de
 ### Query assets object
 The following endpoint retrieves all assets on a specific Parachain as an object.
 
-**Endpoint**: `GET /assets/:node`
+**Endpoint**: `GET /v2/assets/:node`
 
 
    - **Parameters**:
@@ -815,13 +815,13 @@ The following endpoint retrieves all assets on a specific Parachain as an object
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Moonbeam");
+const response = await fetch("http://localhost:3001/v2/assets/Moonbeam");
 ```
 
 ### Query asset multilocation
 The following endpoint retrieves asset multilocation from the asset ID or asset symbol.
 
-**Endpoint**: `POST /assets/:node/multilocation`
+**Endpoint**: `POST /v2/assets/:node/multilocation`
 
 
    - **Parameters**:
@@ -834,7 +834,7 @@ The following endpoint retrieves asset multilocation from the asset ID or asset 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/:node/multilocation", {
+const response = await fetch("http://localhost:3001/v2/assets/:node/multilocation", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -848,7 +848,7 @@ const response = await fetch("http://localhost:3001/assets/:node/multilocation",
 ### Query asset ID
 The following endpoint returns the asset id for the specific asset on a specific Parachain.
 
-**Endpoint**: `GET /assets/:node/id?symbol=:symbol`
+**Endpoint**: `GET /v2/assets/:node/id?symbol=:symbol`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -862,13 +862,13 @@ The following endpoint returns the asset id for the specific asset on a specific
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Interlay/id?symbol=USDT");
+const response = await fetch("http://localhost:3001/v2/assets/Interlay/id?symbol=USDT");
 ```
 
 ### Query Relay chain asset symbol
 The following endpoint returns the Relay chain asset symbol for a specific Parachain.
 
-**Endpoint**: `GET /assets/:node/relay-chain-symbol`
+**Endpoint**: `GET /v2/assets/:node/relay-chain-symbol`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -880,13 +880,13 @@ The following endpoint returns the Relay chain asset symbol for a specific Parac
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Astar/relay-chain-symbol");
+const response = await fetch("http://localhost:3001/v2/assets/Astar/relay-chain-symbol");
 ```
 
 ### Query native assets
 The following endpoint returns native assets of specific Parachain.
 
-**Endpoint**: `GET /assets/:node/native`
+**Endpoint**: `GET /v2/assets/:node/native`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -898,13 +898,13 @@ The following endpoint returns native assets of specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Hydration/native");
+const response = await fetch("http://localhost:3001/v2/assets/Hydration/native");
 ```
 
 ### Query foreign assets
 The following endpoint returns foreign assets of specific Parachain.
 
-**Endpoint**: `GET /assets/:node/other`
+**Endpoint**: `GET /v2/assets/:node/other`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -916,13 +916,13 @@ The following endpoint returns foreign assets of specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Astar/other");
+const response = await fetch("http://localhost:3001/v2/assets/Astar/other");
 ```
 
 ### Query all asset symbols
 The following endpoint returns all asset symbols for specific Parachain.
 
-**Endpoint**: `GET /assets/:node/all-symbols`
+**Endpoint**: `GET /v2/assets/:node/all-symbols`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -934,13 +934,13 @@ The following endpoint returns all asset symbols for specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Moonbeam/all-symbols");
+const response = await fetch("http://localhost:3001/v2/assets/Moonbeam/all-symbols");
 ```
 
 ### Query asset support
 The following endpoint returns a boolean value that confirms if the asset is registered on a specific Parachain or not.
 
-**Endpoint**: `GET /assets/:node/has-support?symbol=:symbol`
+**Endpoint**: `GET /v2/assets/:node/has-support?symbol=:symbol`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -954,13 +954,13 @@ The following endpoint returns a boolean value that confirms if the asset is reg
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Hydration/has-support?symbol=DOT");
+const response = await fetch("http://localhost:3001/v2/assets/Hydration/has-support?symbol=DOT");
 ```
 
 ### Query asset support between two chains
 The following endpoint retrieves assets supported by both chains.
 
-**Endpoint**: `GET /supported-assets?origin=:node&destination=:node`
+**Endpoint**: `GET /v2/supported-assets?origin=:node&destination=:node`
 
 - **Parameters**:
     - `node` (path parameter): Specifies the name of the Parachain.
@@ -971,13 +971,13 @@ The following endpoint retrieves assets supported by both chains.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/supported-assets?origin=Acala&destination=Astar");
+const response = await fetch("http://localhost:3001/v2/supported-assets?origin=Acala&destination=Astar");
 ```
 
 ### Query destination existential deposit
 The following endpoint retrieves whether sent XCM message will be above existential deposit on destination chain.
 
-**Endpoint**: `POST /balance/${node}/verify-ed-on-destination`
+**Endpoint**: `POST /v2/balance/${node}/verify-ed-on-destination`
 
 
 - **Parameters**:
@@ -992,7 +992,7 @@ The following endpoint retrieves whether sent XCM message will be above existent
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/balance/:node/foreign", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/foreign", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1007,7 +1007,7 @@ const response = await fetch("http://localhost:3001/balance/:node/foreign", {
 ### Query asset decimals
 The following endpoint retrieves specific asset decimals on specific Parachain.
 
-**Endpoint**: `GET /assets/:node/decimals?symbol=:symbol`
+**Endpoint**: `GET /v2/assets/:node/decimals?symbol=:symbol`
 
 - **Parameters**:
     - `node` (path parameter): Specifies the name of the Parachain.
@@ -1021,13 +1021,13 @@ The following endpoint retrieves specific asset decimals on specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Basilisk/decimals?symbol=BSX");
+const response = await fetch("http://localhost:3001/v2/assets/Basilisk/decimals?symbol=BSX");
 ```
 
 ### Query Parachain ws endpoints
 The following endpoint retrieves the Parachain's WS endpoints.
 
-**Endpoint**: `GET /nodes/:node/ws-endpoints`
+**Endpoint**: `GET /v2/nodes/:node/ws-endpoints`
 
 - **Parameters**:
     - `parachain` (path parameter): Specifies the parachain ID.
@@ -1039,13 +1039,13 @@ The following endpoint retrieves the Parachain's WS endpoints.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/nodes/Acala/ws-endpoints");
+const response = await fetch("http://localhost:3001/v2/nodes/Acala/ws-endpoints");
 ```
 
 ### Query Parachain ID
 The following endpoint retrieves Parachain's ID from Parachain's name
 
- **Endpoint**: `GET /assets/:node/para-id`
+ **Endpoint**: `GET /v2/assets/:node/para-id`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1056,13 +1056,13 @@ The following endpoint retrieves Parachain's ID from Parachain's name
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/assets/Acala/para-id");
+const response = await fetch("http://localhost:3001/v2/assets/Acala/para-id");
 ```
 
 ### Query Parachain name
 The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
-**Endpoint**: `GET /nodes/:paraId?ecosystem=eco`
+**Endpoint**: `GET /v2/nodes/:paraId?ecosystem=eco`
 
 - **Parameters**:
     - `paraId` (path parameter): Specifies the parachain ID.
@@ -1074,13 +1074,13 @@ The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/nodes/2090?ecosystem=polkadot");
+const response = await fetch("http://localhost:3001/v2/nodes/2090?ecosystem=polkadot");
 ```
 
 ### Query list of implemented Parachains
 The following endpoint retrieves an array of implemented Parachains.
 
-**Endpoint**: `GET /nodes`
+**Endpoint**: `GET /v2/nodes`
 
    - **Parameters**: None.
    - **Errors**: 
@@ -1089,7 +1089,7 @@ The following endpoint retrieves an array of implemented Parachains.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/nodes");
+const response = await fetch("http://localhost:3001/v2/nodes");
 ```
 
 ## Query XCM pallets
@@ -1100,7 +1100,7 @@ This functionality allows you to query the `XCM pallets` that Parachains current
 
 ```ts
 const response = await fetch(
-    "http://localhost:3001/pallets/<action>" + //Replace "action" with your desired action eg. "Acala/default" 
+    "http://localhost:3001/v2/pallets/<action>" + //Replace "action" with your desired action eg. "Acala/default" 
 );
 
 console.log(response) //use response data as necessary
@@ -1109,7 +1109,7 @@ console.log(response) //use response data as necessary
 ### Get default XCM pallet
 The following endpoint returns the default pallet for specific Parachain
 
-**Endpoint**: `GET /pallets/:node/default`
+**Endpoint**: `GET /v2/pallets/:node/default`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1120,13 +1120,13 @@ The following endpoint returns the default pallet for specific Parachain
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/pallets/Acala/default");
+const response = await fetch("http://localhost:3001/v2/pallets/Acala/default");
 ```
 
 ### Get all supported XCM pallets
 The following endpoint returns all XCM Pallets that are supported on specific Parachain
 
-**Endpoint**: `GET /pallets/:node`
+**Endpoint**: `GET /v2/pallets/:node`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1137,13 +1137,13 @@ The following endpoint returns all XCM Pallets that are supported on specific Pa
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/pallets/Basilisk");
+const response = await fetch("http://localhost:3001/v2/pallets/Basilisk");
 ```
 
 ### Get node DryRun support
 The following endpoint returns whether selected Parachain has DryRun support
 
-**Endpoint**: `GET /nodes/:node/has-dry-run-support`
+**Endpoint**: `GET /v2/nodes/:node/has-dry-run-support`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1154,5 +1154,5 @@ The following endpoint returns whether selected Parachain has DryRun support
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/nodes/:node/has-dry-run-support');
+const response = await fetch('http://localhost:3001/v2/nodes/:node/has-dry-run-support');
 ```

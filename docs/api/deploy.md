@@ -46,8 +46,6 @@ What each line in the file means (every line must be configured otherwise API wo
 - `MIXPANEL_PROJECT_TOKEN`: This token is for statistics that track requests (Not saving amounts and wallet addresses to keep the privacy of users intact). **This parameter is optional**.
 - `SENTRY_DSN`: This token is for sentry - statistics tool that tracks errors produced by API to create easier debugging for developers. **This parameter is optional**.
 
-More on this feature can be found in the following [Pull request](https://github.com/paraspell/xcm-api/pull/14)
-
 ### NOTE BEFORE DEPLOYING: Database must be specifically POSTGRESQL
 
 **Make sure to also test every form before deploying to ensure everything is configured correctly.**
@@ -71,7 +69,7 @@ Recently LightSpell introducet sentry error tracking service implementation. Thi
 Open your rest API client, client we use is [Insomnia](https://insomnia.rest/).
 
 Paste in following details and input following link to test out sentry:
-`http://localhost:3001/sentry-test`
+`http://localhost:3001/v2/sentry-test`
 
 LightSpell have integrated this test for you so you can test out error 500 in localhost mode.
 Once you pasted the link into browser sentry should notify you about new error 500. It should look like this in your project:
