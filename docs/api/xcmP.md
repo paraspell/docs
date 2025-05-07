@@ -799,6 +799,25 @@ const response = await fetch("http://localhost:3001/v2/balance/:node/existential
 });
 ```
 
+### Query Fee assets
+The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee on specific node)
+
+**Endpoint**: `GET /v2/assets/:node/fee-assets`
+
+
+   - **Parameters**:
+     - `node` (path parameter): Specifies the name of the Parachain.
+
+   - **Errors**:
+     - `400` (Bad request): When a specified Parachain does not exist.
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v2/assets/:node/fee-assets');
+```
+
 ### Query assets object
 The following endpoint retrieves all assets on a specific Parachain as an object.
 
