@@ -78,7 +78,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
         //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
+	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -117,7 +117,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
         //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
+	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -161,9 +161,10 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when multiasset is provided or when origin is AssetHub - so user can pay in fees different than DOT
         //senderAddress: senderAddress //Optional parameter - only needed when origin is AssetHub and feeAsset is provided
+        //ahAddress: ahAddress //Optional parameter - used when origin is EVM node and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
         //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
+	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -241,7 +242,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
         },
         //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
         //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	//method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
+	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -623,10 +624,10 @@ const response = await fetch(
 console.log(response) //use response data as necessary
 ```
 
-### Query native asset balance
-The following endpoint allows you to query native asset balance for on specific chain.
+### Query asset balance
+The following endpoint allows you to query asset balance for on specific chain.
 
-**Endpoint**: `POST /v2/balance/:node/native`
+**Endpoint**: `POST /v2/balance/:node/asset`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -638,104 +639,14 @@ The following endpoint allows you to query native asset balance for on specific 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/native", {
+const response = await fetch("http://localhost:3001/v2/balance/:node/asset", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
         address: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-    })
-});
-```
-
-### Query foreign asset balance
-The following endpoint allows you to query foreign asset balance for on specific chain.
-
-**Endpoint**: `POST /v2/balance/:node/foreign`
-
-   - **Parameters**:
-     - `node` (Path parameter): Specifies the name of the Parachain.
-     - `address` (Inside JSON body): (required): Specifies the address of the account.
-     - `currency` (Inside JSON body): (required): Specifies the currency to query.
-
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/foreign", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
-    })
-});
-```
-
-### Query max foreign currency transferable amount
-The following endpoint allows you to query the maximum native currency transferable amount for a specific chain.
-
-**Endpoint**: `POST /v2/balance/:node/max-foreign-transferable-amount
-`
-
-   - **Parameters**:
-     - `node` (Path parameter): Specifies the name of the Parachain.
-     - `address` (Inside JSON body): (required): Specifies the address of the account.
-     - `currency` (Inside JSON body): (required): Specifies the currency to query.
-
-
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
-     - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
-     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/max-foreign-transferable-amount", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
-    })
-});
-```
-
-### Query max native currency transferable amount
-The following endpoint allows you to query the maximum native currency transferable amount for a specific chain.
-
-**Endpoint**: `POST /v2/balance/:node/max-native-transferable-amount
-`
-
-   - **Parameters**:
-     - `node` (Path parameter): Specifies the name of the Parachain.
-     - `address` (Inside JSON body): (required): Specifies the address of the account.
-     - `currency` (Inside JSON body): (optional): Specifies the currency to query (Has to be currency symbol as native assets do not have IDs).
-
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
-     - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
-     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided and has to be provided (Otherwise optional)
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/max-native-transferable-amount", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency?: "Currency" //Replace "Currency" with {symbol: currencySymbol}
+        currency: {currencySpec}, //{id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson} | {multilocation: "type": "Override","value": "CustomAssetMultilocationJson"}
     })
 });
 ```
