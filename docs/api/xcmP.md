@@ -632,9 +632,13 @@ The following endpoint allows you to query asset balance for on specific chain.
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
      - `address` (Inside JSON body): (required): Specifies the address of the account.
+     - `currency` (Inside JSON body): (required): Specifies the currency to query.
+
 
    - **Errors**:
-     - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
+     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 **Example of request:**
