@@ -611,6 +611,26 @@ const response = await fetch(
 });
 ```
 
+## SS58 Address conversion
+Following functionality allows you to convert any SS58 address to Parachain specific address.
+
+ **Endpoint**: `GET /v2/convert-ss58?address=:address&node=:node`
+
+   - **Parameters**:
+     - `node` (query parameter): Specifies the name of the Parachain.
+     - `node` (query parameter): Specifies the SS58 Address.
+
+   - **Errors**:
+     - `400` (Bad request): When a specified Parachain does not exist.
+     - `400` (Bad request): When a specified Address is not provided.
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v2/convert-ss58?address=:address&node=:node');
+```
+
 ## Asset query
 This functionality allows you to perform various asset queries with compatible Parachains.
 

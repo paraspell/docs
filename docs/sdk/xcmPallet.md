@@ -328,6 +328,18 @@ import { getExistentialDeposit } from "@paraspell/sdk-pjs";
 const ed = getExistentialDeposit(node, currency?)
 ```
 
+## Convert SS58 address 
+Following functionality allows you to convert any SS58 address to Parachain specific address.
+
+```ts
+//PAPI
+import { convertSs58 } from "@paraspell/sdk";
+//PJS
+import { convertSs58 } from "@paraspell/sdk-pjs";
+
+let result = convertSs58(address, node) // returns converted address in string
+```
+
 ## XCM Transfer info
 You can now query all important information about your XCM call including information about fees (If your balance is sufficient to transfer XCM message) and more.
 
