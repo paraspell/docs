@@ -115,43 +115,6 @@ await builder.disconnect()
 */
 ```
 
-## XCM Fee (Origin and Dest.)
-Following queries allow you to query fee from both Origin and Destination of the XCM Message. You can get accurate result from DryRun query(Requires token balance) or less accurate from Payment info query (Doesn't require token balance).
-
-### More accurate query using DryRun
-The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
-
-```
-NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
-```
-
-```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
-          .currency(CURRENCY)
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
-          .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
-```
-
-### Less accurate query using Payment info
-This query is designed to retrieve you approximate fee and doesn't require any token balance.
-
-```
-NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. 
-```
-
-```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
-          .currency(CURRENCY)
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)          
-          .getXcmFeeEstimate()
-```
-
 ## Ecosystem Bridges
 This section sums up currently available and implemented ecosystem bridges that are offered in the XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
 
@@ -232,23 +195,35 @@ Query for Snowbridge status
 const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 ```
 
-## Dry run your XCM Calls
-
-Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` instead of `.build()`
-
+## Local transfers
 ```ts
-const result = await Builder(API /*optional*/)
-        .from(NODE)
-        .to(NODE_2)
-        .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
-        .address(ADDRESS)
-        .senderAddress(SENDER_ADDRESS)
-        .dryRun()
+const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+      .from(NODE)
+      .to(NODE) //Has to be same as origin (from)
+      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+      .address(address)
 
-//Check Parachain for DryRun support - returns true/false
-import { hasDryRunSupport } from "@paraspell/sdk-pjs";
+const tx = await builder.build()
 
-const result = hasDryRunSupport(node)
+//Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+
+/*
+EXAMPLE:
+const builder = Builder()
+  .from('Hydration')
+  .to('Hydration')
+  .currency({
+    symbol: 'DOT',
+    amount: '1000000000'
+  })
+  .address(address)
+
+const tx = await builder.build()
+
+//Disconnect API after TX
+await builder.disconnect()
+*/
 ```
 
 ## Batch calls
@@ -285,61 +260,60 @@ const hash = await EvmBuilder()
       .build()
 ```
 
-## Local transfers
+## Dry run your XCM Calls
+
+Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` instead of `.build()`
+
 ```ts
-const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-      .from(NODE)
-      .to(NODE) //Has to be same as origin (from)
-      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
-      .address(address)
+const result = await Builder(API /*optional*/)
+        .from(NODE)
+        .to(NODE_2)
+        .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+        .address(ADDRESS)
+        .senderAddress(SENDER_ADDRESS)
+        .dryRun()
 
-const tx = await builder.build()
+//Check Parachain for DryRun support - returns true/false
+import { hasDryRunSupport } from "@paraspell/sdk-pjs";
 
-//Make sure to disconnect API after it is no longer used (eg. after transaction)
-await builder.disconnect()
-
-/*
-EXAMPLE:
-const builder = Builder()
-  .from('Hydration')
-  .to('Hydration')
-  .currency({
-    symbol: 'DOT',
-    amount: '1000000000'
-  })
-  .address(address)
-
-const tx = await builder.build()
-
-//Disconnect API after TX
-await builder.disconnect()
-*/
+const result = hasDryRunSupport(node)
 ```
 
-## Query existential deposit
-Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
+## XCM Fee (Origin and Dest.)
+Following queries allow you to query fee from both Origin and Destination of the XCM Message. You can get accurate result from DryRun query(Requires token balance) or less accurate from Payment info query (Doesn't require token balance).
 
-```ts
-//PAPI
-import { getExistentialDeposit } from "@paraspell/sdk";
-//PJS
-import { getExistentialDeposit } from "@paraspell/sdk-pjs";
+### More accurate query using DryRun
+The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
 
-//Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
-//Currency can be either {symbol: assetSymbol}, {id: assetId}, {multilocation: assetMultilocation}.
-const ed = getExistentialDeposit(node, currency?)
+```
+NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
 ```
 
-## Convert SS58 address 
-Following functionality allows you to convert any SS58 address to Parachain specific address.
+```ts
+const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+          .from(ORIGIN_CHAIN)
+          .to(DESTINATION_CHAIN)
+          .currency(CURRENCY)
+          .address(RECIPIENT_ADDRESS)
+          .senderAddress(SENDER_ADDRESS)
+          .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
+```
+
+### Less accurate query using Payment info
+This query is designed to retrieve you approximate fee and doesn't require any token balance.
+
+```
+NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. 
+```
 
 ```ts
-//PAPI
-import { convertSs58 } from "@paraspell/sdk";
-//PJS
-import { convertSs58 } from "@paraspell/sdk-pjs";
-
-let result = convertSs58(address, node) // returns converted address in string
+const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+          .from(ORIGIN_CHAIN)
+          .to(DESTINATION_CHAIN)
+          .currency(CURRENCY)
+          .address(RECIPIENT_ADDRESS)
+          .senderAddress(SENDER_ADDRESS)          
+          .getXcmFeeEstimate()
 ```
 
 ## XCM Transfer info
@@ -368,6 +342,32 @@ await getParaEthTransferFees(/*api - optional (Can also be WS port string or arr
 
 //Verify whether XCM message you wish to send will reach above existential deposit on destination chain.
 await verifyEdOnDestination(node,  currency: {symbol: || id: || multilocation: .. ,amount: 100000n}, address)
+```
+
+## Query existential deposit
+Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
+
+```ts
+//PAPI
+import { getExistentialDeposit } from "@paraspell/sdk";
+//PJS
+import { getExistentialDeposit } from "@paraspell/sdk-pjs";
+
+//Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
+//Currency can be either {symbol: assetSymbol}, {id: assetId}, {multilocation: assetMultilocation}.
+const ed = getExistentialDeposit(node, currency?)
+```
+
+## Convert SS58 address 
+Following functionality allows you to convert any SS58 address to Parachain specific address.
+
+```ts
+//PAPI
+import { convertSs58 } from "@paraspell/sdk";
+//PJS
+import { convertSs58 } from "@paraspell/sdk-pjs";
+
+let result = convertSs58(address, node) // returns converted address in string
 ```
 
 ## Developer experience

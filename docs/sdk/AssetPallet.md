@@ -18,7 +18,7 @@ yarn add || pnpm | npm install @paraspell/assets
 import { getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTNode, getAssetMultiLocation, NODE_NAMES } from  '@paraspell/assets'
 ```
 
-## Query Fee assets
+## Query fee assets
 This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property.
 ```ts
 getFeeAssets('Astar')

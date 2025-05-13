@@ -247,99 +247,6 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
 });
 ```
 
-## XCM Fee query (With DryRun)
-The following endpoint allows is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This endpoint requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin)
-
-```
-NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
-```
-
-**Endpoint**: `POST /v2/xcm-fee`
-
-   - **Parameters**:
-     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
-     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
-     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-     - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
-
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
-     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v2/xcm-fee", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
-        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
-        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
-        /*disableFallback: "True" //Optional parameter - if enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.*/
-    })
-});
-```
-
-## XCM Fee query (Payment info)
-The following endpoint allows is designed to retrieve you approximate fee and doesn't require any token balance.
-
-```
-NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price.
-```
-
-**Endpoint**: `POST /v2/xcm-fee-estimate`
-
-   - **Parameters**:
-     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
-     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
-     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-     - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
-
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
-     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v2/xcm-fee-estimate", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
-        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
-        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
-    })
-});
-```
-
 ## Ecosystem Bridges
 This section sums up currently available and implemented ecosystem bridges that are offered in the XCM API. Implementing cross-ecosystem asset transfers was never this easy!
 
@@ -484,45 +391,6 @@ const response = await fetch("http://localhost:3001/v2/x-transfer-batch", {
 }*/
 ```
 
-## Dry run
-You can find out whether you XCM message will execute successfuly or with error. XCM Message dry run should write you concrete error so you can find out if the XCM message will execute without it ever being submitted.
-
-**Endpoint**: `POST /v2/dry-run`
-
-   - **Parameters**:
-     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
-     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
-     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-     - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
-
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
-     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
-
-**Example of request:**
-```ts
-const response = await fetch('http://localhost:3001/v2/dry-run', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
-    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
-    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
-  }),
-```
-
 ## Asset claim
 Assets that have been trapped in the cross-chain transfers can now be recovered through the asset claim feature.
 
@@ -568,6 +436,138 @@ const response = await fetch("http://localhost:3001/v2/asset-claim", {
     "Fungible": "10000"
   }
 }]*/
+```
+
+## Dry run
+You can find out whether you XCM message will execute successfuly or with error. XCM Message dry run should write you concrete error so you can find out if the XCM message will execute without it ever being submitted.
+
+**Endpoint**: `POST /v2/dry-run`
+
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v2/dry-run', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
+    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
+    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+  }),
+```
+
+## XCM Fee query (With DryRun)
+The following endpoint allows is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This endpoint requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin)
+
+```
+NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
+```
+
+**Endpoint**: `POST /v2/xcm-fee`
+
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v2/xcm-fee", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
+        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
+        /*disableFallback: "True" //Optional parameter - if enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.*/
+    })
+});
+```
+
+## XCM Fee query (Payment info)
+The following endpoint allows is designed to retrieve you approximate fee and doesn't require any token balance.
+
+```
+NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price.
+```
+
+**Endpoint**: `POST /v2/xcm-fee-estimate`
+
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v2/xcm-fee-estimate", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
+        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
+    })
+});
 ```
 
 
