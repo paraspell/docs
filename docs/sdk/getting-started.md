@@ -2,7 +2,7 @@
 
 This guide guides you through implementation of XCM SDK that allows you to do various exciting actions on Polkadot and Kusama chains. To start proceed with steps mentioned below. Good luck adventurer!
 
-## Starter template
+## Starter template 🛫
 Don't want to go through setup and build from ground up? 
 - Our team has created a [XCM SDK Starter template](https://github.com/paraspell/xcm-sdk-template) for you! 
 

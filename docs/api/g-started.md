@@ -14,7 +14,7 @@ Deployed on [https://api.lightspell.xyz/](https://api.lightspell.xyz/)
 [[Github repository]](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
 </h4>
 
-## Starter template
+## Starter template 🛫
 Don't want to go through setup and build from ground up? 
 - Our team has created a [XCM API Starter template](https://github.com/paraspell/xcm-api-template) for you! 
 
