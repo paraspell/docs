@@ -260,6 +260,22 @@ const hash = await EvmBuilder()
       .build()
 ```
 
+### Asset claim:
+Claim XCM trapped assets from the selected chain.
+
+```ts
+const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+      .claimFrom(NODE)
+      .fungible(MultilocationArray (Only one multilocation allowed) [{Multilocation}])
+      .account(address | Multilocation object)
+      /*.xcmVersion(Version.V3) Optional parameter, by default V3. XCM Version ENUM if a different XCM version is needed (Supported V2 & V3). Requires importing Version enum.*/
+
+const tx = await builder.build()
+
+//Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+```
+
 ## Dry run your XCM Calls
 
 Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` instead of `.build()`
