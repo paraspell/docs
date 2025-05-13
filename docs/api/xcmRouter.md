@@ -8,34 +8,42 @@ For list of supported chains/assets/dexes head over to [List of supported chains
 ```NOTE:``` We recently introduced new much simpler way to implement XCM API! You can now request hashed response of built call which offlifts you from parsing and works right away!
 
 ```ts
-const submitTransaction = async (
-  api: ApiPromise,
-  tx: Extrinsic,
-  signer: Signer,
-  injectorAddress: string,
-): Promise<string> => {
-  await tx.signAsync(injectorAddress, { signer });
-  return await new Promise((resolve, reject) => {
-    void tx.send(({ status, dispatchError, txHash }) => {
-      if (status.isFinalized) {
-        // Check if there are any dispatch errors
-        if (dispatchError !== undefined) {
-          if (dispatchError.isModule) {
-            const decoded = api.registry.findMetaError(dispatchError.asModule);
-            const { docs, name, section } = decoded;
-
-            reject(new Error(`${section}.${name}: ${docs.join(' ')}`));
-          } else {
-            reject(new Error(dispatchError.toString()));
-          }
-        } else {
-          // No dispatch error, transaction should be successful
-          resolve(txHash.toString());
+export const submitTransaction = async (
+  tx: TPapiTransaction,
+  signer: PolkadotSigner,
+  onSign?: () => void,
+): Promise<TxFinalizedPayload> => {
+  return new Promise((resolve, reject) => {
+    tx.signSubmitAndWatch(signer).subscribe({
+      next: (event) => {
+        if (event.type === 'signed') {
+          onSign?.();
         }
-      }
+
+        if (event.type === 'finalized') {
+          if (!event.ok) {
+            const errorMsg = event.dispatchError?.value
+              ? JSON.stringify(event.dispatchError.value)
+              : 'Transaction failed';
+            reject(new Error(errorMsg));
+          } else {
+            resolve(event);
+          }
+        }
+      },
+      error: (error) => {
+        if (error instanceof InvalidTxError) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          const typedErr = error.error;
+          reject(new Error(`Invalid transaction: ${JSON.stringify(typedErr)}`));
+        } else {
+          reject(error instanceof Error ? error : new Error(String(error)));
+        }
+      },
     });
   });
 };
+
 
 const response = await fetch("http://localhost:3001/v2/router", {
     method: 'POST',
@@ -59,25 +67,23 @@ const txs = await response.json();
 
 for (const txInfo of txs) {
     // Use the WS provider URL retrieved from the API to create an ApiPromise instance
-    const api = await ApiPromise.create({
-      provider: new WsProvider(txInfo.wsProvider),
-    });
+    const api = createClient(
+          withPolkadotSdkCompat(getWsProvider(txInfo.wsProviders)),
+        );
+const tx = await api
+            .getUnsafeApi()
+            .txFromCallData(Binary.fromHex(txInfo.tx))
 
     if (txInfo.statusType === "TO_EXCHANGE") {
       // When submitting to exchange, prioritize the evmSigner if available
-      const txHash = txInfo.tx
       await submitTransaction(
-        api,
-        api.tx(txHash),
+        tx,
         evmSigner ?? signer,
-        evmInjectorAddress ?? injectorAddress
       );
     } else {
       await submitTransaction(
-        api,
-        api.tx(txHash),
+        tx,
         signer,
-        injectorAddress
       );
     }
 }

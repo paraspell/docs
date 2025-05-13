@@ -9,14 +9,12 @@ It works across 10 open-source Parachain DEXes.
 - BifrostKusama / 66 Pools available / Requires native token for swaps
 - BifrostPolkadot / 45 Pools available / Requires native token for swaps
 - HydraDX / 210 Pools available
-- Interlay / 10 Pools available / Requires native token for swaps
 - Karura / 136 Pools available
-- Kintsugi / 6 Pools available / Requires native token for swaps
 - AssetHubPolkadot / 32 Pools available / Requires specific native tokens for swaps
 - AssetHubKusama / 16 Pools available / Requires specific native tokens for swaps
 
 
-Totalling to 572 pools available for cross-chain swap transactions.
+Totalling to 556 pools available for cross-chain swap transactions.
 
 **NOTE: Some exchanges require native tokens to proceed with swaps.**
 
@@ -33,14 +31,16 @@ await RouterBuilder
         .slippagePct('1')   // Max slipppage percentage
         .senderAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
-        .signer(injector.signer)    //Signer
+        .signer(signer)    //PAPI Signer
         //.evmSenderAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
         //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
 
-        .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
-          console.log(status.hashes);   //Transaction hashes
-          console.log(status.status);   //Transaction statuses
-          console.log(status.type);    //Transaction types
+        .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
+          console.log(status.type);   // Current transaction type
+          console.log(status.routerPlan);   // Array of all transactions to execute
+          console.log(status.node);   // Current transaction origin node
+          console.log(status.destinationNode);    // Current transaction destination node
+          console.log(status.currentStep);    // 0-based step index of current transaction
         })
         .buildAndSend()
 ```
@@ -59,14 +59,16 @@ await RouterBuilder
         .slippagePct('1')   // Max slipppage percentage
         .senderAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
-        .signer(injector.signer)    //Signer
+        .signer(signer)    //PAPI Signer
         //.evmSenderAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
         //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
 
-        .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
-          console.log(status.hashes);   //Transaction hashes
-          console.log(status.status);   //Transaction statuses
-          console.log(status.type);    //Transaction types
+        .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
+          console.log(status.type);   // Current transaction type
+          console.log(status.routerPlan);   // Array of all transactions to execute
+          console.log(status.node);   // Current transaction origin node
+          console.log(status.destinationNode);    // Current transaction destination node
+          console.log(status.currentStep);    // 0-based step index of current transaction
         })
         .buildAndSend()
 ```
@@ -85,14 +87,16 @@ await RouterBuilder
         .slippagePct('1')   // Max slipppage percentage
         .senderAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
-        .signer(injector.signer)    //Signer
+        .signer(signer)    //PAPI Signer
         //.evmSenderAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
         //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
 
-        .onStatusChange((status: TTxProgressInfo) => {  //This is how we subscribe to calls that need signing
-          console.log(status.hashes);   //Transaction hashes
-          console.log(status.status);   //Transaction statuses
-          console.log(status.type);    //Transaction types
+        .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
+          console.log(status.type);   // Current transaction type
+          console.log(status.routerPlan);   // Array of all transactions to execute
+          console.log(status.node);   // Current transaction origin node
+          console.log(status.destinationNode);    // Current transaction destination node
+          console.log(status.currentStep);    // 0-based step index of current transaction
         })
         .buildAndSend()
 ```
@@ -136,7 +140,5 @@ const assets = getExchangeAssets('AssetHubPolkadotDex')
 | Basilisk DEX | Kusama Relay, Karura, AssetHubKusama, Tinkernet, Robonomics| BSX, USDT, aSEED, XRT, KSM, TNKR| Chain automatically gives you native asset to pay for fees.|
 |Bifrost Kusama DEX| Kusama Relay, AssetHubKusama, Karura, Moonriver, Kintsugi| BNC, vBNC, vsKSM, vKSM, USDT, aSEED, KAR, ZLK, RMRK, KBTC, MOVR, vMOVR| Chain requires native BNC asset for fees.|
 |Bifrost Polkadot DEX| Polkadot Relay, AssetHubPolkadot, Moonbeam, Astar, Interlay| BNC, vDOT, vsDOT, USDT, FIL, vFIL, ASTR, vASTR, GLMR, vGLMR, MANTA, vMANTA|Chain requires native BNC asset for fees.|
-|Interlay DEX| Polkadot Relay, Acala, Astar, Parallel, PolkadotAssetHub, HydraDX, BifrostPolkadot |INTR, DOT, IBTC, USDT, VDOT| Chain requires native INTR asset for fees.|
-|Kintsugi DEX| Kusama Relay, Karura, KusamaAssetHub, Parallel Heiko, BifrostKusama|KINT,KSM,KBTC,USDT|Chain requires native KINT asset for fees.|
 |AssetHubPolkadot| Polkadot Relay, Any Parachain it has HRMP channel with | DOT, WETH.e, USDC, USDT, LAOS, MYTH, WBBTC.e, ASX, BILL, DEMO, TATE, PINK, MODE, MVPW, PIGS, DED, wstETH.e, TTT, KSM, tBTC.e, PEPE.e, SHIB.e, TON.e, NAT, NT2, DOTA, STINK, MTC, AJUN, GGI, GLMR, NIN | Requires specific native tokens for swaps |
 |AssetHubKusama| Kusama Relay, Any Parachain it has HRMP channel with | KSM, DOT, USDC, USDT, BILLCOIN, WOOD, dUSD, TACP, TSM, MA42, USDT, DMO, JAM | Requires specific native tokens for swaps |

@@ -1,7 +1,7 @@
 # Getting started with SpellRouter☄️
 This guide guides you through implementation of XCM Router that allows you to do various exciting actions on Polkadot and Kusama chains.
 
-## Starter template
+## Starter template 🛫
 Don't want to go through setup and build from ground up? 
 - Our team has created a [XCM Router Starter template](https://github.com/paraspell/xcm-router-template) for you! 
 
@@ -13,10 +13,13 @@ This template is programmed with React & Vite framework. It contains basic compo
 ⚠️ NOTE
 Enabling Wasm is required by Hydration SDK in order for XCM-Router to work in your dAPP. You can either enable it in web app config or by plugin.
 Hydration also requires augment package - https://github.com/galacticcouncil/sdk/issues/114
+
+⚠️⚠️ NOTE
+XCM Router is now migrated towards PAPI library! To migrate you just need to replace old PJS injector with PAPI signer and install new peer dependency. Explore docs to find out more.
 ```
 
 ```sh
-yarn add || pnpm | npm install @polkadot/api @polkadot/types @polkadot/api-base @polkadot/apps-config @polkadot/util
+yarn add || pnpm | npm install polkadot-api
 ```
 
 ## Install XCM Router package
