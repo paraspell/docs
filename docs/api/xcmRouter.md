@@ -307,3 +307,30 @@ const response = await fetch("http://localhost:3001/v2/router/best-amount-out", 
     })
 });
 ```
+
+## Asset pairs
+
+Retrieve which `asset pairs` are supported on which exchanges.
+
+**Endpoint**: `POST /v2/router/pairs`
+
+   - **Parameters**:
+     - `exchange`: (optional): Represents the exchange for which the asset pairs should be retrieved 
+
+   - **Errors**: 
+     - `400`  (Bad request exception) - Returned when body parameter 'exchange' does not exist.
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v2/router/pairs", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        exchange: "exchange chain", // Exchange can be also array of exchanges such as [“HydrationDex”, “AcalaDex”] or undefined which will return all available pairs for all dexes
+    })
+});
+```
