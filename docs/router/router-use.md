@@ -119,6 +119,24 @@ console.log(result.amountOut)
 console.log(result.exchange)
 ```
 
+## Get Router fees
+
+You can retrieve fees for all operations XCM Router performs. Keep in mind, that they are not as accurate for transfer from exchange to destination as the currency that is planned to be routed after the swap is not yet available on that account (Thus it uses payment info method instead of dryrun in that scenario).
+
+```ts
+const fees = await RouterBuilder()
+      .from(from) //Optional parameter based on scenario
+      .exchange(exchange) //Optional parameter based on scenario
+      .to(to) //Optional parameter based on scenario
+      .currencyFrom(currencyFrom)
+      .currencyTo(currencyTo)
+      .amount(amount)
+      .senderAddress(senderAddress)
+      .recipientAddress(recipientAddress)
+      .slippagePct(slippagePct)
+      .getXcmFees();
+```
+
 ## Helpful functions
 
 Below, you can find helpful functions that are exported from XCM Router to help you enhance front end usability of XCM Router.
