@@ -770,7 +770,7 @@ The following endpoint allows is designed to retrieve you approximate fee and do
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/xcm-fee-estimate", {
+const response = await fetch("http://localhost:3001/v3/origin-xcm-fee-estimate", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
