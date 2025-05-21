@@ -16,7 +16,7 @@ const provider = getWsProvider('YourChainWSPort') // Specify "YourChainWSPort" w
 const client = createClient(withPolkadotSdkCompat(provider))
 
 const response = await fetch(
-    "http://localhost:3001/v2/x-transfer”,
+    "http://localhost:3001/v3/x-transfer”,
 {
 	method: ‘POST’,
            	body: JSON.stringify({
@@ -47,7 +47,7 @@ tx.signAndSubmit(signer)
 ### Relay chain to Parachain (DMP)
 The following endpoint constructs the Relay chain to the Parachain XCM message.
 
-**Endpoint**: `POST /v2/x-transfer`
+**Endpoint**: `POST /v3/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Relay chain from which the assets will be transferred.
@@ -66,7 +66,7 @@ The following endpoint constructs the Relay chain to the Parachain XCM message.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer", {
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
 ### Parachain chain to Relay chain (UMP)
 The following endpoint constructs Parachain to Relay chain XCM message.
 
-**Endpoint**: `POST /v2/x-transfer`
+**Endpoint**: `POST /v3/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -105,7 +105,7 @@ The following endpoint constructs Parachain to Relay chain XCM message.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer", {
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -125,7 +125,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
 ### Parachain to Parachain (HRMP)
 The following endpoint allows creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
 
-**Endpoint**: `POST /v2/x-transfer`
+**Endpoint**: `POST /v3/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -149,7 +149,7 @@ The following endpoint allows creation of Parachain to Parachain XCM call. This 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer", {
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -172,7 +172,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
 ### Local transfers
 The following endpoint allows  creation of Local asset transfers for any chain and any currency registered on it. This call is specified by same Parachain selected as origin - `from` and destination - `to` parameters.
 
-**Endpoint**: `POST /v2/x-transfer`
+**Endpoint**: `POST /v3/x-transfer`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain on which the asset is transfered locally.
@@ -195,7 +195,7 @@ The following endpoint allows  creation of Local asset transfers for any chain a
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v2/x-transfer', {
+const response = await fetch('http://localhost:3001/v3/x-transfer', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -220,7 +220,7 @@ You can now customize multilocations for Address, Currency and Destination withi
 **Example of request:**
 
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer", {
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -260,7 +260,7 @@ Latest API versions support Polkadot <> Kusama bridge in very native and intuiti
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer", {
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -284,7 +284,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer", {
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -307,7 +307,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer", {
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -326,7 +326,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer", {
 ### Snowbridge health check
 Query for Snowbridge status 
 
-**Endpoint**: `GET /v2/x-transfer/eth-bridge-status`
+**Endpoint**: `GET /v3/x-transfer/eth-bridge-status`
 
 
    - **Parameters**:
@@ -338,14 +338,14 @@ Query for Snowbridge status
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/x-transfer/eth-bridge-status");
+const response = await fetch("http://localhost:3001/v3/x-transfer/eth-bridge-status");
 ```
 
 
 ## Batch call
 XCM API allows you to batch your XCM calls and send multiple at the same time via batch feature.
 
-**Endpoint** `POST /v2/x-transfer-batch`
+**Endpoint** `POST /v3/x-transfer-batch`
 
    - **Parameters**
      - `transfers` (Inside JSON body): (required): Represents array of XCM calls along with optional parameter "options" which contains "mode" to switch between BATCH and BATCH_ALL call forms.
@@ -359,7 +359,7 @@ XCM API allows you to batch your XCM calls and send multiple at the same time vi
 //mode options: - BATCH
 //		- BATCH_ALL
 
-const response = await fetch("http://localhost:3001/v2/x-transfer-batch", {
+const response = await fetch("http://localhost:3001/v3/x-transfer-batch", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -394,7 +394,7 @@ const response = await fetch("http://localhost:3001/v2/x-transfer-batch", {
 ## Asset claim
 Assets that have been trapped in the cross-chain transfers can now be recovered through the asset claim feature.
 
-**Endpoint**: `POST /v2/asset-claim`
+**Endpoint**: `POST /v3/asset-claim`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain on which the asset will be claimed.
@@ -409,7 +409,7 @@ Assets that have been trapped in the cross-chain transfers can now be recovered 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/asset-claim", {
+const response = await fetch("http://localhost:3001/v3/asset-claim", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -441,7 +441,7 @@ const response = await fetch("http://localhost:3001/v2/asset-claim", {
 ## Dry run
 You can find out whether you XCM message will execute successfuly or with error. XCM Message dry run should write you concrete error so you can find out if the XCM message will execute without it ever being submitted.
 
-**Endpoint**: `POST /v2/dry-run`
+**Endpoint**: `POST /v3/dry-run`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -463,7 +463,7 @@ You can find out whether you XCM message will execute successfuly or with error.
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v2/dry-run', {
+const response = await fetch('http://localhost:3001/v3/dry-run', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -477,14 +477,141 @@ const response = await fetch('http://localhost:3001/v2/dry-run', {
   }),
 ```
 
-## XCM Fee query (With DryRun)
+## XCM Transfer info
+To comprehensively assess whether a message will execute successfully without failure, use this query. It provides detailed information on currency balances before and after the transaction, including all relevant fees. This data is essential for accurately evaluating potential balance or fee-related issues that could cause message failure.
+
+**Endpoint**: `POST /v3/transfer-info`
+
+  - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+     
+**Example of request:**
+```ts
+const response = await fetch(
+  'http://localhost:3001/v3/transfer-info' , {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },  
+    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
+    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
+    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+  }),
+```
+
+## Transferable amount
+To retrieve information on how much of the selected currency can be transfered from specific account you can use transferable balance. This query will calculate transferable balance using following formulae: 
+
+**Balance - ED - if(asset=native) then also substract Origin XCM Fees else ignore**
+
+**Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through).
+
+**Endpoint**: `POST /v3/transferable-amount`
+
+  - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+     
+**Example of request:**
+```ts
+const response = await fetch(
+  'http://localhost:3001/v3/transferable-amount' , {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },  
+    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
+    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
+    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+  }),
+```
+
+## Verify ED on destination
+To retrieve information on whether the selected currency from specific account will meet existential deposit on destination chain you can use this query. This query will calculate whether user has will have enough to cover existential deposit on XCM arrival using following pseudo formulae: 
+
+**(if(Balance) || if(TransferedAmount - ED - Destination Fee > 0)) return true else false** 
+
+**Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through). **If function switches to PaymentInfo and transfered currency is different than native currency on destination chain the function throws error as PaymentInfo only returns fees in native asset of the chain.**
+
+**Endpoint**: `POST /v3/verify-ed-on-destination`
+
+  - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+     
+**Example of request:**
+```ts
+const response = await fetch(
+  'http://localhost:3001/v3/verify-ed-on-destination' , {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },  
+    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
+    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
+    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
+    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+  }),
+```
+
+## XCM Fee (Origin & Dest.)
+
+### More accurate query using DryRun
 The following endpoint allows is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This endpoint requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin)
 
 ```
 NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
 ```
 
-**Endpoint**: `POST /v2/xcm-fee`
+**Endpoint**: `POST /v3/xcm-fee`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -508,7 +635,7 @@ NOTICE: When Payment info is performed, it retrieves fees for destination in des
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/xcm-fee", {
+const response = await fetch("http://localhost:3001/v3/xcm-fee", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -516,7 +643,7 @@ const response = await fetch("http://localhost:3001/v2/xcm-fee", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
         /*disableFallback: "True" //Optional parameter - if enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.*/
@@ -524,14 +651,14 @@ const response = await fetch("http://localhost:3001/v2/xcm-fee", {
 });
 ```
 
-## XCM Fee query (Payment info)
+### Less accurate query using Payment info
 The following endpoint allows is designed to retrieve you approximate fee and doesn't require any token balance.
 
 ```
 NOTICE: When Payment info is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price.
 ```
 
-**Endpoint**: `POST /v2/xcm-fee-estimate`
+**Endpoint**: `POST /v3/xcm-fee-estimate`
 
    - **Parameters**:
      - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
@@ -555,7 +682,7 @@ NOTICE: When Payment info is performed, it retrieves fees for destination in des
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/xcm-fee-estimate", {
+const response = await fetch("http://localhost:3001/v3/xcm-fee-estimate", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -563,58 +690,105 @@ const response = await fetch("http://localhost:3001/v2/xcm-fee-estimate", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
 });
 ```
 
+## XCM Fee (Origin only)
+Following queries allow you to query XCM fee from Origin chain. You can get accurate result from DryRun query (Requires token balance) or less accurate from Payment info query (Doesn't require token balance).
 
+### More accurate query using DryRun
+The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
 
-## Transfer info query
-The following functionality gives you all the necessary information about your transfer, including fees, sufficiency to transfer and more.
+**Endpoint**: `POST /v3/origin-xcm-fee`
 
-**Endpoint**: `GET /v2/transfer-info`
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
 
-  - **Parameters**:
-    - `origin` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
-    - `destination` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
-    - `currency`: (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-    - `amount`: (Inside JSON body): (required): Specifies the amount of assets to transfer. It should be a numeric value.
-    - `accountOrigin`: (Inside JSON body): (required): Specifies the address of the origin.
-    - `accountDestination`: (Inside JSON body): (required): Specifies the recipient's address.
-
-  - **Errors**:
-     - `400`  (Bad request exception) - Returned when parameter 'origin/destination' is not provided or existing
-     - `400`  (Bad request exception) - Returned when parameter 'accountOrigin/accountDestination' is not provided or correct
-     - `400`  (Bad request exception) - Returned when query parameter 'currency/amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not positive number
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-     
+
+**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
+
 **Example of request:**
 ```ts
-const response = await fetch(
-  'http://localhost:3001/v2/transfer-info?' , {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },  
-  body: JSON.stringify({
-    origin: 'Parachain', // Replace "Parachain" with chain you wish to query transfer info for as origin
-    destination: 'Parachain', // Replace "destination" with chain you wish to query transfer info for as destination
-    currency: {currencySpec}, //{id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson} | {multilocation: "type": "Override","value": "CustomAssetMultilocationJson"}
-    amount: 'Amount', // Replace "Amount" with the numeric value you wish to transfer
-    accountOrigin: 'Account address', // Replace "Address" with origin wallet address (In AccountID32 or AccountKey20 Format)
-    accountDestination: 'Account address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
-  }),
+const response = await fetch("http://localhost:3001/v3/origin-xcm-fee", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
+        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
+        /*disableFallback: "True" //Optional parameter - if enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.*/
+    })
+});
+```
+
+### Less accurate query using Payment info
+The following endpoint allows is designed to retrieve you approximate fee and doesn't require any token balance.
+
+**Endpoint**: `POST /v3/origin-xcm-fee-estimate`
+
+   - **Parameters**:
+     - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+     - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+     - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+     - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+     - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+     - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+     - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+     - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+     - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v3/xcm-fee-estimate", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
+        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
+        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
+    })
 });
 ```
 
 ## SS58 Address conversion
 Following functionality allows you to convert any SS58 address to Parachain specific address.
 
- **Endpoint**: `GET /v2/convert-ss58?address=:address&node=:node`
+ **Endpoint**: `GET /v3/convert-ss58?address=:address&node=:node`
 
    - **Parameters**:
      - `node` (query parameter): Specifies the name of the Parachain.
@@ -628,17 +802,17 @@ Following functionality allows you to convert any SS58 address to Parachain spec
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v2/convert-ss58?address=:address&node=:node');
+const response = await fetch('http://localhost:3001/v3/convert-ss58?address=:address&node=:node');
 ```
 
-## Asset query
+## Asset queries
 This functionality allows you to perform various asset queries with compatible Parachains.
 
 ### Package-less implementation of XCM API Asset features into your application
 
 ```ts
 const response = await fetch(
-    "http://localhost:3001/v2/assets/<action>" + //Replace "action" with your desired action eg. "Acala/native" 
+    "http://localhost:3001/v3/assets/<action>" + //Replace "action" with your desired action eg. "Acala/native" 
 );
 
 console.log(response) //use response data as necessary
@@ -647,7 +821,7 @@ console.log(response) //use response data as necessary
 ### Query asset balance
 The following endpoint allows you to query asset balance for on specific chain.
 
-**Endpoint**: `POST /v2/balance/:node/asset`
+**Endpoint**: `POST /v3/balance/:node/asset`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -663,7 +837,7 @@ The following endpoint allows you to query asset balance for on specific chain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/asset", {
+const response = await fetch("http://localhost:3001/v3/balance/:node/asset", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -678,7 +852,7 @@ const response = await fetch("http://localhost:3001/v2/balance/:node/asset", {
 ### Query max transferable amount
 The following endpoint allows you to query the maximum currency transferable amount for a specific chain.
 
-**Endpoint**: `POST /v2/balance/:node/transferable-amount`
+**Endpoint**: `POST /v3/balance/:node/transferable-amount`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -694,7 +868,7 @@ The following endpoint allows you to query the maximum currency transferable amo
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/transferable-amount", {
+const response = await fetch("http://localhost:3001/v3/balance/:node/transferable-amount", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -709,7 +883,7 @@ const response = await fetch("http://localhost:3001/v2/balance/:node/transferabl
 ### Query asset existential deposit
 The following endpoint allows you to query the existential deposit for currency in a specific chain.
 
-**Endpoint**: `POST /v2/balance/:node/existential-deposit`
+**Endpoint**: `POST /v3/balance/:node/existential-deposit`
 
    - **Parameters**:
      - `node` (Path parameter): Specifies the name of the Parachain.
@@ -723,7 +897,7 @@ The following endpoint allows you to query the existential deposit for currency 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/existential-deposit", {
+const response = await fetch("http://localhost:3001/v3/balance/:node/existential-deposit", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -737,7 +911,7 @@ const response = await fetch("http://localhost:3001/v2/balance/:node/existential
 ### Query Fee assets
 The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee on specific node)
 
-**Endpoint**: `GET /v2/assets/:node/fee-assets`
+**Endpoint**: `GET /v3/assets/:node/fee-assets`
 
 
    - **Parameters**:
@@ -750,13 +924,13 @@ The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee o
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v2/assets/:node/fee-assets');
+const response = await fetch('http://localhost:3001/v3/assets/:node/fee-assets');
 ```
 
 ### Query assets object
 The following endpoint retrieves all assets on a specific Parachain as an object.
 
-**Endpoint**: `GET /v2/assets/:node`
+**Endpoint**: `GET /v3/assets/:node`
 
 
    - **Parameters**:
@@ -769,13 +943,13 @@ The following endpoint retrieves all assets on a specific Parachain as an object
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Moonbeam");
+const response = await fetch("http://localhost:3001/v3/assets/Moonbeam");
 ```
 
 ### Query asset multilocation
 The following endpoint retrieves asset multilocation from the asset ID or asset symbol.
 
-**Endpoint**: `POST /v2/assets/:node/multilocation`
+**Endpoint**: `POST /v3/assets/:node/multilocation`
 
 
    - **Parameters**:
@@ -788,7 +962,7 @@ The following endpoint retrieves asset multilocation from the asset ID or asset 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/:node/multilocation", {
+const response = await fetch("http://localhost:3001/v3/assets/:node/multilocation", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -802,7 +976,7 @@ const response = await fetch("http://localhost:3001/v2/assets/:node/multilocatio
 ### Query asset ID
 The following endpoint returns the asset id for the specific asset on a specific Parachain.
 
-**Endpoint**: `GET /v2/assets/:node/id?symbol=:symbol`
+**Endpoint**: `GET /v3/assets/:node/id?symbol=:symbol`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -816,13 +990,13 @@ The following endpoint returns the asset id for the specific asset on a specific
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Interlay/id?symbol=USDT");
+const response = await fetch("http://localhost:3001/v3/assets/Interlay/id?symbol=USDT");
 ```
 
 ### Query Relay chain asset symbol
 The following endpoint returns the Relay chain asset symbol for a specific Parachain.
 
-**Endpoint**: `GET /v2/assets/:node/relay-chain-symbol`
+**Endpoint**: `GET /v3/assets/:node/relay-chain-symbol`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -834,13 +1008,13 @@ The following endpoint returns the Relay chain asset symbol for a specific Parac
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Astar/relay-chain-symbol");
+const response = await fetch("http://localhost:3001/v3/assets/Astar/relay-chain-symbol");
 ```
 
 ### Query native assets
 The following endpoint returns native assets of specific Parachain.
 
-**Endpoint**: `GET /v2/assets/:node/native`
+**Endpoint**: `GET /v3/assets/:node/native`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -852,13 +1026,13 @@ The following endpoint returns native assets of specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Hydration/native");
+const response = await fetch("http://localhost:3001/v3/assets/Hydration/native");
 ```
 
 ### Query foreign assets
 The following endpoint returns foreign assets of specific Parachain.
 
-**Endpoint**: `GET /v2/assets/:node/other`
+**Endpoint**: `GET /v3/assets/:node/other`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -870,13 +1044,13 @@ The following endpoint returns foreign assets of specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Astar/other");
+const response = await fetch("http://localhost:3001/v3/assets/Astar/other");
 ```
 
 ### Query all asset symbols
 The following endpoint returns all asset symbols for specific Parachain.
 
-**Endpoint**: `GET /v2/assets/:node/all-symbols`
+**Endpoint**: `GET /v3/assets/:node/all-symbols`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -888,13 +1062,13 @@ The following endpoint returns all asset symbols for specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Moonbeam/all-symbols");
+const response = await fetch("http://localhost:3001/v3/assets/Moonbeam/all-symbols");
 ```
 
 ### Query asset support
 The following endpoint returns a boolean value that confirms if the asset is registered on a specific Parachain or not.
 
-**Endpoint**: `GET /v2/assets/:node/has-support?symbol=:symbol`
+**Endpoint**: `GET /v3/assets/:node/has-support?symbol=:symbol`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -908,13 +1082,13 @@ The following endpoint returns a boolean value that confirms if the asset is reg
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Hydration/has-support?symbol=DOT");
+const response = await fetch("http://localhost:3001/v3/assets/Hydration/has-support?symbol=DOT");
 ```
 
 ### Query asset support between two chains
 The following endpoint retrieves assets supported by both chains.
 
-**Endpoint**: `GET /v2/supported-assets?origin=:node&destination=:node`
+**Endpoint**: `GET /v3/supported-assets?origin=:node&destination=:node`
 
 - **Parameters**:
     - `node` (path parameter): Specifies the name of the Parachain.
@@ -925,13 +1099,13 @@ The following endpoint retrieves assets supported by both chains.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/supported-assets?origin=Acala&destination=Astar");
+const response = await fetch("http://localhost:3001/v3/supported-assets?origin=Acala&destination=Astar");
 ```
 
 ### Query destination existential deposit
 The following endpoint retrieves whether sent XCM message will be above existential deposit on destination chain.
 
-**Endpoint**: `POST /v2/balance/${node}/verify-ed-on-destination`
+**Endpoint**: `POST /v3/balance/${node}/verify-ed-on-destination`
 
 
 - **Parameters**:
@@ -946,7 +1120,7 @@ The following endpoint retrieves whether sent XCM message will be above existent
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/balance/:node/foreign", {
+const response = await fetch("http://localhost:3001/v3/balance/:node/foreign", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -961,7 +1135,7 @@ const response = await fetch("http://localhost:3001/v2/balance/:node/foreign", {
 ### Query asset decimals
 The following endpoint retrieves specific asset decimals on specific Parachain.
 
-**Endpoint**: `GET /v2/assets/:node/decimals?symbol=:symbol`
+**Endpoint**: `GET /v3/assets/:node/decimals?symbol=:symbol`
 
 - **Parameters**:
     - `node` (path parameter): Specifies the name of the Parachain.
@@ -975,13 +1149,13 @@ The following endpoint retrieves specific asset decimals on specific Parachain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Basilisk/decimals?symbol=BSX");
+const response = await fetch("http://localhost:3001/v3/assets/Basilisk/decimals?symbol=BSX");
 ```
 
 ### Query Parachain ws endpoints
 The following endpoint retrieves the Parachain's WS endpoints.
 
-**Endpoint**: `GET /v2/nodes/:node/ws-endpoints`
+**Endpoint**: `GET /v3/nodes/:node/ws-endpoints`
 
 - **Parameters**:
     - `parachain` (path parameter): Specifies the parachain ID.
@@ -993,13 +1167,13 @@ The following endpoint retrieves the Parachain's WS endpoints.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/nodes/Acala/ws-endpoints");
+const response = await fetch("http://localhost:3001/v3/nodes/Acala/ws-endpoints");
 ```
 
 ### Query Parachain ID
 The following endpoint retrieves Parachain's ID from Parachain's name
 
- **Endpoint**: `GET /v2/assets/:node/para-id`
+ **Endpoint**: `GET /v3/assets/:node/para-id`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1010,13 +1184,13 @@ The following endpoint retrieves Parachain's ID from Parachain's name
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/assets/Acala/para-id");
+const response = await fetch("http://localhost:3001/v3/assets/Acala/para-id");
 ```
 
 ### Query Parachain name
 The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
-**Endpoint**: `GET /v2/nodes/:paraId?ecosystem=eco`
+**Endpoint**: `GET /v3/nodes/:paraId?ecosystem=eco`
 
 - **Parameters**:
     - `paraId` (path parameter): Specifies the parachain ID.
@@ -1028,13 +1202,13 @@ The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/nodes/2090?ecosystem=polkadot");
+const response = await fetch("http://localhost:3001/v3/nodes/2090?ecosystem=polkadot");
 ```
 
 ### Query list of implemented Parachains
 The following endpoint retrieves an array of implemented Parachains.
 
-**Endpoint**: `GET /v2/nodes`
+**Endpoint**: `GET /v3/nodes`
 
    - **Parameters**: None.
    - **Errors**: 
@@ -1043,10 +1217,10 @@ The following endpoint retrieves an array of implemented Parachains.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/nodes");
+const response = await fetch("http://localhost:3001/v3/nodes");
 ```
 
-## Query XCM pallets
+## XCM pallet queries
 
 This functionality allows you to query the `XCM pallets` that Parachains currently support. 
 
@@ -1054,7 +1228,7 @@ This functionality allows you to query the `XCM pallets` that Parachains current
 
 ```ts
 const response = await fetch(
-    "http://localhost:3001/v2/pallets/<action>" + //Replace "action" with your desired action eg. "Acala/default" 
+    "http://localhost:3001/v3/pallets/<action>" + //Replace "action" with your desired action eg. "Acala/default" 
 );
 
 console.log(response) //use response data as necessary
@@ -1063,7 +1237,7 @@ console.log(response) //use response data as necessary
 ### Get default XCM pallet
 The following endpoint returns the default pallet for specific Parachain
 
-**Endpoint**: `GET /v2/pallets/:node/default`
+**Endpoint**: `GET /v3/pallets/:node/default`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1074,13 +1248,13 @@ The following endpoint returns the default pallet for specific Parachain
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/pallets/Acala/default");
+const response = await fetch("http://localhost:3001/v3/pallets/Acala/default");
 ```
 
 ### Get all supported XCM pallets
 The following endpoint returns all XCM Pallets that are supported on specific Parachain
 
-**Endpoint**: `GET /v2/pallets/:node`
+**Endpoint**: `GET /v3/pallets/:node`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1091,13 +1265,13 @@ The following endpoint returns all XCM Pallets that are supported on specific Pa
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/pallets/Basilisk");
+const response = await fetch("http://localhost:3001/v3/pallets/Basilisk");
 ```
 
 ### Get node DryRun support
 The following endpoint returns whether selected Parachain has DryRun support
 
-**Endpoint**: `GET /v2/nodes/:node/has-dry-run-support`
+**Endpoint**: `GET /v3/nodes/:node/has-dry-run-support`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1108,5 +1282,5 @@ The following endpoint returns whether selected Parachain has DryRun support
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v2/nodes/:node/has-dry-run-support');
+const response = await fetch('http://localhost:3001/v3/nodes/:node/has-dry-run-support');
 ```

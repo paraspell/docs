@@ -45,7 +45,7 @@ export const submitTransaction = async (
 };
 
 
-const response = await fetch("http://localhost:3001/v2/router", {
+const response = await fetch("http://localhost:3001/v3/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ const tx = await api
 
 If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
-**Endpoint**: `POST /v2/router-hash`
+**Endpoint**: `POST /v3/router-hash`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
@@ -127,7 +127,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/router", {
+const response = await fetch("http://localhost:3001/v3/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -149,7 +149,7 @@ const response = await fetch("http://localhost:3001/v2/router", {
 
 If you wish to have exchange chain selection based on best price outcome from selected chains, you can opt for whitelist exchange selection method. This method can be selected by **using desired chains in** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
-**Endpoint**: `POST /v2/router-hash`
+**Endpoint**: `POST /v3/router-hash`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
@@ -184,7 +184,7 @@ If you wish to have exchange chain selection based on best price outcome from se
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/router", {
+const response = await fetch("http://localhost:3001/v3/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -207,7 +207,7 @@ const response = await fetch("http://localhost:3001/v2/router", {
 
 If you wish to select your exchange chain manually you can do that by providing aditional parameter `exchange:` in the call. Router will then use exchange chain of your choice.
 
-**Endpoint**: `POST /v2/router-hash`
+**Endpoint**: `POST /v3/router-hash`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
@@ -243,7 +243,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/router", {
+const response = await fetch("http://localhost:3001/v3/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -266,7 +266,7 @@ const response = await fetch("http://localhost:3001/v2/router", {
 
 If you wish to find out what is the `best amount out` from specified dex or from any dex you can use following query.
 
-**Endpoint**: `POST /v2/router/best-amount-out`
+**Endpoint**: `POST /v3/router/best-amount-out`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
@@ -292,7 +292,7 @@ If you wish to find out what is the `best amount out` from specified dex or from
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/router/best-amount-out", {
+const response = await fetch("http://localhost:3001/v3/router/best-amount-out", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -312,7 +312,7 @@ const response = await fetch("http://localhost:3001/v2/router/best-amount-out", 
 
 You can retrieve fees for all operations XCM Router performs. Keep in mind, that they are not as accurate for transfer from exchange to destination as the currency that is planned to be routed after the swap is not yet available on that account (Thus it uses payment info method instead of dryrun in that scenario).
 
-**Endpoint**: `POST /v2/router/xcm-fees`
+**Endpoint**: `POST /v3/router/xcm-fees`
 
    - **Parameters**:
      - `from`: (optional): Represents the Parachain from which the assets will be transferred.
@@ -348,7 +348,7 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/router/xcm-fees", {
+const response = await fetch("http://localhost:3001/v3/router/xcm-fees", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -371,7 +371,7 @@ const response = await fetch("http://localhost:3001/v2/router/xcm-fees", {
 
 Retrieve which `asset pairs` are supported on which exchanges.
 
-**Endpoint**: `POST /v2/router/pairs`
+**Endpoint**: `POST /v3/router/pairs`
 
    - **Parameters**:
      - `exchange`: (optional): Represents the exchange for which the asset pairs should be retrieved 
@@ -383,7 +383,7 @@ Retrieve which `asset pairs` are supported on which exchanges.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v2/router/pairs", {
+const response = await fetch("http://localhost:3001/v3/router/pairs", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

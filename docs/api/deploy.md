@@ -30,7 +30,7 @@ What each line in the file means (every line must be configured otherwise API wo
 - `RATE_LIMIT_REQ_COUNT_PUBLIC`: Line specifies users without token authentification and how many requests they are allowed to do per specified time.
 - `RATE_LIMIT_REQ_COUNT_AUTH`: Line specifies users with token authentification and how many requests they are allowed to do per specified time.
 - `JWT_SECRET_KEY`: Key, that has to be set before the server is launched. Secret from which all tokens are hash-derived.
-- `RECAPTCHA_SECRET_KEY`: Secret key for your ReCaptcha. A guide on how it can be obtained can be found [here](https://cloud.google.com/recaptcha-enterprise/docs/create-key?fbclid=IwAR0wbzgUfKo-ih12jfNAC8MJIUUEMX15vszzfMdwvizXgqBdcrQW_9nCtx4). **Make sure to select reCAPTCHA v2 when generating new key.**
+- `RECAPTCHA_SECRET_KEY`: Secret key for your ReCaptcha. A guide on how it can be obtained can be found [here](https://cloud.google.com/recaptcha-enterprise/docs/create-key?fbclid=IwAR0wbzgUfKo-ih12jfNAC8MJIUUEMX15vszzfMdwvizXgqBdcrQW_9nCtx4). **Make sure to select reCAPTCHA v3 when generating new key.**
 - `PORT`: Specifies the port on which the API server will be running. **This parameter is optional and if now added API will default to port 3001**
 - `DB_HOST`: Specifies host for your Postgresql database. 
 - `DB_PORT`: Specifies the port for your Postgresql database. 
@@ -69,7 +69,7 @@ Recently LightSpell introducet sentry error tracking service implementation. Thi
 Open your rest API client, client we use is [Insomnia](https://insomnia.rest/).
 
 Paste in following details and input following link to test out sentry:
-`http://localhost:3001/v2/sentry-test`
+`http://localhost:3001/v3/sentry-test`
 
 LightSpell have integrated this test for you so you can test out error 500 in localhost mode.
 Once you pasted the link into browser sentry should notify you about new error 500. It should look like this in your project:

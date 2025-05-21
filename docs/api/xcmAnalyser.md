@@ -3,7 +3,7 @@
 Following section covers implementation of XCM Analyser in LightSpell XCM API. Users can analyse either independent multilocations or entire XCM Calls.
 
 ## Analyse Multilocation
-**Endpoint**: `POST /v2/xcm-analyser`
+**Endpoint**: `POST /v3/xcm-analyser`
 
    - **Parameters**:
      - `multilocation`: Specific multilocation
@@ -14,7 +14,7 @@ Following section covers implementation of XCM Analyser in LightSpell XCM API. U
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 ```ts
-const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
+const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
 });
 ```
 ## Analyse XCM call
-**Endpoint**: `POST /v2/xcm-analyser`
+**Endpoint**: `POST /v3/xcm-analyser`
 
    - **Parameters**:
      - `xcm`: Complete XCM call
@@ -36,7 +36,7 @@ const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
      - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
 ```ts
-const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
+const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

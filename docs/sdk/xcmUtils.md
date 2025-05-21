@@ -61,7 +61,7 @@ const info = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
 ## Transferable amount
 To retrieve information on how much of the selected currency can be transfered from specific account you can use transferable balance. This query will calculate transferable balance using following formulae: 
 
-**transferable = Balance - ED - if(asset=native) then also substract Origin XCM Fees else ignore**
+**Balance - ED - if(asset=native) then also substract Origin XCM Fees else ignore**
 
 **Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through).
 
@@ -84,7 +84,7 @@ const transferable = await Builder(/*node api/ws_url_string/ws_url_array - optio
 ## Verify ED on destination
 To retrieve information on whether the selected currency from specific account will meet existential deposit on destination chain you can use this query. This query will calculate whether user has will have enough to cover existential deposit on XCM arrival using following pseudo formulae: 
 
-**existential = (if(Balance) || if(TransferedAmount - ED - Destination Fee > 0)) return true else false** 
+**(if(Balance) || if(TransferedAmount - ED - Destination Fee > 0)) return true else false** 
 
 **Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through). **If function switches to PaymentInfo and transfered currency is different than native currency on destination chain the function throws error as PaymentInfo only returns fees in native asset of the chain.**
 
@@ -342,10 +342,6 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
 ### Less accurate query using Payment info
 This query is designed to retrieve you approximate fee and doesn't require any token balance.
 
-```
-NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. 
-```
-
 ```ts
 const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .from(ORIGIN_CHAIN)
@@ -440,8 +436,3 @@ const result = convertSs58(address, node) // returns converted address in string
 "7Lu51dzX1eqBxHdc8DkWvMkyFgoVXXFjibjEnxUndJQ8NAHz"
 ```
 
-## Developer experience
-
-### Builder pattern experience
-When developing with the Builder pattern, the developer is guided by the typescript and thus knows which parameter can be added next. This increases the developer experience and makes SDK easier to use.
-<img width="459" alt="builder" src="https://user-images.githubusercontent.com/55763425/214562882-dd1a052e-c420-4131-bb50-3b656fabd10c.png">
