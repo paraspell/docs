@@ -23,21 +23,42 @@ import { getDefaultPallet, getSupportedPallets, getPalletIndex, SUPPORTED_PALLET
 
 The function returns the default XCM pallet for selected compatible Parachain.
 ```ts
-getDefaultPallet(node: TNode)
+getDefaultPallet(NODE)
+```
+
+**Example output:**
+
+```json
+"XTokens"
 ```
 
 ## Get all supported XCM pallets
 
 The function returns all supported XCM pallets for selected compatible Parachain.
 ```ts
-getSupportedPallets(node: TNode)
+getSupportedPallets(NODE)
+```
+
+**Example output:**
+
+```json
+[
+  "PolkadotXcm",
+  "XTokens"
+]
 ```
 
 ### Get index of XCM Pallet
 
 The function returns all index of XCM Pallet for selected Parachain.
 ```ts
-getPalletIndex(node: TNode)
+getPalletIndex(NODE)
+```
+
+**Example output:**
+
+```json
+55
 ```
 
 ## Print all supported XCM pallets

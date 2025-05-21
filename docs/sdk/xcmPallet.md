@@ -295,95 +295,181 @@ import { hasDryRunSupport } from "@paraspell/sdk-pjs";
 const result = hasDryRunSupport(node)
 ```
 
-## XCM Fee (Origin and Dest.)
-Following queries allow you to query fee from both Origin and Destination of the XCM Message. You can get accurate result from DryRun query(Requires token balance) or less accurate from Payment info query (Doesn't require token balance).
-
-### More accurate query using DryRun
-The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
-
-```
-NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
-```
-
-```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
-          .currency(CURRENCY)
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
-          .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
-```
-
-### Less accurate query using Payment info
-This query is designed to retrieve you approximate fee and doesn't require any token balance.
-
-```
-NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. 
-```
-
-```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
-          .currency(CURRENCY)
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)          
-          .getXcmFeeEstimate()
-```
-
-## XCM Transfer info
-You can now query all important information about your XCM call including information about fees (If your balance is sufficient to transfer XCM message) and more.
-
-```ts
-//PAPI
-import { verifyEdOnDestination, getParaEthTransferFees, getAssetBalance, getTransferInfo, getOriginFeeDetails, getTransferableAmount } from "@paraspell/sdk";
-//PJS
-import { verifyEdOnDestination, getParaEthTransferFees, getAssetBalance, getTransferInfo, getOriginFeeDetails, getTransferableAmount } from "@paraspell/sdk-pjs";
-
-//Get fee information regarding XCM call
-await getOriginFeeDetails({from, to, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, amount, originAddress, destinationAddress, ahAddress /* optional parameter when destination is Ethereum and origin is Parachain other than AssetHub*/, api /* api/ws_url_string optional */, feeMargin /* 10% by default */})
-
-//Retrieves the asset balance for a given account on a specified node (You do not need to specify if it is native or foreign).
-await getAssetBalance({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, api /* api/ws_url_string optional */});
-
-//Combines the getMaxNative and getMaxForeign transferable amount functions into one, so you don't have to specify whether you want a native or foreign asset.
-await getTransferableAmount({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/});
-
-//Get all the information about XCM transfer
-await getTransferInfo({from, to, address, destinationAddress, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, amount, api /* api/ws_url_string optional */})
-
-//Get bridge and execution fee for transfer from Parachain to Ethereum. Returns as an object of 2 values - [bridgeFee, executionFee]
-await getParaEthTransferFees(/*api - optional (Can also be WS port string or array o WS ports. Must be AssetHubPolkadot WS!)*/)
-
-//Verify whether XCM message you wish to send will reach above existential deposit on destination chain.
-await verifyEdOnDestination(node,  currency: {symbol: || id: || multilocation: .. ,amount: 100000n}, address)
-```
-
-## Query existential deposit
-Latest SDK versions now offer ability to query existential deposit on implemented chains using simple call:
-
-```ts
-//PAPI
-import { getExistentialDeposit } from "@paraspell/sdk";
-//PJS
-import { getExistentialDeposit } from "@paraspell/sdk-pjs";
-
-//Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
-//Currency can be either {symbol: assetSymbol}, {id: assetId}, {multilocation: assetMultilocation}.
-const ed = getExistentialDeposit(node, currency?)
-```
-
-## Convert SS58 address 
-Following functionality allows you to convert any SS58 address to Parachain specific address.
-
-```ts
-//PAPI
-import { convertSs58 } from "@paraspell/sdk";
-//PJS
-import { convertSs58 } from "@paraspell/sdk-pjs";
-
-let result = convertSs58(address, node) // returns converted address in string
+**Example output:**
+```json
+{
+  "origin": {
+    "success": true,
+    "fee": "523900168617",
+    "forwardedXcms": [
+      {
+        "type": "V4",
+        "value": {
+          "parents": 1,
+          "interior": {
+            "type": "Here"
+          }
+        }
+      },
+      [
+        {
+          "type": "V3",
+          "value": [
+            {
+              "type": "WithdrawAsset",
+              "value": [
+                {
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 0,
+                      "interior": {
+                        "type": "Here"
+                      }
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "2000000000"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClearOrigin"
+            },
+            {
+              "type": "BuyExecution",
+              "value": {
+                "fees": {
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 0,
+                      "interior": {
+                        "type": "Here"
+                      }
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "1000000000"
+                  }
+                },
+                "weight_limit": {
+                  "type": "Unlimited"
+                }
+              }
+            },
+            {
+              "type": "DepositReserveAsset",
+              "value": {
+                "assets": {
+                  "type": "Wild",
+                  "value": {
+                    "type": "AllCounted",
+                    "value": 1
+                  }
+                },
+                "dest": {
+                  "parents": 0,
+                  "interior": {
+                    "type": "X1",
+                    "value": {
+                      "type": "Parachain",
+                      "value": 2006
+                    }
+                  }
+                },
+                "xcm": [
+                  {
+                    "type": "BuyExecution",
+                    "value": {
+                      "fees": {
+                        "id": {
+                          "type": "Concrete",
+                          "value": {
+                            "parents": 1,
+                            "interior": {
+                              "type": "Here"
+                            }
+                          }
+                        },
+                        "fun": {
+                          "type": "Fungible",
+                          "value": "1000000000"
+                        }
+                      },
+                      "weight_limit": {
+                        "type": "Unlimited"
+                      }
+                    }
+                  },
+                  {
+                    "type": "DepositAsset",
+                    "value": {
+                      "assets": {
+                        "type": "Wild",
+                        "value": {
+                          "type": "AllCounted",
+                          "value": 1
+                        }
+                      },
+                      "beneficiary": {
+                        "parents": 0,
+                        "interior": {
+                          "type": "X1",
+                          "value": {
+                            "type": "AccountId32",
+                            "value": {
+                              "id": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SetTopic",
+              "value": {}
+            }
+          ]
+        }
+      ]
+    ],
+    "destParaId": 0,
+    "currency": "HDX"
+  },
+  "destination": {
+    "success": true,
+    "fee": "45825617",
+    "weight": {
+      "refTime": "577609000",
+      "proofSize": "7186"
+    },
+    "forwardedXcms": [
+      {
+        "type": "V4",
+        "value": {
+          "parents": 0,
+          "interior": {
+            "type": "X1",
+            "value": {
+              "type": "Parachain",
+              "value": 2094
+            }
+          }
+        }
+      },
+      []
+    ],
+    "destParaId": 2094,
+    "currency": "DOT"
+  }
+}
 ```
 
 ## Developer experience

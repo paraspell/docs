@@ -21,70 +21,354 @@ import { getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNati
 ## Query fee assets
 This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property.
 ```ts
-getFeeAssets('Astar')
+getFeeAssets(NODE)
+```
+
+**Example output:**
+
+```json
+[
+  {
+    "isNative": true,
+    "symbol": "ACA",
+    "decimals": 12,
+    "existentialDeposit": "100000000000",
+    "multiLocation": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2000
+          },
+          {
+            "GeneralKey": {
+              "length": 2,
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      }
+    }
+  }
+]
+```
+
+## Convert id or symbol to multilocation
+Get multilocation for asset id or symbol.
+```ts
+getAssetMultiLocation(NODE, { symbol: symbol } | { id: assetId })
+```
+
+**Example output:**
+
+```json
+{
+  "parents": 1,
+  "interior": {
+    "Here": null
+  }
+}
 ```
 
 ## Query assets object
 This function returns `assets object` from `assets.json` for `particular Parachain` including information about `native` and `foreign` assets.
 ```ts
-getAssetsObject('Acala')
+getAssetsObject(NODE)
+```
+
+**Example output:**
+
+```json
+{
+  "relayChainAssetSymbol": "DOT",
+  "nativeAssetSymbol": "AJUN",
+  "isEVM": false,
+  "ss58Prefix": 1328,
+  "supportsDryRunApi": false,
+  "supportsXcmPaymentApi": false,
+  "nativeAssets": [
+    {
+      "symbol": "AJUN",
+      "isNative": true,
+      "decimals": 12,
+      "existentialDeposit": "1000000000"
+    }
+  ],
+  "otherAssets": [
+    {
+      "assetId": "0",
+      "symbol": "DOT",
+      "decimals": 10,
+      "existentialDeposit": "1000000000",
+      "multiLocation": {
+        "parents": 1,
+        "interior": {
+          "Here": null
+        }
+      }
+    },
+    {
+      "assetId": "847713",
+      "symbol": "DMOG",
+      "decimals": 12,
+      "existentialDeposit": "10000000000"
+    },
+    {
+      "assetId": "1984",
+      "symbol": "USDt",
+      "decimals": 6,
+      "existentialDeposit": "10000",
+      "multiLocation": {
+        "parents": 1,
+        "interior": {
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1984
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assetId": "1337",
+      "symbol": "USDC",
+      "decimals": 6,
+      "existentialDeposit": "10000",
+      "multiLocation": {
+        "parents": 1,
+        "interior": {
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1337
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
 ```
 
 ## Query asset ID
 This function returns `assetId` for `particular Parachain` and `asset symbol`
 ```ts
-getAssetId('Acala', 'DOT')
+getAssetId(NODE, ASSET_SYMBOL)
 ```
+
+**Example output:**
+
+```json
+"340282366920938463463374607431768211455"
+```
+
 ## Query Relay chain asset symbol
 This function returns the `symbol` of the Relay chain for a particular Parachain. Either "DOT" or "KSM"
 ```ts
-getRelayChainSymbol('Basilisk')
+getRelayChainSymbol(NODE)
 ```
+
+**Example output:**
+
+```json
+"DOT"
+```
+
 ## Query native assets
 This function returns a string array of `native` assets symbols for a particular Parachain
 ```ts
-getNativeAssets('Acala')
+getNativeAssets(NODE)
 ```
+
+**Example output:**
+
+```json
+[
+  {
+    "symbol": "ASTR",
+    "isNative": true,
+    "decimals": 18,
+    "existentialDeposit": "1000000",
+    "multiLocation": {
+      "parents": 1,
+      "interior": {
+        "X1": {
+          "Parachain": 2006
+        }
+      }
+    }
+  }
+]
+```
+
 ## Query foreign assets
 This function returns an object array of foreign assets for a particular Parachain. Each object has a symbol and assetId property
 ```ts
-getOtherAssets('Acala')
+getOtherAssets(NODE)
 ```
+
+**Example output:**
+
+```json
+[
+  {
+    "assetId": "1029",
+    "symbol": "DOT",
+    "decimals": 10,
+    "multiLocation": {
+      "parents": 1,
+      "interior": {
+        "Here": null
+      }
+    },
+    "existentialDeposit": "1",
+    "isFeeAsset": true
+  },
+  {
+    "assetId": "1027",
+    "symbol": "ahUSDT",
+    "decimals": 6,
+    "multiLocation": {
+      "parents": 1,
+      "interior": {
+        "X3": [
+          {
+            "Parachain": 1000
+          },
+          {
+            "PalletInstance": 50
+          },
+          {
+            "GeneralIndex": 1984
+          }
+        ]
+      }
+    },
+    "existentialDeposit": "1",
+    "isFeeAsset": true
+  },
+  {
+    "assetId": "1028",
+    "symbol": "ahPINK",
+    "decimals": 10,
+    "multiLocation": {
+      "parents": 1,
+      "interior": {
+        "X3": [
+          {
+            "Parachain": 1000
+          },
+          {
+            "PalletInstance": 50
+          },
+          {
+            "GeneralIndex": 23
+          }
+        ]
+      }
+    },
+    "existentialDeposit": "1"
+  }
+]
+```
+
 ## Query all asset symbols
 Function returns string array of all asset symbols for a specific Parachain. (native and foreign assets are merged into a single array)
 ```ts
-getAllAssetsSymbols('Acala')
+getAllAssetsSymbols(NODE)
 ```
+
+**Example output:**
+
+```json
+[
+  "BNC",
+  "vBNC",
+  "IBTC",
+  "MANTA",
+  "WETH",
+  "DOT",
+  "USDT",
+  "USDC",
+  "DED",
+  "PINK",
+  "GLMR",
+  "vGLMR",
+  "BNCS",
+  "vMANTA",
+  "PEN",
+  "vASTR",
+  "vDOT",
+  "INTR",
+  "ETH",
+  "vFIL",
+  "FIL",
+  "ASTR",
+  "vsDOT"
+]
+```
+
 ## Query asset support
 The function checks if Parachain supports a particular asset. (Both native and foreign assets are searched). Returns boolean
 ```ts
-hasSupportForAsset(node: TNode, symbol: string)
+hasSupportForAsset(NODE, ASSET_SYMBOL)
 ```
+
+**Example output:**
+
+```json
+true
+```
+
 ## Query asset decimals
 The function returns decimals for a specific asset
 ```ts
-getAssetDecimals('Basilisk', 'KSM')
+getAssetDecimals(NODE, ASSET_SYMBOL)
 ```
+
+**Example output:**
+
+```json
+12
+```
+
 ## Query Parachain ID
 The function returns specific Parachain id
 ```ts
-getParaId('Basilisk')
+getParaId(NODE)
+```
+
+**Example output:**
+
+```json
+2000
 ```
 
 ## Query Parachain name
 Function to get specific TNode from Parachain id
 ```ts
-getTNode(nodeID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill nodeID as 1 to select Ethereum.
+getTNode(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill nodeID as 1 to select Ethereum.
+```
+
+**Example output:**
+
+```json
+"Astar"
 ```
 
 ## Import Parachains as constant
 Import all compatible Parachains as constant
 ```ts
 console.log(NODE_NAMES)
-```
-
-## Convert id or symbol to multilocation
-Get multilocation for asset id or symbol.
-```ts
-getAssetMultiLocation(chainFrom, { symbol: symbol } | { id: assetId })
 ```

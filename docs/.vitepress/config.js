@@ -25,9 +25,10 @@ export default {
             text: '<div style="display: flex; align-items: center;"><img width="90" alt="ParaSpell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png"><span>XCM SDK</span></div>',
             items: [
               { text: 'Getting started', link: '/sdk/getting-started' },
-              { text: 'Send XCM', link: '/sdk/xcmPallet' },
-              { text: 'Asset query', link: '/sdk/AssetPallet' },
-              { text: 'Query XCM pallets', link: '/sdk/NodePallets' },
+              { text: 'Sending XCM', link: '/sdk/xcmPallet' },
+              { text: 'XCM fee queries', link: '/sdk/xcmUtils' },
+              { text: 'Asset queries', link: '/sdk/AssetPallet' },
+              { text: 'XCM pallet queries', link: '/sdk/NodePallets' },
             ]
           },
           {
