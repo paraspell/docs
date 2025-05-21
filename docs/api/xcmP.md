@@ -849,37 +849,6 @@ const response = await fetch("http://localhost:3001/v3/balance/:node/asset", {
 });
 ```
 
-### Query max transferable amount
-The following endpoint allows you to query the maximum currency transferable amount for a specific chain.
-
-**Endpoint**: `POST /v3/balance/:node/transferable-amount`
-
-   - **Parameters**:
-     - `node` (Path parameter): Specifies the name of the Parachain.
-     - `address` (Inside JSON body): (required): Specifies the address of the account.
-     - `currency` (Inside JSON body): (required): Specifies the currency to query.
-
-
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
-     - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
-     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v3/balance/:node/transferable-amount", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
-    })
-});
-```
-
 ### Query asset existential deposit
 The following endpoint allows you to query the existential deposit for currency in a specific chain.
 
@@ -1100,36 +1069,6 @@ The following endpoint retrieves assets supported by both chains.
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/supported-assets?origin=Acala&destination=Astar");
-```
-
-### Query destination existential deposit
-The following endpoint retrieves whether sent XCM message will be above existential deposit on destination chain.
-
-**Endpoint**: `POST /v3/balance/${node}/verify-ed-on-destination`
-
-
-- **Parameters**:
-    - `node` (path parameter): Specifies the name of the destination Parachain.
-    - `address` (body parameter): Destination account
-    - `currency` (body parameter): Currency spec
-
-- **Errors**:
-    - `400` (Bad request): When a specified Parachain does not exist.
-    - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v3/balance/:node/foreign", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        address: "Address", // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
-    })
-});
 ```
 
 ### Query asset decimals
