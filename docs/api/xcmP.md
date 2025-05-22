@@ -4,11 +4,6 @@ The following guide guides you through the XCM SDK functionality implemented in 
 This functionality allows you to send XCM messages across the Paraverse.
 
 ### Package-less implementation of XCM API XCM features into your application
-```
-NOTES: 
-- We recently introduced a new, much simpler way to implement XCM API! You can now request a hashed response to the built call, which will offlift you from parsing and work right away!
-- XCM API is now migrated to Polkadot API (PAPI), so PolkadotJS signers are no longer compatible!
-```
 
 ```ts
 //Chain WS API instance that will send generated XCM Call

@@ -5,7 +5,6 @@ Following section covers XCM Router implementation in LightSpell XCM API. Users 
 For list of supported chains/assets/dexes head over to [List of supported chains](https://paraspell.github.io/docs/supported.html#xcm-router%E2%98%84)
 
 ### Package-less implementation of XCM API Router features into your application
-```NOTE:``` We recently introduced new much simpler way to implement XCM API! You can now request hashed response of built call which offlifts you from parsing and works right away!
 
 ```ts
 export const submitTransaction = async (
