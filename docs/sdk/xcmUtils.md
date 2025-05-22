@@ -10,6 +10,7 @@ const info = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .from(ORIGIN_CHAIN)
           .to(DESTINATION_CHAIN)
           .currency(CURRENCY)
+          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getTransferInfo()
@@ -70,6 +71,7 @@ const transferable = await Builder(/*node api/ws_url_string/ws_url_array - optio
           .from(ORIGIN_CHAIN)
           .to(DESTINATION_CHAIN)
           .currency(CURRENCY)
+          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getTransferableAmount()
@@ -93,6 +95,7 @@ const ed = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .from(ORIGIN_CHAIN)
           .to(DESTINATION_CHAIN)
           .currency(CURRENCY)
+          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .verifyEdOnDestination()
@@ -119,6 +122,7 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .from(ORIGIN_CHAIN)
           .to(DESTINATION_CHAIN)
           .currency(CURRENCY)
+          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
@@ -184,6 +188,7 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .from(ORIGIN_CHAIN)
           .to(DESTINATION_CHAIN)
           .currency(CURRENCY)
+          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getOriginXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin do not support DryRun out of the box.
