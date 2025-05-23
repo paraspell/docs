@@ -18,6 +18,141 @@ yarn add || pnpm | npm install @paraspell/assets
 import { getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTNode, getAssetMultiLocation, NODE_NAMES } from  '@paraspell/assets'
 ```
 
+## Query assets supported between chains
+Following query lets you query assets supported between two selected Parachains.
+```ts
+getSupportedAssets(ORIGIN_NODE, DESTINATION_NODE)
+```
+
+**Example output:**
+```json
+[
+   {
+      "symbol":"DOT",
+      "isNative":true,
+      "decimals":10,
+      "multiLocation":{
+         "parents":1,
+         "interior":{
+            "Here":null
+         }
+      },
+      "existentialDeposit":"100000000"
+   },
+   {
+      "assetId":"1337",
+      "symbol":"USDC",
+      "decimals":6,
+      "multiLocation":{
+         "parents":1,
+         "interior":{
+            "X3":[
+               {
+                  "Parachain":1000
+               },
+               {
+                  "PalletInstance":50
+               },
+               {
+                  "GeneralIndex":1337
+               }
+            ]
+         }
+      },
+      "existentialDeposit":"10000"
+   },
+   {
+      "assetId":"1984",
+      "symbol":"USDt",
+      "decimals":6,
+      "multiLocation":{
+         "parents":1,
+         "interior":{
+            "X3":[
+               {
+                  "Parachain":1000
+               },
+               {
+                  "PalletInstance":50
+               },
+               {
+                  "GeneralIndex":1984
+               }
+            ]
+         }
+      },
+      "existentialDeposit":"10000"
+   },
+   {
+      "symbol":"PLMC",
+      "decimals":10,
+      "multiLocation":{
+         "parents":1,
+         "interior":{
+            "X1":[
+               {
+                  "Parachain":3344
+               }
+            ]
+         }
+      },
+      "existentialDeposit":"1000000000"
+   },
+   {
+      "symbol":"USDC",
+      "decimals":6,
+      "multiLocation":{
+         "parents":2,
+         "interior":{
+            "X2":[
+               {
+                  "GlobalConsensus":{
+                     "Ethereum":{
+                        "chainId":1
+                     }
+                  }
+               },
+               {
+                  "AccountKey20":{
+                     "network":null,
+                     "key":"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+                  }
+               }
+            ]
+         }
+      },
+      "existentialDeposit":"10000",
+      "isFeeAsset":true
+   },
+   {
+      "symbol":"USDT",
+      "decimals":6,
+      "multiLocation":{
+         "parents":2,
+         "interior":{
+            "X2":[
+               {
+                  "GlobalConsensus":{
+                     "Ethereum":{
+                        "chainId":1
+                     }
+                  }
+               },
+               {
+                  "AccountKey20":{
+                     "network":null,
+                     "key":"0xdac17f958d2ee523a2206206994597c13d831ec7"
+                  }
+               }
+            ]
+         }
+      },
+      "existentialDeposit":"10000",
+      "isFeeAsset":true
+   }
+]
+```
+
 ## Query fee assets
 This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property.
 ```ts
