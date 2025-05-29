@@ -58,7 +58,7 @@ getPalletIndex(NODE)
 **Example output:**
 
 ```json
-55
+54
 ```
 
 ## Print all supported XCM pallets

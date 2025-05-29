@@ -1191,6 +1191,25 @@ The following endpoint returns the default pallet for specific Parachain
 const response = await fetch("http://localhost:3001/v3/pallets/Acala/default");
 ```
 
+### Get XCM pallet index
+The following endpoint returns the index of specific cross-chain pallet for specific chain.
+
+**Endpoint**: `GET /v3/pallets/:node/index`
+
+   - **Parameters**:
+     - `node` (path parameter): Specifies the name of the Parachain.
+     - `pallet` (query parameter): Specifies the name of the cross-chain pallet.
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when path parameter 'node' is not a valid Parachain
+     - `400`  (Bad request exception) - Returned when query parameter 'pallet' is not a valid cross-chain pallet
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v3/pallets/Acala/index?pallet=XTokens');
+```
+
 ### Get all supported XCM pallets
 The following endpoint returns all XCM Pallets that are supported on specific Parachain
 
