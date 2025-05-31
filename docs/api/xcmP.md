@@ -1113,7 +1113,7 @@ const response = await fetch("http://localhost:3001/v3/nodes/Acala/ws-endpoints"
 ### Query Parachain ID
 The following endpoint retrieves Parachain's ID from Parachain's name
 
- **Endpoint**: `GET /v3/assets/:node/para-id`
+ **Endpoint**: `GET /v3/nodes/:node/para-id`
 
    - **Parameters**:
      - `node` (path parameter): Specifies the name of the Parachain.
@@ -1124,7 +1124,7 @@ The following endpoint retrieves Parachain's ID from Parachain's name
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/assets/Acala/para-id");
+const response = await fetch("http://localhost:3001/v3/nodes/Acala/para-id");
 ```
 
 ### Query Parachain name
