@@ -16,6 +16,15 @@ const info = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .getTransferInfo()
 ```
 
+**Possible output objects:**
+```
+chain - Always present
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum)
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+destination - Present if origin doesn't fail
+```
+
 **Example output:**
 
 ```json
@@ -128,6 +137,14 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
 ```
 
+**Possible output objects:**
+```
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum)
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+destination - Present if origin doesn't fail
+```
+
 **Example output:**
 
 ```json
@@ -162,6 +179,12 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .getXcmFeeEstimate()
 ```
 
+**Possible output objects:**
+```
+origin - Always present
+destination - Always present
+```
+
 **Example output:**
 
 ```json
@@ -192,6 +215,11 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getOriginXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin do not support DryRun out of the box.
+```
+
+**Possible output objects:**
+```
+origin - Always present
 ```
 
 **Example output:**
@@ -355,6 +383,11 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)          
           .getOriginXcmFeeEstimate()
+```
+
+**Possible output objects:**
+```
+origin - Always present
 ```
 
 **Example output:**

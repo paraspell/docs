@@ -296,6 +296,14 @@ import { hasDryRunSupport } from "@paraspell/sdk-pjs";
 const result = hasDryRunSupport(node)
 ```
 
+**Possible output objects:**
+```
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum)
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+destination - Present if origin doesn't fail
+```
+
 **Example output:**
 ```json
 {

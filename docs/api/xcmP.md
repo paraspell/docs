@@ -473,6 +473,14 @@ const response = await fetch('http://localhost:3001/v3/dry-run', {
   }),
 ```
 
+**Possible output objects:**
+```
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum)
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+destination - Present if origin doesn't fail
+```
+
 ## XCM Transfer info
 To comprehensively assess whether a message will execute successfully without failure, use this query. It provides detailed information on currency balances before and after the transaction, including all relevant fees. This data is essential for accurately evaluating potential balance or fee-related issues that could cause message failure.
 
@@ -511,6 +519,15 @@ const response = await fetch(
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
+```
+
+**Possible output objects:**
+```
+chain - Always present
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum)
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+destination - Present if origin doesn't fail
 ```
 
 ## Transferable amount
@@ -651,6 +668,14 @@ const response = await fetch("http://localhost:3001/v3/xcm-fee", {
 });
 ```
 
+**Possible output objects:**
+```
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum)
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+destination - Present if origin doesn't fail
+```
+
 ### Less accurate query using Payment info
 The following endpoint allows is designed to retrieve you approximate fee and doesn't require any token balance.
 
@@ -695,6 +720,12 @@ const response = await fetch("http://localhost:3001/v3/xcm-fee-estimate", {
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
 });
+```
+
+**Possible output objects:**
+```
+origin - Always present
+destination - Always present
 ```
 
 ## XCM Fee (Origin only)
@@ -744,6 +775,11 @@ const response = await fetch("http://localhost:3001/v3/origin-xcm-fee", {
 });
 ```
 
+**Possible output objects:**
+```
+origin - Always present
+```
+
 ### Less accurate query using Payment info
 The following endpoint allows is designed to retrieve you approximate fee and doesn't require any token balance.
 
@@ -784,6 +820,11 @@ const response = await fetch("http://localhost:3001/v3/origin-xcm-fee-estimate",
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
 });
+```
+
+**Possible output objects:**
+```
+origin - Always present
 ```
 
 ## SS58 Address conversion
