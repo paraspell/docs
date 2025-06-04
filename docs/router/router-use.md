@@ -137,6 +137,68 @@ const fees = await RouterBuilder()
       .getXcmFees();
 ```
 
+**Example output**
+We suggest running this query twice. First time to get Origin > Exchange chain transfer fee and second time to get Swap + Exchange > Destination chain fee. This is because DryRun requires currency to be on selected account in order to check for result. While the currency is on origin at the start we are unable to perform the DryRun on exchange chain because user doesn't yet have the asset there.
+
+**First DryRun - Origin > Exchange example**
+```
+{
+  "sendingChain": {
+    "origin": {
+      "fee": "50128149010235121",
+      "feeType": "dryRun",
+      "currency": "ASTR"
+    },
+    "destination": {
+      "fee": "25667006681694993",
+      "feeType": "dryRun",
+      "currency": "ASTR"
+    }
+  },
+  "exchangeChain": {
+    "fee": "727836696700",
+    "feeType": "paymentInfo",
+    "currency": "HDX",
+    "dryRunError": "FundsUnavailable",
+    "selectedExchange": "HydrationDex"
+  },
+}
+```
+
+**Second DryRun - Swap fee + Exchange > Destination example**
+
+NOTE: We are unable to perform XCM DryRun because the asset is not exchanged yet thus fees for XCM are estimated in payment info. 
+
+The origin fee is **exchangeChain.fee + receivingChain.origin.fee**
+
+The destination fee is **receivingChain.destination.fee**
+
+In some occasions user has the exchanged asset already so DryRun might be also performed for receivingChain.origin.fee parameter. This will result in more precise fees, but they shouldn't differ too much in general - The switch between DryRun and PaymentInfo is automatic and internal so no action from your side required (DryRun is always performed first and only if it fails we switch to PaymentInfo).
+
+```
+{
+  "exchangeChain": {
+    "fee": "19468364",
+    "feeType": "dryRun",
+    "currency": "DOT",
+    "selectedExchange": "AssetHubPolkadotDex"
+  },
+  "receivingChain": {
+    "origin": {
+      "fee": "733054560",
+      "feeType": "paymentInfo",
+      "currency": "DOT",
+      "dryRunError": "LocalExecutionIncomplete"
+    },
+    "destination": {
+      "fee": "44916179205536000",
+      "feeType": "paymentInfo",
+      "currency": "GLMR"
+    }
+  }
+}
+```
+
 ## Helpful functions
 
 Below, you can find helpful functions that are exported from XCM Router to help you enhance front end usability of XCM Router.
