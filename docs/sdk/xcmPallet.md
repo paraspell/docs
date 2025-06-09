@@ -291,6 +291,9 @@ const result = await Builder(API /*optional*/)
         .dryRun()
 
 //Check Parachain for DryRun support - returns true/false
+//PAPI
+import { hasDryRunSupport } from "@paraspell/sdk";
+//PJS
 import { hasDryRunSupport } from "@paraspell/sdk-pjs";
 
 const result = hasDryRunSupport(node)
