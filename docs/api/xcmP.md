@@ -860,6 +860,34 @@ const response = await fetch(
 console.log(response) //use response data as necessary
 ```
 
+### Query asset paths
+The following endpoint allows you to query the asset paths related to origin chain.
+
+**Endpoint**: `POST /v3/assets/:node/supported-destinations`
+
+   - **Parameters**:
+     - `node` (Path parameter): Specifies the name of the Parachain.
+     - `currency` (Inside JSON body): (required): Specifies the currency to query.
+
+
+   - **Errors**:
+     - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+     - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
+     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v3/assets/:node/supported-destinations", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"}
+    })
+});
+```
+
 ### Query asset balance
 The following endpoint allows you to query asset balance for on specific chain.
 
