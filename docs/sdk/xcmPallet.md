@@ -188,7 +188,7 @@ await getTokenBalance(signer: Signer, symbol: string); //Get token balance
 await approveToken(signer: Signer, amount: bigint, symbol: string); //Approve token
 ```
 
-### Snowbridge status check
+### Snowbridge status check
 Query for Snowbridge status 
 
 ```ts
@@ -285,7 +285,7 @@ const result = await Builder(API /*optional*/)
         .from(NODE)
         .to(NODE_2)
         .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection/* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
-        /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
+        /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot || Hydration and TX is supposed to be paid in same fee asset as selected currency.*/
         .address(ADDRESS)
         .senderAddress(SENDER_ADDRESS)
         .dryRun()
