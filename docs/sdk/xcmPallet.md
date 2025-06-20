@@ -9,27 +9,29 @@
 ## Relay chain to Parachain
 
 ```ts
-const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
       .from(RELAY_NODE) //Kusama or Polkadot
       .to(NODE/*,customParaId - optional*/ | Multilocation object)
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Multilocation object)
-      /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-        .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
 
 const tx = await builder.build()
 
 //Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
+```
 
-/*
-EXAMPLE:
+**Example**
+<details>
+<summary>Following example will perform 1 DOT transfer from Polkadot to Polimec </summary>
+
+```ts
 const builder = await Builder()
   .from('Polkadot')
-  .to('Astar')
+  .to('Polimec')
   .currency({
     symbol: 'DOT',
-    amount: '1000000000'
+    amount: '10000000000'
   })
   .address(address)
 
@@ -37,33 +39,47 @@ const tx = await builder.build()
 
 //Disconnect API after TX
 await builder.disconnect()
-*/
 ```
+
+</details>
+
+**Advanced settings**
+<details>
+<summary>You can add following details to the builder to further customize your call</summary>
+
+```ts
+.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
+.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+```
+
+</details>
 
 ## Parachain to Relay chain
 
 ```ts
-const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
       .from(NODE)
       .to(RELAY_NODE) //Kusama or Polkadot
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Multilocation object)
-      /*.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-        .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
 
 const tx = await builder.build()
 
 //Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
+```
 
-/*
-EXAMPLE:
+**Example**
+<details>
+<summary>Following example will perform 1 DOT transfer from Hydration to Polkadot </summary>
+
+```ts
 const builder = await Builder()
-  .from('Astar')
+  .from('Hydration')
   .to('Polkadot')
   .currency({
     symbol: 'DOT',
-    amount: '1000000000'
+    amount: '10000000000'
   })
   .address(address)
 
@@ -71,40 +87,56 @@ const tx = await builder.build()
 
 //Disconnect API after TX
 await builder.disconnect()
-*/
 ```
+
+</details>
+
+**Advanced settings**
+<details>
+<summary>You can add following details to the builder to further customize your call</summary>
+
+```ts
+.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
+.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+```
+
+</details>
 
 ## Parachain to Parachain
 
-**NOTE** If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `.currency(42259045809535163221576417993425387648n)` will mean you transfer xcDOT.
-
-### Builder pattern
-
 ```ts
-const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
       .from(NODE)
       .to(NODE /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) 
       .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection/* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
       .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/)
-      .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
-      /*.ahAddress(ahAddress) - OPTIONAL - used when origin is EVM node and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
-        .feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub - so user can pay in fees different than DOT
-        .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-        .customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.*/
+      .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
 
 const tx = await builder.build()
 
 //Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
+```
 
-/*
-EXAMPLE:
+**Notes**
+<details>
+<summary>Quick note for transfers when selecting by ID and it is long </summary>
+
+When transferring from Parachain that uses long IDs for example Moonbeam make sure to add character 'n' at the end of currencyID. For example: `.currency(42259045809535163221576417993425387648n)` will mean that you have selected to transfer xcDOT.
+
+</details>
+
+**Example**
+<details>
+<summary>Following example will perform 1 USDT transfer from Hydration to AssetHubPolkadot </summary>
+
+```ts
 const builder = Builder()
-  .from('Acala')
-  .to('Astar')
+  .from('Hydration')
+  .to('AssetHubPolkadot')
   .currency({
-    symbol: 'ACA',
-    amount: '1000000000'
+    id: 10,
+    amount: '1000000'
   })
   .address(address)
 
@@ -112,8 +144,22 @@ const tx = await builder.build()
 
 //Disconnect API after TX
 await builder.disconnect()
-*/
 ```
+
+</details>
+
+**Advanced settings**
+<details>
+<summary>You can add following details to the builder to further customize your call</summary>
+
+```ts
+.ahAddress(ahAddress) - OPTIONAL - used when origin is EVM node and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
+.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+```
+
+</details>
 
 ## Ecosystem Bridges
 This section sums up currently available and implemented ecosystem bridges that are offered in the XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
@@ -122,12 +168,12 @@ This section sums up currently available and implemented ecosystem bridges that 
 Latest SDK versions support Polkadot <> Kusama bridge in very native and intuitive way. You just construct the Polkadot <> Kusama transfer as standard Parachain to Parachain scenario transfer.
 
 ```ts
-  await Builder(api)            //Api parameter is optional and can also be ws_url_string
-        .from('AssetHubPolkadot')  //Either AHP or AHK
-        .to('AssetHubKusama')     //Either AHP or AHK
-        .currency({symbol: 'DOT', amount: amount})        // Either KSM or DOT 
-        .address(address)
-        .build()
+await Builder(api)            //Api parameter is optional and can also be ws_url_string
+      .from('AssetHubPolkadot')  //Either AHP or AHK
+      .to('AssetHubKusama')     //Either AHP or AHK
+      .currency({symbol: 'DOT', amount: amount})        // Either KSM or DOT 
+      .address(address)
+      .build()
 ```
 
 ### Polkadot <> Ethereum bridge (Snowbridge)
@@ -197,7 +243,7 @@ const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 
 ## Local transfers
 ```ts
-const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
       .from(NODE)
       .to(NODE) //Has to be same as origin (from)
       .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
@@ -207,15 +253,19 @@ const tx = await builder.build()
 
 //Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
+```
 
-/*
-EXAMPLE:
+**Example**
+<details>
+<summary>Following example will perform 1 DOT transfer from one account to another on Hydration</summary>
+
+```ts  
 const builder = Builder()
   .from('Hydration')
   .to('Hydration')
   .currency({
     symbol: 'DOT',
-    amount: '1000000000'
+    amount: '10000000000'
   })
   .address(address)
 
@@ -223,8 +273,10 @@ const tx = await builder.build()
 
 //Disconnect API after TX
 await builder.disconnect()
-*/
 ```
+
+</details>
+
 
 ## Batch calls
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
@@ -264,7 +316,7 @@ const hash = await EvmBuilder()
 Claim XCM trapped assets from the selected chain.
 
 ```ts
-const builder = Builder(/*node api/ws_url_string/ws_url_array - optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
       .claimFrom(NODE)
       .fungible(MultilocationArray (Only one multilocation allowed) [{Multilocation}])
       .account(address | Multilocation object)
@@ -300,189 +352,408 @@ const result = hasDryRunSupport(node)
 ```
 
 **Possible output objects:**
+
+<details>
+<summary>The dryrun will return following objects</summary>
+
 ```
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum)
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
+</details>
+
 **Example output:**
+
+<details>
+<summary>Example of an output for transfer of 0.3DOT - Polkadot > Polimec (This transfer contains hop through AssetHubPolkadot) </summary>
+
 ```json
-{
-  "origin": {
-    "success": true,
-    "fee": "523900168617",
-    "forwardedXcms": [
-      {
-        "type": "V4",
-        "value": {
-          "parents": 1,
-          "interior": {
-            "type": "Here"
+    {
+"origin": {
+  "success": true,
+  "fee": "11831489",
+  "forwardedXcms": [
+    {
+      "type": "V3",
+      "value": {
+        "parents": 0,
+        "interior": {
+          "type": "X1",
+          "value": {
+            "type": "Parachain",
+            "value": 1000
           }
         }
-      },
-      [
-        {
-          "type": "V3",
-          "value": [
-            {
-              "type": "WithdrawAsset",
-              "value": [
+      }
+    },
+    [
+      {
+        "type": "V3",
+        "value": [
+          {
+            "type": "ReceiveTeleportedAsset",
+            "value": [
+              {
+                "id": {
+                  "type": "Concrete",
+                  "value": {
+                    "parents": 1,
+                    "interior": {
+                      "type": "Here"
+                    }
+                  }
+                },
+                "fun": {
+                  "type": "Fungible",
+                  "value": "3000000000"
+                }
+              }
+            ]
+          },
+          {
+            "type": "ClearOrigin"
+          },
+          {
+            "type": "BuyExecution",
+            "value": {
+              "fees": {
+                "id": {
+                  "type": "Concrete",
+                  "value": {
+                    "parents": 1,
+                    "interior": {
+                      "type": "Here"
+                    }
+                  }
+                },
+                "fun": {
+                  "type": "Fungible",
+                  "value": "3000000000"
+                }
+              },
+              "weight_limit": {
+                "type": "Unlimited"
+              }
+            }
+          },
+          {
+            "type": "DepositReserveAsset",
+            "value": {
+              "assets": {
+                "type": "Wild",
+                "value": {
+                  "type": "AllCounted",
+                  "value": 1
+                }
+              },
+              "dest": {
+                "parents": 1,
+                "interior": {
+                  "type": "X1",
+                  "value": {
+                    "type": "Parachain",
+                    "value": 3344
+                  }
+                }
+              },
+              "xcm": [
                 {
-                  "id": {
-                    "type": "Concrete",
-                    "value": {
+                  "type": "BuyExecution",
+                  "value": {
+                    "fees": {
+                      "id": {
+                        "type": "Concrete",
+                        "value": {
+                          "parents": 1,
+                          "interior": {
+                            "type": "Here"
+                          }
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible",
+                        "value": "1000000000"
+                      }
+                    },
+                    "weight_limit": {
+                      "type": "Unlimited"
+                    }
+                  }
+                },
+                {
+                  "type": "DepositAsset",
+                  "value": {
+                    "assets": {
+                      "type": "Wild",
+                      "value": {
+                        "type": "AllCounted",
+                        "value": 1
+                      }
+                    },
+                    "beneficiary": {
                       "parents": 0,
                       "interior": {
-                        "type": "Here"
+                        "type": "X1",
+                        "value": {
+                          "type": "AccountId32",
+                          "value": {
+                            "id": {}
+                          }
+                        }
                       }
                     }
-                  },
-                  "fun": {
-                    "type": "Fungible",
-                    "value": "2000000000"
                   }
                 }
               ]
-            },
-            {
-              "type": "ClearOrigin"
-            },
-            {
-              "type": "BuyExecution",
-              "value": {
-                "fees": {
-                  "id": {
-                    "type": "Concrete",
-                    "value": {
-                      "parents": 0,
-                      "interior": {
-                        "type": "Here"
-                      }
+            }
+          },
+          {
+            "type": "SetTopic",
+            "value": {}
+          }
+        ]
+      }
+    ]
+  ],
+  "destParaId": 1000,
+  "currency": "DOT"
+},
+"assetHub": {
+  "success": true,
+  "fee": "30980000",
+  "weight": {
+    "refTime": "576458000",
+    "proofSize": "6196"
+  },
+  "forwardedXcms": [
+    {
+      "type": "V3",
+      "value": {
+        "parents": 1,
+        "interior": {
+          "type": "X1",
+          "value": {
+            "type": "Parachain",
+            "value": 3344
+          }
+        }
+      }
+    },
+    [
+      {
+        "type": "V3",
+        "value": [
+          {
+            "type": "ReserveAssetDeposited",
+            "value": [
+              {
+                "id": {
+                  "type": "Concrete",
+                  "value": {
+                    "parents": 1,
+                    "interior": {
+                      "type": "Here"
                     }
-                  },
-                  "fun": {
-                    "type": "Fungible",
-                    "value": "1000000000"
                   }
                 },
-                "weight_limit": {
-                  "type": "Unlimited"
+                "fun": {
+                  "type": "Fungible",
+                  "value": "2664320000"
                 }
               }
-            },
-            {
-              "type": "DepositReserveAsset",
-              "value": {
-                "assets": {
-                  "type": "Wild",
+            ]
+          },
+          {
+            "type": "ClearOrigin"
+          },
+          {
+            "type": "BuyExecution",
+            "value": {
+              "fees": {
+                "id": {
+                  "type": "Concrete",
                   "value": {
-                    "type": "AllCounted",
-                    "value": 1
-                  }
-                },
-                "dest": {
-                  "parents": 0,
-                  "interior": {
-                    "type": "X1",
-                    "value": {
-                      "type": "Parachain",
-                      "value": 2006
+                    "parents": 1,
+                    "interior": {
+                      "type": "Here"
                     }
                   }
                 },
-                "xcm": [
-                  {
-                    "type": "BuyExecution",
+                "fun": {
+                  "type": "Fungible",
+                  "value": "1000000000"
+                }
+              },
+              "weight_limit": {
+                "type": "Unlimited"
+              }
+            }
+          },
+          {
+            "type": "DepositAsset",
+            "value": {
+              "assets": {
+                "type": "Wild",
+                "value": {
+                  "type": "AllCounted",
+                  "value": 1
+                }
+              },
+              "beneficiary": {
+                "parents": 0,
+                "interior": {
+                  "type": "X1",
+                  "value": {
+                    "type": "AccountId32",
                     "value": {
-                      "fees": {
-                        "id": {
-                          "type": "Concrete",
-                          "value": {
-                            "parents": 1,
-                            "interior": {
-                              "type": "Here"
-                            }
-                          }
-                        },
-                        "fun": {
-                          "type": "Fungible",
-                          "value": "1000000000"
-                        }
-                      },
-                      "weight_limit": {
-                        "type": "Unlimited"
-                      }
+                      "id": {}
                     }
-                  },
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "SetTopic",
+            "value": {}
+          }
+        ]
+      }
+    ]
+  ],
+  "destParaId": 3344,
+  "currency": "DOT"
+},
+"destination": {
+  "success": true,
+  "fee": "147295375",
+  "weight": {
+    "refTime": "5000000000",
+    "proofSize": "327680"
+  },
+  "forwardedXcms": [],
+  "currency": "DOT"
+},
+"hops": [
+  {
+    "node": "AssetHubPolkadot",
+    "result": {
+      "success": true,
+      "fee": "30980000",
+      "weight": {
+        "refTime": "576458000",
+        "proofSize": "6196"
+      },
+      "forwardedXcms": [
+        {
+          "type": "V3",
+          "value": {
+            "parents": 1,
+            "interior": {
+              "type": "X1",
+              "value": {
+                "type": "Parachain",
+                "value": 3344
+              }
+            }
+          }
+        },
+        [
+          {
+            "type": "V3",
+            "value": [
+              {
+                "type": "ReserveAssetDeposited",
+                "value": [
                   {
-                    "type": "DepositAsset",
-                    "value": {
-                      "assets": {
-                        "type": "Wild",
-                        "value": {
-                          "type": "AllCounted",
-                          "value": 1
-                        }
-                      },
-                      "beneficiary": {
-                        "parents": 0,
+                    "id": {
+                      "type": "Concrete",
+                      "value": {
+                        "parents": 1,
                         "interior": {
-                          "type": "X1",
-                          "value": {
-                            "type": "AccountId32",
-                            "value": {
-                              "id": {}
-                            }
-                          }
+                          "type": "Here"
                         }
                       }
+                    },
+                    "fun": {
+                      "type": "Fungible",
+                      "value": "2664320000"
                     }
                   }
                 ]
+              },
+              {
+                "type": "ClearOrigin"
+              },
+              {
+                "type": "BuyExecution",
+                "value": {
+                  "fees": {
+                    "id": {
+                      "type": "Concrete",
+                      "value": {
+                        "parents": 1,
+                        "interior": {
+                          "type": "Here"
+                        }
+                      }
+                    },
+                    "fun": {
+                      "type": "Fungible",
+                      "value": "1000000000"
+                    }
+                  },
+                  "weight_limit": {
+                    "type": "Unlimited"
+                  }
+                }
+              },
+              {
+                "type": "DepositAsset",
+                "value": {
+                  "assets": {
+                    "type": "Wild",
+                    "value": {
+                      "type": "AllCounted",
+                      "value": 1
+                    }
+                  },
+                  "beneficiary": {
+                    "parents": 0,
+                    "interior": {
+                      "type": "X1",
+                      "value": {
+                        "type": "AccountId32",
+                        "value": {
+                          "id": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "SetTopic",
+                "value": {}
               }
-            },
-            {
-              "type": "SetTopic",
-              "value": {}
-            }
-          ]
-        }
-      ]
-    ],
-    "destParaId": 0,
-    "currency": "HDX"
-  },
-  "destination": {
-    "success": true,
-    "fee": "45825617",
-    "weight": {
-      "refTime": "577609000",
-      "proofSize": "7186"
-    },
-    "forwardedXcms": [
-      {
-        "type": "V4",
-        "value": {
-          "parents": 0,
-          "interior": {
-            "type": "X1",
-            "value": {
-              "type": "Parachain",
-              "value": 2094
-            }
+            ]
           }
-        }
-      },
-      []
-    ],
-    "destParaId": 2094,
-    "currency": "DOT"
+        ]
+      ],
+      "destParaId": 3344,
+      "currency": "DOT"
+    }
   }
+]
 }
 ```
+
+</details>
+
 
 ## Developer experience
 
