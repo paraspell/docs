@@ -23,8 +23,8 @@ If you wish to have an exchange chain selection based on the best price outcome,
 
 ```ts
 await RouterBuilder
-        .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
-        .to('Astar')    //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} 
         .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
         .amount('1000000')  // Amount to send
@@ -32,8 +32,8 @@ await RouterBuilder
         .senderAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
         .signer(signer)    //PAPI Signer
-        //.evmSenderAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
-        //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+        //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
+        //.evmSigner(EVM signer)                     //Optional parameters when origin CHAIN is EVM based (Required with evmInjectorAddress)
 
         .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
           console.log(status.type);   // Current transaction type
@@ -50,9 +50,9 @@ If you wish to have specific exchanges selection and select the best one among t
 
 ```ts
 await RouterBuilder
-        .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .exchange(['HydrationDex','AcalaDex','AssetHubPolkadotDex'])    //Exchange Parachains
-        .to('Astar')    //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} 
         .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
         .amount('1000000')  // Amount to send
@@ -60,8 +60,8 @@ await RouterBuilder
         .senderAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
         .signer(signer)    //PAPI Signer
-        //.evmSenderAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
-        //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+        //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
+        //.evmSigner(EVM signer)                     //Optional parameters when origin CHAIN is EVM based (Required with evmInjectorAddress)
 
         .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
           console.log(status.type);   // Current transaction type
@@ -78,9 +78,9 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 ```ts
 await RouterBuilder
-        .from('Polkadot')   //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .exchange('HydrationDex')    //Exchange Parachain
-        .to('Astar')    //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} 
         .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
         .amount('1000000')  // Amount to send
@@ -88,8 +88,8 @@ await RouterBuilder
         .senderAddress(selectedAccount.address)   //Injector address
         .recipientAddress(recipientAddress) //Recipient address
         .signer(signer)    //PAPI Signer
-        //.evmSenderAddress(evmInjector address)   //Optional parameters when origin node is EVM based (Required with evmSigner)
-        //.evmSigner(EVM signer)                     //Optional parameters when origin node is EVM based (Required with evmInjectorAddress)
+        //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
+        //.evmSigner(EVM signer)                     //Optional parameters when origin CHAIN is EVM based (Required with evmInjectorAddress)
 
         .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
           console.log(status.type);   // Current transaction type
@@ -107,11 +107,11 @@ To retrieve exchange amount, that you receive for your desired asset pair you ca
 
 ```ts
 const result = await RouterBuilder()
-      .from('Astar') //Optional parameter
-      .to('Acala') //Optional parameter
-      .exchange('Hydration') //Optional parameter
-      .currencyFrom({ symbol: 'ASTR' }) 
-      .currencyTo({ symbol: 'DOT' })
+      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+      .currencyFrom({ symbol: 'ASTR' }) // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} 
+      .currencyTo({ symbol: 'DOT' }) // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
       .amount(10000000000n)
       .getBestAmountOut();
 
@@ -125,11 +125,11 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
 
 ```ts
 const fees = await RouterBuilder()
-      .from(from) //Optional parameter based on scenario
-      .exchange(exchange) //Optional parameter based on scenario
-      .to(to) //Optional parameter based on scenario
-      .currencyFrom(currencyFrom)
-      .currencyTo(currencyTo)
+      .from(from) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .exchange(exchange) //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+      .to(to) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .currencyFrom(currencyFrom) // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} 
+      .currencyTo(currencyTo) // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount}
       .amount(amount)
       .senderAddress(senderAddress)
       .recipientAddress(recipientAddress)
@@ -138,17 +138,28 @@ const fees = await RouterBuilder()
 ```
 
 **Possible output objects:**
+
+<details>
+<summary>The dryrun will return following objects</summary>
+
 ```
 sendingChain - Present when origin is specified
 exchangeChain - Always present
 receivingChain - Present when destination is specified
 ```
 
-**Example output**
+</details>
+
+**Example output:**
+
 We suggest running this query twice. First time to get Origin > Exchange chain transfer fee and second time to get Swap + Exchange > Destination chain fee. This is because DryRun requires currency to be on selected account in order to check for result. While the currency is on origin at the start we are unable to perform the DryRun on exchange chain because user doesn't yet have the asset there. 
 
-**First DryRun - Origin > Exchange example**
-```
+**First query call - Origin > Exchange example:**
+
+<details>
+<summary>Example of an output for swap transfer from Astar > Hydration > ... </summary>
+
+```json
 {
   "sendingChain": {
     "origin": {
@@ -172,9 +183,14 @@ We suggest running this query twice. First time to get Origin > Exchange chain t
 }
 ```
 
-**Second DryRun - Swap fee + Exchange > Destination example**
+</details>
 
-NOTE: We are unable to perform XCM DryRun because the asset is not exchanged yet thus fees for XCM are estimated in payment info. 
+**Second query call - Swap fee + Exchange > Destination example:**
+
+<details>
+<summary> Notes regarding the second query call</summary>
+
+We are unable to perform XCM DryRun because the asset is not exchanged yet thus fees for XCM are estimated in payment info. 
 
 The origin fee is **exchangeChain.fee + receivingChain.origin.fee**
 
@@ -182,7 +198,12 @@ The destination fee is **receivingChain.destination.fee**
 
 In some occasions user has the exchanged asset already so DryRun might be also performed for receivingChain.origin.fee parameter. This will result in more precise fees, but they shouldn't differ too much in general - The switch between DryRun and PaymentInfo is automatic and internal so no action from your side required (DryRun is always performed first and only if it fails we switch to PaymentInfo).
 
-```
+</details>
+
+<details>
+<summary>Example of an output for swap transfer from ... > AssetHubPolkadot > Moonbeam </summary>
+
+```json
 {
   "exchangeChain": {
     "fee": "19468364",
@@ -205,6 +226,8 @@ In some occasions user has the exchanged asset already so DryRun might be also p
   }
 }
 ```
+
+</details>
 
 ## Helpful functions
 
@@ -230,5 +253,5 @@ const pairs = getExchangePairs(exchange) // Exchange can be also array of exchan
 | Basilisk DEX | Kusama Relay, Karura, AssetHubKusama, Tinkernet, Robonomics| BSX, USDT, aSEED, XRT, KSM, TNKR| Chain automatically gives you native asset to pay for fees.|
 |Bifrost Kusama DEX| Kusama Relay, AssetHubKusama, Karura, Moonriver, Kintsugi| BNC, vBNC, vsKSM, vKSM, USDT, aSEED, KAR, ZLK, RMRK, KBTC, MOVR, vMOVR| Chain requires native BNC asset for fees.|
 |Bifrost Polkadot DEX| Polkadot Relay, AssetHubPolkadot, Moonbeam, Astar, Interlay| BNC, vDOT, vsDOT, USDT, FIL, vFIL, ASTR, vASTR, GLMR, vGLMR, MANTA, vMANTA|Chain requires native BNC asset for fees.|
-|AssetHubPolkadot| Polkadot Relay, Any Parachain it has HRMP channel with | DOT, WETH.e, USDC, USDT, LAOS, MYTH, WBBTC.e, ASX, BILL, DEMO, TATE, PINK, MODE, MVPW, PIGS, DED, wstETH.e, TTT, KSM, tBTC.e, PEPE.e, SHIB.e, TON.e, NAT, NT2, DOTA, STINK, MTC, AJUN, GGI, GLMR, NIN | Requires specific native tokens for swaps |
-|AssetHubKusama| Kusama Relay, Any Parachain it has HRMP channel with | KSM, DOT, USDC, USDT, BILLCOIN, WOOD, dUSD, TACP, TSM, MA42, USDT, DMO, JAM | Requires specific native tokens for swaps |
+|AssetHubPolkadotDex| Polkadot Relay, Any Parachain it has HRMP channel with | DOT, WETH.e, USDC, USDT, LAOS, MYTH, WBBTC.e, ASX, BILL, DEMO, TATE, PINK, MODE, MVPW, PIGS, DED, wstETH.e, TTT, KSM, tBTC.e, PEPE.e, SHIB.e, TON.e, NAT, NT2, DOTA, STINK, MTC, AJUN, GGI, GLMR, NIN | Requires specific native tokens for swaps |
+|AssetHubKusamaDex| Kusama Relay, Any Parachain it has HRMP channel with | KSM, DOT, USDC, USDT, BILLCOIN, WOOD, dUSD, TACP, TSM, MA42, USDT, DMO, JAM | Requires specific native tokens for swaps |
