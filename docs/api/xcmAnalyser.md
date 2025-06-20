@@ -5,14 +5,22 @@ Following section covers implementation of XCM Analyser in LightSpell XCM API. U
 ## Analyse Multilocation
 **Endpoint**: `POST /v3/xcm-analyser`
 
-   - **Parameters**:
-     - `multilocation`: Specific multilocation
-  
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when no Multilocation is provided
-     - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  <details>
+  <summary><b>Parameters</b> </summary>
 
+  - `multilocation`: Specific multilocation
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when no Multilocation is provided
+  - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
+  
 ```ts
 const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
     method: 'POST',
@@ -27,13 +35,21 @@ const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
 ## Analyse XCM call
 **Endpoint**: `POST /v3/xcm-analyser`
 
-   - **Parameters**:
-     - `xcm`: Complete XCM call
+  <details>
+  <summary><b>Parameters</b> </summary>
 
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when no XCM call is provided
-     - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  - `xcm`: Complete XCM call
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when no XCM call is provided
+  - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
 
 ```ts
 const response = await fetch("http://localhost:3001/v3/xcm-analyser", {

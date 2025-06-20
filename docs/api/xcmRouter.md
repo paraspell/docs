@@ -95,34 +95,41 @@ If you wish to have exchange chain selection based on best price outcome, you ca
   
 **Endpoint**: `POST /v3/router-hash`
 
-   - **Parameters**:
-     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
-     - `to`: (optional): Represents the Parachain to which the assets will be transferred.
-     - `currencyFrom`: (required): Represents the asset being sent.
-     - `currencyTo`: (required): Represents the asset being received. 
-     - `amount`: (required): Specifies the amount of assets to transfer.
-     - `slippagePct`: (required): Specifies the slipeage percentage. 
-     - `recipientAddress`: (required): Specifies the address of the recipient.
-     - `injectorAddress`: (required): Specifies the address of the sender.
-     - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  <details>
+  <summary><b>Parameters</b> </summary>
 
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `to`: (optional): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
+  - `slippagePct`: (required): Specifies the slipeage percentage. 
+  - `recipientAddress`: (required): Specifies the address of the recipient.
+  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
 
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
 
 **Example of request:**
 ```ts
@@ -150,36 +157,43 @@ If you wish to have exchange chain selection based on best price outcome from se
   
 **Endpoint**: `POST /v3/router-hash`
 
-   - **Parameters**:
-     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
-     - `exchange`: (optional): Represents the Parachain DEXex on which tokens can be exchanged (If not provided, DEX is selected automatically based on best price output).
-     - `to`: (optional): Represents the Parachain to which the assets will be transferred.
-     - `currencyFrom`: (required): Represents the asset being sent.
-     - `currencyTo`: (required): Represents the asset being received. 
-     - `amount`: (required): Specifies the amount of assets to transfer.
-     - `slippagePct`: (required): Specifies the slipeage percentage. 
-     - `recipientAddress`: (required): Specifies the address of the recipient.
-     - `injectorAddress`: (required): Specifies the address of the sender.
-     - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  <details>
+  <summary><b>Parameters</b> </summary>
 
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `exchange`: (optional): Represents the Parachain DEXex on which tokens can be exchanged (If not provided, DEX is selected automatically based on best price output).
+  - `to`: (optional): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
+  - `slippagePct`: (required): Specifies the slipeage percentage. 
+  - `recipientAddress`: (required): Specifies the address of the recipient.
+  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
 
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
 
 **Example of request:**
 ```ts
@@ -208,37 +222,43 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 **Endpoint**: `POST /v3/router-hash`
 
-   - **Parameters**:
-     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
-     - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
-     - `to`: (optional): Represents the Parachain to which the assets will be transferred.
-     - `currencyFrom`: (required): Represents the asset being sent.
-     - `currencyTo`: (required): Represents the asset being received. 
-     - `amount`: (required): Specifies the amount of assets to transfer.
-     - `slippagePct`: (required): Specifies the slippage percentage. 
-     - `recipientAddress`: (required): Specifies the address of the recipient.
-     - `injectorAddress`: (required): Specifies the address of the sender.
-     - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  <details>
+  <summary><b>Parameters</b> </summary>
 
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+  - `to`: (optional): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
+  - `slippagePct`: (required): Specifies the slippage percentage. 
+  - `recipientAddress`: (required): Specifies the address of the recipient.
+  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
 
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  </details>
 
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
 
 **Example of request:**
 ```ts
@@ -267,27 +287,34 @@ If you wish to find out what is the `best amount out` from specified dex or from
 
 **Endpoint**: `POST /v3/router/best-amount-out`
 
-   - **Parameters**:
-     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
-     - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
-     - `to`: (required): Represents the Parachain to which the assets will be transferred.
-     - `currencyFrom`: (required): Represents the asset being sent.
-     - `currencyTo`: (required): Represents the asset being received. 
-     - `amount`: (required): Specifies the amount of assets to transfer.
+  <details>
+  <summary><b>Parameters</b> </summary>
 
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+  - `to`: (required): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
 
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
 
 **Example of request:**
 ```ts
@@ -313,37 +340,43 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
 
 **Endpoint**: `POST /v3/router/xcm-fees`
 
-   - **Parameters**:
-     - `from`: (optional): Represents the Parachain from which the assets will be transferred.
-     - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
-     - `to`: (optional): Represents the Parachain to which the assets will be transferred.
-     - `currencyFrom`: (required): Represents the asset being sent.
-     - `currencyTo`: (required): Represents the asset being received. 
-     - `amount`: (required): Specifies the amount of assets to transfer.
-     - `slippagePct`: (required): Specifies the slippage percentage. 
-     - `recipientAddress`: (required): Specifies the address of the recipient.
-     - `injectorAddress`: (required): Specifies the address of the sender.
-     - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  <details>
+  <summary><b>Parameters</b> </summary>
 
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+  - `to`: (optional): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
+  - `slippagePct`: (required): Specifies the slippage percentage. 
+  - `recipientAddress`: (required): Specifies the address of the recipient.
+  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
 
-   - **Errors**:
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
-     - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
-     - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
-     - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-     - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  </details>
 
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
 
 **Example of request:**
 ```ts
@@ -372,13 +405,20 @@ Retrieve which `asset pairs` are supported on which exchanges.
 
 **Endpoint**: `POST /v3/router/pairs`
 
-   - **Parameters**:
-     - `exchange`: (optional): Represents the exchange for which the asset pairs should be retrieved 
+  <details>
+  <summary><b>Parameters</b> </summary>
 
-   - **Errors**: 
-     - `400`  (Bad request exception) - Returned when body parameter 'exchange' does not exist.
-     - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+  - `exchange`: (optional): Represents the exchange for which the asset pairs should be retrieved 
 
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when body parameter 'exchange' does not exist.
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
 
 **Example of request:**
 ```ts
