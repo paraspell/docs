@@ -6,9 +6,9 @@ Understand the complete fee structure and balance flow behind your XCM call. Use
 To comprehensively assess whether a message will execute successfully without failure, use this query. It provides detailed information on currency balances before and after the transaction, including all relevant fees. This data is essential for accurately evaluating potential balance or fee-related issues that could cause message failure.
 
 ```ts
-const info = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
+const info = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .currency(CURRENCY)
           /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
@@ -17,6 +17,10 @@ const info = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
 ```
 
 **Possible output objects:**
+
+<details>
+<summary>The Transfer info query will return following objects</summary>
+
 ```
 chain - Always present
 origin - Always present
@@ -25,7 +29,11 @@ bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
 destination - Present if origin doesn't fail
 ```
 
-**Example output:**
+</details>
+
+**Example output**
+<details>
+<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
 
 ```json
 {
@@ -68,23 +76,34 @@ destination - Present if origin doesn't fail
 }
 ```
 
+</details>
+
 ## Transferable amount
-To retrieve information on how much of the selected currency can be transfered from specific account you can use transferable balance. This query will calculate transferable balance using following formulae: 
-
-**Balance - ED - if(asset=native) then also substract Origin XCM Fees else ignore**
-
-**Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through).
+To retrieve information on how much of the selected currency can be transfered from specific account you can use transferable balance.
 
 ```ts
-const transferable = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
+const transferable = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .currency(CURRENCY)
           /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getTransferableAmount()
 ```
+
+**Notes:**
+
+<details>
+<summary>Note containing function formulae & further information about the query</summary>
+
+ This query will calculate transferable balance using following formulae: 
+
+**Balance - ED - if(asset=native) then also substract Origin XCM Fees else ignore**
+
+**Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through).
+
+</details>
 
 **Example output:**
 
@@ -93,22 +112,31 @@ const transferable = await Builder(/*node api/ws_url_string/ws_url_array - optio
 ```
 
 ## Verify ED on destination
-To retrieve information on whether the selected currency from specific account will meet existential deposit on destination chain you can use this query. This query will calculate whether user has will have enough to cover existential deposit on XCM arrival using following pseudo formulae: 
-
-**(if(Balance) || if(TransferedAmount - ED - Destination Fee > 0)) return true else false** 
-
-**Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through). **If function switches to PaymentInfo and transfered currency is different than native currency on destination chain the function throws error as PaymentInfo only returns fees in native asset of the chain.**
+To retrieve information on whether the selected currency from specific account will meet existential deposit on destination chain you can use this query. 
 
 ```ts
-const ed = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
+const ed = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .currency(CURRENCY)
           /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .verifyEdOnDestination()
 ```
+
+**Notes:**
+
+<details>
+<summary>Note containing function formulae & further information about the query</summary>
+
+This query will calculate whether user has will have enough to cover existential deposit on XCM arrival using following pseudo formulae: 
+
+**(if(Balance) || if(TransferedAmount - ED - Destination Fee > 0)) return true else false** 
+
+**Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through). **If function switches to PaymentInfo and transfered currency is different than native currency on destination chain the function throws error as PaymentInfo only returns fees in native asset of the chain.**
+
+</details>
 
 **Example output:**
 
@@ -122,14 +150,10 @@ Following queries allow you to query fee from both Origin and Destination of the
 ### More accurate query using DryRun
 The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
 
-```
-NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
-```
-
 ```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
+const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .currency(CURRENCY)
           /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
@@ -137,7 +161,19 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
           .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
 ```
 
+**Notes**
+<details>
+<summary>Information about the query behaviour</summary>
+
+When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in currency that is being transferred, so no additional calculations necessary in that case.
+
+</details>
+
 **Possible output objects:**
+
+<details>
+<summary>The XCM Fee query will return following objects</summary>
+
 ```
 origin - Always present
 assetHub - Present if XCM is Multihop (For example Para > Ethereum)
@@ -145,7 +181,11 @@ bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
 destination - Present if origin doesn't fail
 ```
 
-**Example output:**
+</details>
+
+**Example output**
+<details>
+<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
 
 ```json
 {
@@ -162,30 +202,46 @@ destination - Present if origin doesn't fail
 }
 ```
 
+</details>
+
+
+
 ### Less accurate query using Payment info
 This query is designed to retrieve you approximate fee and doesn't require any token balance.
 
-```
-NOTICE: When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. 
-```
-
 ```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
+const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .currency(CURRENCY)
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)          
           .getXcmFeeEstimate()
 ```
 
+**Notes**
+<details>
+<summary>Information about the query behaviour</summary>
+
+When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. 
+
+</details>
+
 **Possible output objects:**
+
+<details>
+<summary>The XCM Fee Estimate query will return following objects</summary>
+
 ```
 origin - Always present
 destination - Always present
 ```
 
-**Example output:**
+</details>
+
+**Example output**
+<details>
+<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
 
 ```json
 {
@@ -200,6 +256,8 @@ destination - Always present
 }
 ```
 
+</details>
+
 ## XCM Fee (Origin only)
 Following queries allow you to query XCM fee from Origin chain. You can get accurate result from DryRun query (Requires token balance) or less accurate from Payment info query (Doesn't require token balance).
 
@@ -207,9 +265,9 @@ Following queries allow you to query XCM fee from Origin chain. You can get accu
 The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
 
 ```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
+const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .currency(CURRENCY)
           /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
           .address(RECIPIENT_ADDRESS)
@@ -218,11 +276,19 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
 ```
 
 **Possible output objects:**
+
+<details>
+<summary>The Origin XCM Fee query will return following objects</summary>
+
 ```
 origin - Always present
 ```
 
-**Example output:**
+</details>
+
+**Example output**
+<details>
+<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
 
 ```json
 {
@@ -372,13 +438,16 @@ origin - Always present
 }
 ```
 
+</details>
+
+
 ### Less accurate query using Payment info
 This query is designed to retrieve you approximate fee and doesn't require any token balance.
 
 ```ts
-const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
-          .from(ORIGIN_CHAIN)
-          .to(DESTINATION_CHAIN)
+const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .currency(CURRENCY)
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)          
@@ -386,11 +455,19 @@ const fee = await Builder(/*node api/ws_url_string/ws_url_array - optional*/)
 ```
 
 **Possible output objects:**
+
+<details>
+<summary>The Origin XCM Fee query will return following objects</summary>
+
 ```
 origin - Always present
 ```
 
-**Example output:**
+</details>
+
+**Example output**
+<details>
+<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
 
 ```json
 {
@@ -398,6 +475,9 @@ origin - Always present
   "currency": "HDX"
 }
 ```
+
+</details>
+
 
 ## Asset balance
 You can now query all important information about your XCM call including information about fees (If your balance is sufficient to transfer XCM message) and more.
@@ -408,8 +488,8 @@ import { getAssetBalance } from "@paraspell/sdk";
 //PJS
 import { getAssetBalance } from "@paraspell/sdk-pjs";
 
-//Retrieves the asset balance for a given account on a specified node (You do not need to specify if it is native or foreign).
-const balance = await getAssetBalance({address, node, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, api /* api/ws_url_string optional */});
+//Retrieves the asset balance for a given account on a specified CHAIN (You do not need to specify if it is native or foreign).
+const balance = await getAssetBalance({address, CHAIN, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
 ```
 
 **Example output:**
@@ -427,7 +507,7 @@ import { getParaEthTransferFees } from "@paraspell/sdk";
 //PJS
 import { getParaEthTransferFees } from "@paraspell/sdk-pjs";
 
-const fees = await getParaEthTransferFees(/*api - optional (Can also be WS port string or array o WS ports. Must be AssetHubPolkadot WS!)*/)
+const fees = await getParaEthTransferFees(/*client | ws_url | [ws_url, ws_url,..] - Optional. Must be AssetHubPolkadot WS!)*/)
 ```
 
 **Example output:**
@@ -447,7 +527,7 @@ import { getExistentialDeposit } from "@paraspell/sdk-pjs";
 
 //Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
 //Currency can be either {symbol: assetSymbol}, {id: assetId}, {multilocation: assetMultilocation}.
-const ed = getExistentialDeposit(node, currency?)
+const ed = getExistentialDeposit(CHAIN, currency?)
 ```
 
 **Example output:**
@@ -465,7 +545,7 @@ import { convertSs58 } from "@paraspell/sdk";
 //PJS
 import { convertSs58 } from "@paraspell/sdk-pjs";
 
-const result = convertSs58(address, node) // returns converted address in string
+const result = convertSs58(address, CHAIN) 
 ```
 
 **Example output:**

@@ -22,7 +22,7 @@ import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsOb
 Following query lets you query paths that should be supported for specific asset related to origin chain.
 
 ```ts
-getSupportedDestinations(NODE, CURRENCY)
+getSupportedDestinations(CHAIN, CURRENCY)
 ```
 
 **Example output:**
@@ -41,10 +41,14 @@ getSupportedDestinations(NODE, CURRENCY)
 ## Query assets supported between chains
 Following query lets you query assets supported between two selected Parachains.
 ```ts
-getSupportedAssets(ORIGIN_NODE, DESTINATION_NODE)
+getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
 ```
 
 **Example output:**
+
+<details>
+<summary>An example of output for AssetHubPolkadot and Polimec as input</summary>
+
 ```json
 [
    {
@@ -173,10 +177,12 @@ getSupportedAssets(ORIGIN_NODE, DESTINATION_NODE)
 ]
 ```
 
+</details>
+
 ## Query fee assets
 This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property.
 ```ts
-getFeeAssets(NODE)
+getFeeAssets(CHAIN)
 ```
 
 **Example output:**
@@ -211,7 +217,7 @@ getFeeAssets(NODE)
 ## Convert id or symbol to multilocation
 Get multilocation for asset id or symbol.
 ```ts
-getAssetMultiLocation(NODE, { symbol: symbol } | { id: assetId })
+getAssetMultiLocation(CHAIN, { symbol: symbol } | { id: assetId })
 ```
 
 **Example output:**
@@ -228,10 +234,13 @@ getAssetMultiLocation(NODE, { symbol: symbol } | { id: assetId })
 ## Query assets object
 This function returns `assets object` from `assets.json` for `particular Parachain` including information about `native` and `foreign` assets.
 ```ts
-getAssetsObject(NODE)
+getAssetsObject(CHAIN)
 ```
 
 **Example output:**
+
+<details>
+<summary>An example of output for Ajuna as input</summary>
 
 ```json
 {
@@ -316,10 +325,13 @@ getAssetsObject(NODE)
 }
 ```
 
+</details>
+
+
 ## Query asset ID
 This function returns `assetId` for `particular Parachain` and `asset symbol`
 ```ts
-getAssetId(NODE, ASSET_SYMBOL)
+getAssetId(CHAIN, ASSET_SYMBOL)
 ```
 
 **Example output:**
@@ -331,7 +343,7 @@ getAssetId(NODE, ASSET_SYMBOL)
 ## Query Relay chain asset symbol
 This function returns the `symbol` of the Relay chain for a particular Parachain. Either "DOT" or "KSM"
 ```ts
-getRelayChainSymbol(NODE)
+getRelayChainSymbol(CHAIN)
 ```
 
 **Example output:**
@@ -343,7 +355,7 @@ getRelayChainSymbol(NODE)
 ## Query native assets
 This function returns a string array of `native` assets symbols for a particular Parachain
 ```ts
-getNativeAssets(NODE)
+getNativeAssets(CHAIN)
 ```
 
 **Example output:**
@@ -370,10 +382,13 @@ getNativeAssets(NODE)
 ## Query foreign assets
 This function returns an object array of foreign assets for a particular Parachain. Each object has a symbol and assetId property
 ```ts
-getOtherAssets(NODE)
+getOtherAssets(CHAIN)
 ```
 
 **Example output:**
+
+<details>
+<summary>An example of output for Darwinia as input</summary>
 
 ```json
 [
@@ -438,10 +453,12 @@ getOtherAssets(NODE)
 ]
 ```
 
+</details>
+
 ## Query all asset symbols
 Function returns string array of all asset symbols for a specific Parachain. (native and foreign assets are merged into a single array)
 ```ts
-getAllAssetsSymbols(NODE)
+getAllAssetsSymbols(CHAIN)
 ```
 
 **Example output:**
@@ -477,7 +494,7 @@ getAllAssetsSymbols(NODE)
 ## Query asset support
 The function checks if Parachain supports a particular asset. (Both native and foreign assets are searched). Returns boolean
 ```ts
-hasSupportForAsset(NODE, ASSET_SYMBOL)
+hasSupportForAsset(CHAIN, ASSET_SYMBOL)
 ```
 
 **Example output:**
@@ -489,7 +506,7 @@ true
 ## Query asset decimals
 The function returns decimals for a specific asset
 ```ts
-getAssetDecimals(NODE, ASSET_SYMBOL)
+getAssetDecimals(CHAIN, ASSET_SYMBOL)
 ```
 
 **Example output:**
@@ -501,7 +518,7 @@ getAssetDecimals(NODE, ASSET_SYMBOL)
 ## Query Parachain ID
 The function returns specific Parachain id
 ```ts
-getParaId(NODE)
+getParaId(CHAIN)
 ```
 
 **Example output:**
@@ -513,7 +530,7 @@ getParaId(NODE)
 ## Query Parachain name
 Function to get specific TNode from Parachain id
 ```ts
-getTNode(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill nodeID as 1 to select Ethereum.
+getTNode(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill CHAINID as 1 to select Ethereum.
 ```
 
 **Example output:**
