@@ -9,7 +9,7 @@
 ## Relay chain to Parachain
 
 ```ts
-const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(RELAY_CHAIN) //'Kusama' | 'Polkadot'
       .to(CHAIN/*,customParaId - optional*/ | Multilocation object) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({symbol: 'DOT', amount: amount})
@@ -57,7 +57,7 @@ await builder.disconnect()
 ## Parachain to Relay chain
 
 ```ts
-const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to(RELAY_CHAIN) //'Kusama' | 'Polkadot'
       .currency({symbol: 'DOT', amount: amount})
@@ -105,7 +105,7 @@ await builder.disconnect()
 ## Parachain to Parachain
 
 ```ts
-const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to(CHAIN /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection/* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
@@ -168,7 +168,7 @@ This section sums up currently available and implemented ecosystem bridges that 
 Latest SDK versions support Polkadot <> Kusama bridge in very native and intuitive way. You just construct the Polkadot <> Kusama transfer as standard Parachain to Parachain scenario transfer.
 
 ```ts
-await Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)       
+await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)       
       .from('AssetHubPolkadot')  //'AssetHubPolkadot' | 'AssetHubKusama'
       .to('AssetHubKusama')     //'AssetHubPolkadot' | 'AssetHubKusama'
       .currency({symbol: 'DOT', amount: amount})        // 'KSM' | 'DOT'
@@ -182,7 +182,7 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 #### Polkadot -> Ethereum transfer
 
 ```ts
-await Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
+await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from('AssetHubPolkadot') //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
@@ -225,7 +225,7 @@ const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 
 ## Local transfers
 ```ts
-const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to(CHAIN) //Has to be same as origin (from)
       .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
@@ -298,7 +298,7 @@ const hash = await EvmBuilder()
 Claim XCM trapped assets from the selected chain.
 
 ```ts
-const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
+const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .claimFrom(CHAIN) //'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama'
       .fungible(MultilocationArray (Only one multilocation allowed) [{Multilocation}])
       .account(address | Multilocation object)
