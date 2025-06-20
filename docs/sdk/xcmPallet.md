@@ -10,8 +10,8 @@
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
-      .from(RELAY_NODE) //Kusama or Polkadot
-      .to(NODE/*,customParaId - optional*/ | Multilocation object)
+      .from(RELAY_CHAIN) //'Kusama' | 'Polkadot'
+      .to(CHAIN/*,customParaId - optional*/ | Multilocation object) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Multilocation object)
 
@@ -49,7 +49,7 @@ await builder.disconnect()
 
 ```ts
 .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
 </details>
@@ -58,8 +58,8 @@ await builder.disconnect()
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
-      .from(NODE)
-      .to(RELAY_NODE) //Kusama or Polkadot
+      .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(RELAY_CHAIN) //'Kusama' | 'Polkadot'
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Multilocation object)
 
@@ -97,7 +97,7 @@ await builder.disconnect()
 
 ```ts
 .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
 </details>
@@ -106,8 +106,8 @@ await builder.disconnect()
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
-      .from(NODE)
-      .to(NODE /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) 
+      .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(CHAIN /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection/* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
       .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/)
       .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
@@ -153,10 +153,10 @@ await builder.disconnect()
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.ahAddress(ahAddress) - OPTIONAL - used when origin is EVM node and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
+.ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
 .feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
 .xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some node but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
 </details>
@@ -168,10 +168,10 @@ This section sums up currently available and implemented ecosystem bridges that 
 Latest SDK versions support Polkadot <> Kusama bridge in very native and intuitive way. You just construct the Polkadot <> Kusama transfer as standard Parachain to Parachain scenario transfer.
 
 ```ts
-await Builder(api)            //Api parameter is optional and can also be ws_url_string
-      .from('AssetHubPolkadot')  //Either AHP or AHK
-      .to('AssetHubKusama')     //Either AHP or AHK
-      .currency({symbol: 'DOT', amount: amount})        // Either KSM or DOT 
+await Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)       
+      .from('AssetHubPolkadot')  //'AssetHubPolkadot' | 'AssetHubKusama'
+      .to('AssetHubKusama')     //'AssetHubPolkadot' | 'AssetHubKusama'
+      .currency({symbol: 'DOT', amount: amount})        // 'KSM' | 'DOT'
       .address(address)
       .build()
 ```
@@ -181,45 +181,27 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 
 #### Polkadot -> Ethereum transfer
 
-**AssetHub**
 ```ts
-await Builder(api)
-          .from('AssetHubPolkadot')
+await Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
+          .from('AssetHubPolkadot') //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to('Ethereum')           
-          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .address(eth_address)  //AccountKey20 recipient address
-          .build()
-```
-**Other non-evm Parachains**
-```ts
-await Builder(api)
-          .from('Hydration') //Non-evm Parachain
-          .to('Ethereum')           
-          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address)  //AccountKey20 recipient address
-          .senderAddress(sender_address) // Injector SS58 address
-          .build()
-```
-
-**Other evm Parachains**
-```ts
-await EvmBuilder(provider)
-          .from('Moonbeam') //EVM Parachain
-          .to('Ethereum')           
-          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address)  //AccountKey20 recipient address
-          .senderAddress(sender_address) //Asset hub address (Needs to be sender address)
+          .senderAddress(sender_address) //Injector SS58 address
           .build()
 ```
 
 #### Ethereum -> Polkadot transfer
+
+Currently only available in PJS version of XCM SDK (Until Snowbridge migrates to PAPI and VIEM).
+
 ```ts
 const provider = new ethers.BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
 
 await EvmBuilder(provider)   //Ethereum provider
   .from('Ethereum')   
-  .to('AssetHubPolkadot')
+  .to('AssetHubPolkadot') //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
   .currency({symbol: 'WETH', amount: amount})    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
   .address(address)   //AccountID32 recipient address
   //.ahAddress(ahAddress) ////ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
@@ -234,7 +216,7 @@ await getTokenBalance(signer: Signer, symbol: string); //Get token balance
 await approveToken(signer: Signer, amount: bigint, symbol: string); //Approve token
 ```
 
-### Snowbridge status check
+#### Snowbridge status check
 Query for Snowbridge status 
 
 ```ts
@@ -244,8 +226,8 @@ const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 ## Local transfers
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
-      .from(NODE)
-      .to(NODE) //Has to be same as origin (from)
+      .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(CHAIN) //Has to be same as origin (from)
       .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
       .address(address)
 
@@ -281,15 +263,15 @@ await builder.disconnect()
 ## Batch calls
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
 ```ts
-await Builder(/*node api/ws_url_string - optional*/)
-      .from(NODE) //Ensure, that origin node is the same in all batched XCM Calls.
-      .to(NODE_2) //Any compatible Parachain
+await Builder(/*CHAIN api/ws_url_string - optional*/)
+      .from(CHAIN) //Ensure, that origin CHAIN is the same in all batched XCM Calls.
+      .to(CHAIN_2) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({currencySelection, amount}) //Currency to transfer - options as in scenarios above
       .address(address | Multilocation object)
       .addToBatch()
 
-      .from(NODE) //Ensure, that origin node is the same in all batched XCM Calls.
-      .to(NODE_3) //Any compatible Parachain
+      .from(CHAIN) //Ensure, that origin CHAIN is the same in all batched XCM Calls.
+      .to(CHAIN_3) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({currencySelection, amount}) //Currency to transfer - options as in scenarios above
       .address(address | Multilocation object)
       .addToBatch()
@@ -304,8 +286,8 @@ If you need to sign Moonbeam / Moonriver transactions with other than Polkadot w
 
 ```ts
 const hash = await EvmBuilder()
-      .from('Moonbeam') // Moonbeam or Moonriver
-      .to(node) //Parachain | Relay chain
+      .from('Moonbeam') //'Moonbeam' | 'Moonriver'
+      .to(CHAIN) //'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency(({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount}) //Select currency by ID or Symbol
       .address(address)
       .signer(signer) // Ethers Signer or Viem Wallet Client
@@ -317,7 +299,7 @@ Claim XCM trapped assets from the selected chain.
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url] - Optional*/)
-      .claimFrom(NODE)
+      .claimFrom(CHAIN) //'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama'
       .fungible(MultilocationArray (Only one multilocation allowed) [{Multilocation}])
       .account(address | Multilocation object)
       /*.xcmVersion(Version.V3) Optional parameter, by default V3. XCM Version ENUM if a different XCM version is needed (Supported V2 & V3). Requires importing Version enum.*/
@@ -334,8 +316,8 @@ Dry running let's you check whether your XCM Call will execute, giving you a cha
 
 ```ts
 const result = await Builder(API /*optional*/)
-        .from(NODE)
-        .to(NODE_2)
+        .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .to(CHAIN_2) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection/* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
         /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot || Hydration and TX is supposed to be paid in same fee asset as selected currency.*/
         .address(ADDRESS)
@@ -348,7 +330,7 @@ import { hasDryRunSupport } from "@paraspell/sdk";
 //PJS
 import { hasDryRunSupport } from "@paraspell/sdk-pjs";
 
-const result = hasDryRunSupport(node)
+const result = hasDryRunSupport(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
 ```
 
 **Possible output objects:**
@@ -640,7 +622,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 },
 "hops": [
   {
-    "node": "AssetHubPolkadot",
+    "CHAIN": "AssetHubPolkadot",
     "result": {
       "success": true,
       "fee": "30980000",
