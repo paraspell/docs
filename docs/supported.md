@@ -44,6 +44,7 @@ This page provides a comprehensive list of chains that are integrated within our
 | Polimec  | [Website](https://www.polimec.org)  |[Github](https://github.com/Polimec/polimec-node)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.helikon.io%2Fpolimec#/explorer)             | 3344    | polkadotXCM          | XCM V4                     |
 | Subsocial  | [Website](https://www.subsocial.network/)  |[Github](https://github.com/dappforce/subsocial-parachain)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpara.subsocial.network#/explorer)             | 2101    | polkadotXCM          | XCM V3                     |
 | Robonomics Polkadot    | [Website](https://robonomics.network/)                                                                                     | [Github](https://github.com/airalab/robonomics)                               | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.rpc.robonomics.network%2F#/explorer)      | 3388    | polkadotXCM          | XCM V3                     |
+| Laos    | [Website](https://laosnetwork.io)                                                                                     | [Github](https://github.com/freeverseio/laos)                               | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.laos.laosfoundation.io#/explorer)      | 3370    | polkadotXCM          | XCM V4                     |
 
 ### Kusama Parachains
 
