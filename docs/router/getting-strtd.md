@@ -49,8 +49,6 @@ import { transfer,
          TransactionType, 
          TTransferOptions, 
          TTxProgressInfo } from '@paraspell/xcm-router'
-
-//As Polkadot moves to ESM only, our Router also moves to ESM only. CJS is not supported anymore.
 ```
 
 
