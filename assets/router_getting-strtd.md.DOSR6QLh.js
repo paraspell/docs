@@ -10,6 +10,4 @@ import{_ as s,c as i,ae as t,o as e}from"./chunks/framework.DRPMfuGp.js";const c
 <span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { transfer, </span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">         TransactionType, </span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">         TTransferOptions, </span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">         TTxProgressInfo } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;@paraspell/xcm-router&#39;</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">//As Polkadot moves to ESM only, our Router also moves to ESM only. CJS is not supported anymore.</span></span></code></pre></div>`,18)]))}const g=s(n,[["render",p]]);export{c as __pageData,g as default};
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">         TTxProgressInfo } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;@paraspell/xcm-router&#39;</span></span></code></pre></div>`,18)]))}const g=s(n,[["render",p]]);export{c as __pageData,g as default};
