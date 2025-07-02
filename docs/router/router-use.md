@@ -228,25 +228,30 @@ We suggest running this query twice. First time to get Origin > Exchange chain t
 
 ```json
 {
-  "sendingChain": {
-    "origin": {
-      "fee": "50128149010235121",
-      "feeType": "dryRun",
-      "currency": "ASTR"
-    },
-    "destination": {
-      "fee": "25667006681694993",
-      "feeType": "dryRun",
-      "currency": "ASTR"
-    }
+{
+  "origin": {
+    "fee": "84865735666669748",
+    "feeType": "dryRun",
+    "sufficient": true,
+    "currency": "ASTR"
   },
-  "exchangeChain": {
-    "fee": "727836696700",
-    "feeType": "paymentInfo",
+  "destination": {
+    "fee": "515268509029",
+    "feeType": "dryRun",
     "currency": "HDX",
-    "dryRunError": "FundsUnavailable",
-    "selectedExchange": "HydrationDex"
+    "isExchange": true
   },
+  "hops": [
+    {
+      "chain": "AssetHubPolkadot",
+      "result": {
+        "fee": "17450",
+        "feeType": "dryRun",
+        "currency": "USDT",
+        "sufficient": true
+      }
+    }
+  ]
 }
 ```
 
@@ -268,7 +273,7 @@ In some occasions user has the exchanged asset already so DryRun might be also p
 </details>
 
 <details>
-<summary>Example of an output for swap transfer from ... > AssetHubPolkadot > Moonbeam </summary>
+<summary>Example of an output for swap transfer from ... > BifrostPolkadotDex > Moonbeam </summary>
 
 ```json
 {
