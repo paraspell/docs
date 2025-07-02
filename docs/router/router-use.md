@@ -4,19 +4,28 @@ XCM Router can perform cross-chain transactions between Polkadot/Kusama Parachai
 It works across 8 open-source Parachain DEXes.
 
 **These are:**
+```
+1️⃣ Supporting one click swaps
+- Hydration / 210 Pools available
+- AssetHubPolkadot / 32 Pools available / Requires specific native tokens for swaps
+
+2️⃣ Supporting standard two click swaps
 - Acala / 36 Pools available
 - Basilisk / 15 Pools available
 - BifrostKusama / 66 Pools available / Requires native token for swaps
 - BifrostPolkadot / 45 Pools available / Requires native token for swaps
-- HydraDX / 210 Pools available
 - Karura / 136 Pools available
-- AssetHubPolkadot / 32 Pools available / Requires specific native tokens for swaps
 - AssetHubKusama / 16 Pools available / Requires specific native tokens for swaps
+```
+Totaling to 556 pools available for cross-chain swap transactions.
 
+**⚠️ IMPORTANT NOTES:** 
+```
+- 📣 Some exchanges require native tokens to proceed with swaps.
 
-Totalling to 556 pools available for cross-chain swap transactions.
-
-**NOTE: Some exchanges require native tokens to proceed with swaps.**
+- 📣 Router now supports one-click cross-chain swaps! Supported exchanges are AssetHubPolkadot and Hydration.
+        -Sidenote: Not all chains can be selected as origin for one-click cross-chain swaps, because their barrier doesn't support executing instructions. All chains can be selected as a destination, however. For origin chains that do not support execute instruction, we automatically default to the original two-click scenario.
+```
 
 ## Automatic exchange selection
 If you wish to have an exchange chain selection based on the best price outcome, you can opt for the automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. The router will then automatically select the best exchange chain for you based on the best price outcome.
@@ -143,14 +152,67 @@ const fees = await RouterBuilder()
 <summary>The dryrun will return following objects</summary>
 
 ```
-sendingChain - Present when origin is specified
-exchangeChain - Always present
-receivingChain - Present when destination is specified
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
 </details>
 
 **Example output:**
+
+**One signature transfer scenarios**
+
+Router now features one-click cross-chain swaps using the Execute instruction (HydrationDex & AssetHubPolkadtoDex). This allows us to get precise dry-run fee results for everything in one function call. 
+
+<details>
+<summary>Example of an output for swap transfer from Hydration > AssetHubPolkadotDex > Astar</summary>
+
+```json
+{
+  "origin": {
+    "weight": {
+      "refTime": "470304000",
+      "proofSize": "1489"
+    },
+    "fee": "46696677064",
+    "feeType": "dryRun",
+    "sufficient": true,
+    "currency": "HDX"
+  },
+  "assetHub": {
+    "fee": "142317",
+    "feeType": "dryRun",
+    "currency": "USDT",
+    "sufficient": true
+  },
+  "destination": {
+    "fee": "6104",
+    "feeType": "dryRun",
+    "sufficient": true,
+    "currency": "USDT"
+  },
+  "hops": [
+    {
+      "chain": "AssetHubPolkadot",
+      "result": {
+        "fee": "142317",
+        "feeType": "dryRun",
+        "currency": "USDT",
+        "sufficient": true
+      },
+      "isExchange": true
+    }
+  ]
+}
+```
+
+</details>
+
+
+**Two signature scenarios**
 
 We suggest running this query twice. First time to get Origin > Exchange chain transfer fee and second time to get Swap + Exchange > Destination chain fee. This is because DryRun requires currency to be on selected account in order to check for result. While the currency is on origin at the start we are unable to perform the DryRun on exchange chain because user doesn't yet have the asset there. 
 
