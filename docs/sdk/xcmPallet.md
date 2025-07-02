@@ -188,6 +188,7 @@ await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .address(eth_address)  //AccountKey20 recipient address
           .senderAddress(sender_address) //Injector SS58 address
+          .ahAddress(ahAddress) //Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin node is EVM style because we are unable to convert your sender Key20 address to ID32 address.
           .build()
 ```
 
