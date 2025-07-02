@@ -163,7 +163,10 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 
 **Example output:**
 
-**One signature transfer scenarios**
+
+<details>
+        
+<summary>One signature transfer scenarios</summary>
 
 Router now features one-click cross-chain swaps using the Execute instruction (HydrationDex & AssetHubPolkadtoDex). This allows us to get precise dry-run fee results for everything in one function call. 
 
@@ -210,9 +213,11 @@ Router now features one-click cross-chain swaps using the Execute instruction (H
 ```
 
 </details>
+</details>
 
-
-**Two signature scenarios**
+<details>
+        
+<summary>Two signature scenarios</summary>
 
 We suggest running this query twice. First time to get Origin > Exchange chain transfer fee and second time to get Swap + Exchange > Destination chain fee. This is because DryRun requires currency to be on selected account in order to check for result. While the currency is on origin at the start we are unable to perform the DryRun on exchange chain because user doesn't yet have the asset there. 
 
@@ -289,6 +294,7 @@ In some occasions user has the exchanged asset already so DryRun might be also p
 }
 ```
 
+</details>
 </details>
 
 ## Helpful functions
