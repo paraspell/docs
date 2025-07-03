@@ -168,7 +168,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
         
 <summary>One signature transfer scenarios</summary>
 
-Router now features one-click cross-chain swaps using the Execute instruction (HydrationDex & AssetHubPolkadtoDex). This allows us to get precise dry-run fee results for everything in one function call. 
+Router now features one-click cross-chain swaps using the Execute instruction (HydrationDex & AssetHubPolkadotDex). This allows us to get precise dry-run fee results for everything in one function call. 
 
 <details>
 <summary>Example of an output for swap transfer from Hydration > AssetHubPolkadotDex > Astar</summary>
