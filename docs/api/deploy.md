@@ -53,7 +53,7 @@ Based on the UserID received in the email  can edit the maximum request amount f
 
 <img width="437" alt="Screenshot 2023-08-21 at 21 58 57" src="https://user-images.githubusercontent.com/55763425/262140588-8353a1a5-e4be-4be7-92bd-a37cfe26ca39.png">
 
-# Setting up Sentry
+## Setting up Sentry
 Recently, LightSpell introduced the Sentry error tracking service implementation. This guide covers how to use it.
 
 - First step is to register at this [website](https://sentry.io/lcome/).
