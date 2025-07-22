@@ -42,8 +42,8 @@ What each line in the file means (every line must be configured otherwise API wo
 
 ### NOTES 
 ```
-⚠️ Database must be specifically POSTGRESQL
 ⚠️ Latest version of API migrated to Prisma, so to connect to the database, only the database_url parameter is needed.
+⚠️ Since migration to Prisma, POSTGRESQL is no longer the only database that works. However provider needs to be replaced in prisma.schema file.
 ⚠️ Make sure to also test every form before deploying to ensure everything is configured correctly.
 ```
 
