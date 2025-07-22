@@ -54,7 +54,7 @@ ParaSpell is dedicated to enhancing `XCM` functionality by conducting in-depth r
 
 Implementing Polkadot's flagship feature, XCM, into your application can sometimes be a complex task. Each Parachain may customize its XCM Pallets to meet specific needs, resulting in a wide variety of implementations. Supporting multiple Parachains in a consistent manner is therefore time-consuming. Fortunately, ParaSpell has already conducted this research and wrapped the necessary pallets from every compatible Parachain into its tools. **Saving time is crucial when delivering a product, and ParaSpell helps you use it wisely.**
 
-## 📞 How to reach out to us:
+## 📞 How to reach out to us
 - Contact form on our [landing page](https://paraspell.xyz/#contact-us)
 - Message us on our [X](https://x.com/paraspell)
 
