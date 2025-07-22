@@ -9,7 +9,7 @@ To deploy our API on your server you only need to create a `.env` file and fill 
 ⚠️ Make sure to also test every form before deploying to ensure everything is configured correctly.
 ```
 
-## ENV File
+## .env file
 
 The example file should look like this:
 ```
