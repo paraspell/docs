@@ -2,6 +2,13 @@
 
 To deploy our API on your server you only need to create a `.env` file and fill it with your secret phrase to allow for token autentification. This file should be located in the root folder. You can also set request limits in that file.
 
+### NOTES before you begin
+```
+⚠️ Latest version of API migrated to Prisma, so to connect to the database, only the database_url parameter is needed.
+⚠️ Since migration to Prisma, POSTGRESQL is no longer the only database that works. However provider needs to be replaced in prisma.schema file.
+⚠️ Make sure to also test every form before deploying to ensure everything is configured correctly.
+```
+
 ## ENV File
 
 The example file should look like this:
@@ -39,13 +46,6 @@ What each line in the file means (every line must be configured otherwise API wo
 - `EMAIL_REFRESH_TOKEN`: These are required for nodemailer find out more in this [tutorial](https://dev.to/chandrapantachhetri/sending-emails-securely-using-node-js-nodemailer-smtp-gmail-and-oauth2-g3a).
 - `MIXPANEL_PROJECT_TOKEN`: This token is for statistics that track requests (Not saving amounts and wallet addresses to keep the privacy of users intact). **This parameter is optional**.
 - `SENTRY_DSN`: This token is for sentry - statistics tool that tracks errors produced by API to create easier debugging for developers. **This parameter is optional**.
-
-### NOTES 
-```
-⚠️ Latest version of API migrated to Prisma, so to connect to the database, only the database_url parameter is needed.
-⚠️ Since migration to Prisma, POSTGRESQL is no longer the only database that works. However provider needs to be replaced in prisma.schema file.
-⚠️ Make sure to also test every form before deploying to ensure everything is configured correctly.
-```
 
 If you have configured everything correctly, you should receive emails similar to the one showcased below. These should be received at the email addresses you specified in the `EMAIL_ADDRESS_RECIPIENT_ARR` configuration line.
 
