@@ -84,18 +84,15 @@ We take great pride in our achievements, which reflect our commitment to enhanci
 
 - 🐦‍⬛ Maintenance funded by Kusama from February 2025 to July 2025 [Referenda link](https://kusama.polkassembly.io/referenda/485), [February report](https://docs.google.com/document/d/1WmpErT8SyIXApdwtCeB0X28XgUSoR2qXeJSec3c-4dA/edit?usp=sharing), [March report](https://docs.google.com/document/d/1gbVz8yMbesRlE5KHUce1DYmi0UcSMhUICtEsgXIrevA/edit?usp=sharing), [April report](https://docs.google.com/document/d/1FxUdJcUUOQjcd5bHyASGLGpj9Im4Ex06Osk6ixcfi_8/edit?usp=sharing), [May report](https://docs.google.com/document/d/1yhsSCSaOqR7zCWNPM7wvBrpimUxaeb76tmA21wmtxvE/edit?usp=sharing), [June report](https://docs.google.com/document/d/196SwN4cJ03BAjWg6alzt1MW5fSEnnVbSxCx03qjMuYo/edit?usp=sharing)
 
+- 🫀 Maintenance funded by Polkadot from August 2025 to July 2026 [Referenda link](https://polkadot.polkassembly.io/referenda/1641)
+
 <div>
   <h3 align="center">
     Project is supported by
   </h3>
-  <p style="display: flex; justify-content: center; flex-wrap: wrap; margin: 0;">
-    <a href="https://github.com/w3f/Grants-Program/pull/1245" style="flex: 1 1 200px; display: flex; justify-content: center;">
-      <img width="200" alt="version" src="https://user-images.githubusercontent.com/55763425/211145923-f7ee2a57-3e63-4b7d-9674-2da9db46b2ee.png" style="max-width: 100%; height: auto;"/>
-    </a>
-    <a href="https://kusama.subsquare.io/referenda/417" style="flex: 1 1 200px; display: flex; justify-content: center;">
-      <img width="200" alt="version" src="https://github.com/paraspell/xcm-sdk/assets/55763425/9ed74ebe-9b29-4efd-8e3e-7467ac4caed6" style="max-width: 100%; height: auto;"/>
-    </a>
-  </p>
+  <div align="center" style="margin-top: 20px;">
+      <img width="750" alt="version" src="https://github.com/user-attachments/assets/29e4b099-d90c-46d6-a3ce-94edfbda003c" />
+  </div>
 </div>
 
 
