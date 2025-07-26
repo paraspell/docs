@@ -1,0 +1,1 @@
+import{_ as r,c as a,ae as t,o}from"./chunks/framework.DRPMfuGp.js";const g=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),n={name:"index.md"};function l(i,e,s,p,c,h){return o(),a("div",null,e[0]||(e[0]=[t("",25)]))}const u=r(n,[["render",l]]);export{g as __pageData,u as default};
