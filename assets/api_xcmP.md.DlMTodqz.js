@@ -231,7 +231,7 @@ import{_ as i,c as a,ae as e,o as n}from"./chunks/framework.DRPMfuGp.js";const c
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        to: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;Ethereum&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        currency: {</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          symbol: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;USDC.e&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          amount: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;1000000&quot;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          amount: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;10000000&quot;</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        },</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        options: {</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          development: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
