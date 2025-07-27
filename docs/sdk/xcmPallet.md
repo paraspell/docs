@@ -742,7 +742,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 SDK offers enhanced localhost support. You can pass an object containing overrides for all WS endpoints (Including hops) used in the test transfer. This allows for advanced localhost testing such as localhost dry-run or xcm-fee queries.
 
 ```ts
-const tx = await Builder({
+const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
   apiOverrides: {
     Hydration: // "wsEndpointString" | papiClient
@@ -766,7 +766,7 @@ await builder.disconnect()
 <summary>Following example will perform 10 USDC transfer from Hydration to Ethereum (With enforced endpoint specification). </summary>
 
 ```ts
-const tx = await Builder({
+const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
   apiOverrides: {
     Hydration: // "wsEndpointString" | papiClient
@@ -778,7 +778,11 @@ const tx = await Builder({
   .to('Ethereum')
   .currency({ symbol: 'USDC.e', amount: '10000000' })
   .address('0x24D18dbFBcEd732EAdF98EE520853e13909fE258')
-  .build();
+
+const tx = await builder.build()
+
+//Disconnect API after TX
+await builder.disconnect()
 ```
 
 </details>
