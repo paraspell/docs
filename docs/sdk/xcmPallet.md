@@ -776,7 +776,7 @@ const tx = await Builder({
 })
   .from('Hydration')
   .to('Ethereum')
-  .currency({ symbol: 'USDC.e', amount: '1000000' })
+  .currency({ symbol: 'USDC.e', amount: '10000000' })
   .address('0x24D18dbFBcEd732EAdF98EE520853e13909fE258')
   .build();
 ```

@@ -601,7 +601,7 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
         to: "Ethereum",
         currency: {
           symbol: "USDC.e",
-          amount: "1000000"
+          amount: "10000000"
         },
         options: {
           development: true,
