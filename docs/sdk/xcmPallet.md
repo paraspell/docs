@@ -188,7 +188,7 @@ await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .address(eth_address)  //AccountKey20 recipient address
           .senderAddress(sender_address) //Injector SS58 address
-          .ahAddress(ahAddress) //Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin node is EVM style because we are unable to convert your sender Key20 address to ID32 address.
+          .ahAddress(ahAddress) //Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin chain is EVM style because we are unable to convert your sender Key20 address to ID32 address.
           .build()
 ```
 
@@ -733,6 +733,63 @@ hops - Always present - An array of chains that the transfer hops through (Empty
   }
 ]
 }
+```
+
+</details>
+
+## Localhost testing setup
+
+SDK offers enhanced localhost support. You can pass an object containing overrides for all WS endpoints (Including hops) used in the test transfer. This allows for advanced localhost testing such as localhost dry-run or xcm-fee queries.
+
+```ts
+const tx = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: // "wsEndpointString" | papiClient
+    BridgeHubPolkadot: // "wsEndpointString" | papiClient
+    //ChainName: ...
+  }
+})
+  .from(CHAIN)
+  .to(CHAIN)
+  .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+  .address(address)
+
+const tx = await builder.build()
+
+//Disconnect API after TX
+await builder.disconnect()
+```
+
+**Example**
+<details>
+<summary>Following example will perform 10 USDC transfer from Hydration to Ethereum (With enforced endpoint specification). </summary>
+
+```ts
+const tx = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: // "wsEndpointString" | papiClient
+    AssetHubPolkadot: // "wsEndpointString" | papiClient
+    BridgeHubPolkadot: // "wsEndpointString" | papiClient
+  }
+})
+  .from('Hydration')
+  .to('Ethereum')
+  .currency({ symbol: 'USDC.e', amount: '1000000' })
+  .address('0x24D18dbFBcEd732EAdF98EE520853e13909fE258')
+  .build();
+```
+
+</details>
+
+**Additional information ℹ️**
+<details>
+<summary>Following dropdown contains information about apiOverrides object and development mode parameter.</summary>
+
+```
+- apiOverrides property is a map where keys are chain names (e.g., Hydration, BridgeHubPolkadot) and values are the corresponding WS endpoint URL / array of WS URLs or an API client instance.
+- development Mode parameter: When development flag is set to true, the SDK will throw a MissingChainApiError if an operation involves a chain for which an override has not been provided in apiOverrides. This ensures that in a testing environment, the SDK does not fall back to production endpoints.
 ```
 
 </details>

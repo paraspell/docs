@@ -553,6 +553,67 @@ const response = await fetch('http://localhost:3001/v3/dry-run', {
   }),
 ```
 
+## Localhost testing setup
+
+API offers enhanced localhost support. You can pass an object called options containing overrides for all WS endpoints (Including hops) used in the test transfer. This allows for advanced localhost testing such as localhost dry-run or xcm-fee queries.
+
+**Endpoint**: `Any that can leverage this feature` (From transfers, dry-run to xcm-fee queries)
+
+  <details>
+  <summary><b>Parameters</b></summary>
+
+  - Inherited from concrete endpoint
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - Inherited from concrete endpoint
+    
+  </details>
+
+  <details>
+  <summary><b>Notes</b> </summary>
+
+  
+```
+- The xcm-api accepts an options object in the request body for endpoints like /x-transfer, accepting the same parameters as SDK.
+
+- apiOverrides property is a map where keys are chain names (e.g., Hydration, BridgeHubPolkadot) and values are the corresponding WS endpoint URL / array of WS URLs or an API client instance.
+
+- Development mode parameter: When development flag is set to true, the SDK will throw a MissingChainApiError if an operation involves a chain for which an override has not been provided in apiOverrides. This ensures that in a testing environment, the SDK does not fall back to production endpoints.
+```
+
+  </details>
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v3/x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        senderAddress: "1pze8UbJDcDAacrXcwkpqeRSYLphaAiXB8rUaC6Z3V1kBLq",
+        address: "0x1501C1413e4178c38567Ada8945A80351F7B8496",
+        from: "Hydration",
+        to: "Ethereum",
+        currency: {
+          symbol: "USDC.e",
+          amount: "1000000"
+        },
+        options: {
+          development: true,
+          apiOverrides: {
+            Hydration: "wss://hydration.ibp.network",
+            AssetHubPolkadot: "wss://dot-rpc.stakeworld.io/assethub"
+            BridgeHubPolkadot: "wss://sys.ibp.network/bridgehub-polkadot"
+          }
+        }
+    })
+});
+```
 
 ## XCM Transfer info
 To comprehensively assess whether a message will execute successfully without failure, use this query. It provides detailed information on currency balances before and after the transaction, including all relevant fees. This data is essential for accurately evaluating potential balance or fee-related issues that could cause message failure.
