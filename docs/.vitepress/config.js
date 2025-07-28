@@ -75,6 +75,7 @@ export default {
             items: [
               { text: 'Interesting links', link: '/links' },
               { text: 'List of supported chains', link: '/supported' },
+              { text: 'Bug bounty 💸', link: '/contribution' },
             ]
           },
         ]
