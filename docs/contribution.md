@@ -109,7 +109,7 @@ Your payment will be sent to `AssetHub Polkadot address` you provided in the iss
 
 ## 📫 Need Help?
 
-If you're unsure how to start or have questions about an issue or PR:
+If you're unsure how to start or have questions about an issue or PR you can use one of the following ways to reach out to us:
 
 - Contact form on our [landing page](https://paraspell.xyz/#contact-us).
 - Message us on our [X](https://x.com/paraspell).
