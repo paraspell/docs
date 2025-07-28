@@ -101,7 +101,7 @@ Your payment will be sent to `AssetHub Polkadot address` you provided in the iss
 
 - Follow the existing code style and structure.
 - Write meaningful commit messages.
-- Include automated tests if applicable.
+- Include unit tests if applicable.
 - Keep PRs focused — one issue per pull request.
 - Add inline comments on important changes and new functions
 - Be respectful and collaborative in discussions.
