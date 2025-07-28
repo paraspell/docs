@@ -36,6 +36,7 @@ You can contribute fixes to open bug bounty issues.
 
 Before working on a fix:
 
+- Ensure, that the issue has "Bug bounty 💰" tag on it.
 - Comment on the issue with:  
   > `I would like to reserve this issue.`  
 - The issue will be assigned and reserved to you for **48 hours**.
@@ -72,6 +73,38 @@ If someone has already reported an issue or opened a PR and you want to contribu
 - Comment to express intent.
 - If allowed, follow the same reservation/PR process.
 - Make sure your contribution is additive and clearly explained.
+
+## ❓ FAQ (Frequently Asked Questions)
+
+### 💡 Can I report and fix the same bug?
+
+Yes! You can both **report and fix** the bug. Be sure to reserve it as outlined above before working on the fix.
+
+
+### 🕒 What happens if I reserve an issue but don’t submit a PR in 48 hours?
+
+The issue becomes **unreserved and open** for others to claim. You may re-reserve it if it's still unassigned.
+
+
+### 🧾 How do you determine reward amounts?
+
+- **Bug reports** are evaluated based on user impact and severity.
+- **Fixes** are evaluated based on code complexity, design quality, and completeness (tests, documentation).
+
+
+### 🏦 How do I receive payment?
+
+Your payment will be sent to `AssetHub Polkadot address` you provided in the issue or PR and the amount will be paid in `USDC` currency. Please ensure to only provide non-cex addresses to the PR, because the payment may not arrive correctly. The payment should be processed within 2 business days after the issue is resolved or PR is merged.
+
+
+## 🧠 Tips for High-Quality Contributions
+
+- Follow the existing code style and structure.
+- Write meaningful commit messages.
+- Include automated tests if applicable.
+- Keep PRs focused — one issue per pull request.
+- Add inline comments on important changes and new functions
+- Be respectful and collaborative in discussions.
 
 
 ## 📫 Need Help?
