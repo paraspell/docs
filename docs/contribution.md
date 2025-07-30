@@ -81,7 +81,7 @@ Use **one of the following commit types**:
 
 #### Example:
 ```bash
-git commit -m "fix: handle null case in token parser"
+git commit -m "fix: Handle null case in token parser"
 ```
 
 ### 💵 Rewards for Fixes
