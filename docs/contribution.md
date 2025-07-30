@@ -59,6 +59,38 @@ If you reported a bug and want to fix it:
 3. Open a [Pull Request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue.
 4. **Tag `@michaeldev5`** in the PR description to request a review.
 
+## 📦 Submitting a Fix
+
+1. Fork the repository and create a new branch.
+2. Make your changes and **commit using a Conventional Commit message** with one of the **supported tags** listed below.
+3. Open a [Pull Request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue.
+4. **Tag `@michaeldev5`** in the PR description to request a review.
+
+### ✅ Commit Guidelines
+
+Please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification when writing your commit messages. This helps automate changelog generation and improves project consistency.
+
+Use **one of the following commit types**:
+
+| Type       | Section                   | Description                                                   |
+|------------|---------------------------|---------------------------------------------------------------|
+| `feat`     | Features                  | New features                                                  |
+| `fix`      | Bug Fixes                 | Bug fixes                                                     |
+| `perf`     | Performance Improvements  | Code changes that improve performance                         |
+| `revert`   | Reverts                   | Revert a previous commit                                      |
+| `docs`     | Documentation             | Changes to documentation only                                 |
+| `style`    | Styles                    | Code style changes (formatting, whitespace, etc.)             |
+| `chore`    | Miscellaneous Chores      | Routine tasks (note: these are hidden in changelogs)          |
+| `refactor` | Code Refactoring          | Code changes that neither fix bugs nor add features           |
+| `test`     | Tests                     | Adding or updating tests                                      |
+| `build`    | Build System              | Changes that affect the build system or external dependencies |
+| `ci`       | Continuous Integration    | CI configuration and scripts                                  |
+
+#### Example:
+```bash
+git commit -m "fix: handle null case in token parser"
+```
+
 ### 💵 Rewards for Fixes
 
 | Complexity | Description                                                                                         | Reward Range |
