@@ -28,7 +28,8 @@ To report a bug:
 | 🔴 High        | Crashes, data loss, security vulnerabilities, or major broken functionality | $30    |
 
 > Maintainers determine severity based on impact. Contributors may be contacted for clarification.
-> Please note that reporting grammar errors in documentation that do not affect functionality or clarity to the user is not rewarded; you are, however, very welcome to open a PR fixing them.
+
+> Please note that reporting and fixing grammar errors in documentation that do not affect functionality or clarity to the user is not rewarded; you are, however, very welcome to open a PR fixing them.
 
 ## 🛠️ Fixing Bugs
 
@@ -68,6 +69,8 @@ If you reported a bug and want to fix it:
 | 🔴 High    | Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs   | $70–$100     |
 
 > The reward is based on code complexity and quality, as determined by maintainers.
+
+> Please note that reporting and fixing grammar errors in documentation that do not affect functionality or clarity to the user is not rewarded; you are, however, very welcome to open a PR fixing them.
 
 ## 👥 Collaborating on Existing Issues
 
