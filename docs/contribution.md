@@ -28,6 +28,7 @@ To report a bug:
 | 🔴 High        | Crashes, data loss, security vulnerabilities, or major broken functionality | $30    |
 
 > Maintainers determine severity based on impact. Contributors may be contacted for clarification.
+> Please note that reporting grammar errors in documentation that do not affect functionality or clarity to the user is not rewarded; you are, however, very welcome to open a PR fixing them.
 
 ## 🛠️ Fixing Bugs
 
