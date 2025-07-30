@@ -55,13 +55,6 @@ If you reported a bug and want to fix it:
 ## 📦 Submitting a Fix
 
 1. Fork the repository and create a new branch.
-2. Make your changes and commit with a clear message.
-3. Open a [Pull Request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue.
-4. **Tag `@michaeldev5`** in the PR description to request a review.
-
-## 📦 Submitting a Fix
-
-1. Fork the repository and create a new branch.
 2. Make your changes and **commit using a Conventional Commit message** with one of the **supported tags** listed below.
 3. Open a [Pull Request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue.
 4. **Tag `@michaeldev5`** in the PR description to request a review.
