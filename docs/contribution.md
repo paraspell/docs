@@ -22,6 +22,7 @@ To report a bug:
 
 | Severity Level | Description                                                                 | Reward |
 |----------------|-----------------------------------------------------------------------------|--------|
+| ⚪️ Very low           | Very minor errors in docs / text / code                              | $5     |
 | 🟢 Low         | Minor UI issues, typos, or cosmetic bugs                                    | $10    |
 | 🟠 Medium      | Bugs affecting user features or causing functional issues                   | $20    |
 | 🔴 High        | Crashes, data loss, security vulnerabilities, or major broken functionality | $30    |
@@ -60,6 +61,7 @@ If you reported a bug and want to fix it:
 
 | Complexity | Description                                                                                         | Reward Range |
 |------------|-----------------------------------------------------------------------------------------------------|--------------|
+| ⚪️ Very low | Very minor errors in docs / text / code                                   | $5     |
 | 🟢 Low     | Small fix (e.g., 1-2 lines), config changes                                | $10–$20      |
 | 🟠 Medium  | Logic changes, multi-file fixes, test additions                                                      | $30–$60      |
 | 🔴 High    | Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs   | $70–$100     |
