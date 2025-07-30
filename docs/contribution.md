@@ -91,7 +91,7 @@ git commit -m "fix: Handle null case in token parser"
 | ⚪️ Very low | Very minor errors in docs / text / code                                   | $5     |
 | 🟢 Low     | Small fix (e.g., 1-2 lines), config changes                                | $10–$20      |
 | 🟠 Medium  | Logic changes, multi-file fixes, test additions                                                      | $30–$70      |
-| 🔴 High    | Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs   | $70–$250+     |
+| 🔴 High    | Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs   | $80–$250+     |
 
 > The reward is based on code complexity and quality, as determined by maintainers.
 
