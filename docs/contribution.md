@@ -10,6 +10,16 @@ You can contribute in two ways:
 1. **Report bugs** – Earn rewards based on bug severity.
 2. **Fix bugs** – Earn additional rewards based on fix complexity.
 
+**Which tools/apps from monorepo are eligible in Bug bounty?**
+
+- [XCM SDK](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) (Papi version only)
+- [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
+- [XCM Router](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router)
+- [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
+- [XCM Visualizator FE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe)
+- [XCM Visualizator BE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-be)
+- [XCM Playground](https://github.com/paraspell/xcm-tools/tree/main/apps/playground)
+
 ## 🔍 Bug Reporting
 
 To report a bug:
