@@ -745,8 +745,8 @@ SDK offers enhanced localhost support. You can pass an object containing overrid
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
   apiOverrides: {
-    Hydration: // "wsEndpointString" | papiClient
-    BridgeHubPolkadot: // "wsEndpointString" | papiClient
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
     //ChainName: ...
   }
 })
@@ -769,10 +769,9 @@ await builder.disconnect()
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
   apiOverrides: {
-    Hydration: // "wsEndpointString" | papiClient
-    AssetHubPolkadot: // "wsEndpointString" | papiClient
-    BridgeHubPolkadot: // "wsEndpointString" | papiClient
-  }
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
 })
   .from('Hydration')
   .to('Ethereum')
