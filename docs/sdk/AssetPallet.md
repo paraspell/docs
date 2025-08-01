@@ -540,7 +540,7 @@ getTNode(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When
 ```
 
 ## Import Parachains as constant
-Import all compatible Parachains as constant
+Import all compatible Parachains and Relay chains as constant
 ```ts
-console.log(NODE_NAMES)
+console.log(NODES_WITH_RELAY_CHAINS)
 ```
