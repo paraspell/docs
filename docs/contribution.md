@@ -64,6 +64,8 @@ If you reported a bug and want to fix it:
 
 ## 📦 Submitting a Fix
 
+**Please make sure your PR is according to rules and has high quality code. We will not be checking your PR if it doesn't follow our quality standards.**
+
 1. Fork the repository and create a new branch.
 2. Make your changes and **commit using a Conventional Commit message** with one of the **supported tags** listed below.
 3. Open a [Pull Request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue.
@@ -103,7 +105,6 @@ git commit -m "fix: Handle null case in token parser"
 | 🟠 Medium  | Logic changes, multi-file fixes, test additions                                                      | $30–$70      |
 | 🔴 High    | Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs   | $80–$250+     |
 
-> Please make sure your PR is according to rules and has high quality code. We will not be checking your PR if it doesn't follow our quality standards.
 
 > The reward is based on code complexity and quality, as determined by maintainers.
 
