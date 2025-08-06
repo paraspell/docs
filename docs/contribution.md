@@ -103,6 +103,8 @@ git commit -m "fix: Handle null case in token parser"
 | 🟠 Medium  | Logic changes, multi-file fixes, test additions                                                      | $30–$70      |
 | 🔴 High    | Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs   | $80–$250+     |
 
+> Please make sure your PR is according to rules and has high quality code. We will not be checking your PR if it doesn't follow our quality standards.
+
 > The reward is based on code complexity and quality, as determined by maintainers.
 
 > The High complexity tasks only have theoretical cap of $250, because the final amount depends on complexity of the task. The amount can be higher.
