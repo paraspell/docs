@@ -9,12 +9,66 @@ Use this query to comprehensively assess whether a message will execute successf
 const info = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY)
-          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
+          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getTransferInfo()
 ```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary>Advanced settings</summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+```
+  
+  </details>
 
 **Possible output objects:**
 
@@ -112,12 +166,66 @@ You can use the transferable balance to retrieve information on how much of the 
 const transferable = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY)
-          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
+          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getTransferableAmount()
 ```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary>Advanced settings</summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+```
+  
+  </details>
 
 **Notes:**
 
@@ -145,12 +253,65 @@ To retrieve information on whether the selected currency from a specific account
 const ed = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY)
-          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
+          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .verifyEdOnDestination()
 ```
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary>Advanced settings</summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+```
+  
+  </details>
 
 **Notes:**
 
@@ -181,12 +342,66 @@ The query is designed to retrieve your XCM fee at any cost, but falls back to Pa
 const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY)
-          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
+          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
 ```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary>Advanced settings</summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+```
+  
+  </details>
 
 **Notes**
 <details>
@@ -260,11 +475,53 @@ This query is designed to retrieve your approximate fee and doesn't require any 
 const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY)
+          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)          
           .getXcmFeeEstimate()
 ```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
 
 **Notes**
 <details>
@@ -311,16 +568,72 @@ The following queries allow you to query the XCM fee from the Origin chain. You 
 ### More accurate query using DryRun
 The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
 
+
+
 ```ts
 const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY)
-          /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency.*/
+          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getOriginXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin do not support DryRun out of the box.
 ```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary>Advanced settings</summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+```
+  
+  </details>
 
 **Possible output objects:**
 
@@ -495,11 +808,66 @@ This query is designed to retrieve your approximate fee and doesn't require any 
 const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY)
+          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)          
           .getOriginXcmFeeEstimate()
 ```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary>Advanced settings</summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+```
+  
+  </details>
 
 **Possible output objects:**
 
@@ -536,8 +904,45 @@ import { getAssetBalance } from "@paraspell/sdk";
 import { getAssetBalance } from "@paraspell/sdk-pjs";
 
 //Retrieves the asset balance for a given account on a specified CHAIN (You do not need to specify if it is native or foreign).
-const balance = await getAssetBalance({address, CHAIN, currency /*- {id: currencyID} | {symbol: currencySymbol} | {symbol: Native('currencySymbol')} | {symbol: Foreign('currencySymbol')} | {symbol: ForeignAbstract('currencySymbol')} | {multilocation: AssetMultilocationString | AssetMultilocationJson}*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
+const balance = await getAssetBalance({address, CHAIN, CURRENCY_SPEC /*Reffer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
 ```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+  </details>
 
 **Example output:**
 

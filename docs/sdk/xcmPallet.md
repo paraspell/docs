@@ -10,14 +10,14 @@
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(RELAY_CHAIN) //'Kusama' | 'Polkadot'
-      .to(CHAIN/*,customParaId - optional*/ | Multilocation object) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(RELAY_CHAIN) // 'Kusama' | 'Polkadot'
+      .to(CHAIN/*,customParaId - optional*/ | Multilocation object) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Multilocation object)
 
 const tx = await builder.build()
 
-//Make sure to disconnect API after it is no longer used (eg. after transaction)
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
 ```
 
@@ -37,7 +37,7 @@ const builder = await Builder()
 
 const tx = await builder.build()
 
-//Disconnect API after TX
+// Disconnect API after TX
 await builder.disconnect()
 ```
 
@@ -48,8 +48,8 @@ await builder.disconnect()
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+.xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
+.customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
 </details>
@@ -58,14 +58,14 @@ await builder.disconnect()
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to(RELAY_CHAIN) //'Kusama' | 'Polkadot'
+      .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(RELAY_CHAIN) // 'Kusama' | 'Polkadot'
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Multilocation object)
 
 const tx = await builder.build()
 
-//Make sure to disconnect API after it is no longer used (eg. after transaction)
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
 ```
 
@@ -85,7 +85,7 @@ const builder = await Builder()
 
 const tx = await builder.build()
 
-//Disconnect API after TX
+// Disconnect API after TX
 await builder.disconnect()
 ```
 
@@ -96,8 +96,8 @@ await builder.disconnect()
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+.xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
+.customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
 </details>
@@ -106,17 +106,59 @@ await builder.disconnect()
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to(CHAIN /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection/* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
       .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/)
       .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
 
 const tx = await builder.build()
 
-//Make sure to disconnect API after it is no longer used (eg. after transaction)
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
 ```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} // Recommended
+{multilocation: AssetMultilocationJson, amount: amount} // Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
 
 **Notes**
 <details>
@@ -142,7 +184,7 @@ const builder = Builder()
 
 const tx = await builder.build()
 
-//Disconnect API after TX
+// Disconnect API after TX
 await builder.disconnect()
 ```
 
@@ -155,8 +197,8 @@ await builder.disconnect()
 ```ts
 .ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
 .feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
-.xcmVersion(Version.V1/V2/V3/V4)  //Optional parameter for manual override of XCM Version used in call
-.customPallet('Pallet','pallet_function') //Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+.xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
+.customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
 </details>
@@ -169,8 +211,8 @@ Latest SDK versions support Polkadot <> Kusama bridge in very native and intuiti
 
 ```ts
 await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)       
-      .from('AssetHubPolkadot')  //'AssetHubPolkadot' | 'AssetHubKusama'
-      .to('AssetHubKusama')     //'AssetHubPolkadot' | 'AssetHubKusama'
+      .from('AssetHubPolkadot')  // 'AssetHubPolkadot' | 'AssetHubKusama'
+      .to('AssetHubKusama')     // 'AssetHubPolkadot' | 'AssetHubKusama'
       .currency({symbol: 'DOT', amount: amount})        // 'KSM' | 'DOT'
       .address(address)
       .build()
@@ -183,12 +225,12 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 
 ```ts
 await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from('AssetHubPolkadot') //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from('AssetHubPolkadot') // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to('Ethereum')           
-          .currency({symbol: 'WETH', amount: amount})   //Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address)  //AccountKey20 recipient address
-          .senderAddress(sender_address) //Injector SS58 address
-          .ahAddress(ahAddress) //Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin chain is EVM style because we are unable to convert your sender Key20 address to ID32 address.
+          .currency({symbol: 'WETH', amount: amount})   // Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+          .address(eth_address)  // AccountKey20 recipient address
+          .senderAddress(sender_address) // Injector SS58 address
+          .ahAddress(ahAddress) // Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin chain is EVM style because we are unable to convert your sender Key20 address to ID32 address.
           .build()
 ```
 
@@ -200,21 +242,21 @@ Currently only available in PJS version of XCM SDK (Until Snowbridge migrates to
 const provider = new ethers.BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
 
-await EvmBuilder(provider)   //Ethereum provider
+await EvmBuilder(provider)   // Ethereum provider
   .from('Ethereum')   
-  .to('AssetHubPolkadot') //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-  .currency({symbol: 'WETH', amount: amount})    //Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-  .address(address)   //AccountID32 recipient address
-  //.ahAddress(ahAddress) ////ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
-  .signer(signer)     //Ethereum signer address
+  .to('AssetHubPolkadot') // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+  .currency({symbol: 'WETH', amount: amount})    // Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+  .address(address)   // AccountID32 recipient address
+  //.ahAddress(ahAddress) - ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
+  .signer(signer)     // Ethereum signer address
   .build();
 ```
 
 **Helper functions:**
 ```js
-await depositToken(signer: Signer, amount: bigint, symbol: string); //Deposit token to contract
-await getTokenBalance(signer: Signer, symbol: string); //Get token balance
-await approveToken(signer: Signer, amount: bigint, symbol: string); //Approve token
+await depositToken(signer: Signer, amount: bigint, symbol: string); // Deposit token to contract
+await getTokenBalance(signer: Signer, symbol: string); // Get token balance
+await approveToken(signer: Signer, amount: bigint, symbol: string); // Approve token
 ```
 
 #### Snowbridge status check
@@ -227,16 +269,54 @@ const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 ## Local transfers
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to(CHAIN) //Has to be same as origin (from)
-      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+      .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(CHAIN) // Has to be same as origin (from)
+      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
       .address(address)
 
 const tx = await builder.build()
 
-//Make sure to disconnect API after it is no longer used (eg. after transaction)
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
 ```
+
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} // Recommended
+{multilocation: AssetMultilocationJson, amount: amount} // Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+  </details>
 
 **Example**
 <details>
@@ -254,7 +334,7 @@ const builder = Builder()
 
 const tx = await builder.build()
 
-//Disconnect API after TX
+// Disconnect API after TX
 await builder.disconnect()
 ```
 
@@ -265,31 +345,69 @@ await builder.disconnect()
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
 ```ts
 await Builder(/*CHAIN api/ws_url_string - optional*/)
-      .from(CHAIN) //Ensure, that origin CHAIN is the same in all batched XCM Calls.
-      .to(CHAIN_2) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currency({currencySelection, amount}) //Currency to transfer - options as in scenarios above
+      .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
+      .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
       .address(address | Multilocation object)
       .addToBatch()
 
-      .from(CHAIN) //Ensure, that origin CHAIN is the same in all batched XCM Calls.
-      .to(CHAIN_3) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currency({currencySelection, amount}) //Currency to transfer - options as in scenarios above
+      .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
+      .to(CHAIN_3) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
       .address(address | Multilocation object)
       .addToBatch()
       .buildBatch({ 
           // This settings object is optional and batch all is the default option
-          mode: BatchMode.BATCH_ALL //or BatchMode.BATCH
+          mode: BatchMode.BATCH_ALL // or BatchMode.BATCH
       })
 ```
+
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+  </details>
 
 ## Moonbeam xTokens smart-contract
 If you need to sign Moonbeam / Moonriver transactions with other than Polkadot wallets (eg. Metamask), you can interact with their smart contract to perform operations with other wallets. Both Ethers and Viem are supported.
 
 ```ts
 const hash = await EvmBuilder()
-      .from('Moonbeam') //'Moonbeam' | 'Moonriver'
-      .to(CHAIN) //'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currency(({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount}) //Select currency by ID or Symbol
+      .from('Moonbeam') // 'Moonbeam' | 'Moonriver'
+      .to(CHAIN) // 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount}) //Select currency by ID or Symbol
       .address(address)
       .signer(signer) // Ethers Signer or Viem Wallet Client
       .build()
@@ -300,14 +418,14 @@ Claim XCM trapped assets from the selected chain.
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .claimFrom(CHAIN) //'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama'
+      .claimFrom(CHAIN) // 'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama'
       .fungible(MultilocationArray (Only one multilocation allowed) [{Multilocation}])
       .account(address | Multilocation object)
       /*.xcmVersion(Version.V3) Optional parameter, by default V3. XCM Version ENUM if a different XCM version is needed (Supported V2 & V3). Requires importing Version enum.*/
 
 const tx = await builder.build()
 
-//Make sure to disconnect API after it is no longer used (eg. after transaction)
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
 ```
 
@@ -317,22 +435,64 @@ Dry running let's you check whether your XCM Call will execute, giving you a cha
 
 ```ts
 const result = await Builder(API /*optional*/)
-        .from(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .to(CHAIN_2) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection/* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
-        /*.feeAsset(CURRENCY) - Optional parameter when origin === AssetHubPolkadot || Hydration and TX is supposed to be paid in same fee asset as selected currency.*/
+        .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .currency(CURRENCY_SPEC) // Reffer to currency spec options below
         .address(ADDRESS)
         .senderAddress(SENDER_ADDRESS)
         .dryRun()
 
-//Check Parachain for DryRun support - returns true/false
-//PAPI
+// Check Parachain for DryRun support - returns true/false
+// PAPI
 import { hasDryRunSupport } from "@paraspell/sdk";
-//PJS
+// PJS
 import { hasDryRunSupport } from "@paraspell/sdk-pjs";
 
-const result = hasDryRunSupport(CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+const result = hasDryRunSupport(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
 ```
+
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} // Recommended
+{multilocation: AssetMultilocationJson, amount: amount} // Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
 
 **Possible output objects:**
 
@@ -737,6 +897,16 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 
 </details>
 
+**Advanced settings**
+<details>
+<summary>You can add following details to the builder to further customize your call</summary>
+
+```ts
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+```
+
+</details>
+
 ## Localhost testing setup
 
 SDK offers enhanced localhost support. You can pass an object containing overrides for all WS endpoints (Including hops) used in the test transfer. This allows for advanced localhost testing such as localhost dry-run or xcm-fee queries.
@@ -747,19 +917,61 @@ const builder = await Builder({
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    //ChainName: ...
+    // ChainName: ...
   }
 })
   .from(CHAIN)
   .to(CHAIN)
-  .currency({id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}})
+  .currency(CURRENCY_SPEC) // Reffer to currency spec options below
   .address(address)
 
 const tx = await builder.build()
 
-//Disconnect API after TX
+// Disconnect API after TX
 await builder.disconnect()
 ```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
 
 **Example**
 <details>
@@ -772,6 +984,7 @@ const builder = await Builder({
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
     BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
 })
   .from('Hydration')
   .to('Ethereum')
@@ -780,7 +993,7 @@ const builder = await Builder({
 
 const tx = await builder.build()
 
-//Disconnect API after TX
+// Disconnect API after TX
 await builder.disconnect()
 ```
 
