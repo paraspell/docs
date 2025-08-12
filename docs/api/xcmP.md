@@ -67,6 +67,25 @@ The following endpoint constructs the Relay chain to the Parachain XCM message.
     
   </details>
 
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+  
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
+xcmVersion: "Vx"
+
+// Used for customizing pallet name - Replace RandomXtokens with Camel case name of the pallet
+pallet: 'RandomXTokens',
+
+// Used for customizing pallet method - replace random_function with snake case name of the method
+method: 'random_function'
+```
+
+  </details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/x-transfer", {
@@ -77,11 +96,8 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
     body: JSON.stringify({
 	from: "Polkadot" // Or Kusama
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-	currency: { symbol: 'DOT', amount: amount},
+	currency: { symbol: 'DOT', amount: amount}, //symbol: 'KSM' || symbol: 'WND' || symbol: 'PAS'
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
-        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
-        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -114,6 +130,25 @@ The following endpoint constructs Parachain to Relay chain XCM message.
     
   </details>
 
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+  
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
+xcmVersion: "Vx"
+
+// Used for customizing pallet name - Replace RandomXtokens with Camel case name of the pallet
+pallet: 'RandomXTokens',
+
+// Used for customizing pallet method - replace random_function with snake case name of the method
+method: 'random_function'
+```
+  
+  </details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/x-transfer", {
@@ -124,11 +159,8 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
     body: JSON.stringify({
 	from: "Parachain" // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
         to: "Polkadot",   // Or Kusama
-	currency: { symbol: 'DOT', amount: amount},
+	currency: { symbol: 'DOT', amount: amount}, //symbol: 'KSM' || symbol: 'WND' || symbol: 'PAS'
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
-        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
-        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -171,6 +203,68 @@ The following endpoint allows creation of Parachain to Parachain XCM call. This 
 
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when multiasset is provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson}
+
+// Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
+xcmVersion: "Vx"
+
+// Used for customizing pallet name - Replace RandomXtokens with Camel case name of the pallet
+pallet: 'RandomXTokens',
+
+// Used for customizing pallet method - replace random_function with snake case name of the method
+method: 'random_function'
+```
+  
+  </details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/x-transfer", {
@@ -181,14 +275,10 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        currency: {currency spec} //Reffer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         senderAddress: "senderAddress" //Optional but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
-        //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when multiasset is provided or when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency
         //ahAddress: ahAddress //Optional parameter - used when origin is EVM node and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
-        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
-        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -230,6 +320,47 @@ The following endpoint allows  creation of Local asset transfers for any chain a
 
   </details>
 
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+</details>
+
+
 **Example of request:**
 ```ts
 const response = await fetch('http://localhost:3001/v3/x-transfer', {
@@ -240,7 +371,7 @@ const response = await fetch('http://localhost:3001/v3/x-transfer', {
   body: JSON.stringify({
     from: 'Parachain', // Replace "Parachain" with sender Parachain, e.g., "Acala"
     to: 'Parachain' // Replace Parachain with same parameter as "from" parameter
-    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+    currency: { currencySpec }, // Reffer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
   }),
 });
@@ -253,6 +384,25 @@ You can now customize multilocations for Address, Currency and Destination withi
         - Same as in above scenarios
    - **Errors**:
         - Same as in above scenarios
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
+xcmVersion: "Vx"
+
+// Used for customizing pallet name - Replace RandomXtokens with Camel case name of the pallet
+pallet: 'RandomXTokens',
+
+// Used for customizing pallet method - replace random_function with snake case name of the method
+method: 'random_function'
+```
+  
+  </details>
 
 **Example of request:**
 
@@ -277,9 +427,6 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
           },
 	amount: amount
         },
-        //xcmVersion: "Vx" //Optional parameter - replace "Vx" with V and version number eg. "V4"
-        //pallet: 'RandomXTokens', //Optional parameter - replace RandomXtokens with Camel case name of the pallet
-	    //method: 'random_function' //Optional parameter - replace random_function with snake case name of the method
     })
 });
 ```
@@ -536,6 +683,59 @@ destination - Present if origin doesn't fail
 
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when multiasset is provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson}
+```
+  
+  </details>
+
 **Example of request:**
 ```ts
 const response = await fetch('http://localhost:3001/v3/dry-run', {
@@ -546,8 +746,7 @@ const response = await fetch('http://localhost:3001/v3/dry-run', {
   body: JSON.stringify({
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
-    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-    //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency
+    currency: { currencySpec }, // Reffer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -659,6 +858,59 @@ destination - Present if origin doesn't fail
 
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when multiasset is provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson}
+```
+  
+  </details>
+
 **Example of request:**
 ```ts
 const response = await fetch(
@@ -669,8 +921,7 @@ const response = await fetch(
   },  
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
-    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-    //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency
+    currency: { currencySpec }, // Reffer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -718,6 +969,59 @@ To retrieve information on how much of the selected currency can be transfered f
 
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when multiasset is provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson}
+```
+  
+  </details>
+
 **Example of request:**
 ```ts
 const response = await fetch(
@@ -728,8 +1032,7 @@ const response = await fetch(
   },  
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
-    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-    //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency
+    currency: { currencySpec }, // Reffer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -776,6 +1079,59 @@ To retrieve information on whether the selected currency from specific account w
   **Beware**: If DryRun fails function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through). **If function switches to PaymentInfo and transfered currency is different than native currency on destination chain the function throws error as PaymentInfo only returns fees in native asset of the chain.**
 
   </details>
+
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when multiasset is provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson}
+```
+  
+  </details>
      
 **Example of request:**
 ```ts
@@ -787,8 +1143,7 @@ const response = await fetch(
   },  
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Multilocation
-    currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-    //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency
+    currency: { currencySpec }, // Reffer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -848,6 +1203,59 @@ destination - Present if origin doesn't fail
 
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+  </details>
+
+  <details>
+  
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when multiasset is provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson}
+```
+  
+  </details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/xcm-fee", {
@@ -858,8 +1266,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-fee", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-        //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency
+        currency: { currencySpec }, // Reffer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
         /*disableFallback: "True" //Optional parameter - if enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.*/
@@ -917,6 +1324,47 @@ destination - Always present
 
   </details>
 
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+</details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/xcm-fee-estimate", {
@@ -927,7 +1375,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-fee-estimate", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        currency: { currencySpec }, // Reffer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
@@ -984,6 +1432,62 @@ origin - Always present
 
   </details>
 
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+</details>
+
+<details>
+
+<summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when multiasset is provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson}
+
+//If enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.
+disableFallback: "True" 
+```
+  
+</details>
+
 
 **Example of request:**
 ```ts
@@ -995,11 +1499,9 @@ const response = await fetch("http://localhost:3001/v3/origin-xcm-fee", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
-        //feeAsset: {id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson} //Optional parameter used when origin === AssetHubPolkadot and TX is supposed to be paid in same fee asset as selected currency
+        currency: { currencySpec }, // Reffer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
-        /*disableFallback: "True" //Optional parameter - if enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.*/
     })
 });
 ```
@@ -1051,6 +1553,47 @@ origin - Always present
 
   </details>
 
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+</details>
+
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/origin-xcm-fee-estimate", {
@@ -1061,7 +1604,7 @@ const response = await fetch("http://localhost:3001/v3/origin-xcm-fee-estimate",
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Multilocation
-        currency: { currencySpec }, //{id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {multilocation: AssetMultilocationString, amount: amount | AssetMultilocationJson, amount: amount} | {multilocation: Override('Custom Multilocation'), amount: amount} | {multiasset: {currencySelection, isFeeAsset?: true /* for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+        currency: { currencySpec }, // Reffer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
@@ -1111,6 +1654,47 @@ console.log(response) //use response data as necessary
 ### Query asset paths
 The following endpoint allows you to query the asset paths related to origin chain.
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+</details>
+
+
 **Endpoint**: `POST /v3/assets/:node/supported-destinations`
 
   <details>
@@ -1138,7 +1722,7 @@ const response = await fetch("http://localhost:3001/v3/assets/:node/supported-de
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"}
+        currency: {currency spec} //Reffer to currency spec options above
     })
 });
 ```
@@ -1167,6 +1751,47 @@ The following endpoint allows you to query asset balance for on specific chain.
     
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+</details>
+
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/balance/:node/asset", {
@@ -1176,7 +1801,7 @@ const response = await fetch("http://localhost:3001/v3/balance/:node/asset", {
     },
     body: JSON.stringify({
         address: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency: {currencySpec}, //{id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson} | {multilocation: "type": "Override","value": "CustomAssetMultilocationJson"}
+        currency: {currencySpec}, // Reffer to currency spec options above
     })
 });
 ```
@@ -1203,6 +1828,47 @@ The following endpoint allows you to query the existential deposit for currency 
 
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+ </details>
+
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/balance/:node/existential-deposit", {
@@ -1211,7 +1877,7 @@ const response = await fetch("http://localhost:3001/v3/balance/:node/existential
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"} | {multilocation: AssetMultilocationString} | {multilocation: AssetMultilocationJson}
+        currency: {CurrencySpec} // Reffer to currency spec options above
     })
 });
 ```
@@ -1286,6 +1952,47 @@ The following endpoint retrieves asset multilocation from the asset ID or asset 
 
   </details>
 
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Multilocation:
+```ts
+{multilocation: AssetMultilocationString, amount: amount} //Recommended
+{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
+{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+```
+
+ </details>
+
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/assets/:node/multilocation", {
@@ -1294,7 +2001,7 @@ const response = await fetch("http://localhost:3001/v3/assets/:node/multilocatio
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"}
+        currency: {currencySpec} // Reffer to currency spec options above
     })
 });
 ```
