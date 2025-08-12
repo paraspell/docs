@@ -143,13 +143,13 @@ Asset selection by asset Symbol:
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount} 
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
 {symbol: Native('currencySymbol'), amount: amount}
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
 {symbol: Foreign('currencySymbol'), amount: amount} 
 
-// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
 {symbol: ForeignAbstract('currencySymbol'), amount: amount} 
 ```
 
@@ -306,13 +306,13 @@ Asset selection by asset Symbol:
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount} 
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
 {symbol: Native('currencySymbol'), amount: amount}
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
 {symbol: Foreign('currencySymbol'), amount: amount} 
 
-// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
 {symbol: ForeignAbstract('currencySymbol'), amount: amount} 
 ```
 
@@ -388,13 +388,13 @@ Asset selection by asset Symbol:
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount} 
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
 {symbol: Native('currencySymbol'), amount: amount}
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
 {symbol: Foreign('currencySymbol'), amount: amount} 
 
-// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
 {symbol: ForeignAbstract('currencySymbol'), amount: amount} 
 ```
 
@@ -477,13 +477,13 @@ Asset selection by asset Symbol:
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount} 
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
 {symbol: Native('currencySymbol'), amount: amount}
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
 {symbol: Foreign('currencySymbol'), amount: amount} 
 
-// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
 {symbol: ForeignAbstract('currencySymbol'), amount: amount} 
 ```
 
@@ -956,13 +956,13 @@ Asset selection by asset Symbol:
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount} 
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains native assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
 {symbol: Native('currencySymbol'), amount: amount}
 
-// Used when multiple assets under same symbol are registered, this selection will preffer chains forreign assets
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
 {symbol: Foreign('currencySymbol'), amount: amount} 
 
-// Used when multiple foreign assets under same symbol are registered, this selection will preffer selected abstract asset (They are given as option when error is displayed)
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
 {symbol: ForeignAbstract('currencySymbol'), amount: amount} 
 ```
 
