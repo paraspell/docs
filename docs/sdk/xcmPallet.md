@@ -155,7 +155,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -196,7 +196,7 @@ await builder.disconnect()
 
 ```ts
 .ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
-.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
 .xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
 .customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
@@ -489,7 +489,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -902,7 +902,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
 ```
 
 </details>

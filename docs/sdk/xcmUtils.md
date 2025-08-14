@@ -52,7 +52,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -209,7 +209,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -295,7 +295,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -385,7 +385,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -518,7 +518,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -617,7 +617,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
@@ -851,7 +851,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
 ```
 
   </details>
