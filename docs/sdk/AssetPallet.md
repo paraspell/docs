@@ -244,7 +244,7 @@ getAssetsObject(CHAIN)
 
 ```json
 {
-  "relayChainAssetSymbol": "DOT",
+  "relaychainSymbol": "DOT",
   "nativeAssetSymbol": "AJUN",
   "isEVM": false,
   "ss58Prefix": 1328,
@@ -530,7 +530,7 @@ getParaId(CHAIN)
 ## Query Parachain name
 Function to get specific TChain from Parachain id
 ```ts
-getTChain(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill CHAINID as 1 to select Ethereum.
+getTChain(paraID: number, ecosystem: 'Polkadot' | 'Kusama' | 'Passeo' | 'Westend' | 'Ethereum') // When Ethereum ecosystem is selected please fill CHAINID as 1 to select Ethereum.
 ```
 
 **Example output:**

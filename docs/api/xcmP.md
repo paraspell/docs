@@ -71,7 +71,7 @@ The following endpoint constructs the Relay chain to the Parachain XCM message.
 
   <summary><b>Advanced settings</b></summary>
   
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
@@ -86,6 +86,27 @@ method: 'random_function'
 
   </details>
 
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/x-transfer", {
@@ -94,9 +115,9 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-	from: "Polkadot" // Or Kusama
+	    from: "Polkadot" // Or Kusama
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or Location
-	currency: { symbol: 'DOT', amount: amount}, //symbol: 'KSM' || symbol: 'WND' || symbol: 'PAS'
+	    currency: { symbol: 'DOT', amount: amount}, //symbol: 'KSM' || symbol: 'WND' || symbol: 'PAS'
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     })
 });
@@ -134,7 +155,7 @@ The following endpoint constructs Parachain to Relay chain XCM message.
 
   <summary><b>Advanced settings</b></summary>
   
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
@@ -149,6 +170,26 @@ method: 'random_function'
   
   </details>
 
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/x-transfer", {
@@ -157,9 +198,9 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-	from: "Parachain" // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
+	    from: "Parachain" // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
         to: "Polkadot",   // Or Kusama
-	currency: { symbol: 'DOT', amount: amount}, //symbol: 'KSM' || symbol: 'WND' || symbol: 'PAS'
+	    currency: { symbol: 'DOT', amount: amount}, //symbol: 'KSM' || symbol: 'WND' || symbol: 'PAS'
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     })
 });
@@ -247,7 +288,7 @@ Asset selection of multiple assets:
 
   <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
@@ -264,6 +305,26 @@ method: 'random_function'
 ```
   
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -360,6 +421,24 @@ Asset selection of multiple assets:
 
 </details>
 
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
 
 **Example of request:**
 ```ts
@@ -389,7 +468,7 @@ You can now customize locations for Address, Currency and Destination within all
 
   <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
@@ -403,6 +482,26 @@ method: 'random_function'
 ```
   
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 
@@ -442,6 +541,26 @@ Latest API versions support Polkadot <> Kusama bridge in very native and intuiti
    - **Errors**:
         - Same as in Parachain -> Parachain scenario
 
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/x-transfer", {
@@ -466,6 +585,26 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
    - **Errors**:
         - Same as in Parachain -> Parachain scenario
 
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v3/x-transfer", {
@@ -488,6 +627,26 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
         - Same as in Parachain -> Parachain scenario
    - **Errors**:
         - Same as in Parachain -> Parachain scenario
+
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -547,10 +706,28 @@ XCM API allows you to batch your XCM calls and send multiple at the same time vi
     
   </details>
 
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
 **Example of request:**
 ```ts
-//mode options: - BATCH
-//		- BATCH_ALL
 
 const response = await fetch("http://localhost:3001/v3/x-transfer-batch", {
     method: 'POST',
@@ -727,7 +904,7 @@ Asset selection of multiple assets:
 
   <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
@@ -735,6 +912,26 @@ feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocation
 ```
   
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -785,6 +982,26 @@ API offers enhanced localhost support. You can pass an object called options con
 ```
 
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -902,7 +1119,7 @@ Asset selection of multiple assets:
 
   <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
@@ -910,6 +1127,26 @@ feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocation
 ```
   
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -1013,7 +1250,7 @@ Asset selection of multiple assets:
 
   <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
@@ -1021,6 +1258,26 @@ feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocation
 ```
   
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -1124,7 +1381,7 @@ Asset selection of multiple assets:
 
   <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
@@ -1132,6 +1389,26 @@ feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocation
 ```
   
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
      
 **Example of request:**
 ```ts
@@ -1247,7 +1524,7 @@ Asset selection of multiple assets:
   
   <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
@@ -1255,6 +1532,26 @@ feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocation
 ```
   
   </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -1361,6 +1658,26 @@ Asset selection by asset Symbol:
 Asset selection of multiple assets:
 ```ts
 [{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+```
+
+</details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
 ```
 
 </details>
@@ -1476,7 +1793,7 @@ Asset selection of multiple assets:
 
 <summary><b>Advanced settings</b></summary>
 
-  You can use following optional advanced settings to further customize your calls:
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
 
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
@@ -1488,6 +1805,25 @@ disableFallback: "True"
   
 </details>
 
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -1593,6 +1929,25 @@ Asset selection of multiple assets:
 
 </details>
 
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
 
 **Example of request:**
 ```ts
@@ -2264,7 +2619,7 @@ const response = await fetch("http://localhost:3001/v3/chains/Acala/para-id");
 ```
 
 ### Query Parachain name
-The following endpoint retrieves the Parachain's name from the Parachain's ID.
+The following endpoint retrieves the Parachain's name from the Parachain's ID. (Options for ecosystem - Polkadot, Kusama, Passeo, Westend, Ethereum)
 
 **Endpoint**: `GET /v3/chains/:paraId?ecosystem=eco`
 
@@ -2285,7 +2640,7 @@ The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/chains/2090?ecosystem=polkadot");
+const response = await fetch("http://localhost:3001/v3/chains/2090?ecosystem=Polkadot");
 ```
 
 ### Query list of implemented Parachains
