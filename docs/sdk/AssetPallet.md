@@ -557,3 +557,22 @@ console.log(TExternalChain)
 // Export all chains implemented in ParaSpell
 console.log(TChain)
 ```
+
+## Import Chains as constants
+There are 5 options for constants you can choose based on your prefference
+```ts
+// Export all Parachains
+console.log(PARACHAINS)
+
+// Export all Relay chains
+console.log(RELAYCHAINS)
+
+// Export all Substrate chains (Parachains + Relays)
+console.log(SUBSTRATE_CHAINS)
+
+// Export chains outside Polkadot ecosystem (Ethereum)
+console.log(EXTERNAL_CHAINS)
+
+// Export all chains implemented in ParaSpell
+console.log(CHAINS)
+```
