@@ -78,6 +78,12 @@ export default {
               { text: 'Bug bounty 💸', link: '/contribution' },
             ]
           },
+          {
+            text: 'Migration guides ⬆',
+            items: [
+              { text: 'From v10 to v11', link: '/migration/v10-to-v11' },
+            ]
+          }
         ]
     }
   }

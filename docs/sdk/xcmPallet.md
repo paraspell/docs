@@ -10,7 +10,7 @@
 
 ```ts
 const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(RELAY_CHAIN) // 'Kusama' | 'Polkadot'
+      .from(RELAY_CHAIN) // 'Kusama' | 'Polkadot' | 'Paseo' | 'Westend'
       .to(CHAIN/*,customParaId - optional*/ | Location object) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Location object)
@@ -123,7 +123,7 @@ const builder = await Builder({
 ```ts
 const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to(RELAY_CHAIN) // 'Kusama' | 'Polkadot'
+      .to(RELAY_CHAIN) // 'Kusama' | 'Polkadot' | 'Paseo' | 'Westend'
       .currency({symbol: 'DOT', amount: amount})
       .address(address | Location object)
 
