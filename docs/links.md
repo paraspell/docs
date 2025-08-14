@@ -16,7 +16,7 @@ The XCM Router enables seamless XCM exchanges. It allows users to send one token
 
 ### XCM-Analyser 🔎
 [Analyser link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) |  
-A tool designed to convert XCM multilocations into a human-readable format.
+A tool designed to convert XCM locations into a human-readable format.
 
 ### XCM-Visualizator 🖼️
 [Visualizator link](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe) |  

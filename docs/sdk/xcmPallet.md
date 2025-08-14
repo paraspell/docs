@@ -11,9 +11,9 @@
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(RELAY_CHAIN) // 'Kusama' | 'Polkadot'
-      .to(CHAIN/*,customParaId - optional*/ | Multilocation object) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(CHAIN/*,customParaId - optional*/ | Location object) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency({symbol: 'DOT', amount: amount})
-      .address(address | Multilocation object)
+      .address(address | Location object)
 
 const tx = await builder.build()
 
@@ -61,7 +61,7 @@ const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to(RELAY_CHAIN) // 'Kusama' | 'Polkadot'
       .currency({symbol: 'DOT', amount: amount})
-      .address(address | Multilocation object)
+      .address(address | Location object)
 
 const tx = await builder.build()
 
@@ -107,9 +107,9 @@ await builder.disconnect()
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to(CHAIN /*,customParaId - optional*/ | Multilocation object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(CHAIN /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency(CURRENCY_SPEC) // Reffer to currency spec options below
-      .address(address | Multilocation object /*If you are sending through xTokens, you need to pass the destination and address multilocation in one object (x2)*/)
+      .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
       .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
 
 const tx = await builder.build()
@@ -126,11 +126,11 @@ await builder.disconnect()
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} // Recommended
-{multilocation: AssetMultilocationJson, amount: amount} // Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} // Advanced override of asset registry
+{location: AssetLocationString, amount: amount} // Recommended
+{location: AssetLocationJson, amount: amount} // Recommended 
+{location: Override('Custom Location'), amount: amount} // Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -155,7 +155,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -196,7 +196,7 @@ await builder.disconnect()
 
 ```ts
 .ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
-.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
 .xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
 .customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
@@ -289,11 +289,11 @@ await builder.disconnect()
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} // Recommended
-{multilocation: AssetMultilocationJson, amount: amount} // Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} // Advanced override of asset registry
+{location: AssetLocationString, amount: amount} // Recommended
+{location: AssetLocationJson, amount: amount} // Recommended 
+{location: Override('Custom Location'), amount: amount} // Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -348,13 +348,13 @@ await Builder(/*CHAIN api/ws_url_string - optional*/)
       .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
       .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency(CURRENCY_SPEC) // Reffer to currency spec options below
-      .address(address | Multilocation object)
+      .address(address | Location object)
       .addToBatch()
 
       .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
       .to(CHAIN_3) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .currency(CURRENCY_SPEC) // Reffer to currency spec options below
-      .address(address | Multilocation object)
+      .address(address | Location object)
       .addToBatch()
       .buildBatch({ 
           // This settings object is optional and batch all is the default option
@@ -371,11 +371,11 @@ await Builder(/*CHAIN api/ws_url_string - optional*/)
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -419,8 +419,8 @@ Claim XCM trapped assets from the selected chain.
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .claimFrom(CHAIN) // 'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama'
-      .fungible(MultilocationArray (Only one multilocation allowed) [{Multilocation}])
-      .account(address | Multilocation object)
+      .fungible(LocationArray (Only one location allowed) [{location}])
+      .account(address | Location object)
       /*.xcmVersion(Version.V3) Optional parameter, by default V3. XCM Version ENUM if a different XCM version is needed (Supported V2 & V3). Requires importing Version enum.*/
 
 const tx = await builder.build()
@@ -460,11 +460,11 @@ const result = hasDryRunSupport(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Mo
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} // Recommended
-{multilocation: AssetMultilocationJson, amount: amount} // Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} // Advanced override of asset registry
+{location: AssetLocationString, amount: amount} // Recommended
+{location: AssetLocationJson, amount: amount} // Recommended 
+{location: Override('Custom Location'), amount: amount} // Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -489,7 +489,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -902,7 +902,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.feeAsset({symbol: 'symbol'} || {id: 'id'} || {multilocation: 'multilocation'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiasset is provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
 ```
 
 </details>
@@ -939,11 +939,11 @@ await builder.disconnect()
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -968,7 +968,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>

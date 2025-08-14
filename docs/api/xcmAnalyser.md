@@ -1,22 +1,22 @@
 # XCM Analyser🔎
 
-Following section covers implementation of XCM Analyser in LightSpell XCM API. Users can analyse either independent multilocations or entire XCM Calls.
+Following section covers implementation of XCM Analyser in LightSpell XCM API. Users can analyse either independent locations or entire XCM Calls.
 
-## Analyse Multilocation
+## Analyse Location
 **Endpoint**: `POST /v3/xcm-analyser`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `multilocation`: Specific multilocation
+  - `location`: Specific location
 
   </details>
 
   <details>
   <summary><b>Errors</b> </summary>
 
-  - `400`  (Bad request exception) - Returned when no Multilocation is provided
-  - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
+  - `400`  (Bad request exception) - Returned when no location is provided
+  - `400`  (Bad request exception) - Returned when wrongly formatted location is provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -28,7 +28,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        multilocation: "Multilocation", //Replace Multilocation with specific Multilocation you wish to analyse
+        location: "location", //Replace location with specific location you wish to analyse
     })
 });
 ```
@@ -46,7 +46,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
   <summary><b>Errors</b> </summary>
 
   - `400`  (Bad request exception) - Returned when no XCM call is provided
-  - `400`  (Bad request exception) - Returned when wrongly formatted Multilocation is provided
+  - `400`  (Bad request exception) - Returned when wrongly formatted location is provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>

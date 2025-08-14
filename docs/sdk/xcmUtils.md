@@ -23,11 +23,11 @@ const info = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -52,7 +52,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -65,7 +65,7 @@ Asset selection of multiple assets:
 
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
   </details>
@@ -180,11 +180,11 @@ const transferable = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Opt
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -209,7 +209,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -222,7 +222,7 @@ Asset selection of multiple assets:
 
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
   </details>
@@ -266,11 +266,11 @@ const ed = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -295,7 +295,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -308,7 +308,7 @@ Asset selection of multiple assets:
 
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
   </details>
@@ -356,11 +356,11 @@ const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -385,7 +385,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -398,7 +398,7 @@ Asset selection of multiple assets:
 
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
   </details>
@@ -489,11 +489,11 @@ const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -518,7 +518,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -588,11 +588,11 @@ const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -617,7 +617,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -630,7 +630,7 @@ Asset selection of multiple assets:
 
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
   </details>
@@ -822,11 +822,11 @@ const fee = await Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -851,7 +851,7 @@ Asset selection by asset Symbol:
 
 Asset selection of multiple assets:
 ```ts
-{multiasset: {currencySelection /*for example symbol: symbol or id: id, or multilocation: multilocation*/, amount: amount}}
+{multiasset: {currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}}
 ```
 
   </details>
@@ -864,7 +864,7 @@ Asset selection of multiple assets:
 
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {multilocation: AssetMultilocationString | AssetMultilocationJson})
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
   </details>
@@ -915,11 +915,11 @@ const balance = await getAssetBalance({address, CHAIN, CURRENCY_SPEC /*Reffer to
   
 **Following options are possible for currency specification:**
 
-Asset selection by Multilocation:
+Asset selection by Location:
 ```ts
-{multilocation: AssetMultilocationString, amount: amount} //Recommended
-{multilocation: AssetMultilocationJson, amount: amount} //Recommended 
-{multilocation: Override('Custom Multilocation'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
@@ -978,7 +978,7 @@ import { getExistentialDeposit } from "@paraspell/sdk";
 import { getExistentialDeposit } from "@paraspell/sdk-pjs";
 
 //Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
-//Currency can be either {symbol: assetSymbol}, {id: assetId}, {multilocation: assetMultilocation}.
+//Currency can be either {symbol: assetSymbol}, {id: assetId}, {location: assetLocation}.
 const ed = getExistentialDeposit(CHAIN, currency?)
 ```
 

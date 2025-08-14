@@ -188,7 +188,7 @@ The following endpoint allows creation of Parachain to Parachain XCM call. This 
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -278,7 +278,7 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
         currency: {currency spec} //Reffer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Multilocation
         senderAddress: "senderAddress" //Optional but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
-        //ahAddress: ahAddress //Optional parameter - used when origin is EVM node and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
+        //ahAddress: ahAddress //Optional parameter - used when origin is EVM chain and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
     })
 });
 ```
@@ -305,7 +305,7 @@ The following endpoint allows  creation of Local asset transfers for any chain a
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -663,7 +663,7 @@ You can find out whether you XCM message will execute successfuly or with error.
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -837,7 +837,7 @@ To comprehensively assess whether a message will execute successfully without fa
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -950,7 +950,7 @@ To retrieve information on how much of the selected currency can be transfered f
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -1061,7 +1061,7 @@ To retrieve information on whether the selected currency from specific account w
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -1174,7 +1174,7 @@ The following endpoint allows is designed to retrieve you XCM fee at any cost, b
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -1297,7 +1297,7 @@ The following endpoint allows is designed to retrieve you approximate fee and do
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -1408,7 +1408,7 @@ The query is designed to retrieve you XCM fee at any cost, but fallbacking to Pa
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -1529,7 +1529,7 @@ The following endpoint allows is designed to retrieve you approximate fee and do
   - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered nodes 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
@@ -1614,13 +1614,13 @@ const response = await fetch("http://localhost:3001/v3/origin-xcm-fee-estimate",
 ## SS58 Address conversion
 Following functionality allows you to convert any SS58 address to Parachain specific address.
 
- **Endpoint**: `GET /v3/convert-ss58?address=:address&node=:node`
+ **Endpoint**: `GET /v3/convert-ss58?address=:address&chain=:chain`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (query parameter): Specifies the name of the Parachain.
-  - `node` (query parameter): Specifies the SS58 Address.
+  - `chain` (query parameter): Specifies the name of the Parachain.
+  - `address` (query parameter): Specifies the SS58 Address.
 
   </details>
 
@@ -1635,7 +1635,7 @@ Following functionality allows you to convert any SS58 address to Parachain spec
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v3/convert-ss58?address=:address&node=:node');
+const response = await fetch('http://localhost:3001/v3/convert-ss58?address=:address&chain=:chain');
 ```
 
 ## Asset queries
@@ -1695,12 +1695,12 @@ Asset selection of multiple assets:
 </details>
 
 
-**Endpoint**: `POST /v3/assets/:node/supported-destinations`
+**Endpoint**: `POST /v3/assets/:chain/supported-destinations`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (Path parameter): Specifies the name of the Parachain.
+  - `chain` (Path parameter): Specifies the name of the Parachain.
   - `currency` (Inside JSON body): (required): Specifies the currency to query.
 
   </details>
@@ -1708,7 +1708,7 @@ Asset selection of multiple assets:
   <details>
   <summary><b>Errors</b> </summary>
 
-  - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+  - `400`  (Bad request exception) - Returned when parameter 'chain' is not provided
   - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
@@ -1716,7 +1716,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/assets/:node/supported-destinations", {
+const response = await fetch("http://localhost:3001/v3/assets/:chain/supported-destinations", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1730,12 +1730,12 @@ const response = await fetch("http://localhost:3001/v3/assets/:node/supported-de
 ### Query asset balance
 The following endpoint allows you to query asset balance for on specific chain.
 
-**Endpoint**: `POST /v3/balance/:node/asset`
+**Endpoint**: `POST /v3/balance/:chain/asset`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (Path parameter): Specifies the name of the Parachain.
+  - `chain` (Path parameter): Specifies the name of the Parachain.
   - `address` (Inside JSON body): (required): Specifies the address of the account.
   - `currency` (Inside JSON body): (required): Specifies the currency to query.
 
@@ -1744,7 +1744,7 @@ The following endpoint allows you to query asset balance for on specific chain.
   <details>
   <summary><b>Errors</b> </summary>
 
-  - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+  - `400`  (Bad request exception) - Returned when parameter 'chain' is not provided
   - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
   - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
@@ -1794,7 +1794,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/balance/:node/asset", {
+const response = await fetch("http://localhost:3001/v3/balance/:chain/asset", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1809,12 +1809,12 @@ const response = await fetch("http://localhost:3001/v3/balance/:node/asset", {
 ### Query asset existential deposit
 The following endpoint allows you to query the existential deposit for currency in a specific chain.
 
-**Endpoint**: `POST /v3/balance/:node/existential-deposit`
+**Endpoint**: `POST /v3/balance/:chain/existential-deposit`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (Path parameter): Specifies the name of the Parachain.
+  - `chain` (Path parameter): Specifies the name of the Parachain.
   - `currency` (Inside JSON body): (required): Specifies the currency to query.
 
   </details>
@@ -1822,7 +1822,7 @@ The following endpoint allows you to query the existential deposit for currency 
   <details>
   <summary><b>Errors</b> </summary>
 
-  - `400`  (Bad request exception) - Returned when parameter 'node' is not provided
+  - `400`  (Bad request exception) - Returned when parameter 'chain' is not provided
   - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
 
@@ -1871,7 +1871,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/balance/:node/existential-deposit", {
+const response = await fetch("http://localhost:3001/v3/balance/:chain/existential-deposit", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1883,14 +1883,14 @@ const response = await fetch("http://localhost:3001/v3/balance/:node/existential
 ```
 
 ### Query Fee assets
-The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee on specific node)
+The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee on specific chain)
 
-**Endpoint**: `GET /v3/assets/:node/fee-assets`
+**Endpoint**: `GET /v3/assets/:chain/fee-assets`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -1904,18 +1904,18 @@ The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee o
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v3/assets/:node/fee-assets');
+const response = await fetch('http://localhost:3001/v3/assets/:chain/fee-assets');
 ```
 
 ### Query assets object
 The following endpoint retrieves all assets on a specific Parachain as an object.
 
-**Endpoint**: `GET /v3/assets/:node`
+**Endpoint**: `GET /v3/assets/:chain`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -1935,12 +1935,12 @@ const response = await fetch("http://localhost:3001/v3/assets/Moonbeam");
 ### Query asset multilocation
 The following endpoint retrieves asset multilocation from the asset ID or asset symbol.
 
-**Endpoint**: `POST /v3/assets/:node/multilocation`
+**Endpoint**: `POST /v3/assets/:chain/multilocation`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -1995,7 +1995,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/assets/:node/multilocation", {
+const response = await fetch("http://localhost:3001/v3/assets/:chain/multilocation", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -2009,12 +2009,12 @@ const response = await fetch("http://localhost:3001/v3/assets/:node/multilocatio
 ### Query asset ID
 The following endpoint returns the asset id for the specific asset on a specific Parachain.
 
-**Endpoint**: `GET /v3/assets/:node/id?symbol=:symbol`
+**Endpoint**: `GET /v3/assets/:chain/id?symbol=:symbol`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
   - `symbol` (path parameter): Specifies the currency symbol of the asset.
 
   </details>
@@ -2036,12 +2036,12 @@ const response = await fetch("http://localhost:3001/v3/assets/Interlay/id?symbol
 ### Query Relay chain asset symbol
 The following endpoint returns the Relay chain asset symbol for a specific Parachain.
 
-**Endpoint**: `GET /v3/assets/:node/relay-chain-symbol`
+**Endpoint**: `GET /v3/assets/:chain/relay-chain-symbol`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2061,12 +2061,12 @@ const response = await fetch("http://localhost:3001/v3/assets/Astar/relay-chain-
 ### Query native assets
 The following endpoint returns native assets of specific Parachain.
 
-**Endpoint**: `GET /v3/assets/:node/native`
+**Endpoint**: `GET /v3/assets/:chain/native`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2086,12 +2086,12 @@ const response = await fetch("http://localhost:3001/v3/assets/Hydration/native")
 ### Query foreign assets
 The following endpoint returns foreign assets of specific Parachain.
 
-**Endpoint**: `GET /v3/assets/:node/other`
+**Endpoint**: `GET /v3/assets/:chain/other`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2111,12 +2111,12 @@ const response = await fetch("http://localhost:3001/v3/assets/Astar/other");
 ### Query all asset symbols
 The following endpoint returns all asset symbols for specific Parachain.
 
-**Endpoint**: `GET /v3/assets/:node/all-symbols`
+**Endpoint**: `GET /v3/assets/:chain/all-symbols`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2136,12 +2136,12 @@ const response = await fetch("http://localhost:3001/v3/assets/Moonbeam/all-symbo
 ### Query asset support
 The following endpoint returns a boolean value that confirms if the asset is registered on a specific Parachain or not.
 
-**Endpoint**: `GET /v3/assets/:node/has-support?symbol=:symbol`
+**Endpoint**: `GET /v3/assets/:chain/has-support?symbol=:symbol`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
   - `symbol` (path parameter): Specifies the symbol of the asset.
 
   </details>
@@ -2163,12 +2163,13 @@ const response = await fetch("http://localhost:3001/v3/assets/Hydration/has-supp
 ### Query asset support between two chains
 The following endpoint retrieves assets supported by both chains.
 
-**Endpoint**: `GET /v3/supported-assets?origin=:node&destination=:node`
+**Endpoint**: `GET /v3/supported-assets?origin=:chain&destination=:chain`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `origin` (path parameter): Specifies the name of the Parachain.
+  - `destination` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2188,12 +2189,12 @@ const response = await fetch("http://localhost:3001/v3/supported-assets?origin=A
 ### Query asset decimals
 The following endpoint retrieves specific asset decimals on specific Parachain.
 
-**Endpoint**: `GET /v3/assets/:node/decimals?symbol=:symbol`
+**Endpoint**: `GET /v3/assets/:chain/decimals?symbol=:symbol`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
   - `symbol` (path parameter): Specifies the currency symbol.
 
   </details>
@@ -2215,12 +2216,12 @@ const response = await fetch("http://localhost:3001/v3/assets/Basilisk/decimals?
 ### Query Parachain ws endpoints
 The following endpoint retrieves the Parachain's WS endpoints.
 
-**Endpoint**: `GET /v3/nodes/:node/ws-endpoints`
+**Endpoint**: `GET /v3/chains/:chain/ws-endpoints`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2234,18 +2235,18 @@ The following endpoint retrieves the Parachain's WS endpoints.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/nodes/Acala/ws-endpoints");
+const response = await fetch("http://localhost:3001/v3/chains/Acala/ws-endpoints");
 ```
 
 ### Query Parachain ID
 The following endpoint retrieves Parachain's ID from Parachain's name
 
- **Endpoint**: `GET /v3/nodes/:node/para-id`
+ **Endpoint**: `GET /v3/chains/:chain/para-id`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2259,13 +2260,13 @@ The following endpoint retrieves Parachain's ID from Parachain's name
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/nodes/Acala/para-id");
+const response = await fetch("http://localhost:3001/v3/chains/Acala/para-id");
 ```
 
 ### Query Parachain name
 The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
-**Endpoint**: `GET /v3/nodes/:paraId?ecosystem=eco`
+**Endpoint**: `GET /v3/chains/:paraId?ecosystem=eco`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -2284,13 +2285,13 @@ The following endpoint retrieves the Parachain's name from the Parachain's ID.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/nodes/2090?ecosystem=polkadot");
+const response = await fetch("http://localhost:3001/v3/chains/2090?ecosystem=polkadot");
 ```
 
 ### Query list of implemented Parachains
 The following endpoint retrieves an array of implemented Parachains.
 
-**Endpoint**: `GET /v3/nodes`
+**Endpoint**: `GET /v3/chains`
 
    - **Parameters**: None.
    - **Errors**: 
@@ -2299,7 +2300,7 @@ The following endpoint retrieves an array of implemented Parachains.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v3/nodes");
+const response = await fetch("http://localhost:3001/v3/chains");
 ```
 
 ## XCM pallet queries
@@ -2319,12 +2320,12 @@ console.log(response) //use response data as necessary
 ### Get default XCM pallet
 The following endpoint returns the default pallet for specific Parachain
 
-**Endpoint**: `GET /v3/pallets/:node/default`
+**Endpoint**: `GET /v3/pallets/:chain/default`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2344,12 +2345,12 @@ const response = await fetch("http://localhost:3001/v3/pallets/Acala/default");
 ### Get XCM pallet index
 The following endpoint returns the index of specific cross-chain pallet for specific chain.
 
-**Endpoint**: `GET /v3/pallets/:node/index`
+**Endpoint**: `GET /v3/pallets/:chain/index`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
   - `pallet` (query parameter): Specifies the name of the cross-chain pallet.
 
   </details>
@@ -2357,7 +2358,7 @@ The following endpoint returns the index of specific cross-chain pallet for spec
   <details>
   <summary><b>Errors</b> </summary>
 
-  - `400`  (Bad request exception) - Returned when path parameter 'node' is not a valid Parachain
+  - `400`  (Bad request exception) - Returned when path parameter 'chain' is not a valid Parachain
   - `400`  (Bad request exception) - Returned when query parameter 'pallet' is not a valid cross-chain pallet
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
 
@@ -2371,12 +2372,12 @@ const response = await fetch('http://localhost:3001/v3/pallets/Acala/index?palle
 ### Get all supported XCM pallets
 The following endpoint returns all XCM Pallets that are supported on specific Parachain
 
-**Endpoint**: `GET /v3/pallets/:node`
+**Endpoint**: `GET /v3/pallets/:chain`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2393,15 +2394,15 @@ The following endpoint returns all XCM Pallets that are supported on specific Pa
 const response = await fetch("http://localhost:3001/v3/pallets/Basilisk");
 ```
 
-### Get node DryRun support
+### Get chain DryRun support
 The following endpoint returns whether selected Parachain has DryRun support
 
-**Endpoint**: `GET /v3/nodes/:node/has-dry-run-support`
+**Endpoint**: `GET /v3/chains/:chain/has-dry-run-support`
 
   <details>
   <summary><b>Parameters</b> </summary>
 
-  - `node` (path parameter): Specifies the name of the Parachain.
+  - `chain` (path parameter): Specifies the name of the Parachain.
 
   </details>
 
@@ -2415,5 +2416,5 @@ The following endpoint returns whether selected Parachain has DryRun support
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v3/nodes/:node/has-dry-run-support');
+const response = await fetch('http://localhost:3001/v3/chains/:chain/has-dry-run-support');
 ```

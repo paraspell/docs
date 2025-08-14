@@ -1,4 +1,4 @@
-# Ready to make XCM Multilocations more human friendly? 👨‍🏫
+# Ready to make XCM Locations more human friendly? 👨‍🏫
 
 This documentation provides you all steps necessary to implement core XCM Analyser functions. It also provides you with handy examples that can help you understand how to use this tool to its fullest potential.
 
@@ -18,16 +18,16 @@ OnlyChild
 Plurality
 GlobalConsensus
 ```
-#### Compile a single multilocation object to the URL
+#### Compile a single location object to the URL
 
-To compile a single multilocation object to url use the following structure:
+To compile a single location object to url use the following structure:
 
 ```ts
 //Importing the call
-import { convertMultilocationToUrl } from '@paraspell/xcm-analyser';
+import { convertLocationToUrl } from '@paraspell/xcm-analyser';
 
-//Define the multilocation you wish to convert to URL
-/*const multilocation: MultiLocation = {
+//Define the location you wish to convert to URL
+/*const location: Location = {
       parents: '0',
       interior: {
         X2: [
@@ -41,7 +41,7 @@ import { convertMultilocationToUrl } from '@paraspell/xcm-analyser';
       },
     };*/
 
-const result = convertMultilocationToUrl(multilocation);
+const result = convertLocationToUrl(location);
 
 /*
 This should result into:
@@ -49,15 +49,15 @@ This should result into:
 */
 ```
 
-#### Compile a single multilocation JSON to the URL
-To compile a single multilocation JSON to url use the following structure:
+#### Compile a single location JSON to the URL
+To compile a single location JSON to url use the following structure:
 
 ```ts
 //Importing the call
-import { convertMultilocationToUrlJson } from '@paraspell/xcm-analyser';
+import { convertLocationToUrlJson } from '@paraspell/xcm-analyser';
 
-//Define multilocation JSON
-/*const multilocationJson = `{
+//Define location JSON
+/*const locationJson = `{
       "parents": "3",
       "interior": {
         "X2": [
@@ -71,7 +71,7 @@ import { convertMultilocationToUrlJson } from '@paraspell/xcm-analyser';
       }
     }`*/
 
-const result = convertMultilocationToUrl(multilocationJson);
+const result = convertLocationToUrl(locationJson);
 
 /*
 This should result into:

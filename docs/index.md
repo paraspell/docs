@@ -26,7 +26,7 @@ Set of XCM tools for Polkadot and Kusama Paraverse
     <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router">XCM ROUTER</a> ☄️ (<img width="50" alt="Spellrouter logo" src="https://raw.githubusercontent.com/paraspell/presskit/refs/heads/main/logos_spellrouter/Full%20name.png" style="display: inline; vertical-align: middle;">): A tool aiming to provide the capability of cross-chain swaps where you receive different assets than those you send (e.g., send DOT from Polkadot and receive ASTR on Astar) — all within a single command.
   </li>
   <li>
-    <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser">XCM Analyser</a> 🔎: An analyser package to convert XCM Multilocations into a human-readable format.
+    <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser">XCM Analyser</a> 🔎: An analyser package to convert XCM Locations into a human-readable format.
   </li>
   <li>
     <a href="https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe">XCM Visualizator</a> 🖼️: An application developed to visualize XCM within the Polkadot ecosystem.

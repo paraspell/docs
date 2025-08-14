@@ -6,16 +6,16 @@ This functionality serves to retrieve asset data from compatible Parachains. Use
 To use this functionality you first have to import it in the following way.
 ```ts
 //PAPI
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTNode, getAssetMultiLocation, NODE_NAMES } from  '@paraspell/sdk'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, CHAINS_WITH_RELAY_CHAINS } from  '@paraspell/sdk'
 //PJS
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTNode, getAssetMultiLocation, NODE_NAMES } from  '@paraspell/sdk-pjs'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, CHAINS_WITH_RELAY_CHAINS } from  '@paraspell/sdk-pjs'
 ```
 
 ```ts
 //Standalone asset package
 yarn add || pnpm | npm install @paraspell/assets
 
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTNode, getAssetMultiLocation, NODE_NAMES } from  '@paraspell/assets'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, CHAINS_WITH_RELAY_CHAINS } from  '@paraspell/assets'
 ```
 
 ## Query asset paths
@@ -55,7 +55,7 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
       "symbol":"DOT",
       "isNative":true,
       "decimals":10,
-      "multiLocation":{
+      "location":{
          "parents":1,
          "interior":{
             "Here":null
@@ -67,7 +67,7 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
       "assetId":"1337",
       "symbol":"USDC",
       "decimals":6,
-      "multiLocation":{
+      "location":{
          "parents":1,
          "interior":{
             "X3":[
@@ -89,7 +89,7 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
       "assetId":"1984",
       "symbol":"USDt",
       "decimals":6,
-      "multiLocation":{
+      "location":{
          "parents":1,
          "interior":{
             "X3":[
@@ -110,7 +110,7 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
    {
       "symbol":"PLMC",
       "decimals":10,
-      "multiLocation":{
+      "location":{
          "parents":1,
          "interior":{
             "X1":[
@@ -125,7 +125,7 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
    {
       "symbol":"USDC",
       "decimals":6,
-      "multiLocation":{
+      "location":{
          "parents":2,
          "interior":{
             "X2":[
@@ -151,7 +151,7 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
    {
       "symbol":"USDT",
       "decimals":6,
-      "multiLocation":{
+      "location":{
          "parents":2,
          "interior":{
             "X2":[
@@ -194,7 +194,7 @@ getFeeAssets(CHAIN)
     "symbol": "ACA",
     "decimals": 12,
     "existentialDeposit": "100000000000",
-    "multiLocation": {
+    "location": {
       "parents": 1,
       "interior": {
         "X2": [
@@ -214,10 +214,10 @@ getFeeAssets(CHAIN)
 ]
 ```
 
-## Convert id or symbol to multilocation
-Get multilocation for asset id or symbol.
+## Convert id or symbol to location
+Get location for asset id or symbol.
 ```ts
-getAssetMultiLocation(CHAIN, { symbol: symbol } | { id: assetId })
+getAssetLocation(CHAIN, { symbol: symbol } | { id: assetId })
 ```
 
 **Example output:**
@@ -264,7 +264,7 @@ getAssetsObject(CHAIN)
       "symbol": "DOT",
       "decimals": 10,
       "existentialDeposit": "1000000000",
-      "multiLocation": {
+      "location": {
         "parents": 1,
         "interior": {
           "Here": null
@@ -282,7 +282,7 @@ getAssetsObject(CHAIN)
       "symbol": "USDt",
       "decimals": 6,
       "existentialDeposit": "10000",
-      "multiLocation": {
+      "location": {
         "parents": 1,
         "interior": {
           "X3": [
@@ -304,7 +304,7 @@ getAssetsObject(CHAIN)
       "symbol": "USDC",
       "decimals": 6,
       "existentialDeposit": "10000",
-      "multiLocation": {
+      "location": {
         "parents": 1,
         "interior": {
           "X3": [
@@ -367,7 +367,7 @@ getNativeAssets(CHAIN)
     "isNative": true,
     "decimals": 18,
     "existentialDeposit": "1000000",
-    "multiLocation": {
+    "location": {
       "parents": 1,
       "interior": {
         "X1": {
@@ -396,7 +396,7 @@ getOtherAssets(CHAIN)
     "assetId": "1029",
     "symbol": "DOT",
     "decimals": 10,
-    "multiLocation": {
+    "location": {
       "parents": 1,
       "interior": {
         "Here": null
@@ -409,7 +409,7 @@ getOtherAssets(CHAIN)
     "assetId": "1027",
     "symbol": "ahUSDT",
     "decimals": 6,
-    "multiLocation": {
+    "location": {
       "parents": 1,
       "interior": {
         "X3": [
@@ -432,7 +432,7 @@ getOtherAssets(CHAIN)
     "assetId": "1028",
     "symbol": "ahPINK",
     "decimals": 10,
-    "multiLocation": {
+    "location": {
       "parents": 1,
       "interior": {
         "X3": [
@@ -528,9 +528,9 @@ getParaId(CHAIN)
 ```
 
 ## Query Parachain name
-Function to get specific TNode from Parachain id
+Function to get specific TChain from Parachain id
 ```ts
-getTNode(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill CHAINID as 1 to select Ethereum.
+getTChain(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When Ethereum ecosystem is selected please fill CHAINID as 1 to select Ethereum.
 ```
 
 **Example output:**
@@ -539,8 +539,8 @@ getTNode(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //When
 "Astar"
 ```
 
-## Import Parachains as constant
+## Import Chains as constant
 Import all compatible Parachains and Relay chains as constant
 ```ts
-console.log(NODES_WITH_RELAY_CHAINS)
+console.log(CHAINS_WITH_RELAY_CHAINS)
 ```
