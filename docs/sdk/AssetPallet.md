@@ -6,16 +6,16 @@ This functionality serves to retrieve asset data from compatible Parachains. Use
 To use this functionality you first have to import it in the following way.
 ```ts
 //PAPI
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, CHAINS_WITH_RELAY_CHAINS } from  '@paraspell/sdk'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain } from  '@paraspell/sdk'
 //PJS
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, CHAINS_WITH_RELAY_CHAINS } from  '@paraspell/sdk-pjs'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain } from  '@paraspell/sdk-pjs'
 ```
 
 ```ts
 //Standalone asset package
 yarn add || pnpm | npm install @paraspell/assets
 
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, CHAINS_WITH_RELAY_CHAINS } from  '@paraspell/assets'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain } from  '@paraspell/assets'
 ```
 
 ## Query asset paths
@@ -540,7 +540,20 @@ getTChain(paraID: number, ecosystem: 'polkadot' || 'kusama' || 'ethereum') //Whe
 ```
 
 ## Import Chains as constant
-Import all compatible Parachains and Relay chains as constant
+There are 5 options for constants you can choose based on your prefference
 ```ts
-console.log(CHAINS_WITH_RELAY_CHAINS)
+// Export all Parachains
+console.log(TParachain)
+
+// Export all Relay chains
+console.log(TRelaychain)
+
+// Export all Substrate chains (Parachains + Relays)
+console.log(TSubstrateChain)
+
+// Export chains outside Polkadot ecosystem (Ethereum)
+console.log(TExternalChain)
+
+// Export all chains implemented in ParaSpell
+console.log(TChain)
 ```
