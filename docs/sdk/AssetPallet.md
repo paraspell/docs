@@ -539,8 +539,8 @@ getTChain(paraID: number, ecosystem: 'Polkadot' | 'Kusama' | 'Passeo' | 'Westend
 "Astar"
 ```
 
-## Import Chains as constant
-There are 5 options for constants you can choose based on your prefference
+## Import Chains as types
+There are 5 options for types you can choose based on your prefference
 ```ts
 // Export all Parachains
 console.log(TParachain)
