@@ -8,7 +8,7 @@ Following guide contains information about XCM Visualizator. It is designed to i
 
 Project is deployed on following link: https://xcm-visualizator.paraspell.xyz/.
 
-For user guide reffer to following section: [User guide](https://paraspell.github.io/docs/visualizator/user-guide.html)
+For user guide refer to following section: [User guide](https://paraspell.github.io/docs/visualizator/user-guide.html)
 
 ## Developer startup guide
 To run the project locally, you need to have Node.js v.20^ installed, as well as PostgreSQL database.

@@ -141,8 +141,8 @@ const response = await fetch("http://localhost:3001/v3/router", {
     body: JSON.stringify({
         from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
-        currencyFrom: {currencySpec}, // Currency to send - {symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
-        currencyTo: {currencySpec}, // Currency to receive - {symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", //Recipient address
@@ -150,6 +150,44 @@ const response = await fetch("http://localhost:3001/v3/router", {
     })
 });
 ```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Whitelist exchange selection 
 
@@ -206,8 +244,8 @@ const response = await fetch("http://localhost:3001/v3/router", {
         from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         exchange: ["Dex", "Dex2", ...] //Exchange Parachain //Optional parameter, if not specified exchange will be auto-selected
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
-        currencyFrom: {currencySpec}, // Currency to send - {symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
-        currencyTo: {currencySpec}, // Currency to receive - {symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", //Recipient address
@@ -215,6 +253,44 @@ const response = await fetch("http://localhost:3001/v3/router", {
     })
 });
 ```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Manual exchange selection
 
@@ -271,8 +347,8 @@ const response = await fetch("http://localhost:3001/v3/router", {
         from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         exchange: "Dex", //Exchange Parachain //Optional parameter, if not specified exchange will be auto-selected
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
-        currencyFrom: {currencySpec}, // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
-        currencyTo: {currencySpec}, // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", //Recipient address
@@ -280,6 +356,44 @@ const response = await fetch("http://localhost:3001/v3/router", {
     })
 });
 ```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Best amount out
 
@@ -327,12 +441,50 @@ const response = await fetch("http://localhost:3001/v3/router/best-amount-out", 
         from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
-        currencyFrom: {currencySpec}, // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
-        currencyTo: {currencySpec}, // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
         amount: "Amount", // Amount to send
     })
 });
 ```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Get Router fees
 
@@ -389,8 +541,8 @@ const response = await fetch("http://localhost:3001/v3/router/xcm-fees", {
         from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
         exchange: "Dex", //Exchange Parachain //Optional parameter, if not specified exchange will be auto-selected
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
-        currencyFrom: {currencySpec}, // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
-        currencyTo: {currencySpec}, // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
         amount: "Amount", // Amount to send
         slippagePct: "Pct", // Max slipppage percentage
         recipientAddress: "Address", //Recipient address
@@ -398,6 +550,44 @@ const response = await fetch("http://localhost:3001/v3/router/xcm-fees", {
     })
 });
 ```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+<details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Asset pairs
 

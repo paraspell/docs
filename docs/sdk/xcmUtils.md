@@ -9,7 +9,7 @@ Use this query to comprehensively assess whether a message will execute successf
 const info = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getTransferInfo()
@@ -231,7 +231,7 @@ You can use the transferable balance to retrieve information on how much of the 
 const transferable = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getTransferableAmount()
@@ -383,7 +383,7 @@ To retrieve information on whether the selected currency from a specific account
 const ed = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .verifyEdOnDestination()
@@ -537,7 +537,7 @@ The query is designed to retrieve your XCM fee at any cost, but falls back to Pa
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
@@ -733,7 +733,7 @@ This query is designed to retrieve your approximate fee and doesn't require any 
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)          
           .getXcmFeeEstimate()
@@ -897,7 +897,7 @@ The query is designed to retrieve you XCM fee at any cost, but fallbacking to Pa
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
           .getOriginXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin do not support DryRun out of the box.
@@ -1194,7 +1194,7 @@ This query is designed to retrieve your approximate fee and doesn't require any 
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
           .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
           .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)          
           .getOriginXcmFeeEstimate()
@@ -1355,7 +1355,7 @@ import { getAssetBalance } from "@paraspell/sdk";
 import { getAssetBalance } from "@paraspell/sdk-pjs";
 
 //Retrieves the asset balance for a given account on a specified CHAIN (You do not need to specify if it is native or foreign).
-const balance = await getAssetBalance({address, CHAIN, CURRENCY_SPEC /*Reffer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
+const balance = await getAssetBalance({address, CHAIN, CURRENCY_SPEC /*Refer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
 ```
 
 **Initial setup**

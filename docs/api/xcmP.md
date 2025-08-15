@@ -336,7 +336,7 @@ const response = await fetch("http://localhost:3001/v3/x-transfer", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
-        currency: {currency spec} //Reffer to currency spec options above
+        currency: {currency spec} //Refer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
         senderAddress: "senderAddress" //Optional but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
         //ahAddress: ahAddress //Optional parameter - used when origin is EVM chain and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
@@ -450,7 +450,7 @@ const response = await fetch('http://localhost:3001/v3/x-transfer', {
   body: JSON.stringify({
     from: 'Parachain', // Replace "Parachain" with sender Parachain, e.g., "Acala"
     to: 'Parachain' // Replace Parachain with same parameter as "from" parameter
-    currency: { currencySpec }, // Reffer to currency spec options above
+    currency: { currencySpec }, // Refer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
   }),
 });
@@ -771,7 +771,7 @@ Assets that have been trapped in the cross-chain transfers can now be recovered 
 
   - `from` (Inside JSON body): (required): Represents the Parachain on which the asset will be claimed.
   - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `fungible` (Inside JSON body): (required): Represents the asset being claimed. It should be a location.
+  - `currency` (Inside JSON body): (required): Represents the asset being claimed. It should be a location.
 
 
   </details>
@@ -781,7 +781,7 @@ Assets that have been trapped in the cross-chain transfers can now be recovered 
 
   - `400`  (Bad request exception) - Returned when parameter 'from' is not provided
   - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'fungible' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -796,7 +796,7 @@ const response = await fetch("http://localhost:3001/v3/asset-claim", {
     body: JSON.stringify({
         from: "Parachain", // Replace "from" with the numeric value you wish to transfer
         address: "Address", // Replace "address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-        fungible: "Asset Location array" //Replace "Asset location array" with specific asset location along with amount specification
+        currency: "Asset Location array" //Replace "Asset location array" with specific asset location along with amount specification
     })
 });
 
@@ -943,7 +943,7 @@ const response = await fetch('http://localhost:3001/v3/dry-run', {
   body: JSON.stringify({
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Location
-    currency: { currencySpec }, // Reffer to currency spec options above
+    currency: { currencySpec }, // Refer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -1158,7 +1158,7 @@ const response = await fetch(
   },  
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Location
-    currency: { currencySpec }, // Reffer to currency spec options above
+    currency: { currencySpec }, // Refer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -1289,7 +1289,7 @@ const response = await fetch(
   },  
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Location
-    currency: { currencySpec }, // Reffer to currency spec options above
+    currency: { currencySpec }, // Refer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -1420,7 +1420,7 @@ const response = await fetch(
   },  
     from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
     to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Location
-    currency: { currencySpec }, // Reffer to currency spec options above
+    currency: { currencySpec }, // Refer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
   }),
@@ -1563,7 +1563,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-fee", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
-        currency: { currencySpec }, // Reffer to currency spec options above
+        currency: { currencySpec }, // Refer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
         /*disableFallback: "True" //Optional parameter - if enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.*/
@@ -1692,7 +1692,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-fee-estimate", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
-        currency: { currencySpec }, // Reffer to currency spec options above
+        currency: { currencySpec }, // Refer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
@@ -1835,7 +1835,7 @@ const response = await fetch("http://localhost:3001/v3/origin-xcm-fee", {
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
-        currency: { currencySpec }, // Reffer to currency spec options above
+        currency: { currencySpec }, // Refer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
@@ -1959,7 +1959,7 @@ const response = await fetch("http://localhost:3001/v3/origin-xcm-fee-estimate",
     body: JSON.stringify({
         from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
         to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
-        currency: { currencySpec }, // Reffer to currency spec options above
+        currency: { currencySpec }, // Refer to currency spec options above
         address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
         senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
@@ -2077,7 +2077,7 @@ const response = await fetch("http://localhost:3001/v3/assets/:chain/supported-d
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        currency: {currency spec} //Reffer to currency spec options above
+        currency: {currency spec} //Refer to currency spec options above
     })
 });
 ```
@@ -2156,7 +2156,7 @@ const response = await fetch("http://localhost:3001/v3/balance/:chain/asset", {
     },
     body: JSON.stringify({
         address: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
-        currency: {currencySpec}, // Reffer to currency spec options above
+        currency: {currencySpec}, // Refer to currency spec options above
     })
 });
 ```
@@ -2232,7 +2232,7 @@ const response = await fetch("http://localhost:3001/v3/balance/:chain/existentia
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        currency: {CurrencySpec} // Reffer to currency spec options above
+        currency: {CurrencySpec} // Refer to currency spec options above
     })
 });
 ```
@@ -2356,7 +2356,7 @@ const response = await fetch("http://localhost:3001/v3/assets/:chain/location", 
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        currency: {currencySpec} // Reffer to currency spec options above
+        currency: {currencySpec} // Refer to currency spec options above
     })
 });
 ```

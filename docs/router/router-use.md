@@ -31,11 +31,11 @@ Totaling to 556 pools available for cross-chain swap transactions.
 If you wish to have an exchange chain selection based on the best price outcome, you can opt for the automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. The router will then automatically select the best exchange chain for you based on the best price outcome.
 
 ```ts
-await RouterBuilder
+await RouterBuilder()
         .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount} 
-        .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
         .amount('1000000')  // Amount to send
         .slippagePct('1')   // Max slipppage percentage
         .senderAddress(selectedAccount.address)   //Injector address
@@ -47,23 +47,71 @@ await RouterBuilder
         .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
           console.log(status.type);   // Current transaction type
           console.log(status.routerPlan);   // Array of all transactions to execute
-          console.log(status.node);   // Current transaction origin node
-          console.log(status.destinationNode);    // Current transaction destination node
+          console.log(status.chain);   // Current transaction origin chain
+          console.log(status.destinationChain);    // Current transaction destination chain
           console.log(status.currentStep);    // 0-based step index of current transaction
         })
         .buildAndSend()
 ```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+  **Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Whitelist exchange selection
 If you wish to have specific exchanges selection and select the best one among them based on the best price outcome, you can opt for the whitelist automatic exchange selection method. This method can be selected by **using** `.exchange()` parameter in the call and feeding it with **array of exchanges**. The router will then automatically select the best exchange chain for you based on the best price outcome.
 
 ```ts
-await RouterBuilder
+await RouterBuilder()
         .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .exchange(['HydrationDex','AcalaDex','AssetHubPolkadotDex'])    //Exchange Parachains
         .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount} 
-        .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
         .amount('1000000')  // Amount to send
         .slippagePct('1')   // Max slipppage percentage
         .senderAddress(selectedAccount.address)   //Injector address
@@ -75,23 +123,71 @@ await RouterBuilder
         .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
           console.log(status.type);   // Current transaction type
           console.log(status.routerPlan);   // Array of all transactions to execute
-          console.log(status.node);   // Current transaction origin node
-          console.log(status.destinationNode);    // Current transaction destination node
+          console.log(status.chain);   // Current transaction origin chain
+          console.log(status.destinationChain);    // Current transaction destination chain
           console.log(status.currentStep);    // 0-based step index of current transaction
         })
         .buildAndSend()
 ```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+  **Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Manual exchange selection
 If you wish to select your exchange chain manually you can do that by providing additional parameter `.exchange()` in the call. The router will then use the exchange chain of your choice.
 
 ```ts
-await RouterBuilder
+await RouterBuilder()
         .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .exchange('HydrationDex')    //Exchange Parachain
         .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .currencyFrom({symbol: 'DOT'})    // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount} 
-        .currencyTo({symbol: 'ASTR'})    // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
         .amount('1000000')  // Amount to send
         .slippagePct('1')   // Max slipppage percentage
         .senderAddress(selectedAccount.address)   //Injector address
@@ -103,12 +199,60 @@ await RouterBuilder
         .onStatusChange((status: TRouterEvent) => {  //This is how we subscribe to calls that need signing
           console.log(status.type);   // Current transaction type
           console.log(status.routerPlan);   // Array of all transactions to execute
-          console.log(status.node);   // Current transaction origin node
-          console.log(status.destinationNode);    // Current transaction destination node
+          console.log(status.chain);   // Current transaction origin chain
+          console.log(status.destinationChain);    // Current transaction destination chain
           console.log(status.currentStep);    // 0-based step index of current transaction
         })
         .buildAndSend()
 ```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+  **Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Get amount out for your currency pair
 
@@ -119,14 +263,62 @@ const result = await RouterBuilder()
       .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
-      .currencyFrom({ symbol: 'ASTR' }) // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount} 
-      .currencyTo({ symbol: 'DOT' }) // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
       .getBestAmountOut();
 
 console.log(result.amountOut)
 console.log(result.exchange)
 ```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+  **Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+</details>
 
 ## Get Router fees
 
@@ -137,8 +329,8 @@ const fees = await RouterBuilder()
       .from(from) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .exchange(exchange) //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
       .to(to) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currencyFrom(currencyFrom) // Currency to send - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount} 
-      .currencyTo(currencyTo) // Currency to receive - {id: currencyID, amount: amount} | {symbol: currencySymbol, amount: amount} | {symbol: Native('currencySymbol'), amount: amount} | {symbol: Foreign('currencySymbol'), amount: amount} | {symbol: ForeignAbstract('currencySymbol'), amount: amount} | {location: AssetLocationString, amount: amount | AssetLocationJson, amount: amount}
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(amount)
       .senderAddress(senderAddress)
       .recipientAddress(recipientAddress)
@@ -300,6 +492,54 @@ In some occasions user has the exchanged asset already so DryRun might be also p
 ```
 
 </details>
+</details>
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+  **Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
 </details>
 
 ## Helpful functions

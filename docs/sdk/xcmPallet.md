@@ -236,7 +236,7 @@ const builder = await Builder({
 const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to(CHAIN /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
       .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
 
@@ -591,7 +591,7 @@ const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
       .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .to(CHAIN) // Has to be same as origin (from)
-      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address)
 
 const tx = await builder.build()
@@ -724,13 +724,13 @@ You can batch XCM calls and execute multiple XCM calls within one call. All thre
 await Builder(/*CHAIN api/ws_url_string - optional*/)
       .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
       .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object)
       .addToBatch()
 
       .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
       .to(CHAIN_3) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object)
       .addToBatch()
       .buildBatch({ 
@@ -796,15 +796,57 @@ Claim XCM trapped assets from the selected chain.
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .claimFrom(CHAIN) // 'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama'
-      .fungible(LocationArray (Only one location allowed) [{location}])
-      .account(address | Location object)
-      /*.xcmVersion(Version.V3) Optional parameter, by default V3. XCM Version ENUM if a different XCM version is needed (Supported V2 & V3). Requires importing Version enum.*/
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
+      .address(address | Location object)
+      /*.xcmVersion(Version.V3) Optional parameter, by default chain specific version. XCM Version ENUM if a different XCM version is needed (Supported V3, V4, V5). Requires importing Version enum.*/
 
 const tx = await builder.build()
 
 // Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
 ```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} // Recommended
+{location: AssetLocationJson, amount: amount} // Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+```
+
+  </details>
+
 
 ## Dry run your XCM Calls
 
@@ -814,7 +856,7 @@ Dry running let's you check whether your XCM Call will execute, giving you a cha
 const result = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
         .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+        .currency(CURRENCY_SPEC) // Refer to currency spec options below
         .address(ADDRESS)
         .senderAddress(SENDER_ADDRESS)
         .dryRun()
@@ -1363,7 +1405,7 @@ const builder = await Builder({
 })
   .from(CHAIN)
   .to(CHAIN)
-  .currency(CURRENCY_SPEC) // Reffer to currency spec options below
+  .currency(CURRENCY_SPEC) // Refer to currency spec options below
   .address(address)
 
 const tx = await builder.build()
