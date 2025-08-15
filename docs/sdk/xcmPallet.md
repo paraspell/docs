@@ -112,7 +112,7 @@ const builder = await Builder({
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
+.xcmVersion(Version.V3/V4/V5)  // Optional parameter for manual override of XCM Version used in call
 .customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
@@ -224,7 +224,7 @@ const builder = await Builder({
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
+.xcmVersion(Version.V3/V4/V5)  // Optional parameter for manual override of XCM Version used in call
 .customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
@@ -389,7 +389,7 @@ const builder = await Builder({
 ```ts
 .ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
 .feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
-.xcmVersion(Version.V1/V2/V3/V4)  // Optional parameter for manual override of XCM Version used in call
+.xcmVersion(Version.V3/V4/V5)  // Optional parameter for manual override of XCM Version used in call
 .customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```
 
