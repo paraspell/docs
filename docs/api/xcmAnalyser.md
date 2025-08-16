@@ -3,7 +3,7 @@
 Following section covers implementation of XCM Analyser in LightSpell XCM API. Users can analyse either independent locations or entire XCM Calls.
 
 ## Analyse Location
-**Endpoint**: `POST /v3/xcm-analyser`
+**Endpoint**: `POST /v4/xcm-analyser`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -22,7 +22,7 @@ Following section covers implementation of XCM Analyser in LightSpell XCM API. U
   </details>
   
 ```ts
-const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
+const response = await fetch("http://localhost:3001/v4/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
 });
 ```
 ## Analyse XCM call
-**Endpoint**: `POST /v3/xcm-analyser`
+**Endpoint**: `POST /v4/xcm-analyser`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -52,7 +52,7 @@ const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
   </details>
 
 ```ts
-const response = await fetch("http://localhost:3001/v3/xcm-analyser", {
+const response = await fetch("http://localhost:3001/v4/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
