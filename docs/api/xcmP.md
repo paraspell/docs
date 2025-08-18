@@ -2773,3 +2773,54 @@ The following endpoint returns whether selected Parachain has DryRun support
 ```ts
 const response = await fetch('http://localhost:3001/v4/chains/:chain/has-dry-run-support');
 ```
+
+### Print local pallets for native assets
+Following endpoint returns all pallets for local transfers of native assets for specific chain.
+
+**Endpoint**: `GET /v4/pallets/:chain/native-assets`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `chain` (path parameter): Specifies the name of the Parachain.
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400` (Bad request): When a specified Parachain does not exist.
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+  </details>
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v4/pallets/:chain/native-assets');
+```
+
+
+### Print local pallets for foreign assets
+Following endpoint returns all pallets for local transfers of foreign assets for specific chain.
+
+**Endpoint**: `GET /v4/pallets/:chain/other-assets`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `chain` (path parameter): Specifies the name of the Parachain.
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400` (Bad request): When a specified Parachain does not exist.
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+  </details>
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v4/pallets/:chain/other-assets');
+```
