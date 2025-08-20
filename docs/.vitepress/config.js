@@ -57,10 +57,10 @@ export default {
             ]
           },
           {
-            text: 'XCM visualizator 🖼️',
+            text: 'XCM visualizer 🖼️',
             items: [
-              { text: 'Getting started', link: '/visualizator/getting-start' },
-              { text: 'User guide', link: '/visualizator/user-guide' },
+              { text: 'Getting started', link: '/visualizer/getting-start' },
+              { text: 'User guide', link: '/visualizer/user-guide' },
             ]
           },
           {
