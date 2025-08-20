@@ -1,9 +1,9 @@
 <h1 align="center">
-Welcome Polkadot and Kusama magician 👋
+Welcome XCM Magicians 👋
 </h1>
 
 <h3 align="center">
-Let us introduce you to 
+let us introduce you to 
 </h3>
 
 <p align="center">
@@ -11,7 +11,7 @@ Let us introduce you to
 </p>
 
 <h3 align="center">
-Set of XCM tools for Polkadot and Kusama Paraverse
+Set of XCM tools for Polkadot, Kusama, Westend & Paseo Paraverses
 </h3>
 
 ## 🧰 Our Development Focus
@@ -29,17 +29,15 @@ Set of XCM tools for Polkadot and Kusama Paraverse
     <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser">XCM Analyser</a> 🔎: An analyser package to convert XCM Locations into a human-readable format.
   </li>
   <li>
-    <a href="https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe">XCM Visualizator</a> 🖼️: An application developed to visualize XCM within the Polkadot ecosystem.
+    <a href="https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe">XCM Visualizer</a> 🖼️: An application developed to visualize XCM within the Polkadot ecosystem.
   </li>
 </ul>
 
-All of our tools are **completely free** and **fully open source** 🧙‍♂️🪄
+- All of our tools are **completely free** and **fully open source** 🧙‍♂️🪄
 
-Tired of reading? Listen to this [AI generated Podcast about ParaSpell XCM Tools (New version)](https://notebooklm.google.com/notebook/ff1837d7-2ab2-4e0f-9420-49c8a4cbec97/audio).
-
-Find out more about these tools at our [landing page](https://paraspell.xyz)!
-
-A complete guide on how to use these tools will be mentioned throughout the document.
+- Tired of reading? Listen to this [AI Podcast about ParaSpell XCM Tools (New version)](https://notebooklm.google.com/notebook/ff1837d7-2ab2-4e0f-9420-49c8a4cbec97/audio).
+- Find out more about these tools at our [landing page](https://paraspell.xyz)!
+- A complete guide on how to use these tools will be mentioned throughout the document.
 
 ### 🛫 Starting fresh? Try our starter templates!
 - [XCM SDK (React + Vite) starter template](https://github.com/paraspell/xcm-sdk-template)

@@ -16,8 +16,8 @@ You can contribute in two ways:
 - [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
 - [XCM Router](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router)
 - [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
-- [XCM Visualizator FE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe)
-- [XCM Visualizator BE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-be)
+- [XCM Visualizer FE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe)
+- [XCM Visualizer BE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-be)
 - [XCM Playground](https://github.com/paraspell/xcm-tools/tree/main/apps/playground)
 
 ## 🔍 Bug Reporting

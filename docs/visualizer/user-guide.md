@@ -1,12 +1,12 @@
-# XCM Visualizator user guide 🕹️
+# XCM Visualizer user guide 🕹️
 
-Following section explores possibilities of XCM Visualizator tool.
+Following section explores possibilities of XCM Visualizer tool.
 
 ## Observe 3D Model
 There are multiple ways you can customize view of your custom 3D XCM Visualization.
 
 ### Basic overview
-You can view 3D Visualization right after XCM Visualizator loads.
+You can view 3D Visualization right after XCM Visualizer loads.
 
 <img width="550" alt="overview" src="https://github.com/user-attachments/assets/7692d35b-9124-4742-a3e1-1396cc344d33" />
 
