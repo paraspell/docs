@@ -29,7 +29,7 @@ Set of XCM tools for Polkadot, Kusama, Westend & Paseo Paraverses
     <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser">XCM Analyser</a> 🔎: An analyser package to convert XCM Locations into a human-readable format.
   </li>
   <li>
-    <a href="https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe">XCM Visualizer</a> 🖼️: An application developed to visualize XCM within the Polkadot ecosystem.
+    <a href="https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-fe">XCM Visualizer</a> 🖼️: An application developed to visualize XCM within the Polkadot ecosystem.
   </li>
 </ul>
 

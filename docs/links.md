@@ -19,7 +19,7 @@ The XCM Router enables seamless XCM exchanges. It allows users to send one token
 A tool designed to convert XCM locations into a human-readable format.
 
 ### XCM-Visualizer 🖼️
-[Visualizer link](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe) |  
+[Visualizer link](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-fe) |  
 A visualization tool for exploring XCM within the Polkadot ecosystem. It allows users to browse history, explore selected Parachains, filter accounts most engaged in XCM, and more, all within an exciting 3D universe-like visualization.
 
 ### XCM-Playground 🛝

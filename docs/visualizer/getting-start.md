@@ -6,9 +6,9 @@ Following guide contains information about XCM Visualizer. It is designed to inf
 
 ## User startup guide
 
-Project is deployed on following link: https://xcm-visualizator.paraspell.xyz/.
+Project is deployed on following link: https://xcm-visualizer.paraspell.xyz/.
 
-For user guide refer to following section: [User guide](https://paraspell.github.io/docs/visualizator/user-guide.html)
+For user guide refer to following section: [User guide](https://paraspell.github.io/docs/visualizer/user-guide.html)
 
 ## Developer startup guide
 To run the project locally, you need to have Node.js v.20^ installed, as well as PostgreSQL database.
@@ -24,17 +24,17 @@ pnpm install
 pnpm build
 ```
 
-Then run backend from [backend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-be):
+Then run backend from [backend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-be):
 
 ```bash
-cd ./apps/visualizator-be
+cd ./apps/visualizer-be
 pnpm start
 ```
 
-And run frontend from [frontend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizator-fe):
+And run frontend from [frontend folder](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-fe):
 
 ```bash
-cd ./apps/visualizator-fe
+cd ./apps/visualizer-fe
 pnpm dev
 ```
 
