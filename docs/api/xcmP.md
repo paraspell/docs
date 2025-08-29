@@ -852,10 +852,12 @@ You can find out whether you XCM message will execute successfuly or with error.
   <summary><b>Possible output objects</b></summary>
 
 ```
+chain - Always present
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum)
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
   </details>
@@ -1068,9 +1070,10 @@ To comprehensively assess whether a message will execute successfully without fa
 ```
 chain - Always present
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum)
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
   </details>
@@ -1472,10 +1475,12 @@ The following endpoint allows is designed to retrieve you XCM fee at any cost, b
   <summary><b>Possible output objects</b></summary>
 
 ```
+chain - Always present
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum)
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum)
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
   </details>
