@@ -2343,11 +2343,6 @@ Asset selection by asset Symbol:
 {symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
 ```
 
-Asset selection of multiple assets:
-```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
-```
-
  </details>
 
 
@@ -2360,6 +2355,80 @@ const response = await fetch("http://localhost:3001/v4/assets/:chain/location", 
     },
     body: JSON.stringify({
         currency: {currencySpec} // Refer to currency spec options above
+    })
+});
+```
+
+### Query asset Location
+The following endpoint retrieves asset location from the asset ID or asset symbol.
+
+**Endpoint**: `POST /v4/assets/:chain/asset-info`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `chain` (path parameter): Specifies the name of the Parachain.
+  - `currency` (body parameter): Specifies currency 
+  - `destination` (optional body parameter): Specifies destination (When Ethereum is chosen as destination)
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400` (Bad request): When a specified Parachain does not exist.
+  - `400` (Bad request): When a specified Asset does not exist.
+  - `400` (Bad request): When a specified Currency does not exist.
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+  </details>
+
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+ </details>
+
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v4/assets/:chain/asset-info", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        currency: "Currency" //Replace "Currency" with {id: currencyID} | {symbol: currencySymbol} | {"symbol": {"type": "Native","value": "currencySymbol"} | {"symbol": {"type": "Foreign","value": "currencySymbol"} | {"symbol": {"type": "ForeignAbstract","value": "currencySymbolAlias"}
+        destination?: "CHAIN"
     })
 });
 ```

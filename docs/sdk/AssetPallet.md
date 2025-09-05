@@ -6,16 +6,16 @@ This functionality serves to retrieve asset data from compatible Parachains. Use
 To use this functionality you first have to import it in the following way.
 ```ts
 //PAPI
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain } from  '@paraspell/sdk'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain, findAssetInfo, findAssetInfoOrThrow } from  '@paraspell/sdk'
 //PJS
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain } from  '@paraspell/sdk-pjs'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain, findAssetInfo, findAssetInfoOrThrow } from  '@paraspell/sdk-pjs'
 ```
 
 ```ts
 //Standalone asset package
 yarn add || pnpm | npm install @paraspell/assets
 
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain } from  '@paraspell/assets'
+import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain, findAssetInfo, findAssetInfoOrThrow } from  '@paraspell/assets'
 ```
 
 ## Query asset paths
@@ -491,8 +491,8 @@ getAllAssetsSymbols(CHAIN)
 ]
 ```
 
-## Query asset support
-The function checks if Parachain supports a particular asset. (Both native and foreign assets are searched). Returns boolean
+## Query asset support I
+The function checks if Parachain supports a particular asset. (Both native and foreign assets are searched). Returns boolean.
 ```ts
 hasSupportForAsset(CHAIN, ASSET_SYMBOL)
 ```
@@ -502,6 +502,70 @@ hasSupportForAsset(CHAIN, ASSET_SYMBOL)
 ```json
 true
 ```
+
+## Query asset support II
+The function checks if Parachain supports a particular asset. Returns asset object or null. Destination parameter is optional and should be set to Ethereum when using snowbridge assets.
+
+```ts
+findAssetInfo(CHAIN, CURRENCY, DESTINATION?)
+```
+
+**Example output:**
+
+```json
+{
+  "assetId": "1000771",
+  "symbol": "KSM",
+  "decimals": 12,
+  "existentialDeposit": "313283208",
+  "location": {
+    "parents": 2,
+    "interior": {
+      "X1": [
+        {
+          "GlobalConsensus": {
+            "kusama": null
+          }
+        }
+      ]
+    }
+  },
+  "isFeeAsset": true
+}
+```
+
+
+## Query asset support III
+The function checks if Parachain supports a particular asset. Returns asset object or error. Destination parameter is optional and should be set to Ethereum when using snowbridge assets.
+
+```ts
+findAssetInfoOrThrow(CHAIN, CURRENCY, DESTINATION?)
+```
+
+**Example output:**
+
+```json
+{
+  "assetId": "1000771",
+  "symbol": "KSM",
+  "decimals": 12,
+  "existentialDeposit": "313283208",
+  "location": {
+    "parents": 2,
+    "interior": {
+      "X1": [
+        {
+          "GlobalConsensus": {
+            "kusama": null
+          }
+        }
+      ]
+    }
+  },
+  "isFeeAsset": true
+}
+```
+
 
 ## Query asset decimals
 The function returns decimals for a specific asset
