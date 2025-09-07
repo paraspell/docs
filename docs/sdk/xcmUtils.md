@@ -88,70 +88,141 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 
 **Example output**
 <details>
-<summary>Following output contains transfer of 0.3DOT from Polkadot to Polimec</summary>
+<summary>Following output contains transfer of 10 USDC from AssetHubPolkadot to BifrostPolkadot</summary>
 
 ```json
 {
   "chain": {
-    "origin": "Polkadot",
-    "destination": "Polimec",
+    "origin": "AssetHubPolkadot",
+    "destination": "BifrostPolkadot",
     "ecosystem": "DOT"
   },
   "origin": {
     "selectedCurrency": {
-      "sufficient": true,
-      "balance": "15013922536",
-      "balanceAfter": "12013922536",
-      "currencySymbol": "DOT",
-      "existentialDeposit": "10000000000"
+      "sufficient": false,
+      "balance": "1801745",
+      "balanceAfter": "-8198255",
+      "currencySymbol": "USDC",
+      "asset": {
+        "assetId": "1337",
+        "symbol": "USDC",
+        "decimals": 6,
+        "location": {
+          "parents": 1,
+          "interior": {
+            "X3": [
+              {
+                "Parachain": 1000
+              },
+              {
+                "PalletInstance": 50
+              },
+              {
+                "GeneralIndex": 1337
+              }
+            ]
+          }
+        },
+        "existentialDeposit": "10000",
+        "isFeeAsset": true,
+        "alias": "USDC1"
+      },
+      "existentialDeposit": "10000"
     },
     "xcmFee": {
       "sufficient": true,
-      "fee": "11831489",
-      "balance": "15013922536",
-      "balanceAfter": "15002091047",
-      "currencySymbol": "DOT"
-    }
-  },
-  "assetHub": {
-    "balance": "43323352510",
-    "currencySymbol": "DOT",
-    "existentialDeposit": "100000000",
-    "xcmFee": {
-      "fee": "30980000",
-      "balance": "43323352510",
-      "currencySymbol": "DOT"
-    }
-  },
-  "hops": [
-    {
-      "chain": "AssetHubPolkadot",
-      "result": {
-        "balance": "43323352510",
-        "currencySymbol": "DOT",
-        "existentialDeposit": "100000000",
-        "xcmFee": {
-          "fee": "30980000",
-          "balance": "43323352510",
-          "currencySymbol": "DOT"
-        }
+      "fee": "346838364",
+      "balance": "40571369517",
+      "balanceAfter": "40224531153",
+      "currencySymbol": "USDC",
+      "asset": {
+        "assetId": "1337",
+        "symbol": "USDC",
+        "decimals": 6,
+        "location": {
+          "parents": 1,
+          "interior": {
+            "X3": [
+              {
+                "Parachain": 1000
+              },
+              {
+                "PalletInstance": 50
+              },
+              {
+                "GeneralIndex": 1337
+              }
+            ]
+          }
+        },
+        "existentialDeposit": "10000",
+        "isFeeAsset": true,
+        "alias": "USDC1",
+        "amount": "10000000"
       }
     }
-  ],
+  },
+  "hops": [],
   "destination": {
     "receivedCurrency": {
       "sufficient": true,
-      "receivedAmount": "2845402890",
-      "balance": "6528998366",
-      "balanceAfter": "9374401256",
-      "currencySymbol": "DOT",
-      "existentialDeposit": "100000000"
+      "receivedAmount": "9987572",
+      "balance": "530221",
+      "balanceAfter": "10517793",
+      "currencySymbol": "USDC",
+      "asset": {
+        "assetId": "5",
+        "symbol": "USDC",
+        "decimals": 6,
+        "existentialDeposit": "1000",
+        "location": {
+          "parents": 1,
+          "interior": {
+            "X3": [
+              {
+                "Parachain": 1000
+              },
+              {
+                "PalletInstance": 50
+              },
+              {
+                "GeneralIndex": 1337
+              }
+            ]
+          }
+        },
+        "isFeeAsset": true
+      },
+      "existentialDeposit": "1000"
     },
     "xcmFee": {
-      "fee": "154597110",
-      "balance": "6528998366",
-      "balanceAfter": "9374401256",
-      "currencySymbol": "DOT"
+      "fee": "12428",
+      "balance": "530221",
+      "balanceAfter": "10517793",
+      "currencySymbol": "USDC",
+      "asset": {
+        "assetId": "5",
+        "symbol": "USDC",
+        "decimals": 6,
+        "existentialDeposit": "1000",
+        "location": {
+          "parents": 1,
+          "interior": {
+            "X3": [
+              {
+                "Parachain": 1000
+              },
+              {
+                "PalletInstance": 50
+              },
+              {
+                "GeneralIndex": 1337
+              }
+            ]
+          }
+        },
+        "isFeeAsset": true
+      }
     }
   }
 }
@@ -623,39 +694,68 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 
 **Example output**
 <details>
-<summary>Following output contains transfer of 0.3DOT from Polkadot to Polimec</summary>
+<summary>Following output contains transfer of 10 GLMR from Hydration to Moonbeam</summary>
 
 ```json
 {
   "origin": {
-    "fee": "11831489",
+    "weight": {
+      "refTime": "1847483799",
+      "proofSize": "12268"
+    },
+    "fee": "46696677064",
     "feeType": "dryRun",
-    "sufficient": true,
-    "currency": "DOT"
-  },
-  "assetHub": {
-    "fee": "30980000",
-    "feeType": "dryRun",
-    "currency": "DOT",
-    "sufficient": true
+    "sufficient": false,
+    "currency": "GLMR",
+    "asset": {
+      "assetId": "16",
+      "symbol": "GLMR",
+      "decimals": 18,
+      "existentialDeposit": "34854864344868000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X2": [
+            {
+              "Parachain": 2004
+            },
+            {
+              "PalletInstance": 10
+            }
+          ]
+        }
+      },
+      "isFeeAsset": true,
+      "amount": "10000000000000000000"
+    }
   },
   "destination": {
-    "fee": "154888096",
+    "fee": "9823071250000000",
     "feeType": "dryRun",
-    "sufficient": true,
-    "currency": "DOT"
-  },
-  "hops": [
-    {
-      "chain": "AssetHubPolkadot",
-      "result": {
-        "fee": "30980000",
-        "feeType": "dryRun",
-        "currency": "DOT",
-        "sufficient": true
-      }
+    "sufficient": false,
+    "currency": "GLMR",
+    "asset": {
+      "symbol": "GLMR",
+      "isNative": true,
+      "decimals": 18,
+      "existentialDeposit": "0",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X2": [
+            {
+              "Parachain": 2004
+            },
+            {
+              "PalletInstance": 10
+            }
+          ]
+        }
+      },
+      "isFeeAsset": true
     }
-  ]
+  },
+  "hops": []
 }
 ```
 
@@ -803,17 +903,59 @@ destination - Always present
 
 **Example output**
 <details>
-<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
+<summary>Following output contains transfer of 10 GLMR from Hydration to Moonbeam</summary>
 
 ```json
 {
   "origin": {
-    "fee": "681070219202",
-    "currency": "HDX"
+    "fee": "664518329863",
+    "currency": "HDX",
+    "asset": {
+      "assetId": "16",
+      "symbol": "GLMR",
+      "decimals": 18,
+      "existentialDeposit": "34854864344868000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X2": [
+            {
+              "Parachain": 2004
+            },
+            {
+              "PalletInstance": 10
+            }
+          ]
+        }
+      },
+      "isFeeAsset": true
+    },
+    "sufficient": true
   },
   "destination": {
-    "fee": "109531071563591533",
-    "currency": "ASTR"
+    "fee": "1450023772558270",
+    "currency": "GLMR",
+    "asset": {
+      "symbol": "GLMR",
+      "isNative": true,
+      "decimals": 18,
+      "existentialDeposit": "0",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X2": [
+            {
+              "Parachain": 2004
+            },
+            {
+              "PalletInstance": 10
+            }
+          ]
+        }
+      },
+      "isFeeAsset": true
+    },
+    "sufficient": true
   }
 }
 ```
@@ -971,153 +1113,60 @@ origin - Always present
 
 **Example output**
 <details>
-<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
+<summary>Following output contains transfer of 100 MYTH from Mythos to AssetHubPolkadot</summary>
 
 ```json
 {
-  "fee": "523900168617",
-  "feeType": "dryRun",
-  "currency": "HDX",
-  "forwardedXcms": [
-    {
-      "type": "V4",
-      "value": {
+  "origin": {
+    "weight": {
+      "refTime": "970770242",
+      "proofSize": "10755"
+    },
+    "fee": "189322000411000000",
+    "feeType": "dryRun",
+    "sufficient": true,
+    "currency": "MYTH",
+    "asset": {
+      "symbol": "MYTH",
+      "isNative": true,
+      "decimals": 18,
+      "existentialDeposit": "10000000000000000",
+      "location": {
         "parents": 1,
         "interior": {
-          "type": "Here"
+          "X1": [
+            {
+              "Parachain": 3369
+            }
+          ]
         }
-      }
-    },
-    [
-      {
-        "type": "V3",
-        "value": [
-          {
-            "type": "WithdrawAsset",
-            "value": [
-              {
-                "id": {
-                  "type": "Concrete",
-                  "value": {
-                    "parents": 0,
-                    "interior": {
-                      "type": "Here"
-                    }
-                  }
-                },
-                "fun": {
-                  "type": "Fungible",
-                  "value": "2000000000"
-                }
-              }
-            ]
-          },
-          {
-            "type": "ClearOrigin"
-          },
-          {
-            "type": "BuyExecution",
-            "value": {
-              "fees": {
-                "id": {
-                  "type": "Concrete",
-                  "value": {
-                    "parents": 0,
-                    "interior": {
-                      "type": "Here"
-                    }
-                  }
-                },
-                "fun": {
-                  "type": "Fungible",
-                  "value": "1000000000"
-                }
-              },
-              "weight_limit": {
-                "type": "Unlimited"
-              }
+      },
+      "amount": "100000000000000000000"
+    }
+  },
+  "destination": {
+    "fee": "78516679785747332",
+    "feeType": "dryRun",
+    "sufficient": true,
+    "currency": "MYTH",
+    "asset": {
+      "symbol": "MYTH",
+      "decimals": 18,
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X1": [
+            {
+              "Parachain": 3369
             }
-          },
-          {
-            "type": "DepositReserveAsset",
-            "value": {
-              "assets": {
-                "type": "Wild",
-                "value": {
-                  "type": "AllCounted",
-                  "value": 1
-                }
-              },
-              "dest": {
-                "parents": 0,
-                "interior": {
-                  "type": "X1",
-                  "value": {
-                    "type": "Parachain",
-                    "value": 2006
-                  }
-                }
-              },
-              "xcm": [
-                {
-                  "type": "BuyExecution",
-                  "value": {
-                    "fees": {
-                      "id": {
-                        "type": "Concrete",
-                        "value": {
-                          "parents": 1,
-                          "interior": {
-                            "type": "Here"
-                          }
-                        }
-                      },
-                      "fun": {
-                        "type": "Fungible",
-                        "value": "1000000000"
-                      }
-                    },
-                    "weight_limit": {
-                      "type": "Unlimited"
-                    }
-                  }
-                },
-                {
-                  "type": "DepositAsset",
-                  "value": {
-                    "assets": {
-                      "type": "Wild",
-                      "value": {
-                        "type": "AllCounted",
-                        "value": 1
-                      }
-                    },
-                    "beneficiary": {
-                      "parents": 0,
-                      "interior": {
-                        "type": "X1",
-                        "value": {
-                          "type": "AccountId32",
-                          "value": {
-                            "id": {}
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "type": "SetTopic",
-            "value": {}
-          }
-        ]
-      }
-    ]
-  ],
-  "destParaId": 0
+          ]
+        }
+      },
+      "existentialDeposit": "10000000000000000",
+      "isFeeAsset": true
+    }
+  },
+  "hops": []
 }
 ```
 
@@ -1268,12 +1317,29 @@ origin - Always present
 
 **Example output**
 <details>
-<summary>Following output contains transfer of 0.2DOT from Hydration to Astar</summary>
+<summary>Following output contains transfer of 100 MYTH from Mythos to AssetHubPolkadot</summary>
 
 ```json
 {
-  "fee": "681070219202",
-  "currency": "HDX"
+  "fee": "150000000000000000",
+  "currency": "MYTH",
+  "asset": {
+    "symbol": "MYTH",
+    "isNative": true,
+    "decimals": 18,
+    "existentialDeposit": "10000000000000000",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X1": [
+          {
+            "Parachain": 3369
+          }
+        ]
+      }
+    }
+  },
+  "sufficient": true
 }
 ```
 

@@ -369,34 +369,128 @@ Router now features one-click cross-chain swaps using the Execute instruction (H
 {
   "origin": {
     "weight": {
-      "refTime": "470304000",
-      "proofSize": "1489"
+      "refTime": "1918633799",
+      "proofSize": "13757"
     },
     "fee": "46696677064",
     "feeType": "dryRun",
-    "sufficient": true,
-    "currency": "HDX"
+    "sufficient": false,
+    "currency": "USDT",
+    "asset": {
+      "assetId": "10",
+      "symbol": "USDT",
+      "decimals": 6,
+      "existentialDeposit": "10000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1984
+            }
+          ]
+        }
+      },
+      "isFeeAsset": true,
+      "alias": "USDT1",
+      "amount": "10000000"
+    }
   },
   "assetHub": {
-    "fee": "142317",
+    "fee": "4015851",
     "feeType": "dryRun",
     "currency": "USDT",
-    "sufficient": true
+    "asset": {
+      "assetId": "10",
+      "symbol": "USDT",
+      "decimals": 6,
+      "existentialDeposit": "10000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1984
+            }
+          ]
+        }
+      },
+      "isFeeAsset": true,
+      "alias": "USDT1"
+    }
   },
   "destination": {
-    "fee": "6104",
+    "fee": "1813",
     "feeType": "dryRun",
-    "sufficient": true,
-    "currency": "USDT"
+    "sufficient": false,
+    "currency": "USDC",
+    "asset": {
+      "assetId": "4294969281",
+      "symbol": "USDC",
+      "decimals": 6,
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1337
+            }
+          ]
+        }
+      },
+      "existentialDeposit": "1",
+      "isFeeAsset": true
+    }
   },
   "hops": [
     {
       "chain": "AssetHubPolkadot",
       "result": {
-        "fee": "142317",
+        "fee": "4015851",
         "feeType": "dryRun",
         "currency": "USDT",
-        "sufficient": true
+        "asset": {
+          "assetId": "10",
+          "symbol": "USDT",
+          "decimals": 6,
+          "existentialDeposit": "10000",
+          "location": {
+            "parents": 1,
+            "interior": {
+              "X3": [
+                {
+                  "Parachain": 1000
+                },
+                {
+                  "PalletInstance": 50
+                },
+                {
+                  "GeneralIndex": 1984
+                }
+              ]
+            }
+          },
+          "isFeeAsset": true,
+          "alias": "USDT1"
+        }
       },
       "isExchange": true
     }

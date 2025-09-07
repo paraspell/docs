@@ -931,386 +931,161 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 **Example output:**
 
 <details>
-<summary>Example of an output for transfer of 0.3DOT - Polkadot > Polimec (This transfer contains hop through AssetHubPolkadot) </summary>
+<summary>Example of an output for transfer of 10 ASTR - Astar > Hydration</summary>
 
 ```json
-    {
-"origin": {
-  "success": true,
-  "fee": "11831489",
-  "forwardedXcms": [
-    {
-      "type": "V3",
-      "value": {
-        "parents": 0,
+{
+  "origin": {
+    "success": true,
+    "fee": "49373869690754320",
+    "currency": "ASTR",
+    "asset": {
+      "symbol": "ASTR",
+      "isNative": true,
+      "decimals": 18,
+      "existentialDeposit": "1000000",
+      "location": {
+        "parents": 1,
         "interior": {
-          "type": "X1",
-          "value": {
-            "type": "Parachain",
-            "value": 1000
-          }
+          "X1": [
+            {
+              "Parachain": 2006
+            }
+          ]
         }
-      }
+      },
+      "amount": "10000000000000000000"
     },
-    [
+    "forwardedXcms": [
       {
         "type": "V3",
-        "value": [
-          {
-            "type": "ReceiveTeleportedAsset",
-            "value": [
-              {
-                "id": {
-                  "type": "Concrete",
-                  "value": {
-                    "parents": 1,
-                    "interior": {
-                      "type": "Here"
-                    }
-                  }
-                },
-                "fun": {
-                  "type": "Fungible",
-                  "value": "3000000000"
-                }
-              }
-            ]
-          },
-          {
-            "type": "ClearOrigin"
-          },
-          {
-            "type": "BuyExecution",
+        "value": {
+          "parents": 1,
+          "interior": {
+            "type": "X1",
             "value": {
-              "fees": {
-                "id": {
-                  "type": "Concrete",
-                  "value": {
-                    "parents": 1,
-                    "interior": {
-                      "type": "Here"
-                    }
-                  }
-                },
-                "fun": {
-                  "type": "Fungible",
-                  "value": "3000000000"
-                }
-              },
-              "weight_limit": {
-                "type": "Unlimited"
-              }
+              "type": "Parachain",
+              "value": 2034
             }
-          },
-          {
-            "type": "DepositReserveAsset",
-            "value": {
-              "assets": {
-                "type": "Wild",
-                "value": {
-                  "type": "AllCounted",
-                  "value": 1
-                }
-              },
-              "dest": {
-                "parents": 1,
-                "interior": {
-                  "type": "X1",
-                  "value": {
-                    "type": "Parachain",
-                    "value": 3344
-                  }
-                }
-              },
-              "xcm": [
+          }
+        }
+      },
+      [
+        {
+          "type": "V3",
+          "value": [
+            {
+              "type": "ReserveAssetDeposited",
+              "value": [
                 {
-                  "type": "BuyExecution",
-                  "value": {
-                    "fees": {
-                      "id": {
-                        "type": "Concrete",
-                        "value": {
-                          "parents": 1,
-                          "interior": {
-                            "type": "Here"
-                          }
-                        }
-                      },
-                      "fun": {
-                        "type": "Fungible",
-                        "value": "1000000000"
-                      }
-                    },
-                    "weight_limit": {
-                      "type": "Unlimited"
-                    }
-                  }
-                },
-                {
-                  "type": "DepositAsset",
-                  "value": {
-                    "assets": {
-                      "type": "Wild",
-                      "value": {
-                        "type": "AllCounted",
-                        "value": 1
-                      }
-                    },
-                    "beneficiary": {
-                      "parents": 0,
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 1,
                       "interior": {
                         "type": "X1",
                         "value": {
-                          "type": "AccountId32",
-                          "value": {
-                            "id": {}
-                          }
+                          "type": "Parachain",
+                          "value": 2006
                         }
                       }
                     }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "10000000000000000000"
                   }
                 }
               ]
+            },
+            {
+              "type": "ClearOrigin"
+            },
+            {
+              "type": "BuyExecution",
+              "value": {
+                "fees": {
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 1,
+                      "interior": {
+                        "type": "X1",
+                        "value": {
+                          "type": "Parachain",
+                          "value": 2006
+                        }
+                      }
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "10000000000000000000"
+                  }
+                },
+                "weight_limit": {
+                  "type": "Unlimited"
+                }
+              }
+            },
+            {
+              "type": "DepositAsset",
+              "value": {
+                "assets": {
+                  "type": "Wild",
+                  "value": {
+                    "type": "AllCounted",
+                    "value": 1
+                  }
+                },
+                "beneficiary": {
+                  "parents": 0,
+                  "interior": {
+                    "type": "X1",
+                    "value": {
+                      "type": "AccountId32",
+                      "value": {
+                        "id": {}
+                      }
+                    }
+                  }
+                }
+              }
             }
-          },
-          {
-            "type": "SetTopic",
-            "value": {}
-          }
-        ]
-      }
-    ]
-  ],
-  "destParaId": 1000,
-  "currency": "DOT"
-},
-"assetHub": {
-  "success": true,
-  "fee": "30980000",
-  "weight": {
-    "refTime": "576458000",
-    "proofSize": "6196"
+          ]
+        }
+      ]
+    ],
+    "destParaId": 2034
   },
-  "forwardedXcms": [
-    {
-      "type": "V3",
-      "value": {
+  "destination": {
+    "success": true,
+    "fee": "23668039080798142",
+    "currency": "ASTR",
+    "asset": {
+      "assetId": "9",
+      "symbol": "ASTR",
+      "decimals": 18,
+      "existentialDeposit": "147058823529412000",
+      "location": {
         "parents": 1,
         "interior": {
-          "type": "X1",
-          "value": {
-            "type": "Parachain",
-            "value": 3344
-          }
+          "X1": [
+            {
+              "Parachain": 2006
+            }
+          ]
         }
-      }
-    },
-    [
-      {
-        "type": "V3",
-        "value": [
-          {
-            "type": "ReserveAssetDeposited",
-            "value": [
-              {
-                "id": {
-                  "type": "Concrete",
-                  "value": {
-                    "parents": 1,
-                    "interior": {
-                      "type": "Here"
-                    }
-                  }
-                },
-                "fun": {
-                  "type": "Fungible",
-                  "value": "2664320000"
-                }
-              }
-            ]
-          },
-          {
-            "type": "ClearOrigin"
-          },
-          {
-            "type": "BuyExecution",
-            "value": {
-              "fees": {
-                "id": {
-                  "type": "Concrete",
-                  "value": {
-                    "parents": 1,
-                    "interior": {
-                      "type": "Here"
-                    }
-                  }
-                },
-                "fun": {
-                  "type": "Fungible",
-                  "value": "1000000000"
-                }
-              },
-              "weight_limit": {
-                "type": "Unlimited"
-              }
-            }
-          },
-          {
-            "type": "DepositAsset",
-            "value": {
-              "assets": {
-                "type": "Wild",
-                "value": {
-                  "type": "AllCounted",
-                  "value": 1
-                }
-              },
-              "beneficiary": {
-                "parents": 0,
-                "interior": {
-                  "type": "X1",
-                  "value": {
-                    "type": "AccountId32",
-                    "value": {
-                      "id": {}
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            "type": "SetTopic",
-            "value": {}
-          }
-        ]
-      }
-    ]
-  ],
-  "destParaId": 3344,
-  "currency": "DOT"
-},
-"destination": {
-  "success": true,
-  "fee": "147295375",
-  "weight": {
-    "refTime": "5000000000",
-    "proofSize": "327680"
-  },
-  "forwardedXcms": [],
-  "currency": "DOT"
-},
-"hops": [
-  {
-    "CHAIN": "AssetHubPolkadot",
-    "result": {
-      "success": true,
-      "fee": "30980000",
-      "weight": {
-        "refTime": "576458000",
-        "proofSize": "6196"
       },
-      "forwardedXcms": [
-        {
-          "type": "V3",
-          "value": {
-            "parents": 1,
-            "interior": {
-              "type": "X1",
-              "value": {
-                "type": "Parachain",
-                "value": 3344
-              }
-            }
-          }
-        },
-        [
-          {
-            "type": "V3",
-            "value": [
-              {
-                "type": "ReserveAssetDeposited",
-                "value": [
-                  {
-                    "id": {
-                      "type": "Concrete",
-                      "value": {
-                        "parents": 1,
-                        "interior": {
-                          "type": "Here"
-                        }
-                      }
-                    },
-                    "fun": {
-                      "type": "Fungible",
-                      "value": "2664320000"
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "ClearOrigin"
-              },
-              {
-                "type": "BuyExecution",
-                "value": {
-                  "fees": {
-                    "id": {
-                      "type": "Concrete",
-                      "value": {
-                        "parents": 1,
-                        "interior": {
-                          "type": "Here"
-                        }
-                      }
-                    },
-                    "fun": {
-                      "type": "Fungible",
-                      "value": "1000000000"
-                    }
-                  },
-                  "weight_limit": {
-                    "type": "Unlimited"
-                  }
-                }
-              },
-              {
-                "type": "DepositAsset",
-                "value": {
-                  "assets": {
-                    "type": "Wild",
-                    "value": {
-                      "type": "AllCounted",
-                      "value": 1
-                    }
-                  },
-                  "beneficiary": {
-                    "parents": 0,
-                    "interior": {
-                      "type": "X1",
-                      "value": {
-                        "type": "AccountId32",
-                        "value": {
-                          "id": {}
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "type": "SetTopic",
-                "value": {}
-              }
-            ]
-          }
-        ]
-      ],
-      "destParaId": 3344,
-      "currency": "DOT"
-    }
-  }
-]
+      "isFeeAsset": true
+    },
+    "weight": {
+      "refTime": "400000000",
+      "proofSize": "0"
+    },
+    "forwardedXcms": []
+  },
+  "hops": []
 }
 ```
 
