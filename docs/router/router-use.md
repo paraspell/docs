@@ -505,36 +505,95 @@ Router now features one-click cross-chain swaps using the Execute instruction (H
         
 <summary>Two signature scenarios</summary>
 
-We suggest running this query twice. First time to get Origin > Exchange chain transfer fee and second time to get Swap + Exchange > Destination chain fee. This is because DryRun requires currency to be on selected account in order to check for result. While the currency is on origin at the start we are unable to perform the DryRun on exchange chain because user doesn't yet have the asset there. 
-
-**First query call - Origin > Exchange example:**
+Since the introduction of the dry-run bypass, this query can now be executed in a single run instead of requiring two. Previously, the dry-run stage occurred before the currency was swapped, which caused it to fail.
 
 <details>
-<summary>Example of an output for swap transfer from Astar > Hydration > ... </summary>
+<summary>Example of an output for swap transfer from Astar > BifrostPolkadot > Hydration (DOT > BNC) </summary>
 
 ```json
 {
-{
   "origin": {
-    "fee": "84865735666669748",
+    "weight": {
+      "refTime": "2838684462",
+      "proofSize": "35585"
+    },
+    "fee": "125582447270671396",
     "feeType": "dryRun",
-    "sufficient": true,
-    "currency": "ASTR"
+    "sufficient": false,
+    "currency": "BNC",
+    "asset": {
+      "assetId": "18446744073709551623",
+      "symbol": "BNC",
+      "decimals": 12,
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X2": [
+            {
+              "Parachain": 2030
+            },
+            {
+              "GeneralKey": {
+                "length": 2,
+                "data": "0x0001000000000000000000000000000000000000000000000000000000000000"
+              }
+            }
+          ]
+        }
+      },
+      "existentialDeposit": "1",
+      "isFeeAsset": true,
+      "amount": "100000000000000"
+    }
   },
   "destination": {
-    "fee": "515268509029",
+    "fee": "1779806",
     "feeType": "dryRun",
-    "currency": "HDX",
-    "isExchange": true
+    "sufficient": false,
+    "currency": "DOT",
+    "asset": {
+      "assetId": "5",
+      "symbol": "DOT",
+      "decimals": 10,
+      "existentialDeposit": "17540000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "Here": null
+        }
+      },
+      "isFeeAsset": true
+    }
   },
   "hops": [
     {
+      "chain": "BifrostPolkadot",
+      "result": {
+        "fee": "172354434911",
+        "feeType": "dryRun",
+        "currency": "BNC"
+      },
+      "isExchange": true
+    },
+    {
       "chain": "AssetHubPolkadot",
       "result": {
-        "fee": "17450",
+        "fee": "396435000",
         "feeType": "dryRun",
-        "currency": "USDT",
-        "sufficient": true
+        "currency": "DOT",
+        "asset": {
+          "assetId": "0",
+          "symbol": "DOT",
+          "decimals": 10,
+          "existentialDeposit": "1000000",
+          "location": {
+            "parents": 1,
+            "interior": {
+              "Here": null
+            }
+          },
+          "isFeeAsset": true
+        }
       }
     }
   ]
@@ -543,49 +602,6 @@ We suggest running this query twice. First time to get Origin > Exchange chain t
 
 </details>
 
-**Second query call - Swap fee + Exchange > Destination example:**
-
-<details>
-<summary> Notes regarding the second query call</summary>
-
-We are unable to perform XCM DryRun because the asset is not exchanged yet thus fees for XCM are estimated in payment info. 
-
-The origin fee is **exchangeChain.fee + receivingChain.origin.fee**
-
-The destination fee is **receivingChain.destination.fee**
-
-In some occasions user has the exchanged asset already so DryRun might be also performed for receivingChain.origin.fee parameter. This will result in more precise fees, but they shouldn't differ too much in general - The switch between DryRun and PaymentInfo is automatic and internal so no action from your side required (DryRun is always performed first and only if it fails we switch to PaymentInfo).
-
-</details>
-
-<details>
-<summary>Example of an output for swap transfer from ... > BifrostPolkadotDex > Moonbeam </summary>
-
-```json
-{
-  "exchangeChain": {
-    "fee": "19468364",
-    "feeType": "dryRun",
-    "currency": "DOT",
-    "selectedExchange": "AssetHubPolkadotDex"
-  },
-  "receivingChain": {
-    "origin": {
-      "fee": "733054560",
-      "feeType": "paymentInfo",
-      "currency": "DOT",
-      "dryRunError": "LocalExecutionIncomplete"
-    },
-    "destination": {
-      "fee": "44916179205536000",
-      "feeType": "paymentInfo",
-      "currency": "GLMR"
-    }
-  }
-}
-```
-
-</details>
 </details>
 
 **Initial setup:**
