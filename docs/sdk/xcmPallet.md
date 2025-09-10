@@ -1165,6 +1165,303 @@ const builder = await Builder({
 
 </details>
 
+## Preview your call results
+
+Using preview with dry-run you can find out the result of the call for fictional amount of the currency. Essentially allowing you to demo calls with custom asset amounts. 
+
+```ts
+const result = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
+        .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .currency(CURRENCY_SPEC) // Refer to currency spec options below
+        .address(ADDRESS)
+        .senderAddress(SENDER_ADDRESS)
+        .dryRunPreview(/*{ mintFeeAssets: true } - false by default - Mints fee assets also, if user does not have enough to cover fees on origin.*/)
+```
+
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} // Recommended
+{location: AssetLocationJson, amount: amount} // Recommended 
+{location: Override('Custom Location'), amount: amount} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+```
+
+  </details>
+
+**Possible output objects:**
+
+<details>
+<summary>The dryrun will return following objects</summary>
+
+```
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
+```
+
+</details>
+
+**Example output:**
+
+<details>
+<summary>Example of an output for transfer of 10 KSM - Encointer > AssetHubKusama</summary>
+
+```json
+{
+  "origin": {
+    "success": true,
+    "fee": "122500000",
+    "currency": "KSM",
+    "asset": {
+      "symbol": "KSM",
+      "isNative": true,
+      "decimals": 12,
+      "existentialDeposit": "3333333",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "Here": null
+        }
+      },
+      "isFeeAsset": true,
+      "amount": "10000000000000"
+    },
+    "weight": {
+      "refTime": "1169101894",
+      "proofSize": "14610"
+    },
+    "forwardedXcms": [
+      {
+        "type": "V3",
+        "value": {
+          "parents": 1,
+          "interior": {
+            "type": "X1",
+            "value": {
+              "type": "Parachain",
+              "value": 1001
+            }
+          }
+        }
+      },
+      [
+        {
+          "type": "V3",
+          "value": [
+            {
+              "type": "ReceiveTeleportedAsset",
+              "value": [
+                {
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 1,
+                      "interior": {
+                        "type": "Here"
+                      }
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "10000000000000"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClearOrigin"
+            },
+            {
+              "type": "BuyExecution",
+              "value": {
+                "fees": {
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 1,
+                      "interior": {
+                        "type": "Here"
+                      }
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "10000000000000"
+                  }
+                },
+                "weight_limit": {
+                  "type": "Unlimited"
+                }
+              }
+            },
+            {
+              "type": "DepositAsset",
+              "value": {
+                "assets": {
+                  "type": "Wild",
+                  "value": {
+                    "type": "AllCounted",
+                    "value": 1
+                  }
+                },
+                "beneficiary": {
+                  "parents": 0,
+                  "interior": {
+                    "type": "X1",
+                    "value": {
+                      "type": "AccountId32",
+                      "value": {
+                        "id": {}
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "SetTopic",
+              "value": {}
+            }
+          ]
+        }
+      ]
+    ],
+    "destParaId": 1001
+  },
+  "destination": {
+    "success": true,
+    "fee": "119766667",
+    "currency": "KSM",
+    "asset": {
+      "symbol": "KSM",
+      "isNative": true,
+      "decimals": 12,
+      "existentialDeposit": "33333333",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "Here": null
+        }
+      },
+      "isFeeAsset": true
+    },
+    "weight": {
+      "refTime": "164650000",
+      "proofSize": "3593"
+    },
+    "forwardedXcms": []
+  },
+  "hops": []
+}
+```
+
+</details>
+
+**Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+</details>
+
+**Advanced settings**
+<details>
+<summary>You can add following details to the builder to further customize your call</summary>
+
+```ts
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+```
+
+</details>
+
 ## Localhost testing setup
 
 SDK offers enhanced localhost support. You can pass an object containing overrides for all WS endpoints (Including hops) used in the test transfer. This allows for advanced localhost testing such as localhost dry-run or xcm-fee queries.

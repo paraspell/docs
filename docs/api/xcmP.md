@@ -950,6 +950,139 @@ const response = await fetch('http://localhost:3001/v4/dry-run', {
   }),
 ```
 
+## Dry run preview
+Using preview with dry-run you can find out the result of the call for fictional amount of the currency. Essentially allowing you to demo calls with custom asset amounts. 
+
+**Endpoint**: `POST /v4/dry-run-preview`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+  - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+    
+  </details>
+
+  <details>
+  <summary><b>Possible output objects</b></summary>
+
+```
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
+
+```ts
+// Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+```
+  
+  </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mintFeeAssets: true //false by default - Mints fee assets also, if user does not have enough to cover fees on origin
+})
+```
+
+</details>
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v4/dry-run-preview', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
+    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Location
+    currency: { currencySpec }, // Refer to currency spec options above
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+  }),
+```
+
 ## Localhost testing setup
 
 API offers enhanced localhost support. You can pass an object called options containing overrides for all WS endpoints (Including hops) used in the test transfer. This allows for advanced localhost testing such as localhost dry-run or xcm-fee queries.
