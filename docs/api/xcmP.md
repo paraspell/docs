@@ -1430,6 +1430,138 @@ const response = await fetch(
   }),
 ```
 
+## Minimal transferable amount
+You can use the minimal transferable balance to retrieve information on minimum of the selected currency can be transferred from a specific account to specific destination, so that the ED and destination or origin fee is paid fully.
+
+**Endpoint**: `POST /v4/min-transferable-amount`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+  - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+    
+  </details>
+
+  <details>
+  <summary><b>Notes</b> </summary>
+
+ This query will calculate minimal transferable balance using the following formulae: 
+
+**(Origin Balance - if(Balance on destination = 0) then also substract destination ED(Existential deposit) - if(Asset=native) then also substract Origin XCM Fees - hop fees (If present) - destination XCM fee) +1**
+
+**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will go through). Chains that do not have support for dryrun will return error in this query.
+
+
+  </details>
+
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
+
+```ts
+// Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+```
+  
+  </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
+**Example of request:**
+```ts
+const response = await fetch(
+  'http://localhost:3001/v4/min-transferable-amount' , {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },  
+    from: 'Parachain', // Replace "Parachain" with sender Parachain or Relay chain, e.g., "Acala"
+    to: 'Parachain', // Replace "Parachain" with destination Parachain or Relay chain, e.g., "Moonbeam" or custom Location
+    currency: { currencySpec }, // Refer to currency spec options above
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+  }),
+```
+
 ## Verify ED on destination
 To retrieve information on whether the selected currency from specific account will meet existential deposit on destination chain you can use this query. 
 
