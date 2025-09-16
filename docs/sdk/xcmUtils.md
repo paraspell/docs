@@ -276,6 +276,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -283,7 +292,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
@@ -428,6 +438,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -435,7 +454,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
@@ -579,6 +599,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -586,7 +615,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
@@ -729,6 +759,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -736,7 +775,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
@@ -957,6 +997,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -964,7 +1013,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
@@ -1158,6 +1208,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -1165,7 +1224,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
@@ -1368,6 +1428,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -1375,7 +1444,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
@@ -1541,6 +1611,15 @@ const builder = await Builder({
 })
 ```
 
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
 
 **Example of builder configuration:**
 
@@ -1548,7 +1627,8 @@ Following example has every option enabled.
 ```ts
 const builder = await Builder({
   development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
     AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/

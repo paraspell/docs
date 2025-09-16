@@ -94,12 +94,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -178,12 +179,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -314,12 +316,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -491,12 +494,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -549,12 +553,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -593,12 +598,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -636,12 +642,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -714,12 +721,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -922,12 +930,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -1125,12 +1134,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -1271,12 +1281,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -1402,12 +1413,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -1534,12 +1546,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -1665,12 +1678,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -1809,12 +1823,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -1938,12 +1953,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -2081,12 +2097,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
@@ -2205,12 +2222,13 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
     BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  }
+  },
   mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
 })
 ```
