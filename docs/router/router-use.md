@@ -375,35 +375,30 @@ Router now features one-click cross-chain swaps using the Execute instruction (H
     "fee": "46696677064",
     "feeType": "dryRun",
     "sufficient": false,
-    "currency": "USDT",
+    "currency": "HDX",
     "asset": {
-      "assetId": "10",
-      "symbol": "USDT",
-      "decimals": 6,
-      "existentialDeposit": "10000",
+      "symbol": "HDX",
+      "isNative": true,
+      "decimals": 12,
+      "existentialDeposit": "1000000000000",
       "location": {
         "parents": 1,
         "interior": {
-          "X3": [
+          "X2": [
             {
-              "Parachain": 1000
+              "Parachain": 2034
             },
             {
-              "PalletInstance": 50
-            },
-            {
-              "GeneralIndex": 1984
+              "GeneralIndex": 0
             }
           ]
         }
       },
-      "isFeeAsset": true,
-      "alias": "USDT1",
-      "amount": "10000000"
+      "isFeeAsset": true
     }
   },
   "assetHub": {
-    "fee": "4015851",
+    "fee": "189772",
     "feeType": "dryRun",
     "currency": "USDT",
     "asset": {
@@ -464,7 +459,7 @@ Router now features one-click cross-chain swaps using the Execute instruction (H
     {
       "chain": "AssetHubPolkadot",
       "result": {
-        "fee": "4015851",
+        "fee": "189772",
         "feeType": "dryRun",
         "currency": "USDT",
         "asset": {
@@ -508,7 +503,7 @@ Router now features one-click cross-chain swaps using the Execute instruction (H
 Since the introduction of the dry-run bypass, this query can now be executed in a single run instead of requiring two. Previously, the dry-run stage occurred before the currency was swapped, which caused it to fail.
 
 <details>
-<summary>Example of an output for swap transfer from Astar > BifrostPolkadot > Hydration (DOT > BNC) </summary>
+<summary>Example of an output for swap transfer from Astar > BifrostPolkadot > Hydration (BNC > DOT) </summary>
 
 ```json
 {
@@ -520,34 +515,26 @@ Since the introduction of the dry-run bypass, this query can now be executed in 
     "fee": "125582447270671396",
     "feeType": "dryRun",
     "sufficient": false,
-    "currency": "BNC",
+    "currency": "ASTR",
     "asset": {
-      "assetId": "18446744073709551623",
-      "symbol": "BNC",
-      "decimals": 12,
+      "symbol": "ASTR",
+      "isNative": true,
+      "decimals": 18,
+      "existentialDeposit": "1000000",
       "location": {
         "parents": 1,
         "interior": {
-          "X2": [
+          "X1": [
             {
-              "Parachain": 2030
-            },
-            {
-              "GeneralKey": {
-                "length": 2,
-                "data": "0x0001000000000000000000000000000000000000000000000000000000000000"
-              }
+              "Parachain": 2006
             }
           ]
         }
-      },
-      "existentialDeposit": "1",
-      "isFeeAsset": true,
-      "amount": "100000000000000"
+      }
     }
   },
   "destination": {
-    "fee": "1779806",
+    "fee": "1722004",
     "feeType": "dryRun",
     "sufficient": false,
     "currency": "DOT",
@@ -569,7 +556,7 @@ Since the introduction of the dry-run bypass, this query can now be executed in 
     {
       "chain": "BifrostPolkadot",
       "result": {
-        "fee": "172354434911",
+        "fee": "172338434911",
         "feeType": "dryRun",
         "currency": "BNC"
       },
@@ -578,8 +565,9 @@ Since the introduction of the dry-run bypass, this query can now be executed in 
     {
       "chain": "AssetHubPolkadot",
       "result": {
-        "fee": "396435000",
+        "fee": "1832430000",
         "feeType": "dryRun",
+        "sufficient": false,
         "currency": "DOT",
         "asset": {
           "assetId": "0",
