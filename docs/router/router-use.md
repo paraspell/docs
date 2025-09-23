@@ -363,7 +363,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 Router now features one-click cross-chain swaps using the Execute instruction (HydrationDex & AssetHubPolkadotDex). This allows us to get precise dry-run fee results for everything in one function call. 
 
 <details>
-<summary>Example of an output for swap transfer from Hydration > AssetHubPolkadotDex > Astar</summary>
+<summary>Example of an output for swap transfer (USDT -> USDC) from Hydration > AssetHubPolkadotDex > Astar </summary>
 
 ```json
 {
@@ -503,7 +503,7 @@ Router now features one-click cross-chain swaps using the Execute instruction (H
 Since the introduction of the dry-run bypass, this query can now be executed in a single run instead of requiring two. Previously, the dry-run stage occurred before the currency was swapped, which caused it to fail.
 
 <details>
-<summary>Example of an output for swap transfer from Astar > BifrostPolkadot > Hydration (BNC > DOT) </summary>
+<summary>Example of an output for swap transfer (BNC -> DOT) from Astar > BifrostPolkadot > Hydration  </summary>
 
 ```json
 {
