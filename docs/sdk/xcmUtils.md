@@ -25,34 +25,34 @@ const info = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -328,34 +328,34 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -489,34 +489,34 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -649,34 +649,34 @@ const ed = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -814,34 +814,34 @@ const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,.
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -1049,34 +1049,34 @@ const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,.
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -1265,34 +1265,34 @@ const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,.
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -1479,34 +1479,34 @@ const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,.
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 Asset selection of multiple assets:
 ```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
   </details>
@@ -1664,29 +1664,29 @@ const balance = await getAssetBalance({address, CHAIN, CURRENCY_SPEC /*Refer to 
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+{location: AssetLocationString, amount: amount } //Recommended
+{location: AssetLocationJson, amount: amount } //Recommended 
+{location: Override('Custom Location'), amount: amount } //Advanced override of asset registry
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Not all chains register assets under IDs
+{id: currencyID, amount: amount } // Not all chains register assets under IDs
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol, amount: amount } 
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount}
+{symbol: Native('currencySymbol'), amount: amount }
 
 // Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount} 
+{symbol: Foreign('currencySymbol'), amount: amount } 
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount} 
+{symbol: ForeignAbstract('currencySymbol'), amount: amount } 
 ```
 
   </details>
