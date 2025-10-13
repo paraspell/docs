@@ -31,7 +31,7 @@ Totaling to 556 pools available for cross-chain swap transactions.
 If you wish to have an exchange chain selection based on the best price outcome, you can opt for the automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. The router will then automatically select the best exchange chain for you based on the best price outcome.
 
 ```ts
-await RouterBuilder()
+await RouterBuilder(/* builder_config - Optional*/)
         .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
@@ -81,10 +81,37 @@ Asset selection by asset Symbol:
 
   </details>
 
-  **Builder configuration**
+**Builder configuration**
 
 <details>
 <summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
 
 **Decimal abstraction:**
 
@@ -100,13 +127,28 @@ const builder = await RouterBuilder({
 })
 ```
 
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
 </details>
 
 ## Whitelist exchange selection
 If you wish to have specific exchanges selection and select the best one among them based on the best price outcome, you can opt for the whitelist automatic exchange selection method. This method can be selected by **using** `.exchange()` parameter in the call and feeding it with **array of exchanges**. The router will then automatically select the best exchange chain for you based on the best price outcome.
 
 ```ts
-await RouterBuilder()
+await RouterBuilder(/* builder_config - Optional*/)
         .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .exchange(['HydrationDex','AcalaDex','AssetHubPolkadotDex'])    //Exchange Parachains
         .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
@@ -157,10 +199,37 @@ Asset selection by asset Symbol:
 
   </details>
 
-  **Builder configuration**
+**Builder configuration**
 
 <details>
 <summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
 
 **Decimal abstraction:**
 
@@ -176,13 +245,28 @@ const builder = await RouterBuilder({
 })
 ```
 
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
 </details>
 
 ## Manual exchange selection
 If you wish to select your exchange chain manually you can do that by providing additional parameter `.exchange()` in the call. The router will then use the exchange chain of your choice.
 
 ```ts
-await RouterBuilder()
+await RouterBuilder(/* builder_config - Optional*/)
         .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .exchange('HydrationDex')    //Exchange Parachain
         .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
@@ -233,10 +317,37 @@ Asset selection by asset Symbol:
 
   </details>
 
-  **Builder configuration**
+**Builder configuration**
 
 <details>
 <summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
 
 **Decimal abstraction:**
 
@@ -252,7 +363,23 @@ const builder = await RouterBuilder({
 })
 ```
 
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
 </details>
+
 
 ## Get amount out for your currency pair
 
@@ -299,10 +426,37 @@ Asset selection by asset Symbol:
 
   </details>
 
-  **Builder configuration**
+**Builder configuration**
 
 <details>
 <summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
 
 **Decimal abstraction:**
 
@@ -318,6 +472,21 @@ const builder = await RouterBuilder({
 })
 ```
 
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
 </details>
 
 ## Get Router fees
@@ -325,7 +494,7 @@ const builder = await RouterBuilder({
 You can retrieve fees for all operations XCM Router performs. Keep in mind, that they are not as accurate for transfer from exchange to destination as the currency that is planned to be routed after the swap is not yet available on that account (Thus it uses payment info method instead of dryrun in that scenario).
 
 ```ts
-const fees = await RouterBuilder()
+const fees = await RouterBuilder(/* builder_config - Optional*/)
       .from(from) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
       .exchange(exchange) //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
       .to(to) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
@@ -619,10 +788,37 @@ Asset selection by asset Symbol:
 
   </details>
 
-  **Builder configuration**
+**Builder configuration**
 
 <details>
 <summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
 
 **Decimal abstraction:**
 
@@ -635,6 +831,21 @@ Types in amount parameter are **(number | string | bigint)**. If bigint is provi
 ```ts
 const builder = await RouterBuilder({
   abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
 })
 ```
 

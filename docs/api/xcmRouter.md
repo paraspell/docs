@@ -107,6 +107,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
   - `recipientAddress`: (required): Specifies the address of the recipient.
   - `injectorAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  - `options`: (optional): Configuration options for the API
 
   </details>
 
@@ -208,6 +209,7 @@ If you wish to have exchange chain selection based on best price outcome from se
   - `recipientAddress`: (required): Specifies the address of the recipient.
   - `injectorAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  - `options`: (optional): Configuration options for the API
 
   </details>
 
@@ -279,14 +281,20 @@ Asset selection by asset Symbol:
 
 </details>
 
-<details>
+  <details>
 <summary><b>Advanced API settings</b></summary>
 
 You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
 
 ```ts
 options: ({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
 })
 ```
 
@@ -311,6 +319,7 @@ If you wish to select your exchange chain manually you can do that by providing 
   - `recipientAddress`: (required): Specifies the address of the recipient.
   - `injectorAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  - `options`: (optional): Configuration options for the API
 
   </details>
 
@@ -382,14 +391,20 @@ Asset selection by asset Symbol:
 
 </details>
 
-<details>
+  <details>
 <summary><b>Advanced API settings</b></summary>
 
 You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
 
 ```ts
 options: ({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
 })
 ```
 
@@ -410,6 +425,8 @@ If you wish to find out what is the `best amount out` from specified dex or from
   - `currencyFrom`: (required): Represents the asset being sent.
   - `currencyTo`: (required): Represents the asset being received. 
   - `amount`: (required): Specifies the amount of assets to transfer.
+  - `options`: (optional): Configuration options for the API
+
 
   </details>
 
@@ -473,14 +490,20 @@ Asset selection by asset Symbol:
 
 </details>
 
-<details>
+  <details>
 <summary><b>Advanced API settings</b></summary>
 
 You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
 
 ```ts
 options: ({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
 })
 ```
 
@@ -505,6 +528,7 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
   - `recipientAddress`: (required): Specifies the address of the recipient.
   - `injectorAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
+  - `options`: (optional): Configuration options for the API
 
   </details>
 
@@ -576,18 +600,25 @@ Asset selection by asset Symbol:
 
 </details>
 
-<details>
+  <details>
 <summary><b>Advanced API settings</b></summary>
 
 You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
 
 ```ts
 options: ({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
 })
 ```
 
 </details>
+
 
 ## Asset pairs
 
