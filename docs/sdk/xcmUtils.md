@@ -100,8 +100,8 @@ hops - Always present - An array of chains that the transfer hops through (Empty
   "origin": {
     "selectedCurrency": {
       "sufficient": false,
-      "balance": "1801745",
-      "balanceAfter": "-8198255",
+      "balance": "5795898",
+      "balanceAfter": "-4204102",
       "currencySymbol": "USDC",
       "asset": {
         "assetId": "1337",
@@ -131,34 +131,22 @@ hops - Always present - An array of chains that the transfer hops through (Empty
     },
     "xcmFee": {
       "sufficient": true,
-      "fee": "346838364",
-      "balance": "40571369517",
-      "balanceAfter": "40224531153",
-      "currencySymbol": "USDC",
+      "fee": "322620364",
+      "balance": "22410175636",
+      "balanceAfter": "22087555272",
+      "currencySymbol": "DOT",
       "asset": {
-        "assetId": "1337",
-        "symbol": "USDC",
-        "decimals": 6,
+        "symbol": "DOT",
+        "isNative": true,
+        "decimals": 10,
+        "existentialDeposit": "100000000",
         "location": {
           "parents": 1,
           "interior": {
-            "X3": [
-              {
-                "Parachain": 1000
-              },
-              {
-                "PalletInstance": 50
-              },
-              {
-                "GeneralIndex": 1337
-              }
-            ]
+            "Here": null
           }
         },
-        "existentialDeposit": "10000",
-        "isFeeAsset": true,
-        "alias": "USDC1",
-        "amount": "10000000"
+        "isFeeAsset": true
       }
     }
   },
@@ -166,9 +154,9 @@ hops - Always present - An array of chains that the transfer hops through (Empty
   "destination": {
     "receivedCurrency": {
       "sufficient": true,
-      "receivedAmount": "9987572",
+      "receivedAmount": "9988821",
       "balance": "530221",
-      "balanceAfter": "10517793",
+      "balanceAfter": "10519042",
       "currencySymbol": "USDC",
       "asset": {
         "assetId": "5",
@@ -196,9 +184,9 @@ hops - Always present - An array of chains that the transfer hops through (Empty
       "existentialDeposit": "1000"
     },
     "xcmFee": {
-      "fee": "12428",
+      "fee": "11179",
       "balance": "530221",
-      "balanceAfter": "10517793",
+      "balanceAfter": "10519042",
       "currencySymbol": "USDC",
       "asset": {
         "assetId": "5",
@@ -787,6 +775,153 @@ const builder = await Builder({
 
 </details>
 
+## Predicted received amount
+You can predict the amount to be received on destination, granted, that the destination chain and hops have dry-run.
+
+```ts
+const transferable = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
+          .address(RECIPIENT_ADDRESS)
+          .senderAddress(SENDER_ADDRESS)
+          .getReceivableAmount()
+```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
+```
+
+  </details>
+
+  <details>
+
+  <summary>Advanced settings</summary>
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
+```
+  
+  </details>
+
+**Example output:**
+
+```json
+"3329236337"
+```
+
+**Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+</details>
 
 ## XCM Fee (Origin and Dest.)
 The following queries allow you to query the fee from both the Origin and Destination of the XCM Message. You can get an accurate result from the DryRun query (Requires token balance) or a less accurate result from the Payment info query (Doesn't require token balance).
