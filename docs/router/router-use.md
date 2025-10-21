@@ -380,6 +380,1359 @@ const builder = await RouterBuilder({
 
 </details>
 
+## Dry run your Router calls
+Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` at the end.
+
+```ts
+const result = await RouterBuilder()
+      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .amount(10000000000n)
+      .dryRun();
+```
+
+**Possible output objects:**
+
+<details>
+<summary>The dryrun will return following objects</summary>
+
+```
+origin - Always present
+assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
+destination - Present if origin doesn't fail
+hops - Always present - An array of chains that the transfer hops through (Empty if none)
+```
+
+</details>
+
+**Example output:**
+
+<details>
+<summary>Example of an output for transfer and swap of 1 DOT into USDC - AssetHub > Hydration > BifrostPolkadot</summary>
+
+```json
+{
+  "origin": {
+    "success": true,
+    "fee": "24846864",
+    "currency": "DOT",
+    "asset": {
+      "symbol": "DOT",
+      "isNative": true,
+      "decimals": 10,
+      "existentialDeposit": "100000000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "Here": null
+        }
+      },
+      "isFeeAsset": true
+    },
+    "weight": {
+      "refTime": "1273149000",
+      "proofSize": "9149"
+    },
+    "forwardedXcms": [
+      {
+        "type": "V3",
+        "value": {
+          "parents": 1,
+          "interior": {
+            "type": "X1",
+            "value": {
+              "type": "Parachain",
+              "value": 2034
+            }
+          }
+        }
+      },
+      [
+        {
+          "type": "V3",
+          "value": [
+            {
+              "type": "ReserveAssetDeposited",
+              "value": [
+                {
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 1,
+                      "interior": {
+                        "type": "Here"
+                      }
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "10000000000"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClearOrigin"
+            },
+            {
+              "type": "BuyExecution",
+              "value": {
+                "fees": {
+                  "id": {
+                    "type": "Concrete",
+                    "value": {
+                      "parents": 1,
+                      "interior": {
+                        "type": "Here"
+                      }
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "10000000000"
+                  }
+                },
+                "weight_limit": {
+                  "type": "Unlimited"
+                }
+              }
+            },
+            {
+              "type": "ExchangeAsset",
+              "value": {
+                "give": {
+                  "type": "Wild",
+                  "value": {
+                    "type": "AllOf",
+                    "value": {
+                      "id": {
+                        "type": "Concrete",
+                        "value": {
+                          "parents": 1,
+                          "interior": {
+                            "type": "Here"
+                          }
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible"
+                      }
+                    }
+                  }
+                },
+                "want": [
+                  {
+                    "id": {
+                      "type": "Concrete",
+                      "value": {
+                        "parents": 1,
+                        "interior": {
+                          "type": "X3",
+                          "value": [
+                            {
+                              "type": "Parachain",
+                              "value": 1000
+                            },
+                            {
+                              "type": "PalletInstance",
+                              "value": 50
+                            },
+                            {
+                              "type": "GeneralIndex",
+                              "value": "1337"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "fun": {
+                      "type": "Fungible",
+                      "value": "2970398"
+                    }
+                  }
+                ],
+                "maximal": false
+              }
+            },
+            {
+              "type": "InitiateReserveWithdraw",
+              "value": {
+                "assets": {
+                  "type": "Wild",
+                  "value": {
+                    "type": "AllOf",
+                    "value": {
+                      "id": {
+                        "type": "Concrete",
+                        "value": {
+                          "parents": 1,
+                          "interior": {
+                            "type": "X3",
+                            "value": [
+                              {
+                                "type": "Parachain",
+                                "value": 1000
+                              },
+                              {
+                                "type": "PalletInstance",
+                                "value": 50
+                              },
+                              {
+                                "type": "GeneralIndex",
+                                "value": "1337"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible"
+                      }
+                    }
+                  }
+                },
+                "reserve": {
+                  "parents": 1,
+                  "interior": {
+                    "type": "X1",
+                    "value": {
+                      "type": "Parachain",
+                      "value": 1000
+                    }
+                  }
+                },
+                "xcm": [
+                  {
+                    "type": "BuyExecution",
+                    "value": {
+                      "fees": {
+                        "id": {
+                          "type": "Concrete",
+                          "value": {
+                            "parents": 0,
+                            "interior": {
+                              "type": "X2",
+                              "value": [
+                                {
+                                  "type": "PalletInstance",
+                                  "value": 50
+                                },
+                                {
+                                  "type": "GeneralIndex",
+                                  "value": "1337"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "fun": {
+                          "type": "Fungible",
+                          "value": "2970396"
+                        }
+                      },
+                      "weight_limit": {
+                        "type": "Unlimited"
+                      }
+                    }
+                  },
+                  {
+                    "type": "DepositReserveAsset",
+                    "value": {
+                      "assets": {
+                        "type": "Wild",
+                        "value": {
+                          "type": "AllOf",
+                          "value": {
+                            "id": {
+                              "type": "Concrete",
+                              "value": {
+                                "parents": 0,
+                                "interior": {
+                                  "type": "X2",
+                                  "value": [
+                                    {
+                                      "type": "PalletInstance",
+                                      "value": 50
+                                    },
+                                    {
+                                      "type": "GeneralIndex",
+                                      "value": "1337"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "fun": {
+                              "type": "Fungible"
+                            }
+                          }
+                        }
+                      },
+                      "dest": {
+                        "parents": 1,
+                        "interior": {
+                          "type": "X1",
+                          "value": {
+                            "type": "Parachain",
+                            "value": 2030
+                          }
+                        }
+                      },
+                      "xcm": [
+                        {
+                          "type": "BuyExecution",
+                          "value": {
+                            "fees": {
+                              "id": {
+                                "type": "Concrete",
+                                "value": {
+                                  "parents": 1,
+                                  "interior": {
+                                    "type": "X3",
+                                    "value": [
+                                      {
+                                        "type": "Parachain",
+                                        "value": 1000
+                                      },
+                                      {
+                                        "type": "PalletInstance",
+                                        "value": 50
+                                      },
+                                      {
+                                        "type": "GeneralIndex",
+                                        "value": "1337"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "fun": {
+                                "type": "Fungible",
+                                "value": "2837130"
+                              }
+                            },
+                            "weight_limit": {
+                              "type": "Unlimited"
+                            }
+                          }
+                        },
+                        {
+                          "type": "DepositAsset",
+                          "value": {
+                            "assets": {
+                              "type": "Wild",
+                              "value": {
+                                "type": "AllOf",
+                                "value": {
+                                  "id": {
+                                    "type": "Concrete",
+                                    "value": {
+                                      "parents": 1,
+                                      "interior": {
+                                        "type": "X3",
+                                        "value": [
+                                          {
+                                            "type": "Parachain",
+                                            "value": 1000
+                                          },
+                                          {
+                                            "type": "PalletInstance",
+                                            "value": 50
+                                          },
+                                          {
+                                            "type": "GeneralIndex",
+                                            "value": "1337"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "fun": {
+                                    "type": "Fungible"
+                                  }
+                                }
+                              }
+                            },
+                            "beneficiary": {
+                              "parents": 0,
+                              "interior": {
+                                "type": "X1",
+                                "value": {
+                                  "type": "AccountId32",
+                                  "value": {
+                                    "id": {}
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SetTopic",
+              "value": {}
+            }
+          ]
+        }
+      ]
+    ],
+    "destParaId": 2034
+  },
+  "assetHub": {
+    "success": true,
+    "fee": "111057",
+    "currency": "USDC",
+    "asset": {
+      "assetId": "1337",
+      "symbol": "USDC",
+      "decimals": 6,
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1337
+            }
+          ]
+        }
+      },
+      "existentialDeposit": "10000",
+      "isFeeAsset": true,
+      "alias": "USDC1"
+    },
+    "weight": {
+      "refTime": "1370970000",
+      "proofSize": "11257"
+    },
+    "forwardedXcms": [
+      {
+        "type": "V4",
+        "value": {
+          "parents": 1,
+          "interior": {
+            "type": "X1",
+            "value": {
+              "type": "Parachain",
+              "value": 2030
+            }
+          }
+        }
+      },
+      [
+        {
+          "type": "V4",
+          "value": [
+            {
+              "type": "ReserveAssetDeposited",
+              "value": [
+                {
+                  "id": {
+                    "parents": 1,
+                    "interior": {
+                      "type": "X3",
+                      "value": [
+                        {
+                          "type": "Parachain",
+                          "value": 1000
+                        },
+                        {
+                          "type": "PalletInstance",
+                          "value": 50
+                        },
+                        {
+                          "type": "GeneralIndex",
+                          "value": "1337"
+                        }
+                      ]
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "2859047"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClearOrigin"
+            },
+            {
+              "type": "BuyExecution",
+              "value": {
+                "fees": {
+                  "id": {
+                    "parents": 1,
+                    "interior": {
+                      "type": "X3",
+                      "value": [
+                        {
+                          "type": "Parachain",
+                          "value": 1000
+                        },
+                        {
+                          "type": "PalletInstance",
+                          "value": 50
+                        },
+                        {
+                          "type": "GeneralIndex",
+                          "value": "1337"
+                        }
+                      ]
+                    }
+                  },
+                  "fun": {
+                    "type": "Fungible",
+                    "value": "2837130"
+                  }
+                },
+                "weight_limit": {
+                  "type": "Unlimited"
+                }
+              }
+            },
+            {
+              "type": "DepositAsset",
+              "value": {
+                "assets": {
+                  "type": "Wild",
+                  "value": {
+                    "type": "AllOf",
+                    "value": {
+                      "id": {
+                        "parents": 1,
+                        "interior": {
+                          "type": "X3",
+                          "value": [
+                            {
+                              "type": "Parachain",
+                              "value": 1000
+                            },
+                            {
+                              "type": "PalletInstance",
+                              "value": 50
+                            },
+                            {
+                              "type": "GeneralIndex",
+                              "value": "1337"
+                            }
+                          ]
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible"
+                      }
+                    }
+                  }
+                },
+                "beneficiary": {
+                  "parents": 0,
+                  "interior": {
+                    "type": "X1",
+                    "value": {
+                      "type": "AccountId32",
+                      "value": {
+                        "id": {}
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "SetTopic",
+              "value": {}
+            }
+          ]
+        }
+      ]
+    ],
+    "destParaId": 2030
+  },
+  "destination": {
+    "success": true,
+    "fee": "10685",
+    "currency": "USDC",
+    "asset": {
+      "assetId": "5",
+      "symbol": "USDC",
+      "decimals": 6,
+      "existentialDeposit": "1000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1337
+            }
+          ]
+        }
+      },
+      "isFeeAsset": true
+    },
+    "weight": {
+      "refTime": "164940000",
+      "proofSize": "0"
+    },
+    "forwardedXcms": []
+  },
+  "hops": [
+    {
+      "chain": "Hydration",
+      "result": {
+        "success": true,
+        "fee": "171018194",
+        "currency": "DOT",
+        "asset": {
+          "assetId": "5",
+          "symbol": "DOT",
+          "decimals": 10,
+          "existentialDeposit": "17540000",
+          "location": {
+            "parents": 1,
+            "interior": {
+              "Here": null
+            }
+          },
+          "isFeeAsset": true
+        },
+        "weight": {
+          "refTime": "49757539337",
+          "proofSize": "489799"
+        },
+        "forwardedXcms": [
+          {
+            "type": "V4",
+            "value": {
+              "parents": 1,
+              "interior": {
+                "type": "X1",
+                "value": {
+                  "type": "Parachain",
+                  "value": 1000
+                }
+              }
+            }
+          },
+          [
+            {
+              "type": "V4",
+              "value": [
+                {
+                  "type": "WithdrawAsset",
+                  "value": [
+                    {
+                      "id": {
+                        "parents": 0,
+                        "interior": {
+                          "type": "X2",
+                          "value": [
+                            {
+                              "type": "PalletInstance",
+                              "value": 50
+                            },
+                            {
+                              "type": "GeneralIndex",
+                              "value": "1337"
+                            }
+                          ]
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible",
+                        "value": "2970398"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "ClearOrigin"
+                },
+                {
+                  "type": "BuyExecution",
+                  "value": {
+                    "fees": {
+                      "id": {
+                        "parents": 0,
+                        "interior": {
+                          "type": "X2",
+                          "value": [
+                            {
+                              "type": "PalletInstance",
+                              "value": 50
+                            },
+                            {
+                              "type": "GeneralIndex",
+                              "value": "1337"
+                            }
+                          ]
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible",
+                        "value": "2970396"
+                      }
+                    },
+                    "weight_limit": {
+                      "type": "Unlimited"
+                    }
+                  }
+                },
+                {
+                  "type": "DepositReserveAsset",
+                  "value": {
+                    "assets": {
+                      "type": "Wild",
+                      "value": {
+                        "type": "AllOf",
+                        "value": {
+                          "id": {
+                            "parents": 0,
+                            "interior": {
+                              "type": "X2",
+                              "value": [
+                                {
+                                  "type": "PalletInstance",
+                                  "value": 50
+                                },
+                                {
+                                  "type": "GeneralIndex",
+                                  "value": "1337"
+                                }
+                              ]
+                            }
+                          },
+                          "fun": {
+                            "type": "Fungible"
+                          }
+                        }
+                      }
+                    },
+                    "dest": {
+                      "parents": 1,
+                      "interior": {
+                        "type": "X1",
+                        "value": {
+                          "type": "Parachain",
+                          "value": 2030
+                        }
+                      }
+                    },
+                    "xcm": [
+                      {
+                        "type": "BuyExecution",
+                        "value": {
+                          "fees": {
+                            "id": {
+                              "parents": 1,
+                              "interior": {
+                                "type": "X3",
+                                "value": [
+                                  {
+                                    "type": "Parachain",
+                                    "value": 1000
+                                  },
+                                  {
+                                    "type": "PalletInstance",
+                                    "value": 50
+                                  },
+                                  {
+                                    "type": "GeneralIndex",
+                                    "value": "1337"
+                                  }
+                                ]
+                              }
+                            },
+                            "fun": {
+                              "type": "Fungible",
+                              "value": "2837130"
+                            }
+                          },
+                          "weight_limit": {
+                            "type": "Unlimited"
+                          }
+                        }
+                      },
+                      {
+                        "type": "DepositAsset",
+                        "value": {
+                          "assets": {
+                            "type": "Wild",
+                            "value": {
+                              "type": "AllOf",
+                              "value": {
+                                "id": {
+                                  "parents": 1,
+                                  "interior": {
+                                    "type": "X3",
+                                    "value": [
+                                      {
+                                        "type": "Parachain",
+                                        "value": 1000
+                                      },
+                                      {
+                                        "type": "PalletInstance",
+                                        "value": 50
+                                      },
+                                      {
+                                        "type": "GeneralIndex",
+                                        "value": "1337"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "fun": {
+                                  "type": "Fungible"
+                                }
+                              }
+                            }
+                          },
+                          "beneficiary": {
+                            "parents": 0,
+                            "interior": {
+                              "type": "X1",
+                              "value": {
+                                "type": "AccountId32",
+                                "value": {
+                                  "id": {}
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "SetTopic",
+                  "value": {}
+                }
+              ]
+            }
+          ]
+        ],
+        "destParaId": 1000
+      },
+      "isExchange": true
+    },
+    {
+      "chain": "AssetHubPolkadot",
+      "result": {
+        "success": true,
+        "fee": "111057",
+        "currency": "USDC",
+        "asset": {
+          "assetId": "1337",
+          "symbol": "USDC",
+          "decimals": 6,
+          "location": {
+            "parents": 1,
+            "interior": {
+              "X3": [
+                {
+                  "Parachain": 1000
+                },
+                {
+                  "PalletInstance": 50
+                },
+                {
+                  "GeneralIndex": 1337
+                }
+              ]
+            }
+          },
+          "existentialDeposit": "10000",
+          "isFeeAsset": true,
+          "alias": "USDC1"
+        },
+        "weight": {
+          "refTime": "1370970000",
+          "proofSize": "11257"
+        },
+        "forwardedXcms": [
+          {
+            "type": "V4",
+            "value": {
+              "parents": 1,
+              "interior": {
+                "type": "X1",
+                "value": {
+                  "type": "Parachain",
+                  "value": 2030
+                }
+              }
+            }
+          },
+          [
+            {
+              "type": "V4",
+              "value": [
+                {
+                  "type": "ReserveAssetDeposited",
+                  "value": [
+                    {
+                      "id": {
+                        "parents": 1,
+                        "interior": {
+                          "type": "X3",
+                          "value": [
+                            {
+                              "type": "Parachain",
+                              "value": 1000
+                            },
+                            {
+                              "type": "PalletInstance",
+                              "value": 50
+                            },
+                            {
+                              "type": "GeneralIndex",
+                              "value": "1337"
+                            }
+                          ]
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible",
+                        "value": "2859047"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "ClearOrigin"
+                },
+                {
+                  "type": "BuyExecution",
+                  "value": {
+                    "fees": {
+                      "id": {
+                        "parents": 1,
+                        "interior": {
+                          "type": "X3",
+                          "value": [
+                            {
+                              "type": "Parachain",
+                              "value": 1000
+                            },
+                            {
+                              "type": "PalletInstance",
+                              "value": 50
+                            },
+                            {
+                              "type": "GeneralIndex",
+                              "value": "1337"
+                            }
+                          ]
+                        }
+                      },
+                      "fun": {
+                        "type": "Fungible",
+                        "value": "2837130"
+                      }
+                    },
+                    "weight_limit": {
+                      "type": "Unlimited"
+                    }
+                  }
+                },
+                {
+                  "type": "DepositAsset",
+                  "value": {
+                    "assets": {
+                      "type": "Wild",
+                      "value": {
+                        "type": "AllOf",
+                        "value": {
+                          "id": {
+                            "parents": 1,
+                            "interior": {
+                              "type": "X3",
+                              "value": [
+                                {
+                                  "type": "Parachain",
+                                  "value": 1000
+                                },
+                                {
+                                  "type": "PalletInstance",
+                                  "value": 50
+                                },
+                                {
+                                  "type": "GeneralIndex",
+                                  "value": "1337"
+                                }
+                              ]
+                            }
+                          },
+                          "fun": {
+                            "type": "Fungible"
+                          }
+                        }
+                      }
+                    },
+                    "beneficiary": {
+                      "parents": 0,
+                      "interior": {
+                        "type": "X1",
+                        "value": {
+                          "type": "AccountId32",
+                          "value": {
+                            "id": {}
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "SetTopic",
+                  "value": {}
+                }
+              ]
+            }
+          ]
+        ],
+        "destParaId": 2030
+      },
+      "isExchange": false
+    }
+  ]
+}
+```
+
+</details>
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+**Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+</details>
+
+## Minimal transferable amount
+
+You can use the minimal transferable balance to retrieve information on minimum of the selected currency can be transferred from a specific account to specific destination, so that the ED and destination or origin fee is paid fully
+
+```ts
+const result = await RouterBuilder()
+      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .amount(10000000000n)
+      .getMinTransferableAmount();
+```
+
+**Example output:**
+
+```json
+"3329236337"
+```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+**Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+</details>
+
+## Maximal transferable amount
+
+You can use the transferable balance to retrieve information on how much of the selected currency can be transferred from a specific account.
+
+```ts
+const result = await RouterBuilder()
+      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .amount(10000000000n)
+      .getTransferableAmount();
+```
+
+**Example output:**
+
+```json
+"3329236337"
+```
+
+**Initial setup:**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+  </details>
+
+**Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+</details>
 
 ## Get amount out for your currency pair
 
@@ -488,6 +1841,8 @@ const builder = await RouterBuilder({
 ```
 
 </details>
+
+
 
 ## Get Router fees
 

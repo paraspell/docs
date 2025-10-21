@@ -410,6 +410,303 @@ options: ({
 
 </details>
 
+## Dry run your Router calls
+
+You can find out whether you XCM message will execute successfuly or with error. XCM Message dry run should write you concrete error so you can find out if the XCM message will execute without it ever being submitted.
+
+**Endpoint**: `POST /v4/router/dry-run`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+  - `to`: (required): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
+  - `options`: (optional): Configuration options for the API
+
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v4/router/dry-run", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
+        to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
+        amount: "Amount", // Amount to send
+    })
+});
+```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+})
+```
+
+</details>
+
+## Minimal transferable amount
+
+If you wish to find out what is the `minimal transferable amount` of the asset you are trying to exchange you can use following endpoint.
+
+**Endpoint**: `POST /v4/router/min-transferable-amount`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+  - `to`: (required): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
+  - `options`: (optional): Configuration options for the API
+
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v4/router/min-transferable-amount", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
+        to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
+        amount: "Amount", // Amount to send
+    })
+});
+```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+})
+```
+
+</details>
+
+## Max transferable amount
+
+If you wish to find out what is the `max transferable amount` of the asset you are trying to exchange you can use following endpoint.
+
+**Endpoint**: `POST /v4/router/transferable-amount`
+
+  <details>
+  <summary><b>Parameters</b> </summary>
+
+  - `from`: (optional): Represents the Parachain from which the assets will be transferred.
+  - `exchange`: (optional): Represents the Parachain DEX on which tokens will be exchanged (If not provided, DEX is selected automatically based on best price output).
+  - `to`: (required): Represents the Parachain to which the assets will be transferred.
+  - `currencyFrom`: (required): Represents the asset being sent.
+  - `currencyTo`: (required): Represents the asset being received. 
+  - `amount`: (required): Specifies the amount of assets to transfer.
+  - `options`: (optional): Configuration options for the API
+
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'to' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not provided
+  - `400`  (Bad request exception) - Returned when query parameters  'from' is not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'exchange' is not valid exchange
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyTo' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v4/router/transferable-amount", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Chain", //Origin Parachain/Relay chain - OPTIONAL PARAMETER
+        exchange: "Dex", //Exchange Parachain/Relay chain //Optional parameter, if not specified exchange will be auto-selected
+        to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
+        currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
+        currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
+        amount: "Amount", // Amount to send
+    })
+});
+```
+
+<details>
+
+<summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+</details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  }
+})
+```
+
+</details>
+
 ## Best amount out
 
 If you wish to find out what is the `best amount out` from specified dex or from any dex you can use following query.
