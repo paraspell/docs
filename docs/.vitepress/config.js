@@ -10,7 +10,9 @@ export default {
     ],
     themeConfig: {
         logo: '/paraspell.png',
-
+        search: {
+          provider: 'local'
+        },
         nav: [
           { text: 'HOME', link: '/' },
         ],
