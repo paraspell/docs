@@ -105,7 +105,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
   - `amount`: (required): Specifies the amount of assets to transfer.
   - `slippagePct`: (required): Specifies the slipeage percentage. 
   - `recipientAddress`: (required): Specifies the address of the recipient.
-  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `senderAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
   - `options`: (optional): Configuration options for the API
 
@@ -126,8 +126,8 @@ If you wish to have exchange chain selection based on best price outcome, you ca
   - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -207,7 +207,7 @@ If you wish to have exchange chain selection based on best price outcome from se
   - `amount`: (required): Specifies the amount of assets to transfer.
   - `slippagePct`: (required): Specifies the slipeage percentage. 
   - `recipientAddress`: (required): Specifies the address of the recipient.
-  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `senderAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
   - `options`: (optional): Configuration options for the API
 
@@ -229,8 +229,8 @@ If you wish to have exchange chain selection based on best price outcome from se
   - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -317,7 +317,7 @@ If you wish to select your exchange chain manually you can do that by providing 
   - `amount`: (required): Specifies the amount of assets to transfer.
   - `slippagePct`: (required): Specifies the slippage percentage. 
   - `recipientAddress`: (required): Specifies the address of the recipient.
-  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `senderAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
   - `options`: (optional): Configuration options for the API
 
@@ -339,8 +339,8 @@ If you wish to select your exchange chain manually you can do that by providing 
   - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -425,6 +425,9 @@ You can find out whether you XCM message will execute successfuly or with error.
   - `currencyFrom`: (required): Represents the asset being sent.
   - `currencyTo`: (required): Represents the asset being received. 
   - `amount`: (required): Specifies the amount of assets to transfer.
+  - `recipientAddress`: (required): Specifies the address of the recipient.
+  - `senderAddress`: (required): Specifies the address of the sender.
+  - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
   - `options`: (optional): Configuration options for the API
 
 
@@ -443,6 +446,10 @@ You can find out whether you XCM message will execute successfuly or with error.
   - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -460,6 +467,9 @@ const response = await fetch("http://localhost:3001/v4/router/dry-run", {
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
         currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
         currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
+        senderAddress: 'selectedAccount.address',   //Injector address
+        recipientAddress: 'recipientAddress', //Recipient address
+        evmSenderAddress: 'EvmInjectorAddress', // Only if origin is EVM
         amount: "Amount", // Amount to send
     })
 });
@@ -524,6 +534,9 @@ If you wish to find out what is the `minimal transferable amount` of the asset y
   - `currencyFrom`: (required): Represents the asset being sent.
   - `currencyTo`: (required): Represents the asset being received. 
   - `amount`: (required): Specifies the amount of assets to transfer.
+  - `recipientAddress`: (required): Specifies the address of the recipient.
+  - `senderAddress`: (optional): Specifies the address of the sender.
+  - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
   - `options`: (optional): Configuration options for the API
 
 
@@ -542,6 +555,10 @@ If you wish to find out what is the `minimal transferable amount` of the asset y
   - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -559,6 +576,9 @@ const response = await fetch("http://localhost:3001/v4/router/min-transferable-a
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
         currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
         currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
+        senderAddress: 'selectedAccount.address',   //Injector address
+        recipientAddress: 'recipientAddress', //Recipient address
+        evmSenderAddress: 'EvmInjectorAddress', // Only if origin is EVM
         amount: "Amount", // Amount to send
     })
 });
@@ -623,6 +643,9 @@ If you wish to find out what is the `max transferable amount` of the asset you a
   - `currencyFrom`: (required): Represents the asset being sent.
   - `currencyTo`: (required): Represents the asset being received. 
   - `amount`: (required): Specifies the amount of assets to transfer.
+  - `recipientAddress`: (required): Specifies the address of the recipient.
+  - `senderAddress`: (optional): Specifies the address of the sender.
+  - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
   - `options`: (optional): Configuration options for the API
 
 
@@ -641,6 +664,10 @@ If you wish to find out what is the `max transferable amount` of the asset you a
   - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currencyFrom' is not a valid currency
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>
@@ -658,6 +685,9 @@ const response = await fetch("http://localhost:3001/v4/router/transferable-amoun
         to: "Chain", //Destination Parachain/Relay chain - OPTIONAL PARAMETER
         currencyFrom: {CURRENCY_SPEC}, // Refer to currency spec options below
         currencyTo: {CURRENCY_SPEC}, // Refer to currency spec options below
+        senderAddress: 'selectedAccount.address',   //Injector address
+        recipientAddress: 'recipientAddress', //Recipient address
+        evmSenderAddress: 'EvmInjectorAddress', // Only if origin is EVM
         amount: "Amount", // Amount to send
     })
 });
@@ -823,7 +853,7 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
   - `amount`: (required): Specifies the amount of assets to transfer.
   - `slippagePct`: (required): Specifies the slippage percentage. 
   - `recipientAddress`: (required): Specifies the address of the recipient.
-  - `injectorAddress`: (required): Specifies the address of the sender.
+  - `senderAddress`: (required): Specifies the address of the sender.
   - `evmInjectorAddress`: (optional): Specifies the EVM address of the sender when sending from an EVM chain.
   - `options`: (optional): Configuration options for the API
 
@@ -845,8 +875,8 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
   - `400`  (Bad request exception) - Returned when query parameter 'slippagePct' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'recipientAddress' is not a valid address
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is expected but not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'injectorAddress' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'senderAddress' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   </details>

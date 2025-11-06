@@ -393,6 +393,8 @@ const result = await RouterBuilder()
       .amount(10000000000n)
       .senderAddress(selectedAccount.address)   //Injector address
       .recipientAddress(recipientAddress) //Recipient address
+      //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
+      //.evmSigner(EVM signer)                     //Optional parameters when origin CHAIN is EVM based (Required with evmInjectorAddress)
       .dryRun();
 ```
 
@@ -1527,6 +1529,8 @@ const result = await RouterBuilder()
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
       .senderAddress(selectedAccount.address)   //Injector address
+      //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
+      //.evmSigner(EVM signer)                     //Optional parameters when origin CHAIN is EVM based (Required with evmInjectorAddress)
       .getMinTransferableAmount();
 ```
 
@@ -1639,6 +1643,8 @@ const result = await RouterBuilder()
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
       .senderAddress(selectedAccount.address)   //Injector address
+      //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
+      //.evmSigner(EVM signer)                     //Optional parameters when origin CHAIN is EVM based (Required with evmInjectorAddress)
       .getTransferableAmount();
 ```
 
