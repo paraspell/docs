@@ -391,6 +391,8 @@ const result = await RouterBuilder()
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
+      .senderAddress(selectedAccount.address)   //Injector address
+      .recipientAddress(recipientAddress) //Recipient address
       .dryRun();
 ```
 
@@ -1524,6 +1526,7 @@ const result = await RouterBuilder()
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
+      .senderAddress(selectedAccount.address)   //Injector address
       .getMinTransferableAmount();
 ```
 
@@ -1635,6 +1638,7 @@ const result = await RouterBuilder()
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
+      .senderAddress(selectedAccount.address)   //Injector address
       .getTransferableAmount();
 ```
 
