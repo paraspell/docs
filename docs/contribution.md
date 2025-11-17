@@ -32,10 +32,10 @@ To report a bug:
 
 | Severity Level | Description                                                                 | Reward |
 |----------------|-----------------------------------------------------------------------------|--------|
-| ⚪️ Very low           | Very minor errors in docs / text / code                              | $5     |
-| 🟢 Low         | Minor UI issues, typos, or cosmetic bugs                                    | $10    |
-| 🟠 Medium      | Bugs affecting user features or causing functional issues                   | $20    |
-| 🔴 High        | Crashes, data loss, security vulnerabilities, or major broken functionality | $30    |
+| ⚪️ Very low           | Very minor errors in docs / text / code                              | $5-10     |
+| 🟢 Low         | Minor UI issues, typos, or cosmetic bugs                                    | $10-15    |
+| 🟠 Medium      | Bugs affecting user features or causing functional issues                   | $15-20    |
+| 🔴 High        | Crashes, data loss, security vulnerabilities, or major broken functionality | $20-30    |
 
 > Maintainers determine severity based on impact. Contributors may be contacted for clarification.
 
