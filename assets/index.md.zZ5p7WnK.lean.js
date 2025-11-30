@@ -1,0 +1,1 @@
+import{_ as r,c as t,ag as a,o}from"./chunks/framework.KkGpbK64.js";const g=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),n={name:"index.md"};function l(i,e,s,p,c,h){return o(),t("div",null,e[0]||(e[0]=[a("",22)]))}const u=r(n,[["render",l]]);export{g as __pageData,u as default};
