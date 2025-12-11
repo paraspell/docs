@@ -53,11 +53,6 @@ Classic import allows you to use every functionality XCM SDK offers.
 import * as paraspell from '@paraspell/sdk'
 // ESM PJS
 import * as paraspell from '@paraspell/sdk-pjs'
-
-// CommonJS PAPI
-const paraspell = require('@paraspell/sdk')
-// CommonJS PJS
-const paraspell = require('@paraspell/sdk-pjs')
 ```
 
 Interaction with further asset symbol abstraction:

@@ -47,133 +47,322 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
 **Example output:**
 
 <details>
-<summary>An example of output for AssetHubPolkadot and Polimec as input</summary>
+<summary>An example of output for Acala and Astar as input</summary>
 
 ```json
 [
-   {
-      "symbol":"DOT",
-      "isNative":true,
-      "decimals":10,
-      "location":{
-         "parents":1,
-         "interior":{
-            "Here":null
-         }
-      },
-      "existentialDeposit":"100000000"
-   },
-   {
-      "assetId":"1337",
-      "symbol":"USDC",
-      "decimals":6,
-      "location":{
-         "parents":1,
-         "interior":{
-            "X3":[
-               {
-                  "Parachain":1000
-               },
-               {
-                  "PalletInstance":50
-               },
-               {
-                  "GeneralIndex":1337
-               }
-            ]
-         }
-      },
-      "existentialDeposit":"10000"
-   },
-   {
-      "assetId":"1984",
-      "symbol":"USDt",
-      "decimals":6,
-      "location":{
-         "parents":1,
-         "interior":{
-            "X3":[
-               {
-                  "Parachain":1000
-               },
-               {
-                  "PalletInstance":50
-               },
-               {
-                  "GeneralIndex":1984
-               }
-            ]
-         }
-      },
-      "existentialDeposit":"10000"
-   },
-   {
-      "symbol":"PLMC",
-      "decimals":10,
-      "location":{
-         "parents":1,
-         "interior":{
-            "X1":[
-               {
-                  "Parachain":3344
-               }
-            ]
-         }
-      },
-      "existentialDeposit":"1000000000"
-   },
-   {
-      "symbol":"USDC",
-      "decimals":6,
-      "location":{
-         "parents":2,
-         "interior":{
-            "X2":[
-               {
-                  "GlobalConsensus":{
-                     "Ethereum":{
-                        "chainId":1
-                     }
-                  }
-               },
-               {
-                  "AccountKey20":{
-                     "network":null,
-                     "key":"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-                  }
-               }
-            ]
-         }
-      },
-      "existentialDeposit":"10000",
-      "isFeeAsset":true
-   },
-   {
-      "symbol":"USDT",
-      "decimals":6,
-      "location":{
-         "parents":2,
-         "interior":{
-            "X2":[
-               {
-                  "GlobalConsensus":{
-                     "Ethereum":{
-                        "chainId":1
-                     }
-                  }
-               },
-               {
-                  "AccountKey20":{
-                     "network":null,
-                     "key":"0xdac17f958d2ee523a2206206994597c13d831ec7"
-                  }
-               }
-            ]
-         }
-      },
-      "existentialDeposit":"10000",
-      "isFeeAsset":true
-   }
+  {
+    "symbol": "ACA",
+    "decimals": 12,
+    "existentialDeposit": "100000000000",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2000
+          },
+          {
+            "GeneralKey": {
+              "length": 2,
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      }
+    },
+    "isNative": true
+  },
+  {
+    "symbol": "aSEED",
+    "decimals": 12,
+    "existentialDeposit": "100000000000",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2000
+          },
+          {
+            "GeneralKey": {
+              "length": 2,
+              "data": "0x0001000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      }
+    },
+    "isNative": true
+  },
+  {
+    "symbol": "LDOT",
+    "decimals": 10,
+    "existentialDeposit": "500000000",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2000
+          },
+          {
+            "GeneralKey": {
+              "length": 2,
+              "data": "0x0003000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      }
+    },
+    "isNative": true
+  },
+  {
+    "symbol": "DOT",
+    "decimals": 10,
+    "existentialDeposit": "100000000",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "Here": null
+      }
+    },
+    "isNative": true
+  },
+  {
+    "symbol": "UNQ",
+    "decimals": 18,
+    "existentialDeposit": "1250000000000000000",
+    "assetId": "10",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X1": [
+          {
+            "Parachain": 2037
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "USDC",
+    "decimals": 6,
+    "existentialDeposit": "10000",
+    "assetId": "14",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X3": [
+          {
+            "Parachain": 1000
+          },
+          {
+            "PalletInstance": 50
+          },
+          {
+            "GeneralIndex": 1337
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "EQD",
+    "decimals": 9,
+    "existentialDeposit": "1000000000",
+    "assetId": "8",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2011
+          },
+          {
+            "GeneralKey": {
+              "length": 3,
+              "data": "0x6571640000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "INTR",
+    "decimals": 10,
+    "existentialDeposit": "1000000000",
+    "assetId": "4",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2032
+          },
+          {
+            "GeneralKey": {
+              "length": 2,
+              "data": "0x0002000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "ASTR",
+    "decimals": 18,
+    "existentialDeposit": "100000000000000000",
+    "assetId": "2",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X1": [
+          {
+            "Parachain": 2006
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "PHA",
+    "decimals": 12,
+    "existentialDeposit": "100000000000",
+    "assetId": "9",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X1": [
+          {
+            "Parachain": 2035
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "GLMR",
+    "decimals": 18,
+    "existentialDeposit": "100000000000000000",
+    "assetId": "0",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2004
+          },
+          {
+            "PalletInstance": 10
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "HDX",
+    "decimals": 12,
+    "existentialDeposit": "78438200000000",
+    "assetId": "17",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2034
+          },
+          {
+            "GeneralIndex": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "PINK",
+    "decimals": 10,
+    "existentialDeposit": "1000000000",
+    "assetId": "13",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X3": [
+          {
+            "Parachain": 1000
+          },
+          {
+            "PalletInstance": 50
+          },
+          {
+            "GeneralIndex": 23
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "USDT",
+    "decimals": 6,
+    "existentialDeposit": "10000",
+    "assetId": "12",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X3": [
+          {
+            "Parachain": 1000
+          },
+          {
+            "PalletInstance": 50
+          },
+          {
+            "GeneralIndex": 1984
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "EQ",
+    "decimals": 9,
+    "existentialDeposit": "1000000000",
+    "assetId": "7",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X1": [
+          {
+            "Parachain": 2011
+          }
+        ]
+      }
+    }
+  },
+  {
+    "symbol": "IBTC",
+    "decimals": 8,
+    "existentialDeposit": "100",
+    "assetId": "3",
+    "location": {
+      "parents": 1,
+      "interior": {
+        "X2": [
+          {
+            "Parachain": 2032
+          },
+          {
+            "GeneralKey": {
+              "length": 2,
+              "data": "0x0001000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      }
+    }
+  }
 ]
 ```
 
@@ -248,17 +437,25 @@ getAssetsObject(CHAIN)
   "nativeAssetSymbol": "AJUN",
   "isEVM": false,
   "ss58Prefix": 1328,
-  "supportsDryRunApi": false,
-  "supportsXcmPaymentApi": false,
-  "nativeAssets": [
+  "supportsDryRunApi": true,
+  "supportsXcmPaymentApi": true,
+  "assets": [
     {
       "symbol": "AJUN",
       "isNative": true,
       "decimals": 12,
-      "existentialDeposit": "1000000000"
-    }
-  ],
-  "otherAssets": [
+      "existentialDeposit": "1000000000",
+      "location": {
+        "parents": 1,
+        "interior": {
+          "X1": [
+            {
+              "Parachain": 2051
+            }
+          ]
+        }
+      }
+    },
     {
       "assetId": "0",
       "symbol": "DOT",
@@ -269,7 +466,8 @@ getAssetsObject(CHAIN)
         "interior": {
           "Here": null
         }
-      }
+      },
+      "isFeeAsset": true
     },
     {
       "assetId": "847713",
@@ -370,9 +568,11 @@ getNativeAssets(CHAIN)
     "location": {
       "parents": 1,
       "interior": {
-        "X1": {
-          "Parachain": 2006
-        }
+        "X1": [
+          {
+            "Parachain": 2006
+          }
+        ]
       }
     }
   }
@@ -392,19 +592,6 @@ getOtherAssets(CHAIN)
 
 ```json
 [
-  {
-    "assetId": "1029",
-    "symbol": "DOT",
-    "decimals": 10,
-    "location": {
-      "parents": 1,
-      "interior": {
-        "Here": null
-      }
-    },
-    "existentialDeposit": "1",
-    "isFeeAsset": true
-  },
   {
     "assetId": "1027",
     "symbol": "ahUSDT",
@@ -429,6 +616,12 @@ getOtherAssets(CHAIN)
     "isFeeAsset": true
   },
   {
+    "assetId": "1026",
+    "symbol": "KTON",
+    "decimals": 18,
+    "existentialDeposit": "1"
+  },
+  {
     "assetId": "1028",
     "symbol": "ahPINK",
     "decimals": 10,
@@ -449,6 +642,19 @@ getOtherAssets(CHAIN)
       }
     },
     "existentialDeposit": "1"
+  },
+  {
+    "assetId": "1029",
+    "symbol": "DOT",
+    "decimals": 10,
+    "location": {
+      "parents": 1,
+      "interior": {
+        "Here": null
+      }
+    },
+    "existentialDeposit": "1",
+    "isFeeAsset": true
   }
 ]
 ```
