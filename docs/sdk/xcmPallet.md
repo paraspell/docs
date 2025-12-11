@@ -988,7 +988,6 @@ hops - Always present - An array of chains that the transfer hops through (Empty
   "origin": {
     "success": true,
     "fee": "49373869690754320",
-    "currency": "ASTR",
     "asset": {
       "symbol": "ASTR",
       "isNative": true,
@@ -1003,8 +1002,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
             }
           ]
         }
-      },
-      "amount": "10000000000000000000"
+      }
     },
     "forwardedXcms": [
       {
@@ -1110,8 +1108,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
   },
   "destination": {
     "success": true,
-    "fee": "23668039080798142",
-    "currency": "ASTR",
+    "fee": "25201230559034411",
     "asset": {
       "assetId": "9",
       "symbol": "ASTR",
@@ -1301,25 +1298,23 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 {
   "origin": {
     "success": true,
-    "fee": "122500000",
-    "currency": "KSM",
+    "fee": "1137942333",
     "asset": {
       "symbol": "KSM",
       "isNative": true,
       "decimals": 12,
-      "existentialDeposit": "3333333",
+      "existentialDeposit": "33333333",
       "location": {
         "parents": 1,
         "interior": {
           "Here": null
         }
       },
-      "isFeeAsset": true,
-      "amount": "10000000000000"
+      "isFeeAsset": true
     },
     "weight": {
-      "refTime": "1169101894",
-      "proofSize": "14610"
+      "refTime": "815932166",
+      "proofSize": "10824"
     },
     "forwardedXcms": [
       {
@@ -1330,7 +1325,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
             "type": "X1",
             "value": {
               "type": "Parachain",
-              "value": 1001
+              "value": 1000
             }
           }
         }
@@ -1417,17 +1412,16 @@ hops - Always present - An array of chains that the transfer hops through (Empty
         }
       ]
     ],
-    "destParaId": 1001
+    "destParaId": 1000
   },
   "destination": {
     "success": true,
-    "fee": "119766667",
-    "currency": "KSM",
+    "fee": "291800000",
     "asset": {
       "symbol": "KSM",
       "isNative": true,
       "decimals": 12,
-      "existentialDeposit": "33333333",
+      "existentialDeposit": "3333333",
       "location": {
         "parents": 1,
         "interior": {
@@ -1437,8 +1431,8 @@ hops - Always present - An array of chains that the transfer hops through (Empty
       "isFeeAsset": true
     },
     "weight": {
-      "refTime": "164650000",
-      "proofSize": "3593"
+      "refTime": "608679000",
+      "proofSize": "8754"
     },
     "forwardedXcms": []
   },

@@ -100,9 +100,8 @@ hops - Always present - An array of chains that the transfer hops through (Empty
   "origin": {
     "selectedCurrency": {
       "sufficient": false,
-      "balance": "5795898",
-      "balanceAfter": "-4204102",
-      "currencySymbol": "USDC",
+      "balance": "260993",
+      "balanceAfter": "-9739007",
       "asset": {
         "assetId": "1337",
         "symbol": "USDC",
@@ -126,15 +125,13 @@ hops - Always present - An array of chains that the transfer hops through (Empty
         "existentialDeposit": "10000",
         "isFeeAsset": true,
         "alias": "USDC1"
-      },
-      "existentialDeposit": "10000"
+      }
     },
     "xcmFee": {
       "sufficient": true,
-      "fee": "322620364",
-      "balance": "22410175636",
-      "balanceAfter": "22087555272",
-      "currencySymbol": "DOT",
+      "fee": "322781864",
+      "balance": "31996244022",
+      "balanceAfter": "31673462158",
       "asset": {
         "symbol": "DOT",
         "isNative": true,
@@ -154,10 +151,9 @@ hops - Always present - An array of chains that the transfer hops through (Empty
   "destination": {
     "receivedCurrency": {
       "sufficient": true,
-      "receivedAmount": "9988821",
+      "receivedAmount": "9988338",
       "balance": "530221",
-      "balanceAfter": "10519042",
-      "currencySymbol": "USDC",
+      "balanceAfter": "10518559",
       "asset": {
         "assetId": "5",
         "symbol": "USDC",
@@ -180,14 +176,12 @@ hops - Always present - An array of chains that the transfer hops through (Empty
           }
         },
         "isFeeAsset": true
-      },
-      "existentialDeposit": "1000"
+      }
     },
     "xcmFee": {
-      "fee": "11179",
+      "fee": "11662",
       "balance": "530221",
-      "balanceAfter": "10519042",
-      "currencySymbol": "USDC",
+      "balanceAfter": "10518559",
       "asset": {
         "assetId": "5",
         "symbol": "USDC",
@@ -924,10 +918,7 @@ const builder = await Builder({
 </details>
 
 ## XCM Fee (Origin and Dest.)
-The following queries allow you to query the fee from both the Origin and Destination of the XCM Message. You can get an accurate result from the DryRun query (Requires token balance) or a less accurate result from the Payment info query (Doesn't require token balance).
-
-### More accurate query using DryRun
-The query is designed to retrieve your XCM fee at any cost, but falls back to Payment info if the DryRun query fails or is not supported by either origin or destination. This query requires the user to have a token balance (the Token that they are sending and the origin native asset to pay for execution fees on the origin).
+The following query allows you to query the fee from both the Origin and Destination of the XCM Message. The query is designed to retrieve your XCM fee at any cost, but falls back to Payment info if the DryRun query fails or is not supported by either origin or destination. 
 
 ```ts
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
@@ -1028,37 +1019,34 @@ hops - Always present - An array of chains that the transfer hops through (Empty
       "refTime": "1847483799",
       "proofSize": "12268"
     },
-    "fee": "46696677064",
+    "fee": "511167946049",
     "feeType": "dryRun",
     "sufficient": false,
-    "currency": "GLMR",
     "asset": {
-      "assetId": "16",
-      "symbol": "GLMR",
-      "decimals": 18,
-      "existentialDeposit": "34854864344868000",
+      "symbol": "HDX",
+      "isNative": true,
+      "decimals": 12,
+      "existentialDeposit": "1000000000000",
       "location": {
         "parents": 1,
         "interior": {
           "X2": [
             {
-              "Parachain": 2004
+              "Parachain": 2034
             },
             {
-              "PalletInstance": 10
+              "GeneralIndex": 0
             }
           ]
         }
       },
-      "isFeeAsset": true,
-      "amount": "10000000000000000000"
+      "isFeeAsset": true
     }
   },
   "destination": {
-    "fee": "9823071250000000",
+    "fee": "9910446250000000",
     "feeType": "dryRun",
-    "sufficient": false,
-    "currency": "GLMR",
+    "sufficient": true,
     "asset": {
       "symbol": "GLMR",
       "isNative": true,
@@ -1161,224 +1149,9 @@ const builder = await Builder({
 </details>
 
 
-### Less accurate query using Payment info
-This query is designed to retrieve your approximate fee and doesn't require any token balance.
-
-```ts
-const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)          
-          .getXcmFeeEstimate()
-```
-
-**Initial setup**
-
-  <details>
-
-  <summary>Currency spec options</summary>
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
-{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
-{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-```
-
-Asset selection of multiple assets:
-```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
-```
-
-  </details>
-
-**Notes**
-<details>
-<summary>Information about the query behaviour</summary>
-
-When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. 
-
-</details>
-
-**Possible output objects:**
-
-<details>
-<summary>The XCM Fee Estimate query will return the following objects</summary>
-
-```
-origin - Always present
-destination - Always present
-```
-
-</details>
-
-**Example output**
-<details>
-<summary>Following output contains transfer of 10 GLMR from Hydration to Moonbeam</summary>
-
-```json
-{
-  "origin": {
-    "fee": "664518329863",
-    "currency": "HDX",
-    "asset": {
-      "assetId": "16",
-      "symbol": "GLMR",
-      "decimals": 18,
-      "existentialDeposit": "34854864344868000",
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X2": [
-            {
-              "Parachain": 2004
-            },
-            {
-              "PalletInstance": 10
-            }
-          ]
-        }
-      },
-      "isFeeAsset": true
-    },
-    "sufficient": true
-  },
-  "destination": {
-    "fee": "1450023772558270",
-    "currency": "GLMR",
-    "asset": {
-      "symbol": "GLMR",
-      "isNative": true,
-      "decimals": 18,
-      "existentialDeposit": "0",
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X2": [
-            {
-              "Parachain": 2004
-            },
-            {
-              "PalletInstance": 10
-            }
-          ]
-        }
-      },
-      "isFeeAsset": true
-    },
-    "sufficient": true
-  }
-}
-```
-
-</details>
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await Builder({
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await Builder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Format check**
-
-Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
-
-```ts
-const builder = await Builder({
-  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-</details>
-
 
 ## XCM Fee (Origin only)
-The following queries allow you to query the XCM fee from the Origin chain. You can get an accurate result from the DryRun query (Requires token balance) or a less accurate result from the Payment info query (Doesn't require token balance).
-
-### More accurate query using DryRun
-The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. This query requires user to have token balance (Token that they are sending and origin native asset to pay for execution fees on origin).
-
-
+The following queries allow you to query the XCM fee from the Origin chain. The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. 
 
 ```ts
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
@@ -1462,222 +1235,9 @@ origin - Always present
 
 ```json
 {
-  "origin": {
-    "weight": {
-      "refTime": "970770242",
-      "proofSize": "10755"
-    },
-    "fee": "189322000411000000",
-    "feeType": "dryRun",
-    "sufficient": true,
-    "currency": "MYTH",
-    "asset": {
-      "symbol": "MYTH",
-      "isNative": true,
-      "decimals": 18,
-      "existentialDeposit": "10000000000000000",
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X1": [
-            {
-              "Parachain": 3369
-            }
-          ]
-        }
-      },
-      "amount": "100000000000000000000"
-    }
-  },
-  "destination": {
-    "fee": "78516679785747332",
-    "feeType": "dryRun",
-    "sufficient": true,
-    "currency": "MYTH",
-    "asset": {
-      "symbol": "MYTH",
-      "decimals": 18,
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X1": [
-            {
-              "Parachain": 3369
-            }
-          ]
-        }
-      },
-      "existentialDeposit": "10000000000000000",
-      "isFeeAsset": true
-    }
-  },
-  "hops": []
-}
-```
-
-</details>
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await Builder({
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await Builder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Format check**
-
-Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
-
-```ts
-const builder = await Builder({
-  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-</details>
-
-### Less accurate query using Payment info
-This query is designed to retrieve your approximate fee and doesn't require any token balance.
-
-```ts
-const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)          
-          .getOriginXcmFeeEstimate()
-```
-
-**Initial setup**
-
-  <details>
-
-  <summary>Currency spec options</summary>
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
-{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
-{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-```
-
-Asset selection of multiple assets:
-```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
-```
-
-  </details>
-
-  <details>
-
-  <summary>Advanced settings</summary>
-
-  You can use following optional advanced settings to further customize your calls:
-
-```ts
-// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
-```
-  
-  </details>
-
-**Possible output objects:**
-
-<details>
-<summary>The Origin XCM Fee query will return the following objects</summary>
-
-```
-origin - Always present
-```
-
-</details>
-
-**Example output**
-<details>
-<summary>Following output contains transfer of 100 MYTH from Mythos to AssetHubPolkadot</summary>
-
-```json
-{
-  "fee": "150000000000000000",
-  "currency": "MYTH",
+  "fee": "120608600411000000",
+  "feeType": "dryRun",
+  "sufficient": true,
   "asset": {
     "symbol": "MYTH",
     "isNative": true,
@@ -1694,7 +1254,115 @@ origin - Always present
       }
     }
   },
-  "sufficient": true
+  "forwardedXcms": [
+    {
+      "type": "V3",
+      "value": {
+        "parents": 1,
+        "interior": {
+          "type": "X1",
+          "value": {
+            "type": "Parachain",
+            "value": 1000
+          }
+        }
+      }
+    },
+    [
+      {
+        "type": "V3",
+        "value": [
+          {
+            "type": "ReceiveTeleportedAsset",
+            "value": [
+              {
+                "id": {
+                  "type": "Concrete",
+                  "value": {
+                    "parents": 1,
+                    "interior": {
+                      "type": "X1",
+                      "value": {
+                        "type": "Parachain",
+                        "value": 3369
+                      }
+                    }
+                  }
+                },
+                "fun": {
+                  "type": "Fungible",
+                  "value": "100000000000000000000"
+                }
+              }
+            ]
+          },
+          {
+            "type": "ClearOrigin"
+          },
+          {
+            "type": "BuyExecution",
+            "value": {
+              "fees": {
+                "id": {
+                  "type": "Concrete",
+                  "value": {
+                    "parents": 1,
+                    "interior": {
+                      "type": "X1",
+                      "value": {
+                        "type": "Parachain",
+                        "value": 3369
+                      }
+                    }
+                  }
+                },
+                "fun": {
+                  "type": "Fungible",
+                  "value": "100000000000000000000"
+                }
+              },
+              "weight_limit": {
+                "type": "Unlimited"
+              }
+            }
+          },
+          {
+            "type": "DepositAsset",
+            "value": {
+              "assets": {
+                "type": "Wild",
+                "value": {
+                  "type": "AllCounted",
+                  "value": 1
+                }
+              },
+              "beneficiary": {
+                "parents": 0,
+                "interior": {
+                  "type": "X1",
+                  "value": {
+                    "type": "AccountId32",
+                    "value": {
+                      "id": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "SetTopic",
+            "value": {}
+          }
+        ]
+      }
+    ]
+  ],
+  "destParaId": 1000,
+  "weight": {
+    "refTime": "970770242",
+    "proofSize": "10755"
+  }
 }
 ```
 
@@ -1774,19 +1442,17 @@ const builder = await Builder({
 
 </details>
 
-
-
 ## Asset balance
 You can now query all important information about your XCM call, including fees (if your balance is sufficient to transfer an XCM message) and more.
 
 ```ts
 //PAPI
-import { getAssetBalance } from "@paraspell/sdk";
+import { getBalance } from "@paraspell/sdk";
 //PJS
-import { getAssetBalance } from "@paraspell/sdk-pjs";
+import { getBalance } from "@paraspell/sdk-pjs";
 
 //Retrieves the asset balance for a given account on a specified CHAIN (You do not need to specify if it is native or foreign).
-const balance = await getAssetBalance({address, CHAIN, CURRENCY_SPEC /*Refer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
+const balance = await getBalance({address, CHAIN, CURRENCY_SPEC /*OPTIONAL - Refer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
 ```
 
 **Initial setup**
@@ -1795,6 +1461,8 @@ const balance = await getAssetBalance({address, CHAIN, CURRENCY_SPEC /*Refer to 
 
   <summary>Currency spec options</summary>
   
+**Currency spec in this method is optional and if not provided function will search for balance of native asset of chosen chain.**
+
 **Following options are possible for currency specification:**
 
 Asset selection by Location:
