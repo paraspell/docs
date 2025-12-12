@@ -44,7 +44,7 @@ export const submitTransaction = async (
 };
 
 
-const response = await fetch("http://localhost:3001/v4/router", {
+const response = await fetch("http://localhost:3001/v5/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ const tx = await api
 
 If you wish to have exchange chain selection based on best price outcome, you can opt for automatic exchange selection method. This method can be selected by **not using** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
-**Endpoint**: `POST /v4/router-hash`
+**Endpoint**: `POST /v5/router-hash`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -134,7 +134,7 @@ If you wish to have exchange chain selection based on best price outcome, you ca
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router", {
+const response = await fetch("http://localhost:3001/v5/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -194,7 +194,7 @@ options: ({
 
 If you wish to have exchange chain selection based on best price outcome from selected chains, you can opt for whitelist exchange selection method. This method can be selected by **using desired chains in** `exchange:` parameter in the call. Router will then automatically select the best exchange chain for you based on the best price outcome.
   
-**Endpoint**: `POST /v4/router-hash`
+**Endpoint**: `POST /v5/router-hash`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -237,7 +237,7 @@ If you wish to have exchange chain selection based on best price outcome from se
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router", {
+const response = await fetch("http://localhost:3001/v5/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -304,7 +304,7 @@ options: ({
 
 If you wish to select your exchange chain manually you can do that by providing aditional parameter `exchange:` in the call. Router will then use exchange chain of your choice.
 
-**Endpoint**: `POST /v4/router-hash`
+**Endpoint**: `POST /v5/router-hash`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -347,7 +347,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router", {
+const response = await fetch("http://localhost:3001/v5/router", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -414,7 +414,7 @@ options: ({
 
 You can find out whether you XCM message will execute successfuly or with error. XCM Message dry run should write you concrete error so you can find out if the XCM message will execute without it ever being submitted.
 
-**Endpoint**: `POST /v4/router/dry-run`
+**Endpoint**: `POST /v5/router/dry-run`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -456,7 +456,7 @@ You can find out whether you XCM message will execute successfuly or with error.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router/dry-run", {
+const response = await fetch("http://localhost:3001/v5/router/dry-run", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -523,7 +523,7 @@ options: ({
 
 If you wish to find out what is the `minimal transferable amount` of the asset you are trying to exchange you can use following endpoint.
 
-**Endpoint**: `POST /v4/router/min-transferable-amount`
+**Endpoint**: `POST /v5/router/min-transferable-amount`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -565,7 +565,7 @@ If you wish to find out what is the `minimal transferable amount` of the asset y
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router/min-transferable-amount", {
+const response = await fetch("http://localhost:3001/v5/router/min-transferable-amount", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -632,7 +632,7 @@ options: ({
 
 If you wish to find out what is the `max transferable amount` of the asset you are trying to exchange you can use following endpoint.
 
-**Endpoint**: `POST /v4/router/transferable-amount`
+**Endpoint**: `POST /v5/router/transferable-amount`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -674,7 +674,7 @@ If you wish to find out what is the `max transferable amount` of the asset you a
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router/transferable-amount", {
+const response = await fetch("http://localhost:3001/v5/router/transferable-amount", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -741,7 +741,7 @@ options: ({
 
 If you wish to find out what is the `best amount out` from specified dex or from any dex you can use following query.
 
-**Endpoint**: `POST /v4/router/best-amount-out`
+**Endpoint**: `POST /v5/router/best-amount-out`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -776,7 +776,7 @@ If you wish to find out what is the `best amount out` from specified dex or from
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router/best-amount-out", {
+const response = await fetch("http://localhost:3001/v5/router/best-amount-out", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -840,7 +840,7 @@ options: ({
 
 You can retrieve fees for all operations XCM Router performs. Keep in mind, that they are not as accurate for transfer from exchange to destination as the currency that is planned to be routed after the swap is not yet available on that account (Thus it uses payment info method instead of dryrun in that scenario).
 
-**Endpoint**: `POST /v4/router/xcm-fees`
+**Endpoint**: `POST /v5/router/xcm-fees`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -883,7 +883,7 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router/xcm-fees", {
+const response = await fetch("http://localhost:3001/v5/router/xcm-fees", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -951,7 +951,7 @@ options: ({
 
 Retrieve which `asset pairs` are supported on which exchanges.
 
-**Endpoint**: `POST /v4/router/pairs`
+**Endpoint**: `POST /v5/router/pairs`
 
   <details>
   <summary><b>Parameters</b> </summary>
@@ -970,7 +970,7 @@ Retrieve which `asset pairs` are supported on which exchanges.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v4/router/pairs", {
+const response = await fetch("http://localhost:3001/v5/router/pairs", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

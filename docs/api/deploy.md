@@ -70,7 +70,7 @@ Recently, LightSpell introduced the Sentry error tracking service implementation
 Open your REST API client, client we use is [Insomnia](https://insomnia.rest/).
 
 Paste in the following details and input the following link to test out Sentry:
-`http://localhost:3001/v4/sentry-test`
+`http://localhost:3001/v5/sentry-test`
 
 LightSpell has integrated this test for you so you can test out error 500 in localhost mode.
 Once you paste the link into the browser, Sentry should notify you about a new error 500. It should look like this in your project:
