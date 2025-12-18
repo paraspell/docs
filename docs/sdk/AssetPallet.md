@@ -19,10 +19,10 @@ import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsOb
 ```
 
 ## Query asset paths
-Following query lets you query paths that should be supported for specific asset related to origin chain.
+Following query lets you query paths that should be supported for specific asset related to origin chain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
-getSupportedDestinations(CHAIN, CURRENCY)
+getSupportedDestinations(TChain, CURRENCY)
 ```
 
 **Example output:**
@@ -39,9 +39,9 @@ getSupportedDestinations(CHAIN, CURRENCY)
 ```
 
 ## Query assets supported between chains
-Following query lets you query assets supported between two selected Parachains.
+Following query lets you query assets supported between two selected Parachains. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
+getSupportedAssets(TChain, TChain)
 ```
 
 **Example output:**
@@ -369,9 +369,9 @@ getSupportedAssets(ORIGIN_CHAIN, DESTINATION_CHAIN)
 </details>
 
 ## Query fee assets
-This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property.
+This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getFeeAssets(CHAIN)
+getFeeAssets(TChain)
 ```
 
 **Example output:**
@@ -404,9 +404,9 @@ getFeeAssets(CHAIN)
 ```
 
 ## Convert id or symbol to location
-Get location for asset id or symbol.
+Get location for asset id or symbol. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getAssetLocation(CHAIN, { symbol: symbol } | { id: assetId })
+getAssetLocation(TChain, { symbol: symbol } | { id: assetId })
 ```
 
 **Example output:**
@@ -421,9 +421,9 @@ getAssetLocation(CHAIN, { symbol: symbol } | { id: assetId })
 ```
 
 ## Query assets object
-This function returns `assets object` from `assets.json` for `particular Parachain` including information about `native` and `foreign` assets.
+This function returns `assets object` from `assets.json` for `particular Parachain` including information about `native` and `foreign` assets. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getAssetsObject(CHAIN)
+getAssetsObject(TChain)
 ```
 
 **Example output:**
@@ -527,9 +527,9 @@ getAssetsObject(CHAIN)
 
 
 ## Query asset ID
-This function returns `assetId` for `particular Parachain` and `asset symbol`
+This function returns `assetId` for `particular Parachain` and `asset symbol`. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getAssetId(CHAIN, ASSET_SYMBOL)
+getAssetId(TChain, ASSET_SYMBOL)
 ```
 
 **Example output:**
@@ -539,9 +539,9 @@ getAssetId(CHAIN, ASSET_SYMBOL)
 ```
 
 ## Query Relay chain asset symbol
-This function returns the `symbol` of the Relay chain for a particular Parachain. Either "DOT" or "KSM"
+This function returns the `symbol` of the Relay chain for a particular Parachain. Either `DOT` or `KSM` or `WND` or `PAS`. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getRelayChainSymbol(CHAIN)
+getRelayChainSymbol(TChain)
 ```
 
 **Example output:**
@@ -551,9 +551,9 @@ getRelayChainSymbol(CHAIN)
 ```
 
 ## Query native assets
-This function returns a string array of `native` assets symbols for a particular Parachain
+This function returns a string array of `native` assets symbols for a particular Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getNativeAssets(CHAIN)
+getNativeAssets(TChain)
 ```
 
 **Example output:**
@@ -580,9 +580,9 @@ getNativeAssets(CHAIN)
 ```
 
 ## Query foreign assets
-This function returns an object array of foreign assets for a particular Parachain. Each object has a symbol and assetId property
+This function returns an object array of foreign assets for a particular Parachain. Each object has a symbol and assetId property. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getOtherAssets(CHAIN)
+getOtherAssets(TChain)
 ```
 
 **Example output:**
@@ -662,9 +662,9 @@ getOtherAssets(CHAIN)
 </details>
 
 ## Query all asset symbols
-Function returns string array of all asset symbols for a specific Parachain. (native and foreign assets are merged into a single array)
+Function returns string array of all asset symbols for a specific Parachain. (Native and foreign assets are merged into a single array). Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getAllAssetsSymbols(CHAIN)
+getAllAssetsSymbols(TChain)
 ```
 
 **Example output:**
@@ -698,9 +698,10 @@ getAllAssetsSymbols(CHAIN)
 ```
 
 ## Query asset support I
-The function checks if Parachain supports a particular asset. (Both native and foreign assets are searched). Returns boolean.
+The function checks if Parachain supports a particular asset. (Both native and foreign assets are searched). Returns boolean. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+
 ```ts
-hasSupportForAsset(CHAIN, ASSET_SYMBOL)
+hasSupportForAsset(TChain, ASSET_SYMBOL)
 ```
 
 **Example output:**
@@ -710,10 +711,10 @@ true
 ```
 
 ## Query asset support II
-The function checks if Parachain supports a particular asset. Returns asset object or null. Destination parameter is optional and should be set to Ethereum when using snowbridge assets.
+The function checks if Parachain supports a particular asset. Returns asset object or null. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
-findAssetInfo(CHAIN, CURRENCY, DESTINATION?)
+findAssetInfo(TChain, CURRENCY, DESTINATION?)
 ```
 
 **Example output:**
@@ -742,10 +743,10 @@ findAssetInfo(CHAIN, CURRENCY, DESTINATION?)
 
 
 ## Query asset support III
-The function checks if Parachain supports a particular asset. Returns asset object or error. Destination parameter is optional and should be set to Ethereum when using snowbridge assets.
+The function checks if Parachain supports a particular asset. Returns asset object or error. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
-findAssetInfoOrThrow(CHAIN, CURRENCY, DESTINATION?)
+findAssetInfoOrThrow(TChain, CURRENCY, DESTINATION?)
 ```
 
 **Example output:**
@@ -774,9 +775,9 @@ findAssetInfoOrThrow(CHAIN, CURRENCY, DESTINATION?)
 
 
 ## Query asset decimals
-The function returns decimals for a specific asset
+The function returns decimals for a specific asset. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getAssetDecimals(CHAIN, ASSET_SYMBOL)
+getAssetDecimals(TChain, ASSET_SYMBOL)
 ```
 
 **Example output:**
@@ -786,9 +787,9 @@ getAssetDecimals(CHAIN, ASSET_SYMBOL)
 ```
 
 ## Query Parachain ID
-The function returns specific Parachain id
+The function returns specific Parachain id. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getParaId(CHAIN)
+getParaId(TChain)
 ```
 
 **Example output:**
@@ -798,9 +799,9 @@ getParaId(CHAIN)
 ```
 
 ## Query Parachain name
-Function to get specific TChain from Parachain id
+Function to get specific TChain from Parachain id. 
 ```ts
-getTChain(paraID: number, ecosystem: 'Polkadot' | 'Kusama' | 'Passeo' | 'Westend' | 'Ethereum') // When Ethereum ecosystem is selected please fill CHAINID as 1 to select Ethereum.
+getTChain(paraId: number, ecosystem: 'Polkadot' | 'Kusama' | 'Passeo' | 'Westend' | 'Ethereum') // When Ethereum ecosystem is selected please fill ParachainID as 1 to select Ethereum.
 ```
 
 **Example output:**

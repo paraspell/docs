@@ -21,9 +21,9 @@ import { getDefaultPallet, getSupportedPallets, getPalletIndex, SUPPORTED_PALLET
 
 ## Get default XCM pallet
 
-The function returns the default XCM pallet for selected compatible Parachain.
+The function returns the default XCM pallet for selected compatible Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getDefaultPallet(CHAIN)
+getDefaultPallet(TChain)
 ```
 
 **Example output:**
@@ -34,9 +34,9 @@ getDefaultPallet(CHAIN)
 
 ## Get all supported XCM pallets
 
-The function returns all supported XCM pallets for selected compatible Parachain.
+The function returns all supported XCM pallets for selected compatible Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getSupportedPallets(CHAIN)
+getSupportedPallets(TChain)
 ```
 
 **Example output:**
@@ -50,9 +50,9 @@ getSupportedPallets(CHAIN)
 
 ### Get index of XCM Pallet
 
-The function returns all index of XCM Pallet for selected Parachain.
+The function returns all index of XCM Pallet for selected Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getPalletIndex(CHAIN)
+getPalletIndex(TChain)
 ```
 
 **Example output:**
@@ -70,14 +70,14 @@ console.log(SUPPORTED_PALLETS)
 
 ## Print local pallets for native assets
 
-Following function returns all pallets for local transfers of native assets for specific chain.
+Following function returns all pallets for local transfers of native assets for specific chain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getNativeAssetsPallet(chain: TChain)
+getNativeAssetsPallet(TChain)
 ```
 
 ## Print local pallets for foreign assets
 
-Following function returns all pallets for local transfers of foreign assets for specific chain.
+Following function returns all pallets for local transfers of foreign assets for specific chain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getOtherAssetsPallets(chain: TChain)
+getOtherAssetsPallets(TChain)
 ```

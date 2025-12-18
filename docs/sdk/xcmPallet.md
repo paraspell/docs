@@ -10,8 +10,8 @@
 
 ```ts
 const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(RELAY_CHAIN) // 'Kusama' | 'Polkadot' | 'Paseo' | 'Westend'
-      .to(CHAIN/*,customParaId - optional*/ | Location object) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TRelaychain) // 'Kusama' | 'Polkadot' | 'Paseo' | 'Westend'
+      .to(TChain/*,customParaId - optional*/ | Location object) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency({symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/})
       .address(address | Location object)
 
@@ -132,8 +132,8 @@ const builder = await Builder({
 
 ```ts
 const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to(RELAY_CHAIN) // 'Kusama' | 'Polkadot' | 'Paseo' | 'Westend'
+      .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TRelaychain) // 'Kusama' | 'Polkadot' | 'Paseo' | 'Westend' 
       .currency({symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/})
       .address(address | Location object)
 
@@ -254,8 +254,8 @@ const builder = await Builder({
 
 ```ts
 const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to(CHAIN /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
       .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
@@ -521,7 +521,7 @@ Just like Polkadot <> Kusama bridge the Snowbridge is implemented in as intuitiv
 
 ```ts
 await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from('AssetHubPolkadot') // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})   // Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
           .address(eth_address)  // AccountKey20 recipient address
@@ -614,7 +614,7 @@ const signer = await provider.getSigner();
 
 await EvmBuilder(provider)   // Ethereum provider
   .from('Ethereum')   
-  .to('AssetHubPolkadot') // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+  .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
   .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})    // Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
   .address(address)   // AccountID32 recipient address
   //.ahAddress(ahAddress) - ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
@@ -639,8 +639,8 @@ const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 ## Local transfers
 ```ts
 const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to(CHAIN) // Has to be same as origin (from)
+      .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) // Has to be same as origin (from)
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address)
 
@@ -772,14 +772,14 @@ const builder = await Builder({
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
 ```ts
 await Builder(/*CHAIN api/ws_url_string - optional*/)
-      .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
-      .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) // Ensure, that origin CHAIN is the same in all batched XCM Calls. 
+      .to(Tchain2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object)
       .addToBatch()
 
-      .from(CHAIN) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
-      .to(CHAIN_3) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
+      .to(TChain3) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object)
       .addToBatch()
@@ -833,7 +833,7 @@ If you need to sign Moonbeam / Moonriver transactions with other than Polkadot w
 ```ts
 const hash = await EvmBuilder()
       .from('Moonbeam') // 'Moonbeam' | 'Moonriver'
-      .to(CHAIN) // 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .to(TChain) // 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency({id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} | {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/}) //Select currency by ID or Symbol
       .address(address)
       .signer(signer) // Ethers Signer or Viem Wallet Client
@@ -845,7 +845,7 @@ Claim XCM trapped assets from the selected chain.
 
 ```ts
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .claimFrom(CHAIN) // 'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama'
+      .claimFrom(TChain) // 'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama' 
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object)
       /*.xcmVersion(Version.V3) Optional parameter, by default chain specific version. XCM Version ENUM if a different XCM version is needed (Supported V3, V4, V5). Requires importing Version enum.*/
@@ -904,8 +904,8 @@ Dry running let's you check whether your XCM Call will execute, giving you a cha
 
 ```ts
 const result = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-        .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .currency(CURRENCY_SPEC) // Refer to currency spec options below
         .address(ADDRESS)
         .senderAddress(SENDER_ADDRESS)
@@ -917,7 +917,7 @@ import { hasDryRunSupport } from "@paraspell/sdk";
 // PJS
 import { hasDryRunSupport } from "@paraspell/sdk-pjs";
 
-const result = hasDryRunSupport(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+const result = hasDryRunSupport(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
 ```
 
 
@@ -970,8 +970,6 @@ Asset selection of multiple assets:
 
 ```
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
@@ -1228,8 +1226,8 @@ Using preview with dry-run you can find out the result of the call for fictional
 
 ```ts
 const result = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-        .from(CHAIN) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .to(CHAIN_2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .currency(CURRENCY_SPEC) // Refer to currency spec options below
         .address(ADDRESS)
         .senderAddress(SENDER_ADDRESS)
@@ -1281,8 +1279,6 @@ Asset selection by asset Symbol:
 
 ```
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
@@ -1539,8 +1535,8 @@ const builder = await Builder({
     // ChainName: ...
   }
 })
-  .from(CHAIN)
-  .to(CHAIN)
+  .from(TChain)
+  .to(TChain)
   .currency(CURRENCY_SPEC) // Refer to currency spec options below
   .address(address)
 

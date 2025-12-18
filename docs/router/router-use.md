@@ -32,8 +32,8 @@ If you wish to have an exchange chain selection based on the best price outcome,
 
 ```ts
 await RouterBuilder(/* builder_config - Optional*/)
-        .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .from(TChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .to(TChain)    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
         .amount('1000000')  // Amount to send
@@ -149,9 +149,9 @@ If you wish to have specific exchanges selection and select the best one among t
 
 ```ts
 await RouterBuilder(/* builder_config - Optional*/)
-        .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .from(TChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .to(TChain)    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .exchange(['HydrationDex','AcalaDex','AssetHubPolkadotDex'])    //Exchange Parachains
-        .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
         .amount('1000000')  // Amount to send
@@ -267,9 +267,9 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 ```ts
 await RouterBuilder(/* builder_config - Optional*/)
-        .from('Polkadot')   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+        .from(TChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .to(TChain)    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .exchange('HydrationDex')    //Exchange Parachain
-        .to('Astar')    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
         .amount('1000000')  // Amount to send
@@ -385,11 +385,11 @@ Dry running let's you check whether your XCM Call will execute, giving you a cha
 
 ```ts
 const result = await RouterBuilder()
-      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
-        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
-        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+      .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
       .senderAddress(selectedAccount.address)   //Injector address
       .recipientAddress(recipientAddress) //Recipient address
@@ -405,8 +405,6 @@ const result = await RouterBuilder()
 
 ```
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
@@ -422,8 +420,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 {
   "origin": {
     "success": true,
-    "fee": "24846864",
-    "currency": "DOT",
+    "fee": "25537364",
     "asset": {
       "symbol": "DOT",
       "isNative": true,
@@ -438,8 +435,8 @@ hops - Always present - An array of chains that the transfer hops through (Empty
       "isFeeAsset": true
     },
     "weight": {
-      "refTime": "1273149000",
-      "proofSize": "9149"
+      "refTime": "1323338000",
+      "proofSize": "10530"
     },
     "forwardedXcms": [
       {
@@ -555,7 +552,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                     },
                     "fun": {
                       "type": "Fungible",
-                      "value": "2970398"
+                      "value": "1775950"
                     }
                   }
                 ],
@@ -635,7 +632,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                         },
                         "fun": {
                           "type": "Fungible",
-                          "value": "2970396"
+                          "value": "1775948"
                         }
                       },
                       "weight_limit": {
@@ -716,7 +713,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                               },
                               "fun": {
                                 "type": "Fungible",
-                                "value": "2837130"
+                                "value": "1692273"
                               }
                             },
                             "weight_limit": {
@@ -791,186 +788,9 @@ hops - Always present - An array of chains that the transfer hops through (Empty
     ],
     "destParaId": 2034
   },
-  "assetHub": {
-    "success": true,
-    "fee": "111057",
-    "currency": "USDC",
-    "asset": {
-      "assetId": "1337",
-      "symbol": "USDC",
-      "decimals": 6,
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X3": [
-            {
-              "Parachain": 1000
-            },
-            {
-              "PalletInstance": 50
-            },
-            {
-              "GeneralIndex": 1337
-            }
-          ]
-        }
-      },
-      "existentialDeposit": "10000",
-      "isFeeAsset": true,
-      "alias": "USDC1"
-    },
-    "weight": {
-      "refTime": "1370970000",
-      "proofSize": "11257"
-    },
-    "forwardedXcms": [
-      {
-        "type": "V4",
-        "value": {
-          "parents": 1,
-          "interior": {
-            "type": "X1",
-            "value": {
-              "type": "Parachain",
-              "value": 2030
-            }
-          }
-        }
-      },
-      [
-        {
-          "type": "V4",
-          "value": [
-            {
-              "type": "ReserveAssetDeposited",
-              "value": [
-                {
-                  "id": {
-                    "parents": 1,
-                    "interior": {
-                      "type": "X3",
-                      "value": [
-                        {
-                          "type": "Parachain",
-                          "value": 1000
-                        },
-                        {
-                          "type": "PalletInstance",
-                          "value": 50
-                        },
-                        {
-                          "type": "GeneralIndex",
-                          "value": "1337"
-                        }
-                      ]
-                    }
-                  },
-                  "fun": {
-                    "type": "Fungible",
-                    "value": "2859047"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "ClearOrigin"
-            },
-            {
-              "type": "BuyExecution",
-              "value": {
-                "fees": {
-                  "id": {
-                    "parents": 1,
-                    "interior": {
-                      "type": "X3",
-                      "value": [
-                        {
-                          "type": "Parachain",
-                          "value": 1000
-                        },
-                        {
-                          "type": "PalletInstance",
-                          "value": 50
-                        },
-                        {
-                          "type": "GeneralIndex",
-                          "value": "1337"
-                        }
-                      ]
-                    }
-                  },
-                  "fun": {
-                    "type": "Fungible",
-                    "value": "2837130"
-                  }
-                },
-                "weight_limit": {
-                  "type": "Unlimited"
-                }
-              }
-            },
-            {
-              "type": "DepositAsset",
-              "value": {
-                "assets": {
-                  "type": "Wild",
-                  "value": {
-                    "type": "AllOf",
-                    "value": {
-                      "id": {
-                        "parents": 1,
-                        "interior": {
-                          "type": "X3",
-                          "value": [
-                            {
-                              "type": "Parachain",
-                              "value": 1000
-                            },
-                            {
-                              "type": "PalletInstance",
-                              "value": 50
-                            },
-                            {
-                              "type": "GeneralIndex",
-                              "value": "1337"
-                            }
-                          ]
-                        }
-                      },
-                      "fun": {
-                        "type": "Fungible"
-                      }
-                    }
-                  }
-                },
-                "beneficiary": {
-                  "parents": 0,
-                  "interior": {
-                    "type": "X1",
-                    "value": {
-                      "type": "AccountId32",
-                      "value": {
-                        "id": {}
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "type": "SetTopic",
-              "value": {}
-            }
-          ]
-        }
-      ]
-    ],
-    "destParaId": 2030
-  },
   "destination": {
     "success": true,
-    "fee": "10685",
-    "currency": "USDC",
+    "fee": "11349",
     "asset": {
       "assetId": "5",
       "symbol": "USDC",
@@ -1005,8 +825,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
       "chain": "Hydration",
       "result": {
         "success": true,
-        "fee": "171018194",
-        "currency": "DOT",
+        "fee": "186595260",
         "asset": {
           "assetId": "5",
           "symbol": "DOT",
@@ -1064,7 +883,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                       },
                       "fun": {
                         "type": "Fungible",
-                        "value": "2970398"
+                        "value": "1775950"
                       }
                     }
                   ]
@@ -1094,7 +913,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                       },
                       "fun": {
                         "type": "Fungible",
-                        "value": "2970396"
+                        "value": "1775948"
                       }
                     },
                     "weight_limit": {
@@ -1169,7 +988,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                             },
                             "fun": {
                               "type": "Fungible",
-                              "value": "2837130"
+                              "value": "1692273"
                             }
                           },
                           "weight_limit": {
@@ -1244,8 +1063,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
       "chain": "AssetHubPolkadot",
       "result": {
         "success": true,
-        "fee": "111057",
-        "currency": "USDC",
+        "fee": "69731",
         "asset": {
           "assetId": "1337",
           "symbol": "USDC",
@@ -1271,8 +1089,8 @@ hops - Always present - An array of chains that the transfer hops through (Empty
           "alias": "USDC1"
         },
         "weight": {
-          "refTime": "1370970000",
-          "proofSize": "11257"
+          "refTime": "1416916000",
+          "proofSize": "12638"
         },
         "forwardedXcms": [
           {
@@ -1318,7 +1136,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                       },
                       "fun": {
                         "type": "Fungible",
-                        "value": "2859047"
+                        "value": "1706038"
                       }
                     }
                   ]
@@ -1352,7 +1170,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
                       },
                       "fun": {
                         "type": "Fungible",
-                        "value": "2837130"
+                        "value": "1692273"
                       }
                     },
                     "weight_limit": {
@@ -1522,11 +1340,11 @@ You can use the minimal transferable balance to retrieve information on minimum 
 
 ```ts
 const result = await RouterBuilder()
-      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
-        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
-        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+      .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
       .senderAddress(selectedAccount.address)   //Injector address
       //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
@@ -1636,11 +1454,11 @@ You can use the transferable balance to retrieve information on how much of the 
 
 ```ts
 const result = await RouterBuilder()
-      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
-        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
-        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+      .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
       .senderAddress(selectedAccount.address)   //Injector address
       //.evmSenderAddress(evmInjector address)   //Optional parameters when origin CHAIN is EVM based (Required with evmSigner)
@@ -1750,16 +1568,25 @@ To retrieve exchange amount, that you receive for your desired asset pair you ca
 
 ```ts
 const result = await RouterBuilder()
-      .from('Astar') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-      .to('Acala') //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
-        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
-        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+      .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(10000000000n)
       .getBestAmountOut();
 
 console.log(result.amountOut)
 console.log(result.exchange)
+```
+
+**Example output:**
+
+```json
+{
+  "exchange": "AssetHubPolkadotDex",
+  "amountOut": "982693"
+}
 ```
 
 **Initial setup:**
@@ -1860,11 +1687,11 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
 
 ```ts
 const fees = await RouterBuilder(/* builder_config - Optional*/)
-      .from(from) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange(exchange) //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
-      .to(to) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-        .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
-        .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
+      .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
+      .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
       .amount(amount)
       .senderAddress(senderAddress)
       .recipientAddress(recipientAddress)
@@ -1879,8 +1706,6 @@ const fees = await RouterBuilder(/* builder_config - Optional*/)
 
 ```
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
@@ -1891,153 +1716,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 
 
 <details>
-        
-<summary>One signature transfer scenarios</summary>
-
-Router now features one-click cross-chain swaps using the Execute instruction (HydrationDex & AssetHubPolkadotDex). This allows us to get precise dry-run fee results for everything in one function call. 
-
-<details>
-<summary>Example of an output for swap transfer (USDT -> USDC) from Hydration > AssetHubPolkadotDex > Astar </summary>
-
-```json
-{
-  "origin": {
-    "weight": {
-      "refTime": "1918633799",
-      "proofSize": "13757"
-    },
-    "fee": "46696677064",
-    "feeType": "dryRun",
-    "sufficient": false,
-    "currency": "HDX",
-    "asset": {
-      "symbol": "HDX",
-      "isNative": true,
-      "decimals": 12,
-      "existentialDeposit": "1000000000000",
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X2": [
-            {
-              "Parachain": 2034
-            },
-            {
-              "GeneralIndex": 0
-            }
-          ]
-        }
-      },
-      "isFeeAsset": true
-    }
-  },
-  "assetHub": {
-    "fee": "189772",
-    "feeType": "dryRun",
-    "currency": "USDT",
-    "asset": {
-      "assetId": "10",
-      "symbol": "USDT",
-      "decimals": 6,
-      "existentialDeposit": "10000",
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X3": [
-            {
-              "Parachain": 1000
-            },
-            {
-              "PalletInstance": 50
-            },
-            {
-              "GeneralIndex": 1984
-            }
-          ]
-        }
-      },
-      "isFeeAsset": true,
-      "alias": "USDT1"
-    }
-  },
-  "destination": {
-    "fee": "1813",
-    "feeType": "dryRun",
-    "sufficient": false,
-    "currency": "USDC",
-    "asset": {
-      "assetId": "4294969281",
-      "symbol": "USDC",
-      "decimals": 6,
-      "location": {
-        "parents": 1,
-        "interior": {
-          "X3": [
-            {
-              "Parachain": 1000
-            },
-            {
-              "PalletInstance": 50
-            },
-            {
-              "GeneralIndex": 1337
-            }
-          ]
-        }
-      },
-      "existentialDeposit": "1",
-      "isFeeAsset": true
-    }
-  },
-  "hops": [
-    {
-      "chain": "AssetHubPolkadot",
-      "result": {
-        "fee": "189772",
-        "feeType": "dryRun",
-        "currency": "USDT",
-        "asset": {
-          "assetId": "10",
-          "symbol": "USDT",
-          "decimals": 6,
-          "existentialDeposit": "10000",
-          "location": {
-            "parents": 1,
-            "interior": {
-              "X3": [
-                {
-                  "Parachain": 1000
-                },
-                {
-                  "PalletInstance": 50
-                },
-                {
-                  "GeneralIndex": 1984
-                }
-              ]
-            }
-          },
-          "isFeeAsset": true,
-          "alias": "USDT1"
-        }
-      },
-      "isExchange": true
-    }
-  ]
-}
-```
-
-</details>
-</details>
-
-<details>
-        
-<summary>Two signature scenarios</summary>
-
-Since the introduction of the dry-run bypass, this query can now be executed in a single run instead of requiring two. Previously, the dry-run stage occurred before the currency was swapped, which caused it to fail.
-
-<details>
-<summary>Example of an output for swap transfer (BNC -> DOT) from Astar > BifrostPolkadot > Hydration  </summary>
+<summary>Example of an output for swap transfer (USDT -> USDC) from Astar > AssetHubPolkadotDex > Hydration </summary>
 
 ```json
 {
@@ -2046,10 +1725,9 @@ Since the introduction of the dry-run bypass, this query can now be executed in 
       "refTime": "2838684462",
       "proofSize": "35585"
     },
-    "fee": "125582447270671396",
+    "fee": "82106097813361033",
     "feeType": "dryRun",
-    "sufficient": false,
-    "currency": "ASTR",
+    "sufficient": true,
     "asset": {
       "symbol": "ASTR",
       "isNative": true,
@@ -2068,46 +1746,45 @@ Since the introduction of the dry-run bypass, this query can now be executed in 
     }
   },
   "destination": {
-    "fee": "1722004",
+    "fee": "349",
     "feeType": "dryRun",
-    "sufficient": false,
-    "currency": "DOT",
     "asset": {
-      "assetId": "5",
-      "symbol": "DOT",
-      "decimals": 10,
-      "existentialDeposit": "17540000",
+      "assetId": "22",
+      "symbol": "USDC",
+      "decimals": 6,
+      "existentialDeposit": "10000",
       "location": {
         "parents": 1,
         "interior": {
-          "Here": null
+          "X3": [
+            {
+              "Parachain": 1000
+            },
+            {
+              "PalletInstance": 50
+            },
+            {
+              "GeneralIndex": 1337
+            }
+          ]
         }
       },
-      "isFeeAsset": true
+      "isFeeAsset": true,
+      "alias": "USDC3"
     }
   },
   "hops": [
     {
-      "chain": "BifrostPolkadot",
-      "result": {
-        "fee": "172338434911",
-        "feeType": "dryRun",
-        "currency": "BNC"
-      },
-      "isExchange": true
-    },
-    {
       "chain": "AssetHubPolkadot",
       "result": {
-        "fee": "1832430000",
+        "fee": "359818592",
         "feeType": "dryRun",
         "sufficient": false,
-        "currency": "DOT",
         "asset": {
-          "assetId": "0",
           "symbol": "DOT",
+          "isNative": true,
           "decimals": 10,
-          "existentialDeposit": "1000000",
+          "existentialDeposit": "100000000",
           "location": {
             "parents": 1,
             "interior": {
@@ -2115,8 +1792,14 @@ Since the introduction of the dry-run bypass, this query can now be executed in 
             }
           },
           "isFeeAsset": true
+        },
+        "forwardedXcms": [],
+        "weight": {
+          "refTime": "1290077488",
+          "proofSize": "20021"
         }
-      }
+      },
+      "isExchange": true
     }
   ]
 }
@@ -2124,7 +1807,6 @@ Since the introduction of the dry-run bypass, this query can now be executed in 
 
 </details>
 
-</details>
 
 **Initial setup:**
 

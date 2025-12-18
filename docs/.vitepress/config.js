@@ -55,7 +55,7 @@ export default {
             text: 'XCM analyser 🔎',
             items: [
               { text: 'Getting started', link: '/analyser/getng-strtd' },
-              { text: 'Convert multilocations', link: '/analyser/analyser-use' },
+              { text: 'Convert locations', link: '/analyser/analyser-use' },
             ]
           },
           {

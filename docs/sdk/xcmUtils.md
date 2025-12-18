@@ -7,8 +7,8 @@ Use this query to comprehensively assess whether a message will execute successf
 
 ```ts
 const info = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
@@ -78,8 +78,6 @@ Asset selection of multiple assets:
 ```
 chain - Always present
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
@@ -292,8 +290,8 @@ You can use the transferable balance to retrieve information on how much of the 
 
 ```ts
 const transferable = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
@@ -453,8 +451,8 @@ You can use the minimal transferable balance to retrieve information on minimum 
 
 ```ts
 const transferable = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
@@ -614,8 +612,8 @@ To retrieve information on whether the selected currency from a specific account
 
 ```ts
 const ed = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
@@ -774,8 +772,8 @@ You can predict the amount to be received on destination, granted, that the dest
 
 ```ts
 const transferable = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
@@ -922,8 +920,8 @@ The following query allows you to query the fee from both the Origin and Destina
 
 ```ts
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
@@ -1000,8 +998,6 @@ When Payment info query is performed, it retrieves fees for destination in desti
 
 ```
 origin - Always present
-assetHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
-bridgeHub - Present if XCM is Multihop (For example Para > Ethereum) - WILL DEPRECATE SOON - Superseded by hops array
 destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
@@ -1155,8 +1151,8 @@ The following queries allow you to query the XCM fee from the Origin chain. The 
 
 ```ts
 const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(ORIGIN_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
-          .to(DESTINATION_CHAIN) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ...
+          .from(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
           .address(RECIPIENT_ADDRESS)
           .senderAddress(SENDER_ADDRESS)
@@ -1443,7 +1439,7 @@ const builder = await Builder({
 </details>
 
 ## Asset balance
-You can now query all important information about your XCM call, including fees (if your balance is sufficient to transfer an XCM message) and more.
+You can now query all important information about your XCM call, including fees (if your balance is sufficient to transfer an XCM message) and more. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
 //PAPI
@@ -1452,7 +1448,7 @@ import { getBalance } from "@paraspell/sdk";
 import { getBalance } from "@paraspell/sdk-pjs";
 
 //Retrieves the asset balance for a given account on a specified CHAIN (You do not need to specify if it is native or foreign).
-const balance = await getBalance({address, CHAIN, CURRENCY_SPEC /*OPTIONAL - Refer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
+const balance = await getBalance({ADDRESS, TChain, CURRENCY_SPEC /*OPTIONAL - Refer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
 ```
 
 **Initial setup**
@@ -1519,7 +1515,7 @@ const fees = await getParaEthTransferFees(/*client | ws_url | [ws_url, ws_url,..
 ```
 
 ## Query existential deposit
-Latest SDK versions now offer the ability to query the existential deposit on implemented chains using a simple call:
+Latest SDK versions now offer the ability to query the existential deposit on implemented chains using a simple call. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
 //PAPI
@@ -1529,7 +1525,7 @@ import { getExistentialDeposit } from "@paraspell/sdk-pjs";
 
 //Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
 //Currency can be either {symbol: assetSymbol}, {id: assetId}, {location: assetLocation}.
-const ed = getExistentialDeposit(CHAIN, currency?)
+const ed = getExistentialDeposit(TChain, currency?)
 ```
 
 **Example output:**
@@ -1539,7 +1535,7 @@ const ed = getExistentialDeposit(CHAIN, currency?)
 ```
 
 ## Convert SS58 address 
-The following functionality allows you to convert any SS58 address to a Parachain-specific address.
+The following functionality allows you to convert any SS58 address to a Parachain-specific address. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
 //PAPI
@@ -1547,7 +1543,7 @@ import { convertSs58 } from "@paraspell/sdk";
 //PJS
 import { convertSs58 } from "@paraspell/sdk-pjs";
 
-const result = convertSs58(address, CHAIN) 
+const result = convertSs58(ADDRESS, TChain) 
 ```
 
 **Example output:**

@@ -107,16 +107,3 @@ To rearange chains simply select same option button highlighted in section above
 You can now rearange individual chains by simply selecting them with right click. The rearangement can be done to any coordinate in 3D space (x,y,z). The channels will follow.
 
 <img width="550" alt="individual" src="https://github.com/user-attachments/assets/12a4461a-2e66-4ed7-a093-53ba50ca214d" />
-
-## Send XCM
-Sending XCM messages in XCM Visualization tool is only logical. You can try technology in action.
-
-### Process of sending XCM
-
-First step is to locate Send XCM button:
-
-<img width="550" alt="button" src="https://github.com/user-attachments/assets/6a9b464d-8cf1-4328-abf8-86e03ad918e6" />
-
-Once button is located and clicked user can fill in desired details (far less than normal thanks to [ParaSpell XCM SDK](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk)) and then simply send the message.
-
-<img width="550" alt="Send form" src="https://github.com/user-attachments/assets/fcd2f1f4-9591-4a2a-ac52-44495a3ab8f4" />
