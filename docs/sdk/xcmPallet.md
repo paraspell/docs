@@ -840,7 +840,7 @@ const hash = await EvmBuilder()
       .build()
 ```
 
-### Asset claim:
+## Asset claim:
 Claim XCM trapped assets from the selected chain.
 
 ```ts
