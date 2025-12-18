@@ -6,6 +6,181 @@
 - Parachain to Ethereum transfer
 - Polkadot to Kusama ecosystem transfer and vice versa
 
+## Parachain to Parachain
+
+```ts
+const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] - Optional*/)
+      .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
+      .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
+      .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
+
+const tx = await builder.build()
+
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+```
+
+**Initial setup**
+
+  <details>
+
+  <summary>Currency spec options</summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
+```
+
+  </details>
+
+**Notes**
+<details>
+<summary>Quick note for transfers when selecting by ID and it is long </summary>
+
+When transferring from Parachain that uses long IDs for example Moonbeam make sure to add character 'n' at the end of currencyID. For example: `.currency(42259045809535163221576417993425387648n)` will mean that you have selected to transfer xcDOT.
+
+</details>
+
+**Example**
+<details>
+<summary>Following example will perform 1 USDT transfer from Hydration to AssetHubPolkadot </summary>
+
+```ts
+const builder = Builder()
+  .from('Hydration')
+  .to('AssetHubPolkadot')
+  .currency({
+    id: 10,
+    amount: '1000000'
+  })
+  .address(address)
+
+const tx = await builder.build()
+
+// Disconnect API after TX
+await builder.disconnect()
+```
+
+</details>
+
+**Builder configuration**
+
+<details>
+<summary>You can customize builder configuration for more advanced usage</summary>
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+</details>
+
+**Advanced settings**
+<details>
+<summary>You can add following details to the builder to further customize your call</summary>
+
+```ts
+.ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+.xcmVersion(Version.V3/V4/V5)  // Optional parameter for manual override of XCM Version used in call
+.customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
+```
+
+</details>
+
 ## Relay chain to Parachain
 
 ```ts
@@ -244,181 +419,6 @@ const builder = await Builder({
 <summary>You can add following details to the builder to further customize your call</summary>
 
 ```ts
-.xcmVersion(Version.V3/V4/V5)  // Optional parameter for manual override of XCM Version used in call
-.customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
-```
-
-</details>
-
-## Parachain to Parachain
-
-```ts
-const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] - Optional*/)
-      .from(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
-      .to(TChain /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
-      .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
-      .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
-
-const tx = await builder.build()
-
-// Make sure to disconnect API after it is no longer used (eg. after transaction)
-await builder.disconnect()
-```
-
-**Initial setup**
-
-  <details>
-
-  <summary>Currency spec options</summary>
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
-{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
-{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} // Advanced override of asset registry
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-```
-
-Asset selection of multiple assets:
-```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
-```
-
-  </details>
-
-**Notes**
-<details>
-<summary>Quick note for transfers when selecting by ID and it is long </summary>
-
-When transferring from Parachain that uses long IDs for example Moonbeam make sure to add character 'n' at the end of currencyID. For example: `.currency(42259045809535163221576417993425387648n)` will mean that you have selected to transfer xcDOT.
-
-</details>
-
-**Example**
-<details>
-<summary>Following example will perform 1 USDT transfer from Hydration to AssetHubPolkadot </summary>
-
-```ts
-const builder = Builder()
-  .from('Hydration')
-  .to('AssetHubPolkadot')
-  .currency({
-    id: 10,
-    amount: '1000000'
-  })
-  .address(address)
-
-const tx = await builder.build()
-
-// Disconnect API after TX
-await builder.disconnect()
-```
-
-</details>
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await Builder({
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await Builder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Format check**
-
-Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
-
-```ts
-const builder = await Builder({
-  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-</details>
-
-**Advanced settings**
-<details>
-<summary>You can add following details to the builder to further customize your call</summary>
-
-```ts
-.ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
-.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
 .xcmVersion(Version.V3/V4/V5)  // Optional parameter for manual override of XCM Version used in call
 .customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
 ```

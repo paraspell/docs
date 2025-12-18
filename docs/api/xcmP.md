@@ -39,6 +39,145 @@ tx.signAndSubmit(signer)
 
 ```
 
+### Parachain to Parachain (HRMP)
+The following endpoint allows creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
+
+**Endpoint**: `POST /v5/x-transfer`
+
+  <details>
+  <summary><b>Parameters</b></summary>
+
+  - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
+  - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
+  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  </details>
+
+  <details>
+  <summary><b>Notes</b> </summary>
+
+  If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
+
+  </details>
+
+  <details>
+
+  <summary><b>Currency spec options</b></summary>
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
+```
+
+  </details>
+
+  <details>
+
+  <summary><b>Advanced settings</b></summary>
+
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
+
+```ts
+// Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+
+// Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
+xcmVersion: "Vx"
+
+// Used for customizing pallet name - Replace RandomXtokens with Camel case name of the pallet
+pallet: 'RandomXTokens',
+
+// Used for customizing pallet method - replace random_function with snake case name of the method
+method: 'random_function'
+```
+  
+  </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  },
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v5/x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
+        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
+        currency: {currency spec} //Refer to currency spec options above
+        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+        senderAddress: "senderAddress" //Optional but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
+        //ahAddress: ahAddress //Optional parameter - used when origin is EVM chain and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
+    })
+});
+```
+
 ### Relay chain to Parachain (DMP)
 The following endpoint constructs the Relay chain to the Parachain XCM message.
 
@@ -204,145 +343,6 @@ const response = await fetch("http://localhost:3001/v5/x-transfer", {
         to: "Polkadot",   // Or Kusama
 	    currency: { symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/}, //symbol: 'KSM' || symbol: 'WND' || symbol: 'PAS'
         address: "Address", // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    })
-});
-```
-
-### Parachain to Parachain (HRMP)
-The following endpoint allows creation of Parachain to Parachain XCM call. This call is specified by Parachains selected as origin - `from` and destination - `to` parameters.
-
-**Endpoint**: `POST /v5/x-transfer`
-
-  <details>
-  <summary><b>Parameters</b></summary>
-
-  - `from` (Inside JSON body): (required): Represents the Parachain from which the assets will be transferred.
-  - `to` (Inside JSON body): (required): Represents the Parachain to which the assets will be transferred.
-  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
-
-  </details>
-
-  <details>
-  <summary><b>Errors</b> </summary>
-
-  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
-  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Parachains
-  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
-  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
-  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
-  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-    
-  </details>
-
-  <details>
-  <summary><b>Notes</b> </summary>
-
-  If you wish to transfer from Parachain that uses long IDs for example Moonbeam you have to add character 'n' the end of currencyID. Eg: `currency: "42259045809535163221576417993425387648n"` will mean you wish to transfer xcDOT.
-
-  </details>
-
-  <details>
-
-  <summary><b>Currency spec options</b></summary>
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
-{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
-{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: {type: Native, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/}
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
-```
-
-Asset selection of multiple assets:
-```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
-```
-
-  </details>
-
-  <details>
-
-  <summary><b>Advanced settings</b></summary>
-
-  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
-
-```ts
-// Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
-feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
-
-// Used to customize XCM version - Replace "Vx" with V and version number eg. "V4"
-xcmVersion: "Vx"
-
-// Used for customizing pallet name - Replace RandomXtokens with Camel case name of the pallet
-pallet: 'RandomXTokens',
-
-// Used for customizing pallet method - replace random_function with snake case name of the method
-method: 'random_function'
-```
-  
-  </details>
-
-  <details>
-<summary><b>Advanced API settings</b></summary>
-
-You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
-
-```ts
-options: ({
-  development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: // ws_url | [ws_url, ws_url,..]
-    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
-    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
-  },
-  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
-})
-```
-
-</details>
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v5/x-transfer", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        from: "Parachain", // Replace "Parachain" with sender Parachain, e.g., "Acala"
-        to: "Parachain",   // Replace "Parachain" with destination Parachain, e.g., "Moonbeam" or custom Location
-        currency: {currency spec} //Refer to currency spec options above
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-        senderAddress: "senderAddress" //Optional but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
-        //ahAddress: ahAddress //Optional parameter - used when origin is EVM chain and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
     })
 });
 ```
