@@ -23,7 +23,7 @@ import { getDefaultPallet, getSupportedPallets, getPalletIndex, SUPPORTED_PALLET
 
 The function returns the default XCM pallet for selected compatible Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getDefaultPallet(TChain)
+getDefaultPallet(chain: TChain)
 ```
 
 **Example output:**
@@ -36,7 +36,7 @@ getDefaultPallet(TChain)
 
 The function returns all supported XCM pallets for selected compatible Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getSupportedPallets(TChain)
+getSupportedPallets(chain: TChain)
 ```
 
 **Example output:**
@@ -52,7 +52,7 @@ getSupportedPallets(TChain)
 
 The function returns all index of XCM Pallet for selected Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getPalletIndex(TChain)
+getPalletIndex(chain: TChain)
 ```
 
 **Example output:**
@@ -72,12 +72,12 @@ console.log(SUPPORTED_PALLETS)
 
 Following function returns all pallets for local transfers of native assets for specific chain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getNativeAssetsPallet(TChain)
+getNativeAssetsPallet(chain: TChain)
 ```
 
 ## Print local pallets for foreign assets
 
 Following function returns all pallets for local transfers of foreign assets for specific chain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
-getOtherAssetsPallets(TChain)
+getOtherAssetsPallets(chain: TChain)
 ```
