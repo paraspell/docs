@@ -1625,10 +1625,3 @@ await builder.disconnect()
 ```
 
 </details>
-
-
-## Developer experience
-
-### Builder pattern experience
-When developing with the Builder pattern, the developer is guided by the typescript and thus knows which parameter can be added next. This increases the developer experience and makes SDK easier to use.
-<img width="459" alt="builder" src="https://user-images.githubusercontent.com/55763425/214562882-dd1a052e-c420-4131-bb50-3b656fabd10c.png">
