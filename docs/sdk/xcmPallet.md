@@ -4,7 +4,7 @@
 - Parachain to Relay chain XCM transfer
 - Parachain to Parachain XCM transfer
 - Parachain to Ethereum transfer
-- Polkadot to Kusama ecosystem transfer and vice versa (DOT & KSM)
+- Polkadot to Kusama ecosystem transfer and vice versa
 
 ## Relay chain to Parachain
 
