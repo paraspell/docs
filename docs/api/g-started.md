@@ -9,7 +9,7 @@ Getting started with
 <h4 align="center">
 This section guides you on how to use our XCM API.
 
-Deployed on [https://api.lightspell.xyz/](https://api.lightspell.xyz/)
+Deployed on [https://api.lightspell.xyz/v5](https://api.lightspell.xyz/v5)
 
 [[Github repository]](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
 
