@@ -32,7 +32,7 @@ If you wish to have an exchange chain selection based on the best price outcome,
 
 ```ts
 await RouterBuilder(/* builder_config - Optional*/)
-        .from(TChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .from(TSubstrateChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .to(TChain)    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
         .currencyTo(CURRENCY_SPEC)    // Refer to currency spec options below
@@ -149,7 +149,7 @@ If you wish to have specific exchanges selection and select the best one among t
 
 ```ts
 await RouterBuilder(/* builder_config - Optional*/)
-        .from(TChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .from(TSubstrateChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .to(TChain)    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .exchange(['HydrationDex','AcalaDex','AssetHubPolkadotDex'])    //Exchange Parachains
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
@@ -267,7 +267,7 @@ If you wish to select your exchange chain manually you can do that by providing 
 
 ```ts
 await RouterBuilder(/* builder_config - Optional*/)
-        .from(TChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+        .from(TSubstrateChain)   //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .to(TChain)    //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .exchange('HydrationDex')    //Exchange Parachain
         .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
@@ -385,7 +385,7 @@ Dry running let's you check whether your XCM Call will execute, giving you a cha
 
 ```ts
 const result = await RouterBuilder()
-      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .from(TSubstrateChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
       .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
@@ -1340,7 +1340,7 @@ You can use the minimal transferable balance to retrieve information on minimum 
 
 ```ts
 const result = await RouterBuilder()
-      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .from(TSubstrateChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
       .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
@@ -1454,7 +1454,7 @@ You can use the transferable balance to retrieve information on how much of the 
 
 ```ts
 const result = await RouterBuilder()
-      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .from(TSubstrateChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
       .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
@@ -1568,7 +1568,7 @@ To retrieve exchange amount, that you receive for your desired asset pair you ca
 
 ```ts
 const result = await RouterBuilder()
-      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .from(TSubstrateChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange('HydrationDex') //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
       .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
@@ -1687,7 +1687,7 @@ You can retrieve fees for all operations XCM Router performs. Keep in mind, that
 
 ```ts
 const fees = await RouterBuilder(/* builder_config - Optional*/)
-      .from(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .from(TSubstrateChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) //OPTIONAL PARAMETER - 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .exchange(exchange) //OPTIONAL PARAMETER - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
       .currencyFrom(CURRENCY_SPEC) // Refer to currency spec options below
