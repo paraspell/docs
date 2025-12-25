@@ -435,7 +435,7 @@ Latest SDK versions support Polkadot <> Kusama bridge in very native and intuiti
 await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)       
       .from('AssetHubPolkadot')  // 'AssetHubPolkadot' | 'AssetHubKusama'
       .to('AssetHubKusama')     // 'AssetHubPolkadot' | 'AssetHubKusama'
-      .currency({symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/})        // 'KSM' | 'DOT' | USDC | USDT
+      .currency({symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/})        // 'KSM' | 'DOT' | 'USDC' | 'USDT'
       .address(address)
       .build()
 ```
