@@ -1538,9 +1538,12 @@ const builder = await Builder({
   .from(TSubstrateChain)
   .to(TChain)
   .currency(CURRENCY_SPEC) // Refer to currency spec options below
-  .address(address)
+  .address(address) //You can also use prederived accounts - //Alice, //Bob... //Alith, //Balthathar...
+  .senderAddress(address) //You can also use prederived accounts //Alice, //Bob... //Alith, //Balthathar...
 
 const tx = await builder.build()
+//Or if you use prederived account as senderAddress:
+//await builder.signAndSubmit()
 
 // Disconnect API after TX
 await builder.disconnect()

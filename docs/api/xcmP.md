@@ -1175,6 +1175,90 @@ const response = await fetch("http://localhost:3001/v5/x-transfer", {
 });
 ```
 
+## Localhost testing setup II
+
+API now allows you to use prederived accounts for testing (As sender or receiver address). For example Alice, Bob, Charlie, Alith, Balthathar and others.
+
+**Endpoint**: `POST /v5/sign-and-submit`
+
+  <details>
+  <summary><b>Parameters</b></summary>
+
+  - Inherited from concrete endpoint
+
+  </details>
+
+  <details>
+  <summary><b>Errors</b> </summary>
+
+  - Inherited from concrete endpoint
+    
+  </details>
+
+  <details>
+  <summary><b>Notes</b> </summary>
+
+  
+```
+- The xcm-api accepts an options object in the request body for endpoints like /x-transfer, accepting the same parameters as SDK.
+
+- apiOverrides property is a map where keys are chain names (e.g., Hydration, BridgeHubPolkadot) and values are the corresponding WS endpoint URL / array of WS URLs or an API client instance.
+
+- Development mode parameter: When development flag is set to true, the SDK will throw a MissingChainApiError if an operation involves a chain for which an override has not been provided in apiOverrides. This ensures that in a testing environment, the SDK does not fall back to production endpoints.
+```
+
+  </details>
+
+  <details>
+<summary><b>Advanced API settings</b></summary>
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  },
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+</details>
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v5/sign-and-submit", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        senderAddress: "//Alice", //You can use prederived accounts - //Alice, //Bob... //Alith, //Balthathar...
+        address: "0x1501C1413e4178c38567Ada8945A80351F7B8496", //You can also use prederived accounts here - //Alice, //Bob... //Alith, //Balthathar...
+        from: "Hydration",
+        to: "Moonbeam",
+        currency: {
+          symbol: "HDX",
+          amount: "10"
+        },
+        options: {
+          development: true, // Optional: Enforces overrides for all chains used
+          decimalAbstraction: true // Abstracts decimals, so 1 as input amount equals 10_000_000_000 if selected asset is DOT
+          xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+          apiOverrides: {
+            Hydration: "ws://127.0.0.1:8000", //Only works with locally launched chains (Eg. chopsticks)
+            Moonbeam: "ws://127.0.0.1:8001" //Only works with locally launched chains (Eg. chopsticks)
+          }
+        }
+    })
+});
+```
+
 ## XCM Transfer info
 To comprehensively assess whether a message will execute successfully without failure, use this query. It provides detailed information on currency balances before and after the transaction, including all relevant fees. This data is essential for accurately evaluating potential balance or fee-related issues that could cause message failure.
 
