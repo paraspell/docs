@@ -16,26 +16,23 @@ const info = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,
 ```
 
 **Initial setup:**
-
-  <details>
-
-  <summary>Currency spec options</summary>
+  ::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
-Asset selection by Location:
+Asset selection by **Location**:
 ```ts
 {location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
 {location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
 {location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
-Asset selection by asset ID:
+Asset selection by **Asset ID**:
 ```ts
 {id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
-Asset selection by asset Symbol:
+Asset selection by **Asset Symbol**:
 ```ts
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
@@ -50,16 +47,13 @@ Asset selection by asset Symbol:
 {symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
-Asset selection of multiple assets:
+Asset selection of **multiple assets**:
 ```ts
 [{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
+  :::
 
-  </details>
-
-  <details>
-
-  <summary>Advanced settings</summary>
+  ::: details **Advanced settings**
 
   You can use following optional advanced settings to further customize your calls:
 
@@ -68,12 +62,82 @@ Asset selection of multiple assets:
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
-  </details>
+  :::
 
-**Possible output objects:**
+::: details **Builder configuration**
 
-<details>
-<summary>The Transfer info query will return the following objects</summary>
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+**Example output:**
+
+::: details **Possible output objects**
 
 ```
 chain - Always present
@@ -82,11 +146,10 @@ destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
-</details>
+:::
 
-**Example output**
-<details>
-<summary>Following output contains transfer of 10 USDC from AssetHubPolkadot to BifrostPolkadot</summary>
+
+::: details **Example for transfer of 10 USDC from AssetHubPolkadot to BifrostPolkadot**
 
 ```json
 {
@@ -208,81 +271,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 }
 ```
 
-</details>
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await Builder({
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await Builder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Format check**
-
-Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
-
-```ts
-const builder = await Builder({
-  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-</details>
+:::
 
 
 ## Transferable amount
@@ -300,25 +289,23 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
 
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+  ::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
-Asset selection by Location:
+Asset selection by **Location**:
 ```ts
 {location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
 {location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
 {location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
-Asset selection by asset ID:
+Asset selection by **Asset ID**:
 ```ts
 {id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
-Asset selection by asset Symbol:
+Asset selection by **Asset symbol**:
 ```ts
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
@@ -338,11 +325,9 @@ Asset selection of multiple assets:
 [{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
-  </details>
+:::
 
-  <details>
-
-  <summary>Advanced settings</summary>
+::: details Advanced settings
 
   You can use following optional advanced settings to further customize your calls:
 
@@ -351,31 +336,9 @@ Asset selection of multiple assets:
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
-  </details>
+:::
 
-**Notes:**
-
-<details>
-<summary>Note containing function formulae & further information about the query</summary>
-
- This query will calculate transferable balance using the following formulae: 
-
-**Balance - ED - if(asset=native) then also substract Origin XCM Fees else ignore**
-
-**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will go through).
-
-</details>
-
-**Example output:**
-
-```json
-"3329236337"
-```
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+:::details **Builder configuration**
 
 **Development:**
 
@@ -444,7 +407,27 @@ const builder = await Builder({
 })
 ```
 
-</details>
+:::
+
+**Notes:**
+
+::: details Function formulae
+
+ This query will calculate transferable balance using the following formulae: 
+
+```
+Balance - Existential deposit - if(asset==native) then also substract Origin XCM Fees else ignore
+```
+
+**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will go through).
+
+:::
+
+**Example output:**
+
+```json
+"3329236337"
+```
 
 ## Minimal transferable amount
 You can use the minimal transferable balance to retrieve information on minimum of the selected currency can be transferred from a specific account to specific destination, so that the ED and destination or origin fee is paid fully.
@@ -461,25 +444,23 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
 
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
-Asset selection by Location:
+Asset selection by **Location**:
 ```ts
 {location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
 {location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
 {location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
-Asset selection by asset ID:
+Asset selection by **Asset ID**:
 ```ts
 {id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
-Asset selection by asset Symbol:
+Asset selection by **Asset symbol**:
 ```ts
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
@@ -499,11 +480,9 @@ Asset selection of multiple assets:
 [{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
-  </details>
+:::
 
-  <details>
-
-  <summary>Advanced settings</summary>
+::: details Advanced settings
 
   You can use following optional advanced settings to further customize your calls:
 
@@ -512,31 +491,9 @@ Asset selection of multiple assets:
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
-  </details>
+:::
 
-**Notes:**
-
-<details>
-<summary>Note containing function formulae & further information about the query</summary>
-
- This query will calculate minimal transferable balance using the following formulae: 
-
-**(Origin Balance - if(Balance on destination = 0) then also substract destination ED(Existential deposit) - if(Asset=native) then also substract Origin XCM Fees - hop fees (If present) - destination XCM fee) +1**
-
-**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will go through). Chains that do not have support for dryrun will return error in this query.
-
-</details>
-
-**Example output:**
-
-```json
-"3329236337"
-```
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details **Builder configuration**
 
 **Development:**
 
@@ -605,7 +562,27 @@ const builder = await Builder({
 })
 ```
 
-</details>
+:::
+
+**Notes:**
+
+::: details Function formulae
+
+ This query will calculate minimal transferable balance using the following formulae: 
+
+```
+(Origin Balance - if(Balance on destination = 0) then also substract destination Existential deposit - if(Asset=native) then also substract Origin XCM Fees - hop fees (If present) - destination XCM fee) +1
+```
+
+**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will go through). Chains that do not have support for dryrun will return error in this query.
+
+:::
+
+**Example output:**
+
+```json
+"3329236337"
+```
 
 ## Verify ED on destination
 To retrieve information on whether the selected currency from a specific account will meet the existential deposit on the destination chain, you can use this query. 
@@ -621,25 +598,23 @@ const ed = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..
 ```
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
-Asset selection by Location:
+Asset selection by **Location**:
 ```ts
 {location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
 {location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
 {location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
-Asset selection by asset ID:
+Asset selection by **Asset ID**:
 ```ts
 {id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
-Asset selection by asset Symbol:
+Asset selection by **Asset symbol**:
 ```ts
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
@@ -659,11 +634,9 @@ Asset selection of multiple assets:
 [{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
-  </details>
+:::
 
-  <details>
-
-  <summary>Advanced settings</summary>
+::: details Advanced settings
 
   You can use following optional advanced settings to further customize your calls:
 
@@ -672,31 +645,9 @@ Asset selection of multiple assets:
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
-  </details>
+:::
 
-**Notes:**
-
-<details>
-<summary>Note containing function formulae & further information about the query</summary>
-
-This query will calculate whether the user will have enough to cover the existential deposit on XCM arrival using the following pseudo formulae: 
-
-**(if(Balance) || if(TransferedAmount - ED - Destination Fee > 0)) return true else false** 
-
-**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through). **If the function switches to PaymentInfo and the transferred currency is different from the native currency on the destination chain, the function throws an error as PaymentInfo only returns fees in the native asset of the chain.**
-
-</details>
-
-**Example output:**
-
-```json
-true
-```
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details Builder configuration
 
 **Development:**
 
@@ -765,7 +716,27 @@ const builder = await Builder({
 })
 ```
 
-</details>
+:::
+
+**Notes:**
+
+::: details Function formulae
+
+This query will calculate whether the user will have enough to cover the existential deposit on XCM arrival using the following pseudo formulae: 
+
+```
+(if(Balance) || if(TransferedAmount - ED - Destination Fee > 0)) return true else false
+```
+
+**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will actually go through). **If the function switches to PaymentInfo and the transferred currency is different from the native currency on the destination chain, the function throws an error as PaymentInfo only returns fees in the native asset of the chain.**
+
+:::
+
+**Example output:**
+
+```json
+true
+```
 
 ## Predicted received amount
 You can predict the amount to be received on destination, granted, that the destination chain and hops have dry-run.
@@ -782,25 +753,23 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
 
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
-Asset selection by Location:
+Asset selection by **Location**:
 ```ts
 {location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
 {location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
 {location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
-Asset selection by asset ID:
+Asset selection by **Asset ID**:
 ```ts
 {id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
-Asset selection by asset Symbol:
+Asset selection by **Asset symbol**:
 ```ts
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
@@ -820,11 +789,9 @@ Asset selection of multiple assets:
 [{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
-  </details>
+:::
 
-  <details>
-
-  <summary>Advanced settings</summary>
+::: details Advanced settings
 
   You can use following optional advanced settings to further customize your calls:
 
@@ -833,18 +800,9 @@ Asset selection of multiple assets:
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
-  </details>
+:::
 
-**Example output:**
-
-```json
-"3329236337"
-```
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details **Builder configuration**
 
 **Development:**
 
@@ -913,7 +871,13 @@ const builder = await Builder({
 })
 ```
 
-</details>
+:::
+
+**Example output:**
+
+```json
+"3329236337"
+```
 
 ## XCM Fee (Origin and Dest.)
 The following query allows you to query the fee from both the Origin and Destination of the XCM Message. The query is designed to retrieve your XCM fee at any cost, but falls back to Payment info if the DryRun query fails or is not supported by either origin or destination. 
@@ -930,25 +894,23 @@ const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,.
 
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
-Asset selection by Location:
+Asset selection by **Location**:
 ```ts
 {location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
 {location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
 {location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
 ```
 
-Asset selection by asset ID:
+Asset selection by **Asset ID**:
 ```ts
 {id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
 ```
 
-Asset selection by asset Symbol:
+Asset selection by **Asset symbol**:
 ```ts
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
@@ -968,11 +930,9 @@ Asset selection of multiple assets:
 [{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
 ```
 
-  </details>
+::: 
 
-  <details>
-
-  <summary>Advanced settings</summary>
+::: details Advanced settings
 
   You can use following optional advanced settings to further customize your calls:
 
@@ -981,20 +941,82 @@ Asset selection of multiple assets:
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
 ```
   
-  </details>
+:::
 
-**Notes**
-<details>
-<summary>Information about the query behaviour</summary>
+::: details **Builder configuration**
 
-When Payment info query is performed, it retrieves fees for destination in destination's native currency, however, they are paid in currency that is being sent. To solve this, you have to convert token(native) to token(transferred) based on price. DryRun returns fees in the currency that is being transferred, so no additional calculations are necessary in that case.
+**Development:**
 
-</details>
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
 
-**Possible output objects:**
+**Api overrides:**
 
-<details>
-<summary>The XCM Fee query will return the following objects</summary>
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+**Example output:**
+
+::: details Possible output objects
 
 ```
 origin - Always present
@@ -1002,11 +1024,9 @@ destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
-</details>
+:::
 
-**Example output**
-<details>
-<summary>Following output contains transfer of 10 GLMR from Hydration to Moonbeam</summary>
+::: details Example output: for transfer of 10 GLMR from Hydration to Moonbeam
 
 ```json
 {
@@ -1068,12 +1088,73 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 }
 ```
 
-</details>
+:::
 
-**Builder configuration**
+## XCM Fee (Origin only)
+The following queries allow you to query the XCM fee from the Origin chain. The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. 
 
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+```ts
+const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .currency(CURRENCY_SPEC) // Refer to currency spec options below
+          .address(RECIPIENT_ADDRESS)
+          .senderAddress(SENDER_ADDRESS)
+          .getOriginXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin do not support DryRun out of the box.
+```
+
+**Initial setup:**
+
+::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by **Location**:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
+```
+
+Asset selection by **Asset ID**:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by **Asset symbol**:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
+```
+
+:::
+
+::: details Advanced settings
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
+```
+  
+:::
+
+::: details **Builder configuration**
 
 **Development:**
 
@@ -1142,92 +1223,19 @@ const builder = await Builder({
 })
 ```
 
-</details>
+:::
 
+**Example output:**
 
-
-## XCM Fee (Origin only)
-The following queries allow you to query the XCM fee from the Origin chain. The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. 
-
-```ts
-const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
-          .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
-          .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
-          .getOriginXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin do not support DryRun out of the box.
-```
-
-**Initial setup**
-
-  <details>
-
-  <summary>Currency spec options</summary>
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
-{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
-{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-```
-
-Asset selection of multiple assets:
-```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
-```
-
-  </details>
-
-  <details>
-
-  <summary>Advanced settings</summary>
-
-  You can use following optional advanced settings to further customize your calls:
-
-```ts
-// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
-.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
-```
-  
-  </details>
-
-**Possible output objects:**
-
-<details>
-<summary>The Origin XCM Fee query will return the following objects</summary>
+::: details Possible output objects
 
 ```
 origin - Always present
 ```
 
-</details>
+:::
 
-**Example output**
-<details>
-<summary>Following output contains transfer of 100 MYTH from Mythos to AssetHubPolkadot</summary>
+::: details Example output: for transfer of 100 MYTH from Mythos to AssetHubPolkadot
 
 ```json
 {
@@ -1362,81 +1370,7 @@ origin - Always present
 }
 ```
 
-</details>
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await Builder({
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await Builder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Format check**
-
-Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
-
-```ts
-const builder = await Builder({
-  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-</details>
+:::
 
 ## Asset balance
 You can now query all important information about your XCM call, including fees (if your balance is sufficient to transfer an XCM message) and more. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
@@ -1451,29 +1385,27 @@ import { getBalance } from "@paraspell/sdk-pjs";
 const balance = await getBalance({ADDRESS, TChain, CURRENCY_SPEC /*OPTIONAL - Refer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
 ```
 
-**Initial setup**
+**Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Currency spec in this method is optional and if not provided function will search for balance of native asset of chosen chain.**
 
 **Following options are possible for currency specification:**
 
-Asset selection by Location:
+Asset selection by **Location**:
 ```ts
 {location: AssetLocationString, amount: amount } //Recommended
 {location: AssetLocationJson, amount: amount } //Recommended 
 {location: Override('Custom Location'), amount: amount } //Advanced override of asset registry
 ```
 
-Asset selection by asset ID:
+Asset selection by **Asset ID**:
 ```ts
 {id: currencyID, amount: amount } // Not all chains register assets under IDs
 ```
 
-Asset selection by asset Symbol:
+Asset selection by **Asset symbol**:
 ```ts
 // For basic symbol selection
 {symbol: currencySymbol, amount: amount } 
@@ -1488,7 +1420,7 @@ Asset selection by asset Symbol:
 {symbol: ForeignAbstract('currencySymbol'), amount: amount } 
 ```
 
-  </details>
+:::
 
 **Example output:**
 

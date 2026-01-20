@@ -44,10 +44,9 @@ Following query lets you query assets supported between two selected Parachains.
 getSupportedAssets(TChain, TChain)
 ```
 
-**Example output:**
+**Example output**
 
-<details>
-<summary>An example of output for Acala and Astar as input</summary>
+::: details An example of output for Acala and Astar as input
 
 ```json
 [
@@ -365,8 +364,7 @@ getSupportedAssets(TChain, TChain)
   }
 ]
 ```
-
-</details>
+:::
 
 ## Query fee assets
 This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
@@ -426,10 +424,9 @@ This function returns `assets object` from `assets.json` for `particular Paracha
 getAssetsObject(TChain)
 ```
 
-**Example output:**
+**Example output**
 
-<details>
-<summary>An example of output for Ajuna as input</summary>
+::: details An example of output for Ajuna as input
 
 ```json
 {
@@ -523,8 +520,7 @@ getAssetsObject(TChain)
 }
 ```
 
-</details>
-
+```
 
 ## Query asset ID
 This function returns `assetId` for `particular Parachain` and `asset symbol`. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
@@ -585,10 +581,9 @@ This function returns an object array of foreign assets for a particular Paracha
 getOtherAssets(TChain)
 ```
 
-**Example output:**
+**Example output**
 
-<details>
-<summary>An example of output for Darwinia as input</summary>
+::: details An example of output for Darwinia as input
 
 ```json
 [
@@ -659,7 +654,7 @@ getOtherAssets(TChain)
 ]
 ```
 
-</details>
+:::
 
 ## Query all asset symbols
 Function returns string array of all asset symbols for a specific Parachain. (Native and foreign assets are merged into a single array). Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
