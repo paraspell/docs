@@ -5,21 +5,19 @@ Following section covers implementation of XCM Analyser in LightSpell XCM API. U
 ## Analyse Location
 **Endpoint**: `POST /v5/xcm-analyser`
 
-  <details>
-  <summary><b>Parameters</b> </summary>
+::: details Parameters
 
   - `location`: Specific location
 
-  </details>
+:::
 
-  <details>
-  <summary><b>Errors</b> </summary>
+::: details Errors
 
   - `400`  (Bad request exception) - Returned when no location is provided
   - `400`  (Bad request exception) - Returned when wrongly formatted location is provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
-  </details>
+:::
   
 ```ts
 const response = await fetch("http://localhost:3001/v5/xcm-analyser", {
@@ -35,21 +33,19 @@ const response = await fetch("http://localhost:3001/v5/xcm-analyser", {
 ## Analyse XCM call
 **Endpoint**: `POST /v5/xcm-analyser`
 
-  <details>
-  <summary><b>Parameters</b> </summary>
+::: details Parameters
 
   - `xcm`: Complete XCM call
 
-  </details>
+:::
 
-  <details>
-  <summary><b>Errors</b> </summary>
+::: details Errors
 
   - `400`  (Bad request exception) - Returned when no XCM call is provided
   - `400`  (Bad request exception) - Returned when wrongly formatted location is provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
-  </details>
+:::
 
 ```ts
 const response = await fetch("http://localhost:3001/v5/xcm-analyser", {

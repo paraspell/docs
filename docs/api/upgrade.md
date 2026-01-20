@@ -11,10 +11,12 @@ The limit for this level is:
 ## Captcha verified user
 To become a verified user you have to complete simple captcha verification.
 
+::: tip
 Before you proceed with verification note the following:
 - After you verify with the captcha you will receive your authentication token which you can use to unlock the higher request limit.
 - This token is only visible once so make sure to save it properly.
 - These tokens are not saved anywhere by us so we could not restore them for you.
+:::
  
  You can claim your token on the following site (API has to be running):  
 
@@ -32,11 +34,13 @@ Your generated API key will be in the following box:
 ## Higher request limit user
 If 100 requests per minute is not enough for your project you can request a limit that will suit your needs.
 
+::: tip
 Before you proceed with the request note the following:
 - Freshly hashed and generated UserID associated with your captcha-generated API key will be stored in our database for simple monitoring (only request amount monitoring) to prevent malicious behaviour (You can find out the format of data we store in the [deploy section](https://paraspell.github.io/docs/api/deploy.html)).  
 - You will have to provide a few details (Your email address, the reason for the higher limit, the amount you wish to set as your limit and the token you received in captcha verification)
 - Once your request is reviewed you receive an email response which will tell you if your request was accepted or rejected (with reason). 
 - If you already have your token implemented in your project you do not need to change anything, a higher API request limit will automatically start working.
+::: 
 
 Request for higher limit can be done in the following form (API and Database have to be running. Both need to be correctly configured):
 
@@ -44,8 +48,6 @@ Request for higher limit can be done in the following form (API and Database hav
 
 The limit for this level is:
 `Per request`
-
-More on this feature can be found in the following [Pull request](https://github.com/paraspell/xcm-api/pull/14)
 
 Form submit website should look like this:
 <img width="808" alt="Screenshot 2023-08-21 at 21 56 45" src="https://user-images.githubusercontent.com/55763425/262140598-22ddf07c-b68b-40c6-bc6c-b433d39ab4ce.png">
