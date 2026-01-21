@@ -88,13 +88,23 @@ We take great pride in our achievements, which reflect our commitment to enhanci
 - 🫀 Maintenance funded by Polkadot from August 2025 to July 2026 [Referenda link](https://polkadot.polkassembly.io/referenda/1641), [August report](https://docs.google.com/document/d/11W3keTVFBCdyoE12eyB1I1yCPONHBGmCdjTvfPszr-Y/edit?usp=sharing), [September report](https://docs.google.com/document/d/1FLusxQYk2oT5o-YpocGnExO2c1pw1bY4u0faITrMnAM/edit?usp=sharing), [October report](https://docs.google.com/document/d/1Chhl1KNJqsnc-0At7Lg7tG2XPsO2SaA5UVYsFeYuPLs/edit?usp=sharing), [November report](https://docs.google.com/document/d/1jLnSJO5tYWgI5ud02kUYx6Trr-l-COXEJHqaPY9joJw/edit?usp=sharing), [December report](https://docs.google.com/document/d/1jFvBVHdQ50whvFU_Nm6nf94AZ7RfHI_DzlhHUPHt8gA/edit?usp=sharing)
 
 <div>
-  <h3 align="center">
-    Project is supported by
-  </h3>
-  <div align="center" style="margin-top: 20px;">
-      <img width="750" alt="version" src="https://github.com/user-attachments/assets/29e4b099-d90c-46d6-a3ce-94edfbda003c" />
+  <h3 align="center">Project is supported by</h3>
+
+  <div align="center" class="supporter-logos">
+    <img
+      src="https://raw.githubusercontent.com/paraspell/presskit/main/logos_supporters/polkadot_kusama_w3f_standard.png"
+      alt="Logo"
+      class="logo light"
+    />
+    <img
+      src="https://raw.githubusercontent.com/paraspell/presskit/main/logos_supporters/polkadot_kusama_transparent.png"
+      alt="Logo2"
+      class="logo dark"
+    />
   </div>
 </div>
+
+
 
 
 
