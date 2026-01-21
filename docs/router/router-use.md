@@ -1,31 +1,26 @@
 # Ready to make cross-chain swap messages with ease? 🤝
 
-XCM Router can perform cross-chain transactions between Polkadot/Kusama Parachains and Relay chains as well. 
-It works across 8 open-source Parachain DEXes.
+XCM Router supports following cross-chain swaps across Polkadot and Kusama.
 
-**These are:**
-```
-1️⃣ Supporting one click swaps
-- Hydration / 210 Pools available
-- AssetHubPolkadot / 32 Pools available / Requires specific native tokens for swaps
+| Swap Type   | DEX               | Pools | Notes                                |
+|------------|-------------------|-------|--------------------------------------|
+| One-click  | Hydration         | 210   | —                                    |
+| One-click  | AssetHub Polkadot | 32    | Requires specific native tokens      |
+| Two-click  | Acala             | 36    | Requires native token                                    |
+| Two-click  | Basilisk          | 15    | —                                    |
+| Two-click  | Bifrost Kusama    | 66    | Requires native token                |
+| Two-click  | Bifrost Polkadot  | 45    | Requires native token                |
+| Two-click  | Karura            | 136   | Requires native token                                    |
+| Two-click  | AssetHub Kusama   | 16    | Requires specific native tokens      |
 
-2️⃣ Supporting standard two click swaps
-- Acala / 36 Pools available
-- Basilisk / 15 Pools available
-- BifrostKusama / 66 Pools available / Requires native token for swaps
-- BifrostPolkadot / 45 Pools available / Requires native token for swaps
-- Karura / 136 Pools available
-- AssetHubKusama / 16 Pools available / Requires specific native tokens for swaps
-```
-Totaling to 556 pools available for cross-chain swap transactions.
+**Total pools available:** 556
 
-**⚠️ IMPORTANT NOTES:** 
-```
-- 📣 Some exchanges require native tokens to proceed with swaps.
+> [!IMPORTANT]
+> - 📣 Some exchanges require native tokens to proceed with swaps.
+>
+>- 📣 Router supports one-click cross-chain swaps! Supported exchanges are AssetHubPolkadot and Hydration.
+>   - 📋 **Sidenote**: Not all chains can be selected as origin for one-click cross-chain swaps, because their barrier doesn't support execute extrinsic. All chains can be selected as a destination, however. For origin chains that do not support execute extrinsic, we automatically default to the original two-click scenario.
 
-- 📣 Router now supports one-click cross-chain swaps! Supported exchanges are AssetHubPolkadot and Hydration.
-        -Sidenote: Not all chains can be selected as origin for one-click cross-chain swaps, because their barrier doesn't support executing instructions. All chains can be selected as a destination, however. For origin chains that do not support execute instruction, we automatically default to the original two-click scenario.
-```
 
 ## Automatic exchange selection
 If you wish to have an exchange chain selection based on the best price outcome, you can opt for the automatic exchange selection method. This method can be selected by **not using** `.exchange()` parameter in the call. The router will then automatically select the best exchange chain for you based on the best price outcome.
@@ -56,9 +51,7 @@ await RouterBuilder(/* builder_config - Optional*/)
 
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
@@ -79,12 +72,9 @@ Asset selection by asset Symbol:
 {symbol: currencySymbol, amount: amount} 
 ```
 
-  </details>
+:::
 
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details **Builder configuration**
 
 **Development:**
 
@@ -142,7 +132,7 @@ const builder = await RouterBuilder({
 })
 ```
 
-</details>
+:::
 
 ## Whitelist exchange selection
 If you wish to have specific exchanges selection and select the best one among them based on the best price outcome, you can opt for the whitelist automatic exchange selection method. This method can be selected by **using** `.exchange()` parameter in the call and feeding it with **array of exchanges**. The router will then automatically select the best exchange chain for you based on the best price outcome.
@@ -174,9 +164,7 @@ await RouterBuilder(/* builder_config - Optional*/)
 
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
@@ -197,12 +185,10 @@ Asset selection by asset Symbol:
 {symbol: currencySymbol, amount: amount} 
 ```
 
-  </details>
+:::
 
-**Builder configuration**
+::: details **Builder configuration**
 
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
 
 **Development:**
 
@@ -260,7 +246,7 @@ const builder = await RouterBuilder({
 })
 ```
 
-</details>
+:::
 
 ## Manual exchange selection
 If you wish to select your exchange chain manually you can do that by providing additional parameter `.exchange()` in the call. The router will then use the exchange chain of your choice.
@@ -292,9 +278,7 @@ await RouterBuilder(/* builder_config - Optional*/)
 
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
@@ -315,12 +299,9 @@ Asset selection by asset Symbol:
 {symbol: currencySymbol, amount: amount} 
 ```
 
-  </details>
+:::
 
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details **Builder configuration**
 
 **Development:**
 
@@ -378,7 +359,7 @@ const builder = await RouterBuilder({
 })
 ```
 
-</details>
+:::
 
 ## Dry run your Router calls
 Dry running let's you check whether your XCM Call will execute, giving you a chance to fix it if it is constructed wrongly or you didn't select correct account/asset or don't have enough balance. It is constructed in same way as standard XCM messages with parameter `.dryRun()` at the end.
@@ -398,23 +379,103 @@ const result = await RouterBuilder()
       .dryRun();
 ```
 
-**Possible output objects:**
+**Initial setup:**
 
-<details>
-<summary>The dryrun will return following objects</summary>
+::: details Currency spec options
+  
+**Following options are possible for currency specification:**
 
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+:::
+
+::: details **Builder configuration**
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+**Example output:**
+
+::: details Possible output objects
 ```
 origin - Always present
 destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
-</details>
+:::
 
-**Example output:**
-
-<details>
-<summary>Example of an output for transfer and swap of 1 DOT into USDC - AssetHub > Hydration > BifrostPolkadot</summary>
+::: details Transfer and swap of 1 DOT into USDC comming from AssetHub to Hydration dex and ending at BifrostPolkadot
 
 ```json
 {
@@ -1242,101 +1303,11 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 }
 ```
 
-</details>
-
-**Initial setup:**
-
-  <details>
-
-  <summary>Currency spec options</summary>
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
-```
-
-  </details>
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /* ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await RouterBuilder({
-  apiOverrides: {
-    Hydration: /* ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await RouterBuilder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await RouterBuilder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  apiOverrides: {
-    Hydration: /* ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-</details>
+:::
 
 ## Minimal transferable amount
 
-You can use the minimal transferable balance to retrieve information on minimum of the selected currency can be transferred from a specific account to specific destination, so that the ED and destination or origin fee is paid fully
+You can use the minimal transferable balance to retrieve information on minimum of the selected currency can be transferred from a specific account to specific destination, so that the existential deposit and destination or origin fee is paid fully
 
 ```ts
 const result = await RouterBuilder()
@@ -1352,17 +1323,9 @@ const result = await RouterBuilder()
       .getMinTransferableAmount();
 ```
 
-**Example output:**
-
-```json
-"3329236337"
-```
-
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
@@ -1383,12 +1346,9 @@ Asset selection by asset Symbol:
 {symbol: currencySymbol, amount: amount} 
 ```
 
-  </details>
+:::
 
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details **Builder configuration**
 
 **Development:**
 
@@ -1446,7 +1406,15 @@ const builder = await RouterBuilder({
 })
 ```
 
-</details>
+:::
+
+
+**Example output:**
+
+```json
+"3329236337"
+```
+
 
 ## Maximal transferable amount
 
@@ -1466,17 +1434,9 @@ const result = await RouterBuilder()
       .getTransferableAmount();
 ```
 
-**Example output:**
-
-```json
-"3329236337"
-```
-
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
@@ -1497,12 +1457,9 @@ Asset selection by asset Symbol:
 {symbol: currencySymbol, amount: amount} 
 ```
 
-  </details>
+:::
 
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details **Builder configuration**
 
 **Development:**
 
@@ -1560,7 +1517,13 @@ const builder = await RouterBuilder({
 })
 ```
 
-</details>
+:::
+
+**Example output:**
+
+```json
+"3329236337"
+```
 
 ## Get amount out for your currency pair
 
@@ -1580,20 +1543,9 @@ console.log(result.amountOut)
 console.log(result.exchange)
 ```
 
-**Example output:**
-
-```json
-{
-  "exchange": "AssetHubPolkadotDex",
-  "amountOut": "982693"
-}
-```
-
 **Initial setup:**
 
-  <details>
-
-  <summary>Currency spec options</summary>
+::: details Currency spec options
   
 **Following options are possible for currency specification:**
 
@@ -1614,12 +1566,9 @@ Asset selection by asset Symbol:
 {symbol: currencySymbol, amount: amount} 
 ```
 
-  </details>
+:::
 
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
+::: details **Builder configuration**
 
 **Development:**
 
@@ -1677,9 +1626,16 @@ const builder = await RouterBuilder({
 })
 ```
 
-</details>
+:::
 
+**Example output:**
 
+```json
+{
+  "exchange": "AssetHubPolkadotDex",
+  "amountOut": "982693"
+}
+```
 
 ## Get Router fees
 
@@ -1699,10 +1655,94 @@ const fees = await RouterBuilder(/* builder_config - Optional*/)
       .getXcmFees();
 ```
 
-**Possible output objects:**
+**Initial setup:**
 
-<details>
-<summary>The dryrun will return following objects</summary>
+::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+```
+
+:::
+
+::: details **Builder configuration**
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await RouterBuilder({
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+**NOTE:**
+
+Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await RouterBuilder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await RouterBuilder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  apiOverrides: {
+    Hydration: /* ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+**Example output:**
+
+::: details Possible output objects
 
 ```
 origin - Always present
@@ -1710,13 +1750,9 @@ destination - Present if origin doesn't fail
 hops - Always present - An array of chains that the transfer hops through (Empty if none)
 ```
 
-</details>
+:::
 
-**Example output:**
-
-
-<details>
-<summary>Example of an output for swap transfer (USDT -> USDC) from Astar > AssetHubPolkadotDex > Hydration </summary>
+::: details Swap transfer (USDT to USDC) from Astar going to AssetHubPolkadotDex and ending at Hydration
 
 ```json
 {
@@ -1805,98 +1841,8 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 }
 ```
 
-</details>
+:::
 
-
-**Initial setup:**
-
-  <details>
-
-  <summary>Currency spec options</summary>
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
-```
-
-  </details>
-
-**Builder configuration**
-
-<details>
-<summary>You can customize builder configuration for more advanced usage</summary>
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /* ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await RouterBuilder({
-  apiOverrides: {
-    Hydration: /* ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await RouterBuilder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await RouterBuilder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  apiOverrides: {
-    Hydration: /* ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /* ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-</details>
 
 ## Helpful functions
 
@@ -1911,16 +1857,3 @@ const assets = getExchangeAssets('AssetHubPolkadotDex')
 //Returns asset pairs supported by selected exchanges
 const pairs = getExchangePairs(exchange) // Exchange can be also array of exchanges such as [“HydrationDex”, “AcalaDex”] or undefined which will return all available pairs for all dexes
 ```
-
-## Ready to use in SpellRouter
-
-| DEX | Can send to/receive from | Supported assets | Notes |
-| ------------- | ------------- | ------------- |------------- |
-| Acala DEX |Polkadot Relay, Astar, HydraDX, Interlay, Moonbeam, Parallel, AssetHubPolkadot, Unique network|ACA, DOT, aSEED, USDCet, UNQ, IBTC, INTR, lcDOT, LDOT| Fees are paid by either ACA or DOT|
-|Karura DEX| Kusama Relay, Altair, Basilisk, BifrostKusama, Calamari, Crab, Parallel Heiko, Kintsugi, Moonriver, Quartz, Crust Shadow, Shiden, AssetHubKusama| BNC, USDCet, RMRK, ARIS, AIR, QTZ, CSM, USDT, KAR, KBTC, KINT, KSM, aSEED, LKSM, PHA, tKSM, TAI | Fees are paid by either KAR or KSM|
-|Hydration DEX| Polkadot Relay, Acala, Interlay, AssetHubPolkadot, Zeitgeist, Astar, Centrifuge, BifrostPolkadot, Mythos | USDT, MYTH, HDX, WETH, GLMR, IBTC, BNC, WBTC, vDOT, DAI, CFG, DOT, DAI, ZTG, WBTC, INTR, ASTR, LRNA, USDC| Chain automatically gives you native asset to pay for fees.|
-| Basilisk DEX | Kusama Relay, Karura, AssetHubKusama, Tinkernet, Robonomics| BSX, USDT, aSEED, XRT, KSM, TNKR| Chain automatically gives you native asset to pay for fees.|
-|Bifrost Kusama DEX| Kusama Relay, AssetHubKusama, Karura, Moonriver, Kintsugi| BNC, vBNC, vsKSM, vKSM, USDT, aSEED, KAR, ZLK, RMRK, KBTC, MOVR, vMOVR| Chain requires native BNC asset for fees.|
-|Bifrost Polkadot DEX| Polkadot Relay, AssetHubPolkadot, Moonbeam, Astar, Interlay| BNC, vDOT, vsDOT, USDT, FIL, vFIL, ASTR, vASTR, GLMR, vGLMR, MANTA, vMANTA|Chain requires native BNC asset for fees.|
-|AssetHubPolkadotDex| Polkadot Relay, Any Parachain it has HRMP channel with | DOT, WETH.e, USDC, USDT, LAOS, MYTH, WBBTC.e, ASX, BILL, DEMO, TATE, PINK, MODE, MVPW, PIGS, DED, wstETH.e, TTT, KSM, tBTC.e, PEPE.e, SHIB.e, TON.e, NAT, NT2, DOTA, STINK, MTC, AJUN, GGI, GLMR, NIN | Requires specific native tokens for swaps |
-|AssetHubKusamaDex| Kusama Relay, Any Parachain it has HRMP channel with | KSM, DOT, USDC, USDT, BILLCOIN, WOOD, dUSD, TACP, TSM, MA42, USDT, DMO, JAM | Requires specific native tokens for swaps |

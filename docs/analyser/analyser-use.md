@@ -3,21 +3,21 @@
 This documentation provides you all steps necessary to implement core XCM Analyser functions. It also provides you with handy examples that can help you understand how to use this tool to its fullest potential.
 
 ## Implementation
-```
-NOTE:
-The following junction types are supported:
 
-Parachain
-AccountId32
-AccountIndex64
-AccountKey20
-PalletInstance
-GeneralIndex
-GeneralKey
-OnlyChild
-Plurality
-GlobalConsensus
-```
+> [!NOTE]
+>The following junction types are supported:
+>
+>- Parachain
+>- AccountId32
+>- AccountIndex64
+>- AccountKey20
+>- PalletInstance
+>- GeneralIndex
+>- GeneralKey
+>- OnlyChild
+>- Plurality
+>- GlobalConsensus
+
 #### Compile a single location object to the URL
 
 To compile a single location object to url use the following structure:

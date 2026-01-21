@@ -1,10 +1,8 @@
 # List of chains supported by ParaSpell✨
 
-This page provides a comprehensive list of chains that are integrated within our XCM Router, XCM API, and XCM SDK. Since the XCM API incorporates both the XCM SDK and XCM Router packages, it inherently supports all the chains listed below, even though this is not explicitly stated.
+This page provides a list of chains integrated with the XCM Router, XCM API, and XCM SDK. Because the XCM API includes both the XCM SDK and the XCM Router, it supports all of the chains listed below, even if this is not explicitly stated elsewhere.
 
-## XCM SDK 🪄
-
-### Relay chains
+## Relay chains
 
 | Chain name | Website                           | Github | Polkadot.js                                                                                   | Supported XCM Pallet | Current supported XCM Version |
 | --------- | --------------------------------- | ------ | --------------------------------------------------------------------------------------------- | -------------------- | -------------------------- |
@@ -13,7 +11,7 @@ This page provides a comprehensive list of chains that are integrated within our
 | Westend    | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fwestend-rpc.n.dwellir.com#/explorer) | palletXCM          | XCM V5                     |
 | Paseo    | [Website](https://www.parity.io/) | -      | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo.dotters.network#/explorer) | palletXCM          | XCM V5                     |
 
-### Polkadot Parachains
+## Polkadot Parachains
 
 | Chain name         | Website                                                | Github                                                                     | Polkadot.js                                                                                                                | Chain id | Supported XCM Pallet | Current supported XCM Version |
 | ----------------- | ------------------------------------------------------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
@@ -49,7 +47,7 @@ This page provides a comprehensive list of chains that are integrated within our
 | EnergyWebX    | [Website](https://www.energyweb.org)                                                                                     | [Github](https://github.com/energywebfoundation)                               | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpublic-rpc.mainnet.energywebx.com%2F#/explorer)      | 3345    | polkadotXCM          | XCM V3                     |
 | Xode    | [Website](https://xode.net)                                                                                     | [Github](https://github.com/Xode-DAO/xode-blockchain)                               | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-rpcnode.xode.net#/explorer)      | 3417    | polkadotXCM          | XCM V4                     |
 
-### Kusama Parachains
+## Kusama Parachains
 
 | Chain name      | Website                                                                                                                    | Github                                                                        | Polkadot.js                                                                                                            | Chain id | Supported XCM Pallet | Current latest XCM Version |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
@@ -70,7 +68,7 @@ This page provides a comprehensive list of chains that are integrated within our
 | Quartz         | [Website](https://unique.network/quartz/)                                                                                  | [Github](https://github.com/usetech-llc/polkadot_api_dotnet)                  | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fus-ws-quartz.unique.network#/explorer)                     | 2095    | xTokens              | XCM V5                     |
 | Shiden         | [Website](https://shiden.astar.network/)                                                                                   | [Github](https://github.com/AstarNetwork/Astar)                               | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fshiden.api.onfinality.io%2Fpublic-ws#/explorer)            | 2007    | xTokens          | XCM V5                     |
 
-### Westend Parachains
+## Westend Parachains
 | Chain name      | Website                                                                                                                    | Github                                                                        | Polkadot.js                                                                                                            | Chain id | Supported XCM Pallet | Current latest XCM Version |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
 | AssetHubWestend | [Website](https://www.parity.io/)                                                                                          | [Github](https://github.com/paritytech/polkadot-sdk)                               | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fwestend-asset-hub-rpc.polkadot.io#/explorer)                       | 1000    | polkadotXCM          | XCM V5                     |
@@ -80,7 +78,7 @@ This page provides a comprehensive list of chains that are integrated within our
 | PeopleWestend  | [Website](https://www.parity.io/) |[Github](https://github.com/paritytech/polkadot-sdk)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fwestend-people-rpc.polkadot.io#/explorer)             | 1004    | polkadotXCM          | XCM V5                     |
 | Penpal  | [Website](https://docs.rs/penpal-runtime/latest/penpal_runtime/) |[Github](https://github.com/paritytech/polkadot-sdk)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fwestend-penpal-rpc.polkadot.io#/explorer)             | 2042    | polkadotXCM          | XCM V4                     |
 
-### Paseo Parachains
+## Paseo Parachains
 | Chain name      | Website                                                                                                                    | Github                                                                        | Polkadot.js                                                                                                            | Chain id | Supported XCM Pallet | Current latest XCM Version |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
 | AjunaPaseo             | [Website](https://www.ajuna.io/?ref=parachains-info)                      | [Github](https://github.com/ajuna-network/)                            | [Polkadot.js](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc-paseo.ajuna.network#/explorer)                               | 2051    | xTokens          | XCM V5                     |
@@ -101,15 +99,3 @@ This page provides a comprehensive list of chains that are integrated within our
 | Chain name      | Website                                                                                                                    | Github                                                                        | Polkadot.js                                                                                                            | Chain id | Supported XCM Pallet | Current latest XCM Version |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------- | -------------------- | -------------------------- |
 | Ethereum         | [Website](https://ethereum.org/en/)                       | [Github](https://github.com/ethereum)                         | -                      | 1    | -              | -                     |
-
-
-## XCM Router ☄️
-
-| DEX | Can send to/receive from | Supported assets | Notes |
-| ------------- | ------------- | ------------- |------------- |
-| Acala DEX |Polkadot Relay, Astar, HydraDX, Interlay, Moonbeam, Parallel, AssetHubPolkadot, Unique network|ACA, DOT, aSEED, USDCet, UNQ, IBTC, INTR, lcDOT, LDOT| Fees are paid by either ACA or DOT|
-|Karura DEX| Kusama Relay, Altair, Basilisk, BifrostKusama, Calamari, Crab, Parallel Heiko, Kintsugi, Moonriver, Quartz, Crust Shadow, Shiden, AssetHubKusama| BNC, USDCet, RMRK, ARIS, AIR, QTZ, CSM, USDT, KAR, KBTC, KINT, KSM, aSEED, LKSM, PHA, tKSM, TAI | Fees are paid by either KAR or KSM|
-|Hydration DEX| Polkadot Relay, Acala, Interlay, AssetHubPolkadot, Zeitgeist, Astar, Centrifuge, BifrostPolkadot, Mythos | USDT, MYTH, HDX, WETH, GLMR, IBTC, BNC, WBTC, vDOT, DAI, CFG, DOT, DAI, ZTG, WBTC, INTR, ASTR, LRNA, USDC| Chain automatically gives you native asset to pay for fees.|
-| Basilisk DEX | Kusama Relay, Karura, AssetHubKusama, Tinkernet, Robonomics| BSX, USDT, aSEED, XRT, KSM, TNKR| Chain automatically gives you native asset to pay for fees.|
-|Bifrost Kusama DEX| Kusama Relay, AssetHubKusama, Karura, Moonriver, Kintsugi| BNC, vBNC, vsKSM, vKSM, USDT, aSEED, KAR, ZLK, RMRK, KBTC, MOVR, vMOVR| Chain requires native BNC asset for fees.|
-|Bifrost Polkadot DEX| Polkadot Relay, AssetHubPolkadot, Moonbeam, Astar, Interlay| BNC, vDOT, vsDOT, USDT, FIL, vFIL, ASTR, vASTR, GLMR, vGLMR, MANTA, vMANTA|Chain requires native BNC asset for fees.|

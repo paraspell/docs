@@ -2,20 +2,28 @@
 
 Following guide contains information about XCM Visualizer. It is designed to inform both interface users and developers about the possibilities and use cases they can enhance with this tool.
 
-<img width="200" alt="logo" src="https://github.com/paraspell/xcm-tools/assets/55763425/2a2a071d-32c5-4fea-a6cb-fc5177c73548">
+## User startup guide 
 
-## User startup guide
+The XCM Visualizer is available at the following URL:
+https://xcm-visualizer.paraspell.xyz/
 
-Project is deployed on following link: https://xcm-visualizer.paraspell.xyz/.
-
-For user guide refer to following section: [User guide](https://paraspell.github.io/docs/visualizer/user-guide.html)
+Application usage instructions are available in the documentation:
+[User Guide](https://paraspell.github.io/docs/visualizer/user-guide.html)
 
 ## Developer startup guide
-To run the project locally, you need to have Node.js v.20^ installed, as well as PostgreSQL database.
 
-In backend folder create .env file following .env.example file. After your database is set up, you can import the database dump from the [xcm_database_dump_2023_2024](https://drive.google.com/file/d/1v7z85kz-ez_0Vy8GffMEuWlWq2_T2dQq/view) file to try the XCM Visualizer with the example data.
+1. Install dependencies:
+   - Node.js `^20`
+   - PostgreSQL
 
-Then, run the following commands:
+2. Configure environment variables:
+   - In the `backend` directory, create a `.env` file based on `.env.example`
+   - Update it with your local PostgreSQL credentials
+
+3. Initialize the database:
+   - Import the [xcm_database_dump_2023_2024](https://drive.google.com/file/d/1v7z85kz-ez_0Vy8GffMEuWlWq2_T2dQq/view) file into your PostgreSQL database to load example data for the XCM Visualizer
+
+4. Run the following commands:
 
 Before you begin with any commands make sure to run following from monorepository root:
 

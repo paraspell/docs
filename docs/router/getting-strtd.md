@@ -9,14 +9,10 @@ This template is programmed with React & Vite framework. It contains basic compo
 
 ## Install peer dependencies
 
-```
-⚠️ NOTE
-Enabling Wasm is required by Hydration SDK in order for XCM-Router to work in your dAPP. You can either enable it in web app config or by plugin.
-Hydration also requires augment package - https://github.com/galacticcouncil/sdk/issues/114
-
-⚠️⚠️ NOTE
-XCM Router is now migrated towards PAPI library! To migrate you just need to replace old PJS injector with PAPI signer and install new peer dependency. Explore docs to find out more.
-```
+> [!IMPORTANT]
+> - ⚠️  **WebAssembly (Wasm) must be enabled in your project** because of the Hydration SDK (One of the exchanges implemented in XCM Router). Wasm can be enabled either through the web application configuration or through the appropriate plugin. Additionally, Hydration requires the use of the **augment package** (see: https://github.com/galacticcouncil/sdk/issues/114).
+>
+> - ⚠️  **XCM Router has been migrated to the PAPI library.** If you used XCM Router prior to migration, replace the legacy Polkadot.js (PJS) injector with the PAPI signer and install the newly required peer dependency. Follow the setup guide for more information.
 
 ```sh
 yarn add || pnpm | npm install polkadot-api

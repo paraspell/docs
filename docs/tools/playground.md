@@ -2,7 +2,9 @@
 
 The Playground allows you to demo-test every XCM tool offered by ParaSpell✨. It can also be utilized for various DEX operations.
 
+::: info
 The Playground is currently deployed and available for use at the following link: [https://playground.paraspell.xyz/](https://playground.paraspell.xyz/)
+:::
 
 
 ## Prerequisites
