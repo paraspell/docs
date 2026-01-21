@@ -33,11 +33,14 @@ Set of XCM tools for Polkadot, Kusama, Westend & Paseo Paraverses
   </li>
 </ul>
 
+::: info
 - All of our tools are **completely free** and **fully open source** 🧙‍♂️🪄
 
 - Tired of reading? Listen to this [AI Podcast about ParaSpell XCM Tools](https://github.com/paraspell/presskit/blob/main/podcasts_notebooklm/ParaSpell_Podcast_by_NotebookLM.wav).
 - Find out more about these tools at our [landing page](https://paraspell.xyz)!
 - A complete guide on how to use these tools will be mentioned throughout the document.
+
+:::
 
 ### 🛫 Starting fresh? Try our starter templates!
 - [XCM SDK (React + Vite) starter template](https://github.com/paraspell/xcm-sdk-template)
