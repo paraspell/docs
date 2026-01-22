@@ -13,7 +13,7 @@ Application usage instructions are available in the documentation:
 ## Developer startup guide
 
 1. Install dependencies:
-   - Node.js `^20`
+   - Node.js `^24`
    - PostgreSQL
 
 2. Configure environment variables:
