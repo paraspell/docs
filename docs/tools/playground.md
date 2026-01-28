@@ -21,7 +21,7 @@ $ git clone https://github.com/paraspell/xcm-tools.git
 $ pnpm install
 
 # Build monorepo projects
-$ pnpm build
+$ pnpm --filter playground... build
 
 # Run playground via monorepo script
 $ pnpm run:playground
