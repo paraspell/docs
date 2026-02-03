@@ -515,7 +515,7 @@ const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..]
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .senderAddress(senderAddress)
       .address(address)
-      .transact(hex, /*originType, TWeight - Optional*/) //Reffer to transact spec below
+      .transact(hex, /* originType, TWeight - Optional */) // Reffer to transact spec below
 
 const tx = await builder.build()
 
@@ -530,7 +530,7 @@ await builder.disconnect()
 Transact option in builder consists of three parameters
 - **Hex**: Hex of an operation that should execute on destination chain - Needs to be created on destination chain
 - **originType**: Optional parameter defaulted to "SovereignAccount", but can optionally be set to "Native", "XCM" or "SuperUser"
-- **TWeight**: Optional parameter defaulted to being autofilled if not specified. If specified it is used as maxFallbackWeight parameter in V3 and V4 transact transfers.
+- **TWeight**: Optional parameter, autofilled if not specified. If specified it is used as maxFallbackWeight parameter in V3 and V4 transact transfers.
 
 > [!NOTE]
 >`V3` and `V4` Transact cannot transfer currency and transact in same call. You need to deposit currencies into sovereign account of the origin account on destination chain - its location is `(Parent, Parachain: Original Parachain, Account)`. This address can be calculated with following API: `locationToAccountApi.convert_location`. The `.currency()` parameter serves for specifying in which currency should the SDK buy execution, so amount parameter can be random number (Only applies for calls to/from V3/V4 chains).
