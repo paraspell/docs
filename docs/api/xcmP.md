@@ -171,7 +171,7 @@ const response = await fetch("http://localhost:3001/v5/x-transfer", {
 });
 ```
 
-### Local transfers
+## Local transfers
 The following endpoint allows  creation of Local asset transfers for any chain and any currency registered on it. This call is specified by same Chain selected as origin - `from` and destination - `to` parameters.
 
 **Endpoint**: `POST /v5/x-transfer`
@@ -273,6 +273,125 @@ const response = await fetch('http://localhost:3001/v5/x-transfer', {
     to: 'Chain' // Replace Chain with same parameter as "from" parameter
     currency: { currencySpec }, // Refer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+  }),
+});
+```
+
+## Transact
+The Api gives the ability to perform Transact, which enables execution of calls on a remote chain in the context of the destination environment. This allows applications to trigger cross-chain actions without direct interaction from users on the target chain.
+
+**Endpoint**: `POST /v5/x-transfer`
+
+  ::: details Parameters
+
+  - `from` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
+  - `to` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
+  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender.
+  - `transact` (Inside JSON body): (required): Specifies the transact which should execute on destination.
+
+  :::
+
+  ::: details Errors
+
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Chains
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when body of 'transact' is not a valid
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  :::
+
+  ::: details Notes
+
+`V3` and `V4` Transact cannot transfer currency and transact in same call. You need to deposit currencies into sovereign account of the origin account on destination chain - its location is `(Parent, Parachain: Original Parachain, Account)`. This address can be calculated with following API: `locationToAccountApi.convert_location`. The `.currency()` parameter serves for specifying in which currency should the SDK buy execution, so amount parameter can be random number (Only applies for calls to/from V3/V4 chains).
+
+`V5` is able to transfer and transact at the same time, so `amount` parameter in `.currency()` needs to be filled accordingly because the amount being transferred is also used to buy execution.
+
+When transferring from Chain that uses long IDs for example Moonbeam make sure to add character `n` at the end of currencyID. For example: `.currency({id: 42259045809535163221576417993425387648n, amount: 123})` will mean that you have selected to transfer xcDOT.
+
+  :::
+
+::: details Currency spec options
+
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
+```
+
+:::
+
+::: details Advanced API settings
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+  }
+  mode: "BATCH" | "BATCH_ALL" // Only in x-transfer-batch endpoint - Default as BATCH_ALL
+})
+```
+
+:::
+
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v5/x-transfer', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'Chain', // Replace "Chain" with sender Chain, e.g., "Acala"
+    to: 'Chain' // Replace Chain with same parameter as "from" parameter
+    currency: { currencySpec }, // Refer to currency spec options above
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    senderAddress: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
+    transact: {
+      hex: Destination call hex //Function that should execute on destination
+    /*originKind: "SovereignAccount" || "XCM" || "Native" || "SuperUser" - Optional, "SovereignAccount" by default
+      maxWeight: { proofSize: num; refTime: num } - Optional, autofilled by default (Utilized in V3 and V4 as maxFallbackWeight parameter)
+    }
   }),
 });
 ```
@@ -501,7 +620,6 @@ Query for Snowbridge status
 ```ts
 const response = await fetch("http://localhost:3001/v5/x-transfer/eth-bridge-status");
 ```
-
 
 ## Batch call
 XCM API allows you to batch your XCM calls and send multiple at the same time via batch feature.
