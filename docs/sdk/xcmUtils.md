@@ -97,9 +97,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -371,9 +370,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -526,9 +524,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -680,9 +677,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -835,9 +831,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -976,9 +971,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -1187,9 +1181,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({

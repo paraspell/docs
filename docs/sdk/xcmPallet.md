@@ -108,9 +108,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -224,9 +223,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -311,9 +309,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -463,9 +460,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -508,6 +504,157 @@ await builder.disconnect()
 ```
 
 :::
+
+## Transact
+The SDK gives the ability to perform Transact, which enables execution of calls on a remote chain in the context of the destination environment. This allows applications to trigger cross-chain actions without direct interaction from users on the target chain.
+
+```ts
+const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
+      .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) // Has to be same as origin (from)
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
+      .senderAddress(senderAddress)
+      .address(address)
+      .transact(hex, /*originType, TWeight - Optional*/) //Reffer to transact spec below
+
+const tx = await builder.build()
+
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+```
+
+**Initial setup:**
+
+::: details Transact spec
+
+Transact option in builder consists of three parameters
+- **Hex**: Hex of an operation that should execute on destination chain - Needs to be created on destination chain
+- **originType**: Optional parameter defaulted to "SovereignAccount", but can optionally be set to "Native", "XCM" or "SuperUser"
+- **TWeight**: Optional parameter defaulted to being autofilled if not specified. If specified it is used as maxFallbackWeight parameter in V3 and V4 transact transfers.
+
+> [!NOTE]
+>`V3` and `V4` Transact cannot transfer currency and transact in same call. You need to deposit currencies into sovereign account of the origin account on destination chain - its location is `(Parent, Parachain: Original Parachain, Account)`. This address can be calculated with following API: `locationToAccountApi.convert_location`. The `.currency()` parameter serves for specifying in which currency should the SDK buy execution, so amount parameter can be random number (Only applies for calls to/from V3/V4 chains).
+>
+>`V5` is able to transfer and transact at the same time, so `amount` parameter in `.currency()` needs to be filled accordingly because the amount being transferred is also used to buy execution.
+
+:::
+
+::: details Currency spec options
+
+> [!NOTE]
+>
+>For `V3` and `V4` chains the `.currency()` parameter specifies in which currency should the Sovereign account of Origin account purchase execution in on destination chain. For `V5` it specifies which asset should be transferred and how much. For more information see Transact spec above.
+
+
+
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+:::
+
+::: details **Builder configuration**
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+:::
+
+**Builder example**
+::: details Transfering 1 DOT and performing transact which transfers all native currency on Bifrost
+
+```ts  
+const builder = Builder()
+  .from('AssetHubPolkadot')
+  .to('BifrostPolkadot')
+  .currency({
+    symbol: 'DOT',
+    amount: '10000000000'
+  })
+  .senderAddress(senderAddress)
+  .address(address)
+  .transact(0x0a040042ac083419496cb97115aff8f79eb7bb96ceaad18e99e310f526503fdd161b7500)
+
+
+const tx = await builder.build()
+
+// Disconnect API after TX
+await builder.disconnect()
+```
+
+:::
+
 
 ## Batch calls
 You can batch XCM calls and execute multiple XCM calls within one call. All three scenarios (Para->Para, Para->Relay, Relay->Para) can be used and combined.
@@ -743,9 +890,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
@@ -1044,9 +1190,8 @@ const builder = await Builder({
 
 Following setting will abstract decimals from the .currency builder functionality.
 
-**NOTE:**
-
-Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
 
 ```ts
 const builder = await Builder({
