@@ -315,7 +315,7 @@ The Api gives the ability to perform Transact, which enables execution of calls 
 `V5` is able to transfer and transact at the same time, so `amount` parameter in `.currency()` needs to be filled accordingly because the amount being transferred is also used to buy execution.
 
 When transferring from Chain that uses long IDs for example Moonbeam make sure to add character `n` at the end of currencyID. For example: `.currency({id: 42259045809535163221576417993425387648n, amount: 123})` will mean that you have selected to transfer xcDOT.
-
+ 
   :::
 
 ::: details Currency spec options
