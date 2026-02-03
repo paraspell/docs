@@ -390,7 +390,7 @@ const response = await fetch('http://localhost:3001/v5/x-transfer', {
     transact: {
       hex: Destination call hex //Function that should execute on destination
     /*originKind: "SovereignAccount" || "XCM" || "Native" || "SuperUser" - Optional, "SovereignAccount" by default
-      maxWeight: { proofSize: num; refTime: num } - Optional, autofilled by default (Utilized in V3 and V4 as maxFallbackWeight parameter)
+      maxWeight: { proofSize: string, refTime: string } - Optional, autofilled by default (Utilized in V3 and V4 as maxFallbackWeight parameter)
     }
   }),
 });
