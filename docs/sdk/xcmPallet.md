@@ -14,9 +14,11 @@ const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] 
       .to(TChain /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
       .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
-      .senderAddress(address) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
+      .senderAddress(address | PAPI_SIGNER /*Only in PAPI SDK*/ | {address, PJS_SIGNER} /*Only in PJS SDK*/) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
 
 const tx = await builder.build()
+// Or if you use signers in senderAddress:
+// await builder.signAndSubmit() - Signs and submits the transaction; returns TX hash for tracking
 
 // Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
@@ -67,7 +69,7 @@ Asset selection of multiple assets:
 These can be added to further customize your calls.
 
 ```ts
-.ahAddress(ahAddress) - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
+.ahAddress(ahAddress) // - OPTIONAL - used when origin is EVM CHAIN and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
 .feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
 .xcmVersion(Version.V3/V4/V5)  // Optional parameter for manual override of XCM Version used in call
 .customPallet('Pallet','pallet_function') // Optional parameter for manual override of XCM Pallet and function used in call (If they are named differently on some CHAIN but syntax stays the same). Both pallet name and function required. Pallet name must be CamelCase, function name snake_case.
@@ -1408,7 +1410,7 @@ const builder = await Builder({
 
 const tx = await builder.build()
 //Or if you use prederived account as senderAddress:
-//await builder.signAndSubmit()
+//await builder.signAndSubmit() - Signs and submits the transaction; returns TX hash for tracking
 
 // Disconnect API after TX
 await builder.disconnect()

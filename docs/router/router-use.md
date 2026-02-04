@@ -57,19 +57,19 @@ await RouterBuilder(/* builder_config - Optional*/)
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
@@ -169,19 +169,19 @@ await RouterBuilder(/* builder_config - Optional*/)
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
@@ -282,19 +282,19 @@ await RouterBuilder(/* builder_config - Optional*/)
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
@@ -384,19 +384,19 @@ const result = await RouterBuilder()
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
@@ -1327,19 +1327,19 @@ const result = await RouterBuilder()
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
@@ -1437,19 +1437,19 @@ const result = await RouterBuilder()
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
@@ -1545,19 +1545,19 @@ console.log(result.exchange)
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
@@ -1656,19 +1656,19 @@ const fees = await RouterBuilder(/* builder_config - Optional*/)
 
 Asset selection by Location:
 ```ts
-{location: AssetLocationString, amount: amount} //Recommended
-{location: AssetLocationJson, amount: amount} //Recommended 
+{location: AssetLocationString} //Recommended
+{location: AssetLocationJson} //Recommended 
 ```
 
 Asset selection by asset ID:
 ```ts
-{id: currencyID, amount: amount} // Disabled when automatic exchange selection is chosen
+{id: currencyID} // Disabled when automatic exchange selection is chosen
 ```
 
 Asset selection by asset Symbol:
 ```ts
 // For basic symbol selection
-{symbol: currencySymbol, amount: amount} 
+{symbol: currencySymbol} 
 ```
 
 :::
