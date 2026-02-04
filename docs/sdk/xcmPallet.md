@@ -176,214 +176,6 @@ await builder.disconnect()
 
 :::
 
-
-## Ecosystem Bridges
-List of available bridges in XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
-
-### Polkadot <> Kusama bridge
-
-```ts
-await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)       
-      .from('AssetHubPolkadot')  // 'AssetHubPolkadot' | 'AssetHubKusama'
-      .to('AssetHubKusama')     // 'AssetHubPolkadot' | 'AssetHubKusama'
-      .currency({symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/})        // 'KSM' | 'DOT' | 'USDC' | 'USDT'
-      .address(address)
-      .build()
-```
-
-**Initial setup:**
-::: details **Builder configuration**
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await Builder({
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
->[!Note]
->Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await Builder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Format check**
-
-Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
-
-```ts
-const builder = await Builder({
-  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-:::
-
-### Polkadot <> Ethereum bridge (Snowbridge)
-The transfers from Ethereum to Polkadot differ in setup from the opposite route, thus we mention both.
-
-#### Polkadot -> Ethereum transfer
-
-```ts
-await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
-          .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
-          .to('Ethereum')           
-          .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})   // Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address)  // AccountKey20 recipient address
-          .senderAddress(sender_address) // Injector SS58 address
-          .ahAddress(ahAddress) // Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin chain is EVM style because we are unable to convert your sender Key20 address to ID32 address.
-          .build()
-```
-
-::: details **Builder configuration**
-
-**Development:**
-
-The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Api overrides:**
-
-You can override any API endpoint in your call in following way.
-```ts
-const builder = await Builder({
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-**Decimal abstraction:**
-
-Following setting will abstract decimals from the .currency builder functionality.
-
->[!Note]
->Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
-
-```ts
-const builder = await Builder({
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
-})
-```
-
-**Format check**
-
-Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
-
-```ts
-const builder = await Builder({
-  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-})
-```
-
-**Example of builder configuration:**
-
-Following example has every option enabled.
-```ts
-const builder = await Builder({
-  development: true, // Optional: Enforces overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
-  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
-  apiOverrides: {
-    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
-    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
-  }
-})
-```
-
-:::
-
-#### Ethereum -> Polkadot transfer
-
-Currently only available in PJS version of XCM SDK (Until Snowbridge migrates to PAPI and VIEM).
-
-```ts
-const provider = new ethers.BrowserProvider(window.ethereum);
-const signer = await provider.getSigner();
-
-await EvmBuilder(provider)   // Ethereum provider
-  .from('Ethereum')   
-  .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
-  .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})    // Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-  .address(address)   // AccountID32 recipient address
-  //.ahAddress(ahAddress) - ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
-  .signer(signer)     // Ethereum signer address
-  .build();
-```
-
-
-::: tip
-**Helper functions:**
-```js
-await depositToken(signer: Signer, amount: bigint, symbol: string); // Deposit token to contract
-await getTokenBalance(signer: Signer, symbol: string); // Get token balance
-await approveToken(signer: Signer, amount: bigint, symbol: string); // Approve token
-```
-
-#### Snowbridge status check
-Query for Snowbridge status 
-
-```ts
-const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
-```
-
-:::
-
 ## Local transfers
 ```ts
 const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
@@ -429,6 +221,16 @@ Asset selection by asset Symbol:
 
 // Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
 {symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+:::
+
+::: details Advanced settings
+
+These can be added to further customize your calls.
+
+```ts
+.keepAlive(bool) // Optional: Allows draining the account below the existential deposit.
 ```
 
 :::
@@ -653,6 +455,213 @@ const tx = await builder.build()
 
 // Disconnect API after TX
 await builder.disconnect()
+```
+
+:::
+
+## Ecosystem Bridges
+List of available bridges in XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
+
+### Polkadot <> Kusama bridge
+
+```ts
+await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)       
+      .from('AssetHubPolkadot')  // 'AssetHubPolkadot' | 'AssetHubKusama'
+      .to('AssetHubKusama')     // 'AssetHubPolkadot' | 'AssetHubKusama'
+      .currency({symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/})        // 'KSM' | 'DOT' | 'USDC' | 'USDT'
+      .address(address)
+      .build()
+```
+
+**Initial setup:**
+::: details **Builder configuration**
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+### Polkadot <> Ethereum bridge (Snowbridge)
+The transfers from Ethereum to Polkadot differ in setup from the opposite route, thus we mention both.
+
+#### Polkadot -> Ethereum transfer
+
+```ts
+await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optional*/)
+          .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+          .to('Ethereum')           
+          .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})   // Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+          .address(eth_address)  // AccountKey20 recipient address
+          .senderAddress(sender_address) // Injector SS58 address
+          .ahAddress(ahAddress) // Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin chain is EVM style because we are unable to convert your sender Key20 address to ID32 address.
+          .build()
+```
+
+::: details **Builder configuration**
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+#### Ethereum -> Polkadot transfer
+
+Currently only available in PJS version of XCM SDK (Until Snowbridge migrates to PAPI and VIEM).
+
+```ts
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
+
+await EvmBuilder(provider)   // Ethereum provider
+  .from('Ethereum')   
+  .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+  .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})    // Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
+  .address(address)   // AccountID32 recipient address
+  //.ahAddress(ahAddress) - ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
+  .signer(signer)     // Ethereum signer address
+  .build();
+```
+
+
+::: tip
+**Helper functions:**
+```js
+await depositToken(signer: Signer, amount: bigint, symbol: string); // Deposit token to contract
+await getTokenBalance(signer: Signer, symbol: string); // Get token balance
+await approveToken(signer: Signer, amount: bigint, symbol: string); // Approve token
+```
+
+#### Snowbridge status check
+Query for Snowbridge status 
+
+```ts
+const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 ```
 
 :::
