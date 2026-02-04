@@ -1409,8 +1409,8 @@ const builder = await Builder({
   .senderAddress(address) //You can also use prederived accounts //Alice, //Bob... //Alith, //Balthathar...
 
 const tx = await builder.build()
-//Or if you use prederived account as senderAddress:
-//await builder.signAndSubmit() - Signs and submits the transaction; returns TX hash for tracking
+// Or if you use prederived account as senderAddress:
+// await builder.signAndSubmit() - Signs and submits the transaction; returns TX hash for tracking
 
 // Disconnect API after TX
 await builder.disconnect()
