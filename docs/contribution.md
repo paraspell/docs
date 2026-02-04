@@ -120,7 +120,7 @@ If someone has already reported an issue or opened a PR and you want to contribu
 - If allowed, follow the same reservation/PR process.
 - Make sure your contribution is additive and clearly explained.
 
-## ❓ FAQ (Frequently Asked Questions)
+## ❓ FAQ
 
 ### 💡 Can I report and fix the same bug?
 
@@ -143,7 +143,7 @@ The issue becomes **unreserved and open** for others to claim. You may re-reserv
 Your payment will be sent to `AssetHub Polkadot address` you provided in the issue or PR and the amount will be paid in `USDC` currency. Please ensure to only provide non-cex addresses to the PR, because the payment may not arrive correctly. The payment should be processed within 2 business days after the issue is resolved or PR is merged.
 
 
-## 🧠 Tips for High-Quality Contributions
+## 🧠 Tips
 
 - Follow the existing code style and structure.
 - Write meaningful commit messages.

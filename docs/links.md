@@ -1,6 +1,6 @@
 # List of interesting ParaSpell✨ repositories
 
-## [Monorepo](https://github.com/paraspell/xcm-tools/tree/main) packages and applications 🧰
+## Packages and applications 🧰
 
 ### XCM-SDK 🪄
 [SDK link](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) |  
@@ -36,7 +36,7 @@ A professional landing page for the XCM Tools, providing a clear overview of the
 
 A professional landing page for the XCM API, providing a clear overview of the capabilities that can be achieved through the XCM API.
 
-## Other ParaSpell repositories 🛠️
+## Other repositories 🛠️
 
 ### Presskit 🤵‍♂️
 [Presskit link](https://github.com/paraspell/presskit) |
