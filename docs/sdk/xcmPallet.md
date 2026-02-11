@@ -1522,3 +1522,20 @@ const result = convertSs58(ADDRESS, TChain)
 "7Lu51dzX1eqBxHdc8DkWvMkyFgoVXXFjibjEnxUndJQ8NAHz"
 ```
 
+## Query asset reserve
+Following query allows you to query asset reserve for specific asset on specific chain.
+
+```ts
+//PAPI
+import { getAssetReserveChain } from "@paraspell/sdk";
+//PJS
+import { getAssetReserveChain } from "@paraspell/sdk-pjs";
+
+getAssetReserveChain(chain: TSubstrateChain, location: TLocation)
+```
+
+**Example output**
+
+```
+"moonbeam"
+```

@@ -2089,6 +2089,77 @@ const response = await fetch("http://localhost:3001/v5/assets/:chain/supported-d
 });
 ```
 
+### Query asset reserve
+The following endpoint allows you to query the asset reserve for specific asset on specific chain.
+
+**Endpoint**: `POST /v5/assets/:chain/reserve-chain`
+
+  ::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount} //Recommended
+{location: AssetLocationJson, amount: amount} //Recommended 
+{location: Override('Custom Location'), amount: amount} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount} 
+```
+
+Asset selection of multiple assets:
+```ts
+[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount}, {currencySelection}, ..]
+```
+
+:::
+
+  ::: details Parameters
+
+  - `chain` (Path parameter): Specifies the name of the Chain.
+  - `currency` (Inside JSON body): (required): Specifies the currency to query.
+
+  :::
+
+  ::: details Errors
+
+  - `400`  (Bad request exception) - Returned when parameter 'chain' is not provided
+  - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  :::
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v5/assets/:chain/reserve-chain", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        currency: {currency spec} //Refer to currency spec options above
+    })
+});
+```
+
 ### Query asset balance
 The following endpoint allows you to query asset balance for on specific chain.
 
