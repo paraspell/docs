@@ -5,14 +5,16 @@ XCM Router supports following cross-chain swaps across Polkadot and Kusama.
 | Swap Type   | DEX               | Pools | Notes                                |
 |------------|-------------------|-------|--------------------------------------|
 | One-click  | Hydration         | 210   | —                                    |
-| One-click  | AssetHub Polkadot | 32    | Requires specific native tokens      |
-| Two-click  | Acala             | 36    | Requires native token                                    |
-| Two-click  | Bifrost Kusama    | 66    | Requires native token                |
+| One-click  | AssetHub Polkadot | 58    | Requires specific native tokens      |
+| One-click  | AssetHub Kusama   | 19    | Requires specific native tokens      |
+| One-click  | AssetHub Westend   | 110    | Requires specific native tokens      |
+| One-click  | AssetHub Paseo   | 13    | Requires specific native tokens      |
 | Two-click  | Bifrost Polkadot  | 45    | Requires native token                |
+| Two-click  | Bifrost Kusama    | 66    | Requires native token                |
+| Two-click  | Acala             | 36    | Requires native token                                    |
 | Two-click  | Karura            | 136   | Requires native token                                    |
-| Two-click  | AssetHub Kusama   | 16    | Requires specific native tokens      |
 
-**Total pools available:** 541
+**Total pools available:** 693
 
 > [!IMPORTANT]
 > - 📣 Some exchanges require native tokens to proceed with swaps.
