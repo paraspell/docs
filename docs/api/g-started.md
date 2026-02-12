@@ -13,7 +13,7 @@ Deployed on [https://api.lightspell.xyz/v5](https://api.lightspell.xyz/v5)
 
 [[Github repository]](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
 
-[[Downtime monitoring]](https://status.lightspell.xyz/)
+[[Downtime monitoring]](https://status.paraspell.xyz/)
 
 </h4>
 
