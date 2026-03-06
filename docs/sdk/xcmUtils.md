@@ -62,6 +62,14 @@ Asset selection of multiple assets:
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
+.swap({
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+    // evmSigner: Signer, - Optional parameter when origin CHAIN is EVM based (Required with evmInjectorAddress)
+    // onStatusChange: (event) => void - Optional parameter for callback events when sender address is supplied as signer
+})
 ```
   
 :::
@@ -880,6 +888,14 @@ Asset selection of multiple assets:
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
+.swap({
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+    // evmSigner: Signer, - Optional parameter when origin CHAIN is EVM based (Required with evmInjectorAddress)
+    // onStatusChange: (event) => void - Optional parameter for callback events when sender address is supplied as signer
+})
 ```
   
 :::
@@ -1034,6 +1050,14 @@ Asset selection of multiple assets:
 ```ts
 // Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
 .feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
+.swap({
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+    // evmSigner: Signer, - Optional parameter when origin CHAIN is EVM based (Required with evmInjectorAddress)
+    // onStatusChange: (event) => void - Optional parameter for callback events when sender address is supplied as signer
+})
 ```
   
 :::
@@ -1419,6 +1443,156 @@ const builder = await Builder({
 
 ```json
 "3329236337"
+```
+
+## Get amount out for your currency pair
+
+To retrieve exchange amount, that you receive for your desired asset pair you can use following function. This function returns 2 parameters. Name of best fitting DEX (Automatic selection - can be further used for manual selection) and Amount out
+
+```ts
+const result = await Builder()
+      .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
+      .address(RECIPIENT_ADDRESS)
+      .senderAddress(SENDER_ADDRESS)
+      .swap({
+          currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+          // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+          // slippage: 1, - Optional - 1 by default
+          // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+          // evmSigner: Signer, - Optional parameter when origin CHAIN is EVM based (Required with evmInjectorAddress)
+          // onStatusChange: (event) => void - Optional parameter for callback events when sender address is supplied as signer
+      })
+      .getBestAmountOut();
+
+console.log(result.amountOut)
+console.log(result.exchange)
+```
+
+**Initial setup:**
+
+::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by **Location**:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
+```
+
+Asset selection by **Asset ID**:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by **Asset symbol**:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+:::
+
+::: details Advanced settings
+
+  You can use following optional advanced settings to further customize your calls:
+
+```ts
+// Used when origin === AssetHubPolkadot | Hydration - This will allow for custom fee asset on origin.
+.feeAsset({id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson})
+```
+  
+:::
+
+::: details **Builder configuration**
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+**Example output:**
+
+```json
+{
+  "exchange": "AssetHubPolkadotDex",
+  "amountOut": "982693"
+}
 ```
 
 ## Ethereum bridge fees

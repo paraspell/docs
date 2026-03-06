@@ -48,6 +48,11 @@ XCM SDK supports two different Javascript client providers. It is advised to use
 ## Install swap extension
 If you plan to do Swap XCMs you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Only available in **PAPI** version of SDK.
 
+> [!IMPORTANT]
+> - ⚠️  **WebAssembly (Wasm) must be enabled in your project** because of the Hydration SDK (One of the exchanges implemented in XCM Router). Wasm can be enabled either through the web application configuration or through the appropriate plugin. Additionally, Hydration requires the use of the **augment package** (see: https://github.com/galacticcouncil/sdk/issues/114).
+>
+> - ⚠️  **XCM Router has been migrated to the PAPI library.** If you used XCM Router prior to migration, replace the legacy Polkadot.js (PJS) injector with the PAPI signer and install the newly required peer dependency. Follow the setup guide for more information.
+
 <InstallCommand pkg="@paraspell/swap" />
 
 ## Import package

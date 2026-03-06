@@ -460,7 +460,238 @@ await builder.disconnect()
 :::
 
 ## Swap
-If you installed SDK
+If you installed [Swap package](https://paraspell.github.io/docs/sdk/getting-started.html#install-swap-extension) you can create Swap XCMs. Doing so, you can send one asset and receive another on the destination. The caveat to using this method is, that some transfers are one click (Like the rest of XCM Transfers) while others are two click (Majority - Send from origin to exchange is one signature and then exchange + transfer to destination is second signature). You need specialized method to build these - `.buildAll()`.
+
+```ts
+const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] - Optional*/)
+      .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .to(TChain /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
+      .currency(CURRENCY_SPEC) // Refer to currency spec options below
+      .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
+      .senderAddress(address | PAPI_SIGNER /*Only in PAPI SDK*/ | {address, PJS_SIGNER} /*Only in PJS SDK*/) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
+      .swap({
+          currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+          // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+          // slippage: 1, - Optional - 1 by default
+          // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+          // evmSigner: Signer, - Optional parameter when origin CHAIN is EVM based (Required with evmInjectorAddress)
+          // onStatusChange: (event) => void - Optional parameter for callback events when sender address is supplied as signer
+      })
+
+const tx = await builder.buildAll()
+// Or if you use signers in senderAddress:
+// await builder.signAndSubmit() - Signs and submits the transaction; returns TX hash for tracking
+
+// Make sure to disconnect API after it is no longer used (eg. after transaction)
+await builder.disconnect()
+```
+
+**Initial setup:**
+
+::: details List of available exchanges
+
+| Swap Type   | DEX               | Pools | Notes                                |
+|------------|-------------------|-------|--------------------------------------|
+| One-click  | AssetHub Polkadot | 58    | Requires specific native tokens      |
+| One-click  | AssetHub Kusama   | 19    | Requires specific native tokens      |
+| One-click  | AssetHub Westend   | 110    | Requires specific native tokens      |
+| One-click  | AssetHub Paseo   | 13    | Requires specific native tokens      |
+| Two-click  | Hydration         | 210   | —                                    |
+| Two-click  | Bifrost Polkadot  | 45    | Requires native token                |
+| Two-click  | Bifrost Kusama    | 66    | Requires native token                |
+| Two-click  | Acala             | 36    | Requires native token                                    |
+| Two-click  | Karura            | 136   | Requires native token                                    |
+
+**Total pools available:** 693
+
+> [!Note]
+> One click transfers are only one click if origin chain supports execute extrinsics.
+
+:::
+
+::: details Selecting an exchange
+
+There are **three** options in specifying exchange chain:
+
+#### Automatic exchange selection
+
+You can leave automatic exchange selection on SDK if you do not want to choose manually. SDK will pick based on best price outcome. You can do so by not providing exchange object into `.swap()` parameter.
+
+```
+.swap({
+  currencyTo: CURRENCY_SPEC, //Reffer to currency spec options below
+})
+```
+
+#### Whitelisted exchange selection
+
+You can whitelist exchange selection if you have preferred exchanges. SDK will pick based on best price outcome from selected exchanges. You can do so by providing an array of exchanges into `.swap()` parameter.
+
+```
+.swap({
+  currencyTo: CURRENCY_SPEC, //Reffer to currency spec options below
+  exchange: ['AssetHubPolkadotDex', 'HydrationDex']
+})
+```
+
+#### Manual exchange selection
+
+If you want to manually specify exchange there is an option to do so by providing exact exchange into `.swap()` parameter.
+
+```
+.swap({
+  currencyTo: CURRENCY_SPEC, //Reffer to currency spec options below
+  exchange: ['AssetHubPolkadotDex'] // Or just 'AssetHubPolkadotDex' without an array
+})
+```
+
+
+:::
+
+::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+:::
+
+::: details Advanced settings
+
+These can be added to further customize your calls.
+
+```ts
+.feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+```
+
+:::
+
+::: details **Builder configuration**
+
+**Development:**
+
+The development setting requires you to define all chain endpoints - those that are used within call. This is good for localhost usage.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Api overrides:**
+
+You can override any API endpoint in your call in following way.
+```ts
+const builder = await Builder({
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+**Decimal abstraction:**
+
+Following setting will abstract decimals from the .currency builder functionality.
+
+>[!Note]
+>Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
+
+```ts
+const builder = await Builder({
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+})
+```
+
+**Format check**
+
+Following setting will perform dryrun bypass for each call under the hood. This will ensure XCM Format is correct and will prevent SDK from opening wallet if dryrun bypass does not pass - meaning, that the XCM Format is incorrect.
+
+```ts
+const builder = await Builder({
+  xcmFormatCheck: true // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+})
+```
+
+**Example of builder configuration:**
+
+Following example has every option enabled.
+```ts
+const builder = await Builder({
+  development: true, // Optional: Enforces overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: /*client | ws_url | [ws_url, ws_url,..]*/
+    AssetHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+    BridgeHubPolkadot: /*client | ws_url | [ws_url, ws_url,..]*/
+  }
+})
+```
+
+:::
+
+**Notes**
+
+::: details Transfers selecting currency by long Asset ID
+
+When transferring from Parachain that uses long IDs for example Moonbeam make sure to add character `n` at the end of currencyID. For example: `.currency({id: 42259045809535163221576417993425387648n, amount: 123})` will mean that you have selected to transfer xcDOT.
+
+:::
+
+**Builder example**
+
+::: details Swapping 1 USDT to USDC sending from Hydration to AssetHubPolkadot 
+```ts
+const builder = Builder()
+  .from('Hydration')
+  .to('AssetHubPolkadot')
+  .currency({
+    id: 10,
+    amount: '1000000'
+  })
+  .address(address)
+  .swap({
+    currencyTo: { symbol: 'USDC' }
+  })
+
+const tx = await builder.buildAll()
+
+// Disconnect API after TX
+await builder.disconnect()
+```
+
+:::
 
 ## Dry run
 
@@ -533,6 +764,14 @@ These can be added to further customize your calls.
 
 ```ts
 .feeAsset({symbol: 'symbol'} || {id: 'id'} || {location: 'location'}) // Optional parameter used when multiple assets are provided or when origin is AssetHub/Hydration - so user can pay fees with asset different than DOT
+.swap({
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+    // evmSigner: Signer, - Optional parameter when origin CHAIN is EVM based (Required with evmInjectorAddress)
+    // onStatusChange: (event) => void - Optional parameter for callback events when sender address is supplied as signer
+})
 ```
 
 :::
