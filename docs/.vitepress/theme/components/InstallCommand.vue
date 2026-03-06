@@ -22,7 +22,7 @@ const command = computed(() => {
     case 'npm':
       return `npm install ${packageList.value}`
     default:
-      return `pnpm install ${packageList.value}`
+      return `pnpm add ${packageList.value}`
   }
 })
 
