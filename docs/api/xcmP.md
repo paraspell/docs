@@ -482,6 +482,12 @@ Asset selection of multiple assets:
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
 feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+swapOptions: {
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+},
 ```
   
   :::
@@ -1188,6 +1194,12 @@ Asset selection of multiple assets:
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
 feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+swapOptions: {
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+},  
 
 //If enabled it disables fallback to payment info if dryrun fails only returning dryrun error but no fees.
 disableFallback: "True" 
@@ -1574,6 +1586,12 @@ Asset selection of multiple assets:
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
 feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+swapOptions: {
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+},
 ```
   
   :::
@@ -1701,6 +1719,12 @@ Asset selection of multiple assets:
 ```ts
 // Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
 feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+swapOptions: {
+    currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+    // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+    // slippage: 1, - Optional - 1 by default
+    // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+},
 ```
   
   :::
