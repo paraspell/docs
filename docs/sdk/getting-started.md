@@ -8,36 +8,53 @@ Don't want to go through setup and build from ground up?
 
 This template is programmed with React & Vite framework. It contains basic components ready to set you off on your cross-chain dApp journey.
 
-## Install dependencies
-Install peer dependencies according to the choice of API package. 
+## Install Dependencies
 
-ParaSpell XCM SDK is the 🥇 in the ecosystem to support both **PolkadotJS** and **PolkadotAPI**.
+Install peer dependencies according to the API package you choose.
 
-```bash
-#Choose a package and install its dependencies below. Only install dependencies for SDK Version you wish to use (Either PAPI or PJS)
+ParaSpell XCM SDK is the 🥇 first in the ecosystem to support both **PolkadotJS** and **Polkadot API**.
 
-#Polkadot API peer dependencies
-pnpm | npm install || yarn add polkadot-api
+**Choose your package manager:**
 
-#PolkadotJS peer dependencies
-pnpm | npm install || yarn add @polkadot/api @polkadot/types @polkadot/api-base @polkadot/util @polkadot/util-crypto
-```
+<PackageManagerSwitch />
+
+### Polkadot API (PAPI) Peer Dependencies
+
+<InstallCommand pkg="polkadot-api" />
+
+---
+
+### PolkadotJS (PJS) Peer Dependencies
+
+<InstallCommand :pkg="[
+  '@polkadot/api',
+  '@polkadot/types',
+  '@polkadot/api-base',
+  '@polkadot/util',
+  '@polkadot/util-crypto'
+]" />
 
 ## Install XCM SDK package
-Choose your package provider and proceed to install XCM SDK to your project.
-```sh
-#PolkadotAPI Version
-yarn add || pnpm | npm install @paraspell/sdk
+XCM SDK supports two different Javascript client providers. It is advised to use PAPI JS provider, but in case your project heavily relies on Polkadot JS you can also install PJS SDK version. Please note, that PJS version does not have Swap functionality.
 
-#PolkadotJS Version
-yarn add || pnpm | npm install @paraspell/sdk-pjs
-```
+### Polkadot API (PAPI) client version
+
+<InstallCommand pkg="@paraspell/sdk" />
+
+### PolkadotJS (PJS) client version
+
+<InstallCommand pkg="@paraspell/sdk-pjs" />
+
+## Install swap extension
+If you plan to do Swap XCMs you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Only available in **PAPI** version of SDK.
+
+<InstallCommand pkg="@paraspell/swap" />
 
 ## Import package
 There are two ways to import package to your project. Importing builder or classic import.
 
-### Builder import
-Builder import is restricted for sending XCM messages and using transfer info.
+### Named import
+Named import is restricted for sending XCM messages and using transfer info.
 ```js
 // Polkadot API version
 import { Builder } from '@paraspell/sdk'
@@ -46,20 +63,11 @@ import { Builder } from '@paraspell/sdk'
 import { Builder } from '@paraspell/sdk-pjs'
 ```
 
-### Classic import
-Classic import allows you to use every functionality XCM SDK offers.
+### Default import
+Default import allows you to use every functionality XCM SDK offers.
 ```js
 // ESM PAPI
 import * as paraspell from '@paraspell/sdk'
 // ESM PJS
 import * as paraspell from '@paraspell/sdk-pjs'
-```
-
-Interaction with further asset symbol abstraction:
-```js 
-//Only needed when advanced asset symbol selection is used. PAPI version.
-import { Native, Foreign, ForeignAbstract } from '@paraspell/sdk'; 
-
-//Only needed when advanced asset symbol selection is used. PJS version.
-import { Native, Foreign, ForeignAbstract } from '@paraspell/sdk-pjs'; 
 ```

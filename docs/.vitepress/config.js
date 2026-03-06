@@ -38,17 +38,9 @@ export default {
             items: [
               { text: 'Getting started', link: '/api/g-started' },
               { text: 'XCM SDK🪄', link: '/api/xcmP' },
-              { text: 'XCM Router☄️', link: '/api/xcmRouter' },
               { text: 'XCM Analyser🔎', link: '/api/xcmAnalyser' },
               { text: 'Upgrade request amount', link: '/api/upgrade' },
               { text: 'Deploy API yourself', link: '/api/deploy' },
-            ]
-          },
-          {
-            text: '<div style="display: flex; align-items: center;"><img width="90" alt="Spellrouter logo" src="https://raw.githubusercontent.com/paraspell/presskit/refs/heads/main/logos_spellrouter/Full%20name.png"><span>XCM ROUTER</span></div>',
-            items: [
-              { text: 'Getting started', link: '/router/getting-strtd' },
-              { text: 'Send routed XCM', link: '/router/router-use' },
             ]
           },
           {

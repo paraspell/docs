@@ -459,7 +459,10 @@ await builder.disconnect()
 
 :::
 
-## Dry run your XCM Calls
+## Swap
+If you installed SDK
+
+## Dry run
 
 Dry running allows you to verify whether an XCM call will execute successfully before submitting it. This provides an opportunity to correct issues such as improper construction, incorrect account or asset selection, or insufficient balance. The call is constructed in the same manner as a standard XCM message, using the `.dryRun()` parameter instead of `.build()`.
 
@@ -774,7 +777,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 :::
 
 
-## Preview your call results
+## Dry run preview
 
 By using preview (dryrun bypass), you can determine the outcome of a call using a hypothetical amount of a given currency. This effectively allows you to simulate and demonstrate calls with custom asset amounts without needing to own them.
 
@@ -1064,7 +1067,7 @@ hops - Always present - An array of chains that the transfer hops through (Empty
 ```
 :::
 
-## Ecosystem Bridges
+## Ecosystem bridges
 List of available bridges in XCM SDK. Implementing cross-ecosystem asset transfers was never this easy!
 
 ### Polkadot <> Kusama bridge

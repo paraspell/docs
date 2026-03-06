@@ -2,22 +2,40 @@
 
 This functionality allows developers to query the `XCM pallets` that Parachains currently support. 
 
-## Import functionality
+## Getting Started
 
-To use this functionality you first have to import it in the following way.
+You have two options for using presented functionality. Either you install it as standalone package or you can use it by directly importing it from XCM SDK (If you have it installed already).
+
+### Standalone Pallet Package
+You do not need to have XCM SDK installed for following functionality. You can also install it as standalone and use it separately. Good approach for vanilla projects.
+
+**Choose your package manager:**
+
+<PackageManagerSwitch />
+
+<InstallCommand pkg="@paraspell/pallets" />
+
+**Import all of the functionality:**
+
 ```ts
-//PAPI
-import { getDefaultPallet, getSupportedPallets, getPalletIndex, SUPPORTED_PALLETS, getNativeAssetsPallet, getOtherAssetsPallets } from  '@paraspell/sdk'
-//PJS
-import { getDefaultPallet, getSupportedPallets, getPalletIndex, SUPPORTED_PALLETS, getNativeAssetsPallet, getOtherAssetsPallets } from  '@paraspell/sdk-pjs'
+import {
+  getDefaultPallet,
+  getSupportedPallets,
+  getPalletIndex,
+  SUPPORTED_PALLETS,
+  getNativeAssetsPallet,
+  getOtherAssetsPallets
+} from '@paraspell/pallets'
 ```
 
-```ts
-//Standalone pallet package
-yarn add || pnpm | npm install @paraspell/pallets
+### Already using XCM SDK
 
-import { getDefaultPallet, getSupportedPallets, getPalletIndex, SUPPORTED_PALLETS, getNativeAssetsPallet, getOtherAssetsPallets } from  '@paraspell/pallets'
-```
+The pallet package is included with the XCM SDK. If you already have the XCM SDK installed, you can directly import the functionality:
+
+<ApiVersionSwitch />
+
+<ImportBlock />
+
 
 ## Get default XCM pallet
 

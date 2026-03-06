@@ -1,22 +1,58 @@
 # Asset 💰 query operations for your front-end
 This functionality serves to retrieve asset data from compatible Parachains. Users can retrieve details like `asset decimals`, `registered assets on particular Parachain`, `check if the asset is registered on Parachain` and more.
 
-## Import functionality
+## Getting Started
 
-To use this functionality you first have to import it in the following way.
+You have two options for using presented functionality. Either you install it as standalone package or you can use it by directly importing it from XCM SDK (If you have it installed already).
+
+### Standalone Asset Package
+
+You do not need to have XCM SDK installed for the following functionality.
+You can install it as a standalone package and use it separately.
+This is a good approach for vanilla projects.
+
+**Choose your package manager:**
+
+<PackageManagerSwitch />
+
+<InstallCommand pkg="@paraspell/assets" />
+
+**Import all functionality:**
+
 ```ts
-//PAPI
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain, findAssetInfo, findAssetInfoOrThrow } from  '@paraspell/sdk'
-//PJS
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain, findAssetInfo, findAssetInfoOrThrow } from  '@paraspell/sdk-pjs'
-```
+import {
+  getSupportedDestinations,
+  getSupportedAssets,
+  getFeeAssets,
+  getAssetsObject,
+  getAssetId,
+  getRelayChainSymbol,
+  getNativeAssets,
+  getOtherAssets,
+  getAllAssetsSymbols,
+  hasSupportForAsset,
+  getAssetDecimals,
+  getParaId,
+  getTChain,
+  getAssetLocation,
+  TParachain,
+  TRelaychain,
+  TSubstrateChain,
+  TExternalChain,
+  TChain,
+  findAssetInfo,
+  findAssetInfoOrThrow
+} from '@paraspell/assets'
+``` 
 
-```ts
-//Standalone asset package
-yarn add || pnpm | npm install @paraspell/assets
+### Already Using XCM SDK
 
-import { getSupportedDestinations, getSupportedAssets, getFeeAssets, getAssetsObject, getAssetId, getRelayChainSymbol, getNativeAssets, getNativeAssets, getOtherAssets, getAllAssetsSymbols, hasSupportForAsset, getAssetDecimals, getParaId, getTChain, getAssetLocation, TParachain, TRelaychain, TSubstrateChain, TExternalChain, TChain, findAssetInfo, findAssetInfoOrThrow } from  '@paraspell/assets'
-```
+The asset package is included with the XCM SDK.  
+If you already have the SDK installed, you can directly import the functionality:
+
+<ApiVersionSwitch />
+
+<AssetsImportBlock />
 
 ## Query asset paths
 Following query lets you query paths that should be supported for specific asset related to origin chain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
