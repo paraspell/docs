@@ -13,8 +13,8 @@ You can contribute in two ways:
 **Which tools/apps from monorepo are eligible in Bug bounty?**
 
 - [XCM SDK](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) (Papi version only)
+- [SWAP](https://github.com/paraspell/xcm-tools/tree/main/packages/swap)
 - [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
-- [XCM Router](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-router)
 - [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
 - [XCM Visualizer FE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-fe)
 - [XCM Visualizer BE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-be)
