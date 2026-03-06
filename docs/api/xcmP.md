@@ -398,6 +398,176 @@ const response = await fetch('http://localhost:3001/v5/x-transfer', {
 });
 ```
 
+## Swap
+This feature allows you to send Swap XCMs, meaning you send one currency and receive another at the destination chain.
+
+**Endpoint**: `POST /v5/x-transfers`
+
+  ::: details Parameters
+
+  - `from` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
+  - `to` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
+  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender.
+  - `swapOptions` (Inside JSON body): (required): Specifies the swap to currency that should occur during XCM.
+
+  :::
+
+  ::: details Errors
+
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Chains
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when body of 'swapOptions' is not a valid
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  :::
+
+  ::: details Notes
+
+When transferring from Chain that uses long IDs for example Moonbeam make sure to add character `n` at the end of currencyID. For example: `.currency({id: 42259045809535163221576417993425387648n, amount: 123})` will mean that you have selected to transfer xcDOT.
+ 
+  :::
+
+::: details Currency spec options
+
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+:::
+
+::: details Advanced API settings
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+  }
+})
+```
+
+:::
+
+::: details List of available exchanges
+
+| Swap Type   | DEX               | Pools | Notes                                |
+|------------|-------------------|-------|--------------------------------------|
+| One-click  | AssetHub Polkadot | 58    | Requires specific native tokens      |
+| One-click  | AssetHub Kusama   | 19    | Requires specific native tokens      |
+| One-click  | AssetHub Westend   | 110    | Requires specific native tokens      |
+| One-click  | AssetHub Paseo   | 13    | Requires specific native tokens      |
+| Two-click  | Hydration         | 210   | —                                    |
+| Two-click  | Bifrost Polkadot  | 45    | Requires native token                |
+| Two-click  | Bifrost Kusama    | 66    | Requires native token                |
+| Two-click  | Acala             | 36    | Requires native token                                    |
+| Two-click  | Karura            | 136   | Requires native token                                    |
+
+**Total pools available:** 693
+
+> [!Note]
+> One click transfers are only one click if origin chain supports execute extrinsics.
+
+:::
+
+::: details Selecting an exchange
+
+There are **three** options in specifying exchange chain:
+
+#### Automatic exchange selection
+
+You can leave automatic exchange selection on API if you do not want to choose manually. API will pick based on best price outcome. You can do so by not providing exchange object into `swapOptions` object.
+
+```
+swapOptions:{
+  currencyTo: CURRENCY_SPEC, //Reffer to currency spec options below
+}
+```
+
+#### Whitelisted exchange selection
+
+You can whitelist exchange selection if you have preferred exchanges. API will pick based on best price outcome from selected exchanges. You can do so by providing an array of exchanges into `swapOptions` object.
+
+```
+swapOptions:{
+  currencyTo: CURRENCY_SPEC, //Reffer to currency spec options below
+  exchange: ['AssetHubPolkadotDex', 'HydrationDex']
+}
+```
+
+#### Manual exchange selection
+
+If you want to manually specify exchange there is an option to do so by providing exact exchange into `swapOptions` object.
+
+```
+swapOptions:{
+  currencyTo: CURRENCY_SPEC, //Reffer to currency spec options below
+  exchange: ['AssetHubPolkadotDex'] // Or just 'AssetHubPolkadotDex' without an array
+}
+```
+
+
+:::
+
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v5/x-transfers', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'Chain', // Replace "Chain" with sender Chain, e.g., "Acala"
+    to: 'Chain' // Replace Chain with same parameter as "from" parameter
+    currency: { currencySpec }, // Refer to currency spec options above
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    senderAddress: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
+    swapOptions: {
+      currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+      // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+      // slippage: 1, - Optional - 1 by default
+      // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+    },
+  }),
+});
+```
+
 ## Dry run
 You can determine whether your XCM message will execute successfully or fail with an error. The XCM message dry run provides a concrete execution error, allowing you to validate the message before submission. This makes it possible to verify correct execution without ever submitting the XCM message on-chain.
 
@@ -2001,6 +2171,135 @@ const response = await fetch(
     currency: { currencySpec }, // Refer to currency spec options above
     address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+  }),
+```
+
+## Best amount out
+Following endpoint gives you best amount out for specific dex. Works with swapOptions defined only.
+
+**Endpoint**: `POST /v5/best-amount-out`
+
+  ::: details Parameters
+
+  - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
+  - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
+  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `swapOptions` (Inside JSON Body): (required): Specifies Swap to specific currency.
+
+  :::
+
+  ::: details Errors
+
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Chains
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'swapOptions' is not a valid
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
+    
+  :::
+
+  ::: details Notes
+
+ This query will calculate minimal transferable balance using the following formulae: 
+
+```
+(Origin Balance - if(Balance on destination = 0) then also substract destination Existential deposit - if(Asset=native) then also substract Origin XCM Fees - hop fees (If present) - destination XCM fee) +1
+```
+
+**Beware**: If DryRun fails, the function automatically switches to PaymentInfo for XCM Fees (Less accurate), so this function should only serve for informative purposes (Always run DryRun if chains support it to ensure the message will go through). Chains that do not have support for dryrun will return error in this query.
+
+
+  :::
+
+  ::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} //Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+```
+
+  :::
+
+  ::: details Advanced settings
+
+  You can use following optional advanced settings by adding them as parameter into request body to further customize your calls:
+
+```ts
+// Used when multiple assets are provided or when (origin === AssetHubPolkadot | Hydration) - This will allow for custom fee asset on origin.
+feeAsset: {id: currencyID} | {symbol: currencySymbol} | {location: AssetLocationString | AssetLocationJson}
+```
+  
+  :::
+
+  ::: details Advanced API settings
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  development: true, // Optional: Enforces WS overrides for all chains used
+  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  },
+})
+```
+
+:::
+
+**Example of request:**
+```ts
+const response = await fetch(
+  'http://localhost:3001/v5/best-amount-out' , {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },  
+    from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
+    to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
+    currency: { currencySpec }, // Refer to currency spec options above
+    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    senderAddress: 'Address', //Replace "Address" with sender address from origin chain
+    swapOptions: {
+      currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
+      // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+      // slippage: 1, - Optional - 1 by default
+      // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
+    },
   }),
 ```
 
