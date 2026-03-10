@@ -1450,7 +1450,7 @@ const builder = await Builder({
 To retrieve exchange amount, that you receive for your desired asset pair you can use following function. This function returns 2 parameters. Name of best fitting DEX (Automatic selection - can be further used for manual selection) and Amount out
 
 ```ts
-const result = await Builder()
+const result = await Builder(/*chain api/builder_config/ws_url_string/ws_url_array - optional*/)
       .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
