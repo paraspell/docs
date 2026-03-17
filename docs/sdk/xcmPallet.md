@@ -714,6 +714,8 @@ const result = await Builder(/*client | builder_config | ws_url | [ws_url, ws_ur
 import { hasDryRunSupport } from "@paraspell/sdk";
 // PJS
 import { hasDryRunSupport } from "@paraspell/sdk-pjs";
+// Dedot
+import { hasDryRunSupport } from "@paraspell/sdk-dedot";
 
 const result = hasDryRunSupport(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
 ```
@@ -1754,6 +1756,8 @@ The following functionality allows you to convert any SS58 address to a Parachai
 import { convertSs58 } from "@paraspell/sdk";
 //PJS
 import { convertSs58 } from "@paraspell/sdk-pjs";
+//Dedot
+import { convertSs58 } from "@paraspell/sdk-dedot";
 
 const result = convertSs58(ADDRESS, TChain) 
 ```
@@ -1772,6 +1776,8 @@ Following query allows you to query asset reserve for specific asset on specific
 import { getAssetReserveChain } from "@paraspell/sdk";
 //PJS
 import { getAssetReserveChain } from "@paraspell/sdk-pjs";
+//Dedot
+import { getAssetReserveChain } from "@paraspell/sdk-dedot";
 
 getAssetReserveChain(chain: TSubstrateChain, location: TLocation)
 ```

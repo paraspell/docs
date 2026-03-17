@@ -8,6 +8,8 @@ const command = computed(() => {
   const base =
     apiVersion.value === 'pjs'
       ? '@paraspell/sdk-pjs'
+      : apiVersion.value === 'dedot'
+      ? '@paraspell/sdk-dedot'
       : '@paraspell/sdk'
 
   return `import {

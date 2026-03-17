@@ -12,7 +12,7 @@ This template is programmed with React & Vite framework. It contains basic compo
 
 Install peer dependencies according to the API package you choose.
 
-ParaSpell XCM SDK is the 🥇 first in the ecosystem to support both **PolkadotJS** and **Polkadot API**.
+ParaSpell XCM SDK is the 🥇 first in the ecosystem to support **PolkadotJS**, **Polkadot API** and **Dedot**.
 
 **Choose your package manager:**
 
@@ -34,8 +34,16 @@ ParaSpell XCM SDK is the 🥇 first in the ecosystem to support both **PolkadotJ
   '@polkadot/util-crypto'
 ]" />
 
+### Dedot Peer Dependencies
+
+<InstallCommand :pkg="[
+  'dedot',
+  '@polkadot/keyring',
+]" />
+
+
 ## Install XCM SDK package
-XCM SDK supports two different Javascript client providers. It is advised to use PAPI JS provider, but in case your project heavily relies on Polkadot JS you can also install PJS SDK version. Please note, that PJS version does not have Swap functionality.
+XCM SDK supports three different Javascript client providers. It is advised to use PAPI JS provider or Dedot JS provider, but in case your project heavily relies on Polkadot JS you can also install PJS SDK version. Please note, that PJS and Dedot version does not have Swap functionality yet.
 
 ### Polkadot API (PAPI) client version
 
@@ -44,6 +52,10 @@ XCM SDK supports two different Javascript client providers. It is advised to use
 ### PolkadotJS (PJS) client version
 
 <InstallCommand pkg="@paraspell/sdk-pjs" />
+
+### Dedot client version
+
+<InstallCommand pkg="@paraspell/sdk-dedot" />
 
 ## Install swap extension
 If you plan to do Swap XCMs you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Only available in **PAPI** version of SDK.
@@ -64,6 +76,9 @@ import { Builder } from '@paraspell/sdk'
 
 // Polkadot JS version
 import { Builder } from '@paraspell/sdk-pjs'
+
+// Dedot version
+import { Builder } from '@paraspell/sdk-dedot'
 ```
 
 ### Default import
@@ -73,4 +88,6 @@ Default import allows you to use every functionality XCM SDK offers.
 import * as paraspell from '@paraspell/sdk'
 // ESM PJS
 import * as paraspell from '@paraspell/sdk-pjs'
+// ESM DEDOT
+import * as paraspell from '@paraspell/sdk-dedot'
 ```

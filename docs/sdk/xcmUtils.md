@@ -509,6 +509,8 @@ You can now query all important information about your XCM call, including fees 
 import { getBalance } from "@paraspell/sdk";
 //PJS
 import { getBalance } from "@paraspell/sdk-pjs";
+//Dedot
+import { getBalance } from "@paraspell/sdk-dedot";
 
 //Retrieves the asset balance for a given account on a specified CHAIN (You do not need to specify if it is native or foreign).
 const balance = await getBalance({ADDRESS, TChain, CURRENCY_SPEC /*OPTIONAL - Refer to currency spec options below*/, /* client | ws_url | [ws_url, ws_url,..] - optional */});
@@ -1603,6 +1605,8 @@ The following query will retrieve the execution and bridge fee for transfers fro
 import { getParaEthTransferFees } from "@paraspell/sdk";
 //PJS
 import { getParaEthTransferFees } from "@paraspell/sdk-pjs";
+//Dedot
+import { getParaEthTransferFees } from "@paraspell/sdk-dedot";
 
 const fees = await getParaEthTransferFees(/*client | ws_url | [ws_url, ws_url,..] - Optional. Must be AssetHubPolkadot WS!)*/)
 ```
@@ -1621,6 +1625,8 @@ Latest SDK versions now offer the ability to query the existential deposit on im
 import { getExistentialDeposit } from "@paraspell/sdk";
 //PJS
 import { getExistentialDeposit } from "@paraspell/sdk-pjs";
+//Dedot
+import { getExistentialDeposit } from "@paraspell/sdk-dedot";
 
 //Currency is an optional parameter. If you wish to query native asset, currency parameter is not necessary.
 //Currency can be either {symbol: assetSymbol}, {id: assetId}, {location: assetLocation}.
