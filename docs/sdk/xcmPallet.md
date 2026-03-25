@@ -460,7 +460,7 @@ await builder.disconnect()
 :::
 
 ## Swap
-If you installed [Swap package](https://paraspell.github.io/docs/sdk/getting-started.html#install-swap-extension) you can create Swap XCMs. Doing so, you can send one asset and receive another on the destination. The caveat to using this method is, that some transfers are one click (Like the rest of XCM Transfers) while others are two click (Majority - Send from origin to exchange is one signature and then exchange + transfer to destination is second signature). You need specialized method to build these - `.buildAll()`.
+If you [installed Swap package](https://paraspell.github.io/docs/sdk/getting-started.html#install-swap-extension) you can create Swap XCMs. Doing so, you can send one asset and receive another on the destination. The caveat to using this method is, that some transfers are one click (Like the rest of XCM Transfers) while others are two click (Majority - Send from origin to exchange is one signature and then exchange + transfer to destination is second signature). You need specialized method to build these - `.buildAll()`.
 
 ```ts
 const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] - Optional*/)

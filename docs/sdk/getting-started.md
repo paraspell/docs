@@ -58,14 +58,29 @@ XCM SDK supports three different Javascript client providers. It is advised to u
 <InstallCommand pkg="@paraspell/sdk-dedot" />
 
 ## Install swap extension
-If you plan to do Swap XCMs you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Only available in **PAPI** version of SDK.
+If you plan to [do Swap XCMs](https://paraspell.github.io/docs/sdk/xcmPallet.html#swap) you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Only available in **PAPI** version of SDK.
 
 > [!IMPORTANT]
-> - ⚠️  **WebAssembly (Wasm) must be enabled in your project** because of the Hydration SDK (One of the exchanges implemented in XCM Router). Wasm can be enabled either through the web application configuration or through the appropriate plugin. Additionally, Hydration requires the use of the **augment package** (see: https://github.com/galacticcouncil/sdk/issues/114).
+> - ⚠️  **WebAssembly (Wasm) must be enabled in your project** because of the Hydration SDK (One of the exchanges implemented in XCM Router). Wasm can be enabled either through the web application configuration or through the appropriate plugin. 
+>
+> - ⚠️ Additionally, Hydration requires the use of the **augment package** (see: https://github.com/galacticcouncil/sdk/issues/114).
 
-<InstallCommand pkg="@paraspell/swap" />
+<InstallCommand pkg="@paraspell/swap @galacticcouncil/api-augment" />
 
-## Import package
+### Setup Swap extension
+
+Add the `@paraspell/swap` import to your application's root component (Usually `App.tsx`). This ensures the extension is registered before using Builder.
+
+```ts
+// Import swap extension here
+import '@paraspell/swap';
+
+export default function App() {
+  return {/* Your app here */};
+}
+```
+
+## Import SDK functionality
 There are two ways to import package to your project. Importing builder or classic import.
 
 ### Named import
