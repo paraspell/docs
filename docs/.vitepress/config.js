@@ -34,7 +34,7 @@ export default {
             ]
           },
           {
-            text: ' <div style="display: flex; align-items: center;"><img width="90" alt="Lightspell logo" src="https://user-images.githubusercontent.com/55763425/251588168-4855abc3-445a-4207-9a65-e891975be62c.png"><span>XCM API</span></div>',
+            text: ' <div style="display: flex; align-items: center;"><img width="90" alt="Lightspell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png"><span>XCM API</span></div>',
             items: [
               { text: 'Getting started', link: '/api/g-started' },
               { text: 'XCM SDK🪄', link: '/api/xcmP' },
