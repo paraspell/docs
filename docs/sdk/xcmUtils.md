@@ -10,8 +10,8 @@ const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,.
           .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
+          .recipient(RECIPIENT_ADDRESS)
+          .sender(SENDER_ADDRESS)
           .getXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin or Destination chain do not support DryRun out of the box.
 ```
 
@@ -105,7 +105,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -228,8 +228,8 @@ const fee = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,.
           .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
+          .recipient(RECIPIENT_ADDRESS)
+          .sender(SENDER_ADDRESS)
           .getOriginXcmFee(/*{disableFallback: true / false}*/)  //Fallback is optional. When fallback is disabled, you only get notified of DryRun error, but no Payment info query fallback is performed. Payment info is still performed if Origin do not support DryRun out of the box.
 ```
 
@@ -315,7 +315,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -567,8 +567,8 @@ const info = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,
           .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
+          .recipient(RECIPIENT_ADDRESS)
+          .sender(SENDER_ADDRESS)
           .getTransferInfo()
 ```
 
@@ -652,7 +652,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -838,8 +838,8 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
           .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
+          .recipient(RECIPIENT_ADDRESS)
+          .sender(SENDER_ADDRESS)
           .getTransferableAmount()
 ```
 
@@ -933,7 +933,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1000,8 +1000,8 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
           .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
+          .recipient(RECIPIENT_ADDRESS)
+          .sender(SENDER_ADDRESS)
           .getMinTransferableAmount()
 ```
 
@@ -1095,7 +1095,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1162,8 +1162,8 @@ const ed = await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..
           .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
+          .recipient(RECIPIENT_ADDRESS)
+          .sender(SENDER_ADDRESS)
           .verifyEdOnDestination()
 ```
 **Initial setup:**
@@ -1248,7 +1248,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1315,8 +1315,8 @@ const transferable = await Builder(/*client | builder_config | ws_url | [ws_url,
           .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .currency(CURRENCY_SPEC) // Refer to currency spec options below
-          .address(RECIPIENT_ADDRESS)
-          .senderAddress(SENDER_ADDRESS)
+          .recipient(RECIPIENT_ADDRESS)
+          .sender(SENDER_ADDRESS)
           .getReceivableAmount()
 ```
 
@@ -1402,7 +1402,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1456,8 +1456,8 @@ const result = await Builder(/*chain api/builder_config/ws_url_string/ws_url_arr
       .from(TSubstrateChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(RECIPIENT_ADDRESS)
-      .senderAddress(SENDER_ADDRESS)
+      .recipient(RECIPIENT_ADDRESS)
+      .sender(SENDER_ADDRESS)
       .swap({
           currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
           // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
@@ -1549,7 +1549,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
