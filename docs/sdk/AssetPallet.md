@@ -25,12 +25,10 @@ import {
   getSupportedAssets,
   getFeeAssets,
   getAssetsObject,
-  getAssetId,
   getRelayChainSymbol,
   getNativeAssets,
   getOtherAssets,
   getAllAssetsSymbols,
-  hasSupportForAsset,
   getAssetDecimals,
   getParaId,
   getTChain,
@@ -556,20 +554,6 @@ getAssetsObject(TChain)
 }
 ```
 
-```
-
-## Query asset ID
-This function returns `assetId` for `particular Parachain` and `asset symbol`. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
-```ts
-getAssetId(TChain, ASSET_SYMBOL)
-```
-
-**Example output:**
-
-```json
-"340282366920938463463374607431768211455"
-```
-
 ## Query Relay chain asset symbol
 This function returns the `symbol` of the Relay chain for a particular Parachain. Either `DOT` or `KSM` or `WND` or `PAS`. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 ```ts
@@ -728,20 +712,7 @@ getAllAssetsSymbols(TChain)
 ]
 ```
 
-## Query asset support I
-The function checks if Parachain supports a particular asset. (Both native and foreign assets are searched). Returns boolean. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
-
-```ts
-hasSupportForAsset(TChain, ASSET_SYMBOL)
-```
-
-**Example output:**
-
-```json
-true
-```
-
-## Query asset support II
+## Query asset support
 The function checks if Parachain supports a particular asset. Returns asset object or null. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
@@ -802,19 +773,6 @@ findAssetInfoOrThrow(TChain, CURRENCY, DESTINATION?)
   },
   "isFeeAsset": true
 }
-```
-
-
-## Query asset decimals
-The function returns decimals for a specific asset. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
-```ts
-getAssetDecimals(TChain, ASSET_SYMBOL)
-```
-
-**Example output:**
-
-```json
-12
 ```
 
 ## Query Parachain ID

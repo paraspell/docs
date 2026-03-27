@@ -18,7 +18,7 @@ const response = await fetch(
            	body: JSON.stringify({
                   "from": "origin",
                   "to": "destination",
-                  "address": "address",
+                  "recipient": "recipient",
                   "currency": {currencySpec, amount: amount /*Use "ALL" to transfer everything*/},
              })
 });
@@ -50,7 +50,7 @@ The following endpoint enables the creation of a variety of `Substrate-to-Substr
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
   - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
  :::
@@ -64,7 +64,7 @@ The following endpoint enables the creation of a variety of `Substrate-to-Substr
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   :::
@@ -140,7 +140,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -164,8 +164,8 @@ const response = await fetch("http://localhost:3001/v1/x-transfer", {
         from: "TChain", // Replace "TChain" with sender Chain, for example, "Acala" or "Polkadot"
         to: "TChain",   // Replace "TChain" with destination Chain, for example, "Hydration" or custom Location
         currency: {currency spec} //Refer to currency spec options above
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-        senderAddress: "senderAddress" //Optional but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT Existential deposit.
+        recipient: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+        sender: "sender" //Optional but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT Existential deposit.
         //ahAddress: ahAddress //Optional parameter - used when origin is EVM chain and XCM goes through AssetHub (Multihop transfer where we are unable to convert Key20 to ID32 address eg. origin: Moonbeam & destination: Ethereum (Multihop goes from Moonbeam > AssetHub > BridgeHub > Ethereum)
     })
 });
@@ -181,7 +181,7 @@ The following endpoint allows  creation of Local asset transfers for any chain a
   - `from` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
   - `to` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
 
   :::
 
@@ -194,7 +194,7 @@ The following endpoint allows  creation of Local asset transfers for any chain a
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `400`  (Bad request exception) - Returned when query parameter 'keepAlive' does not have valid input
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
@@ -251,7 +251,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
   }
@@ -273,7 +273,7 @@ const response = await fetch('http://localhost:3001/v1/x-transfer', {
     from: 'Chain', // Replace "Chain" with sender Chain, e.g., "Acala"
     to: 'Chain' // Replace Chain with same parameter as "from" parameter
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
  /* keepAlive: bool - Optional: Allows draining the account below the existential deposit. */
   }),
 });
@@ -289,8 +289,8 @@ The Api gives the ability to perform Transact, which enables execution of calls 
   - `from` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
   - `to` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender.
   - `transact` (Inside JSON body): (required): Specifies the transact which should execute on destination.
 
   :::
@@ -304,7 +304,7 @@ The Api gives the ability to perform Transact, which enables execution of calls 
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `400`  (Bad request exception) - Returned when body of 'transact' is not a valid
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
@@ -365,7 +365,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
   }
@@ -387,8 +387,8 @@ const response = await fetch('http://localhost:3001/v1/x-transfer', {
     from: 'Chain', // Replace "Chain" with sender Chain, e.g., "Acala"
     to: 'Chain' // Replace Chain with same parameter as "from" parameter
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
     transact: {
       hex: Destination call hex //Function that should execute on destination
     /*originKind: "SovereignAccount" || "XCM" || "Native" || "SuperUser" - Optional, "SovereignAccount" by default
@@ -408,8 +408,8 @@ This feature allows you to send Swap XCMs, meaning you send one currency and rec
   - `from` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
   - `to` (Inside JSON body): (required): Represents the Chain on which the asset is transfered locally.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender.
   - `swapOptions` (Inside JSON body): (required): Specifies the swap to currency that should occur during XCM.
 
   :::
@@ -423,7 +423,7 @@ This feature allows you to send Swap XCMs, meaning you send one currency and rec
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `400`  (Bad request exception) - Returned when body of 'swapOptions' is not a valid
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
@@ -475,7 +475,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
   }
@@ -556,8 +556,8 @@ const response = await fetch('http://localhost:3001/v1/x-transfers', {
     from: 'Chain', // Replace "Chain" with sender Chain, e.g., "Acala"
     to: 'Chain' // Replace Chain with same parameter as "from" parameter
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
     swapOptions: {
       currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
       // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
@@ -578,8 +578,8 @@ You can determine whether your XCM message will execute successfully or fail wit
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
 
   :::
 
@@ -592,7 +592,7 @@ You can determine whether your XCM message will execute successfully or fail wit
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
   :::
@@ -669,7 +669,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -693,8 +693,8 @@ const response = await fetch('http://localhost:3001/v1/dry-run', {
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address' //Replace "Address" with sender address from origin chain
   }),
 ```
 
@@ -708,8 +708,8 @@ By using preview with dry-run, you can determine the result of a call using a fi
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
 
   :::
 
@@ -722,7 +722,7 @@ By using preview with dry-run, you can determine the result of a call using a fi
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
   :::
@@ -793,7 +793,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
     AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
@@ -816,8 +816,8 @@ const response = await fetch('http://localhost:3001/v1/dry-run-preview', {
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address' //Replace "Address" with sender address from origin chain
   }),
 ```
 
@@ -838,7 +838,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -862,7 +862,7 @@ const response = await fetch("http://localhost:3001/v1/x-transfer", {
         from: "AssetHubPolkadot", // Or AssetHubKusama
         to: "AssetHubKusama",   // Or AssetHubPolkadot
         currency: {symbol: "KSM", amount: amount /*Use "ALL" to transfer everything*/}, // DOT | USDT | USDC
-        address: "Address" // AccountID 32 address
+        recipient: "Address" // AccountID 32 address
     })
 });
 ```
@@ -882,7 +882,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -906,7 +906,7 @@ const response = await fetch("http://localhost:3001/v1/x-transfer", {
         from: "AssetHubPolkadot", 
         to: "Ethereum",   
         currency: {symbol: "WETH", amount: amount /*Use "ALL" to transfer everything*/}, // Any supported asset - WBTC, WETH.. - {symbol: currencySymbol} | {id: currencyID}
-        address: "Address" // Ethereum Address
+        recipient: "Address" // Ethereum Address
     })
 });
 ```
@@ -925,7 +925,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -949,9 +949,9 @@ const response = await fetch("http://localhost:3001/v1/x-transfer", {
         from: "Chain", 
         to: "Ethereum",   
         currency: {symbol: "WETH", amount: amount /*Use "ALL" to transfer everything*/}, // Any supported asset - WBTC, WETH.. - {symbol: currencySymbol} | {id: currencyID}
-        address: "Address", // Ethereum Address
+        recipient: "Address", // Ethereum Address
         ahAddress: "Address", //Asset hub address (Needs to be sender address)
-        senderAddress: "Address" //Origin chain sender address
+        sender: "Address" //Origin chain sender address
     })
 });
 ```
@@ -1000,7 +1000,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1033,13 +1033,13 @@ const response = await fetch("http://localhost:3001/v1/x-transfer-batch", {
 			"from": "Kusama"
 			"to": "Moonriver",
 			"currency": { symbol: "DOT", amount: amount /*Use "ALL" to transfer everything*/},
-			"address": "0x939229F9c6E2b97589c4a5A0B3Eb8664FFc00502"
+			"recipient": "0x939229F9c6E2b97589c4a5A0B3Eb8664FFc00502"
 		},
 		{
 			"from": "Kusama"
 			"to": "Basilisk",
 			"currency": { symbol: "DOT", amount: amount /*Use "ALL" to transfer everything*/},
-			"address": "bXgnPigqWnUTb9PxgCvnt61bsQoRQFnzLYYyRPV1bvB6DLu87"
+			"recipient": "bXgnPigqWnUTb9PxgCvnt61bsQoRQFnzLYYyRPV1bvB6DLu87"
 		}
 	],
 	"options": {
@@ -1056,7 +1056,7 @@ Assets that have been trapped in the cross-chain transfers can be recovered thro
   ::: details Parameters
 
   - `from` (Inside JSON body): (required): Represents the Chain on which the asset will be claimed.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
   - `currency` (Inside JSON body): (required): Represents the asset being claimed. It should be a location.
 
 
@@ -1065,7 +1065,7 @@ Assets that have been trapped in the cross-chain transfers can be recovered thro
   ::: details Errors
 
   - `400`  (Bad request exception) - Returned when parameter 'from' is not provided
-  - `400`  (Bad request exception) - Returned when parameter 'address' is not provided
+  - `400`  (Bad request exception) - Returned when parameter 'recipient' is not provided
   - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
@@ -1080,7 +1080,7 @@ const response = await fetch("http://localhost:3001/v1/asset-claim", {
     },
     body: JSON.stringify({
         from: "Chain", // Replace "from" with the numeric value you wish to transfer
-        address: "Address", // Replace "address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+        recipient: "Address", // Replace "recipient" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
         currency: "Asset Location array" //Replace "Asset location array" with specific asset location along with amount specification
     })
 });
@@ -1146,7 +1146,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1167,8 +1167,8 @@ const response = await fetch("http://localhost:3001/v1/x-transfer", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        senderAddress: "1pze8UbJDcDAacrXcwkpqeRSYLphaAiXB8rUaC6Z3V1kBLq",
-        address: "0x1501C1413e4178c38567Ada8945A80351F7B8496",
+        sender: "1pze8UbJDcDAacrXcwkpqeRSYLphaAiXB8rUaC6Z3V1kBLq",
+        recipient: "0x1501C1413e4178c38567Ada8945A80351F7B8496",
         from: "Hydration",
         to: "Ethereum",
         currency: {
@@ -1231,7 +1231,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1252,8 +1252,8 @@ const response = await fetch("http://localhost:3001/v1/sign-and-submit", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        senderAddress: "//Alice", //You can use prederived accounts - //Alice, //Bob... //Alith, //Balthathar...
-        address: "0x1501C1413e4178c38567Ada8945A80351F7B8496", //You can also use prederived accounts here - //Alice, //Bob... //Alith, //Balthathar...
+        sender: "//Alice", //You can use prederived accounts - //Alice, //Bob... //Alith, //Balthathar...
+        recipient: "0x1501C1413e4178c38567Ada8945A80351F7B8496", //You can also use prederived accounts here - //Alice, //Bob... //Alith, //Balthathar...
         from: "Hydration",
         to: "Moonbeam",
         currency: {
@@ -1284,8 +1284,8 @@ The following endpoint allows is designed to retrieve you XCM fee at any cost, b
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the XCM sender.
 
   :::
 
@@ -1298,7 +1298,7 @@ The following endpoint allows is designed to retrieve you XCM fee at any cost, b
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   :::
@@ -1384,7 +1384,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1408,8 +1408,8 @@ const response = await fetch("http://localhost:3001/v1/xcm-fee", {
         from: "Chain", // Replace "Chain" with sender Chain, e.g., "Acala"
         to: "Chain",   // Replace "Chain" with destination Chain, e.g., "Moonbeam" or custom Location
         currency: { currencySpec }, // Refer to currency spec options above
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
-        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
+        recipient: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
+        sender: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
 });
 ```
@@ -1424,8 +1424,8 @@ Following queries allow you to query XCM fee from Origin chain. The query is des
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the XCM sender.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the XCM sender.
 
   :::
 
@@ -1438,7 +1438,7 @@ Following queries allow you to query XCM fee from Origin chain. The query is des
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   :::
@@ -1515,7 +1515,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1539,8 +1539,8 @@ const response = await fetch("http://localhost:3001/v1/origin-xcm-fee", {
         from: "Chain", // Replace "Chain" with sender Chain, e.g., "Acala"
         to: "Chain",   // Replace "Chain" with destination Chain, e.g., "Moonbeam" or custom Location
         currency: { currencySpec }, // Refer to currency spec options above
-        address: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
-        senderAddress: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
+        recipient: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format)
+        sender: "Address" // Replace "Address" with sender wallet address (In AccountID32 or AccountKey20 Format) 
     })
 });
 ```
@@ -1555,8 +1555,8 @@ To comprehensively assess whether a message will execute successfully without fa
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
 
   :::
 
@@ -1569,7 +1569,7 @@ To comprehensively assess whether a message will execute successfully without fa
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
   :::
@@ -1641,7 +1641,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1665,8 +1665,8 @@ const response = await fetch(
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address' //Replace "Address" with sender address from origin chain
   }),
 ```
 
@@ -1680,8 +1680,8 @@ To retrieve information on how much of the selected currency can be transfered f
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
 
   :::
 
@@ -1694,7 +1694,7 @@ To retrieve information on how much of the selected currency can be transfered f
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
   :::
@@ -1773,7 +1773,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1797,8 +1797,8 @@ const response = await fetch(
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address' //Replace "Address" with sender address from origin chain
   }),
 ```
 
@@ -1812,8 +1812,8 @@ You can use the minimal transferable balance to retrieve information on minimum 
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
 
   :::
 
@@ -1826,7 +1826,7 @@ You can use the minimal transferable balance to retrieve information on minimum 
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
   :::
@@ -1906,7 +1906,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -1930,8 +1930,8 @@ const response = await fetch(
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address' //Replace "Address" with sender address from origin chain
   }),
 ```
 
@@ -1945,8 +1945,8 @@ You can predict the amount to be received on destination, granted, that the dest
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
 
   :::
 
@@ -1959,7 +1959,7 @@ You can predict the amount to be received on destination, granted, that the dest
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
   :::
@@ -2020,7 +2020,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -2043,8 +2043,8 @@ const response = await fetch(
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address' //Replace "Address" with sender address from origin chain
   }),
 ```
 
@@ -2058,8 +2058,8 @@ To retrieve information on whether the selected currency from specific account w
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
 
   :::
 
@@ -2072,7 +2072,7 @@ To retrieve information on whether the selected currency from specific account w
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
   :::
@@ -2145,7 +2145,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -2169,8 +2169,8 @@ const response = await fetch(
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address' //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address' //Replace "Address" with sender address from origin chain
   }),
 ```
 
@@ -2184,8 +2184,8 @@ Following endpoint gives you best amount out for specific dex. Works with swapOp
   - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
-  - `address` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `senderAddress` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender (Origin chain one).
   - `swapOptions` (Inside JSON Body): (required): Specifies Swap to specific currency.
 
   :::
@@ -2199,7 +2199,7 @@ Following endpoint gives you best amount out for specific dex. Works with swapOp
   - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
-  - `400`  (Bad request exception) - Returned when query parameter 'address' is not a valid address
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
   - `400`  (Bad request exception) - Returned when query parameter 'swapOptions' is not a valid
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue
     
@@ -2269,7 +2269,7 @@ You can customize following API settings, to further tailor your experience with
 ```ts
 options: ({
   development: true, // Optional: Enforces WS overrides for all chains used
-  abstractDecimals: true, // Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
   xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
   apiOverrides: {
     Hydration: // ws_url | [ws_url, ws_url,..]
@@ -2292,8 +2292,8 @@ const response = await fetch(
     from: 'Chain', // Replace "Chain" with sender Chain or Relay chain, e.g., "Acala"
     to: 'Chain', // Replace "Chain" with destination Chain or Relay chain, e.g., "Moonbeam" or custom Location
     currency: { currencySpec }, // Refer to currency spec options above
-    address: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-    senderAddress: 'Address', //Replace "Address" with sender address from origin chain
+    recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+    sender: 'Address', //Replace "Address" with sender address from origin chain
     swapOptions: {
       currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
       // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
@@ -2311,7 +2311,7 @@ Following functionality allows you to convert any SS58 address to Chain specific
   ::: details Parameters
 
   - `chain` (query parameter): Specifies the name of the Chain.
-  - `address` (query parameter): Specifies the SS58 Address.
+  - `recipient` (query parameter): Specifies the SS58 Address.
 
   :::
 
@@ -2491,7 +2491,7 @@ The following endpoint allows you to query asset balance for on specific chain.
   ::: details Parameters
 
   - `chain` (Path parameter): Specifies the name of the Chain.
-  - `address` (Inside JSON body): (required): Specifies the address of the account.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the account.
   - `currency` (Inside JSON body): (required): Specifies the currency to query.
 
   :::
@@ -2499,7 +2499,7 @@ The following endpoint allows you to query asset balance for on specific chain.
   ::: details Errors
 
   - `400`  (Bad request exception) - Returned when parameter 'chain' is not provided
-  - `400`  (Bad request exception) - Returned when body parameter 'address' is not provided
+  - `400`  (Bad request exception) - Returned when body parameter 'recipient' is not provided
   - `400`  (Bad request exception) - Returned when body parameter 'currency' is not provided
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
@@ -2552,7 +2552,7 @@ const response = await fetch("http://localhost:3001/v1/balance/:chain/asset", {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        address: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
+        recipient: "Address" // Replace "Address" with wallet address (In AccountID32 or AccountKey20 Format) 
         currency: {currencySpec}, // Refer to currency spec options above
     })
 });
@@ -2811,31 +2811,6 @@ const response = await fetch("http://localhost:3001/v1/assets/:chain/asset-info"
 });
 ```
 
-### Query asset ID
-The following endpoint returns the asset id for the specific asset on a specific Chain.
-
-**Endpoint**: `GET /v1/assets/:chain/id?symbol=:symbol`
-
-  ::: details Parameters
-
-  - `chain` (path parameter): Specifies the name of the Chain.
-  - `symbol` (path parameter): Specifies the currency symbol of the asset.
-
-  :::
-
-  ::: details Errors
-
-  - `400` (Bad request): When a specified Chain does not exist.
-  - `404` (Bad request): When an asset with a specified currency symbol does not exist.
-  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-  :::
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v1/assets/Interlay/id?symbol=USDT");
-```
-
 ### Query Relay chain asset symbol
 The following endpoint returns the Relay chain asset symbol for a specific Chain.
 
@@ -2928,31 +2903,6 @@ The following endpoint returns all asset symbols for specific Chain.
 const response = await fetch("http://localhost:3001/v1/assets/Moonbeam/all-symbols");
 ```
 
-### Query asset support
-The following endpoint returns a boolean value that confirms if the asset is registered on a specific Chain or not.
-
-**Endpoint**: `GET /v1/assets/:chain/has-support?symbol=:symbol`
-
-  ::: details Parameters
-
-  - `chain` (path parameter): Specifies the name of the Chain.
-  - `symbol` (path parameter): Specifies the symbol of the asset.
-
-  :::
-
-  ::: details Errors
-
-  - `400` (Bad request): When a specified Chain does not exist.
-  - `404` (Bad request): When an asset with a specified currency symbol does not exist.
-  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-  :::
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v1/assets/Hydration/has-support?symbol=DOT");
-```
-
 ### Query asset support between two chains
 The following endpoint retrieves assets supported by both chains.
 
@@ -2975,31 +2925,6 @@ The following endpoint retrieves assets supported by both chains.
 **Example of request:**
 ```ts
 const response = await fetch("http://localhost:3001/v1/supported-assets?origin=Acala&destination=Astar");
-```
-
-### Query asset decimals
-The following endpoint retrieves specific asset decimals on specific Chain.
-
-**Endpoint**: `GET /v1/assets/:chain/decimals?symbol=:symbol`
-
-  ::: details Parameters
-
-  - `chain` (path parameter): Specifies the name of the Chain.
-  - `symbol` (path parameter): Specifies the currency symbol.
-
-  :::
-
-  ::: details Errors
-
-  - `400` (Bad request): When a specified Chain does not exist.
-  - `404` (Bad request): When an asset with a specified currency symbol does not exist.
-  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-
-  :::
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v1/assets/Basilisk/decimals?symbol=BSX");
 ```
 
 ### Query Chain ws endpoints

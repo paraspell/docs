@@ -13,8 +13,8 @@ const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] 
       .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
-      .senderAddress(address | PAPI_SIGNER /*Only in PAPI SDK*/ | {address, PJS_SIGNER} /*Only in PJS SDK*/) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
+      .recipient(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
+      .sender(address | PAPI_SIGNER /*Only in PAPI SDK*/ | {address, PJS_SIGNER} /*Only in PJS SDK*/) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
 
 const tx = await builder.build()
 // Or if you use signers in senderAddress:
@@ -108,7 +108,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -164,9 +164,9 @@ const builder = Builder()
   .to('AssetHubPolkadot')
   .currency({
     id: 10,
-    amount: '1000000'
+    amount: '1'
   })
-  .address(address)
+  .recipient(address)
 
 const tx = await builder.build()
 
@@ -182,7 +182,7 @@ const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..]
       .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) // Has to be same as origin (from)
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(address)
+      .recipient(address)
 
 const tx = await builder.build()
 
@@ -262,7 +262,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -297,9 +297,9 @@ const builder = Builder()
   .to('Hydration')
   .currency({
     symbol: 'DOT',
-    amount: '10000000000'
+    amount: '1'
   })
-  .address(address)
+  .recipient(address)
 
 const tx = await builder.build()
 
@@ -317,8 +317,8 @@ const builder = Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..]
       .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain) // Has to be same as origin (from)
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .senderAddress(senderAddress)
-      .address(address)
+      .sender(senderAddress)
+      .recipient(address)
       .transact(hex, /* originType, TWeight - Optional */) // Reffer to transact spec below
 
 const tx = await builder.build()
@@ -409,7 +409,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -444,10 +444,10 @@ const builder = Builder()
   .to('BifrostPolkadot')
   .currency({
     symbol: 'DOT',
-    amount: '10000000000'
+    amount: '1'
   })
-  .senderAddress(senderAddress)
-  .address(address)
+  .sender(senderAddress)
+  .recipient(address)
   .transact(0x0a040042ac083419496cb97115aff8f79eb7bb96ceaad18e99e310f526503fdd161b7500)
 
 
@@ -467,8 +467,8 @@ const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] 
       .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .to(TChain /*,customParaId - optional*/ | Location object /*Only works for PolkadotXCM pallet*/) //'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
-      .senderAddress(address | PAPI_SIGNER /*Only in PAPI SDK*/ | {address, PJS_SIGNER} /*Only in PJS SDK*/) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
+      .recipient(address | Location object /*If you are sending through xTokens, you need to pass the destination and address location in one object (x2)*/)
+      .sender(address | PAPI_SIGNER /*Only in PAPI SDK*/ | {address, PJS_SIGNER} /*Only in PJS SDK*/) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
       .swap({
           currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
           // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
@@ -480,7 +480,8 @@ const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] 
 
 const tx = await builder.buildAll()
 // Or if you use signers in senderAddress:
-// await builder.signAndSubmit() - Signs and submits the transaction; returns TX hash for tracking
+// await builder.signAndSubmit() - Signs and submits the transaction (only working in 1click scenarios); returns TX hash for tracking
+// await builder.signAndSubmitAll() - Signs and submits transactions (required in 2click scenarios); returns array of TX hashes for tracking
 
 // Make sure to disconnect API after it is no longer used (eg. after transaction)
 await builder.disconnect()
@@ -622,7 +623,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -678,9 +679,9 @@ const builder = Builder()
   .to('AssetHubPolkadot')
   .currency({
     id: 10,
-    amount: '1000000'
+    amount: '1'
   })
-  .address(address)
+  .recipient(address)
   .swap({
     currencyTo: { symbol: 'USDC' }
   })
@@ -702,8 +703,8 @@ const result = await Builder(/*client | builder_config | ws_url | [ws_url, ws_ur
         .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .currency(CURRENCY_SPEC) // Refer to currency spec options below
-        .address(ADDRESS)
-        .senderAddress(SENDER_ADDRESS)
+        .recipient(ADDRESS)
+        .sender(SENDER_ADDRESS)
         .dryRun()
 ```
 
@@ -809,7 +810,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1027,8 +1028,8 @@ const result = await Builder(/*client | builder_config | ws_url | [ws_url, ws_ur
         .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
         .currency(CURRENCY_SPEC) // Refer to currency spec options below
-        .address(ADDRESS)
-        .senderAddress(SENDER_ADDRESS)
+        .recipient(ADDRESS)
+        .sender(SENDER_ADDRESS)
         .dryRunPreview(/*{ mintFeeAssets: true } - false by default - Mints fee assets also, if user does not have enough to cover fees on origin.*/)
 ```
 
@@ -1109,7 +1110,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1318,7 +1319,7 @@ await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optiona
       .from('AssetHubPolkadot')  // 'AssetHubPolkadot' | 'AssetHubKusama'
       .to('AssetHubKusama')     // 'AssetHubPolkadot' | 'AssetHubKusama'
       .currency({symbol: 'DOT', amount: amount /*Use "ALL" to transfer everything*/})        // 'KSM' | 'DOT' | 'USDC' | 'USDT'
-      .address(address)
+      .recipient(address)
       .build()
 ```
 
@@ -1354,7 +1355,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1403,8 +1404,8 @@ await Builder(/*client | builder_config | ws_url | [ws_url, ws_url,..] - Optiona
           .from(TSubstrateChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
           .to('Ethereum')           
           .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})   // Any supported asset by bridge - WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-          .address(eth_address)  // AccountKey20 recipient address
-          .senderAddress(sender_address) // Injector SS58 address
+          .recipient(eth_address)  // AccountKey20 recipient address
+          .sender(sender_address) // Injector SS58 address
           .ahAddress(ahAddress) // Recommended! ahAddress is optional but should be used always, as in scenarios where it isn't necessary it will be ignored. It is used when origin chain is EVM style because we are unable to convert your sender Key20 address to ID32 address.
           .build()
 ```
@@ -1440,7 +1441,7 @@ const builder = await Builder({
 
 **Decimal abstraction:**
 
-Following setting will abstract decimals from the .currency builder functionality.
+**TURNED ON BY DEFAULT** Following setting will abstract decimals from the .currency builder functionality.
 
 >[!Note]
 >Types in amount parameter are **(number | string | bigint)**. If bigint is provided and decimal abstraction is turned on, it will automatically turn it off as bigint does not support float numbers.
@@ -1491,7 +1492,7 @@ await EvmBuilder(provider)   // Ethereum provider
   .from('Ethereum')   
   .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
   .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})    // Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-  .address(address)   // AccountID32 recipient address
+  .recipient(address)   // AccountID32 recipient address
   //.ahAddress(ahAddress) - ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
   .signer(signer)     // Ethereum signer address
   .build();
@@ -1523,13 +1524,13 @@ await Builder(/*CHAIN api/ws_url_string - optional*/)
       .from(TSubstrateChain) // Ensure, that origin CHAIN is the same in all batched XCM Calls. 
       .to(Tchain2) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(address | Location object)
+      .recipient(address | Location object)
       .addToBatch()
 
       .from(TSubstrateChain) // Ensure, that origin CHAIN is the same in all batched XCM Calls.
       .to(TChain3) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(address | Location object)
+      .recipient(address | Location object)
       .addToBatch()
       .buildBatch({ 
           // This settings object is optional and batch all is the default option
@@ -1581,7 +1582,7 @@ const hash = await EvmBuilder()
       .from('Moonbeam') // 'Moonbeam' | 'Polkadot' |  'Moonriver'
       .to(TChain) // 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types
       .currency({id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} | {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/}) //Select currency by ID or Symbol
-      .address(address)
+      .recipient(address)
       .signer(signer) // Ethers Signer or Viem Wallet Client
       .build()
 ```
@@ -1602,8 +1603,8 @@ const builder = await Builder({
   .from(TSubstrateChain)
   .to(TChain)
   .currency(CURRENCY_SPEC) // Refer to currency spec options below
-  .address(address) //You can also use prederived accounts - //Alice, //Bob... //Alith, //Balthathar...
-  .senderAddress(address) //You can also use prederived accounts //Alice, //Bob... //Alith, //Balthathar...
+  .recipient(address) //You can also use prederived accounts - //Alice, //Bob... //Alith, //Balthathar...
+  .sender(address) //You can also use prederived accounts //Alice, //Bob... //Alith, //Balthathar...
 
 const tx = await builder.build()
 // Or if you use prederived account as senderAddress:
@@ -1683,7 +1684,7 @@ const builder = await Builder({
   .from('Hydration')
   .to('Ethereum')
   .currency({ symbol: 'USDC.e', amount: '1' })
-  .address('0x24D18dbFBcEd732EAdF98EE520853e13909fE258')
+  .recipient('0x24D18dbFBcEd732EAdF98EE520853e13909fE258')
 
 const tx = await builder.build()
 
@@ -1699,7 +1700,7 @@ Claim XCM trapped assets from the selected chain.
 const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
       .claimfrom(TSubstrateChain) // 'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama' 
       .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .address(address | Location object)
+      .recipient(address | Location object)
       /*.xcmVersion(Version.V3) Optional parameter, by default chain specific version. XCM Version ENUM if a different XCM version is needed (Supported V3, V4, V5). Requires importing Version enum.*/
 
 const tx = await builder.build()
