@@ -12,7 +12,7 @@ const provider = getWsProvider('YourChainWSPort') // Specify "YourChainWSPort" w
 const client = createClient(withPolkadotSdkCompat(provider))
 
 const response = await fetch(
-    "http://localhost:3001/v5/x-transfer”,
+    "http://localhost:3001/v1/x-transfer”,
 {
 	method: ‘POST’,
            	body: JSON.stringify({
@@ -43,7 +43,7 @@ tx.signAndSubmit(signer)
 ### Substrate to Substrate (HRMP)
 The following endpoint enables the creation of a variety of `Substrate-to-Substrate` XCM calls. It provides a unified interface for constructing cross-chain messages between Substrate-based networks using XCM. This endpoint is intended to simplify interoperability workflows and reduce the complexity of composing XCM transactions programmatically.
 
-**Endpoint**: `POST /v5/x-transfer`
+**Endpoint**: `POST /v1/x-transfer`
 
   ::: details Parameters
 
@@ -155,7 +155,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/x-transfer", {
+const response = await fetch("http://localhost:3001/v1/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -174,7 +174,7 @@ const response = await fetch("http://localhost:3001/v5/x-transfer", {
 ## Local transfers
 The following endpoint allows  creation of Local asset transfers for any chain and any currency registered on it. This call is specified by same Chain selected as origin - `from` and destination - `to` parameters.
 
-**Endpoint**: `POST /v5/x-transfer`
+**Endpoint**: `POST /v1/x-transfer`
 
   ::: details Parameters
 
@@ -264,7 +264,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/x-transfer', {
+const response = await fetch('http://localhost:3001/v1/x-transfer', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -282,7 +282,7 @@ const response = await fetch('http://localhost:3001/v5/x-transfer', {
 ## Transact
 The Api gives the ability to perform Transact, which enables execution of calls on a remote chain in the context of the destination environment. This allows applications to trigger cross-chain actions without direct interaction from users on the target chain.
 
-**Endpoint**: `POST /v5/x-transfer`
+**Endpoint**: `POST /v1/x-transfer`
 
   ::: details Parameters
 
@@ -378,7 +378,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/x-transfer', {
+const response = await fetch('http://localhost:3001/v1/x-transfer', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -401,7 +401,7 @@ const response = await fetch('http://localhost:3001/v5/x-transfer', {
 ## Swap
 This feature allows you to send Swap XCMs, meaning you send one currency and receive another at the destination chain.
 
-**Endpoint**: `POST /v5/x-transfers`
+**Endpoint**: `POST /v1/x-transfers`
 
   ::: details Parameters
 
@@ -547,7 +547,7 @@ swapOptions:{
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/x-transfers', {
+const response = await fetch('http://localhost:3001/v1/x-transfers', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -571,7 +571,7 @@ const response = await fetch('http://localhost:3001/v5/x-transfers', {
 ## Dry run
 You can determine whether your XCM message will execute successfully or fail with an error. The XCM message dry run provides a concrete execution error, allowing you to validate the message before submission. This makes it possible to verify correct execution without ever submitting the XCM message on-chain.
 
-**Endpoint**: `POST /v5/dry-run`
+**Endpoint**: `POST /v1/dry-run`
 
   ::: details Parameters
 
@@ -684,7 +684,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/dry-run', {
+const response = await fetch('http://localhost:3001/v1/dry-run', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -701,7 +701,7 @@ const response = await fetch('http://localhost:3001/v5/dry-run', {
 ## Dry run preview
 By using preview with dry-run, you can determine the result of a call using a fictional currency amount. This effectively allows you to simulate and demo calls with custom asset values of assets you don't need to own.
 
-**Endpoint**: `POST /v5/dry-run-preview`
+**Endpoint**: `POST /v1/dry-run-preview`
 
   ::: details Parameters
 
@@ -807,7 +807,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/dry-run-preview', {
+const response = await fetch('http://localhost:3001/v1/dry-run-preview', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -853,7 +853,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/x-transfer", {
+const response = await fetch("http://localhost:3001/v1/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -897,7 +897,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/x-transfer", {
+const response = await fetch("http://localhost:3001/v1/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -940,7 +940,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/x-transfer", {
+const response = await fetch("http://localhost:3001/v1/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -959,7 +959,7 @@ const response = await fetch("http://localhost:3001/v5/x-transfer", {
 ### Snowbridge health check
 Query for Snowbridge status 
 
-**Endpoint**: `GET /v5/x-transfer/eth-bridge-status`
+**Endpoint**: `GET /v1/x-transfer/eth-bridge-status`
 
 
    - **Parameters**:
@@ -971,13 +971,13 @@ Query for Snowbridge status
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/x-transfer/eth-bridge-status");
+const response = await fetch("http://localhost:3001/v1/x-transfer/eth-bridge-status");
 ```
 
 ## Batch call
 XCM API allows you to batch your XCM calls and send multiple at the same time via batch feature.
 
-**Endpoint** `POST /v5/x-transfer-batch`
+**Endpoint** `POST /v1/x-transfer-batch`
 
   ::: details Parameters
 
@@ -1016,7 +1016,7 @@ options: ({
 **Example of request:**
 ```ts
 
-const response = await fetch("http://localhost:3001/v5/x-transfer-batch", {
+const response = await fetch("http://localhost:3001/v1/x-transfer-batch", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1051,7 +1051,7 @@ const response = await fetch("http://localhost:3001/v5/x-transfer-batch", {
 ## Asset claim
 Assets that have been trapped in the cross-chain transfers can be recovered through the asset claim feature.
 
-**Endpoint**: `POST /v5/asset-claim`
+**Endpoint**: `POST /v1/asset-claim`
 
   ::: details Parameters
 
@@ -1073,7 +1073,7 @@ Assets that have been trapped in the cross-chain transfers can be recovered thro
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/asset-claim", {
+const response = await fetch("http://localhost:3001/v1/asset-claim", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1161,7 +1161,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/x-transfer", {
+const response = await fetch("http://localhost:3001/v1/x-transfer", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1191,7 +1191,7 @@ const response = await fetch("http://localhost:3001/v5/x-transfer", {
 
 API allows you to use prederived accounts for testing (As sender or receiver address). For example Alice, Bob, Charlie, Alith, Balthathar and others.
 
-**Endpoint**: `POST /v5/sign-and-submit`
+**Endpoint**: `POST /v1/sign-and-submit`
 
   ::: details Parameters
 
@@ -1246,7 +1246,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/sign-and-submit", {
+const response = await fetch("http://localhost:3001/v1/sign-and-submit", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1277,7 +1277,7 @@ const response = await fetch("http://localhost:3001/v5/sign-and-submit", {
 
 The following endpoint allows is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by either origin or destination. 
 
-**Endpoint**: `POST /v5/xcm-fee`
+**Endpoint**: `POST /v1/xcm-fee`
 
   ::: details Parameters
 
@@ -1399,7 +1399,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/xcm-fee", {
+const response = await fetch("http://localhost:3001/v1/xcm-fee", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1417,7 +1417,7 @@ const response = await fetch("http://localhost:3001/v5/xcm-fee", {
 ## XCM Fee (Origin only)
 Following queries allow you to query XCM fee from Origin chain. The query is designed to retrieve you XCM fee at any cost, but fallbacking to Payment info if DryRun query fails or is not supported by origin. 
 
-**Endpoint**: `POST /v5/origin-xcm-fee`
+**Endpoint**: `POST /v1/origin-xcm-fee`
 
   ::: details Parameters
 
@@ -1530,7 +1530,7 @@ options: ({
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/origin-xcm-fee", {
+const response = await fetch("http://localhost:3001/v1/origin-xcm-fee", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -1548,7 +1548,7 @@ const response = await fetch("http://localhost:3001/v5/origin-xcm-fee", {
 ## XCM Transfer info
 To comprehensively assess whether a message will execute successfully without failure, use this query. It provides detailed information on currency balances before and after the transaction, including all relevant fees. This data is essential for accurately evaluating potential balance or fee-related issues that could cause message failure.
 
-**Endpoint**: `POST /v5/transfer-info`
+**Endpoint**: `POST /v1/transfer-info`
 
   ::: details Parameters
 
@@ -1657,7 +1657,7 @@ options: ({
 **Example of request:**
 ```ts
 const response = await fetch(
-  'http://localhost:3001/v5/transfer-info' , {
+  'http://localhost:3001/v1/transfer-info' , {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -1673,7 +1673,7 @@ const response = await fetch(
 ## Transferable amount
 To retrieve information on how much of the selected currency can be transfered from specific account you can use transferable balance. 
 
-**Endpoint**: `POST /v5/transferable-amount`
+**Endpoint**: `POST /v1/transferable-amount`
 
   ::: details Parameters
 
@@ -1789,7 +1789,7 @@ options: ({
 **Example of request:**
 ```ts
 const response = await fetch(
-  'http://localhost:3001/v5/transferable-amount' , {
+  'http://localhost:3001/v1/transferable-amount' , {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -1805,7 +1805,7 @@ const response = await fetch(
 ## Minimal transferable amount
 You can use the minimal transferable balance to retrieve information on minimum of the selected currency can be transferred from a specific account to specific destination, so that the Existential deposit and destination or origin fee is paid fully.
 
-**Endpoint**: `POST /v5/min-transferable-amount`
+**Endpoint**: `POST /v1/min-transferable-amount`
 
   ::: details Parameters
 
@@ -1922,7 +1922,7 @@ options: ({
 **Example of request:**
 ```ts
 const response = await fetch(
-  'http://localhost:3001/v5/min-transferable-amount' , {
+  'http://localhost:3001/v1/min-transferable-amount' , {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -1938,7 +1938,7 @@ const response = await fetch(
 ## Predicted received amount
 You can predict the amount to be received on destination, granted, that the destination chain and hops have dry-run.
 
-**Endpoint**: `POST /v5/receivable-amount`
+**Endpoint**: `POST /v1/receivable-amount`
 
   ::: details Parameters
 
@@ -2035,7 +2035,7 @@ options: ({
 **Example of request:**
 ```ts
 const response = await fetch(
-  'http://localhost:3001/v5/receivable-amount' , {
+  'http://localhost:3001/v1/receivable-amount' , {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -2051,7 +2051,7 @@ const response = await fetch(
 ## Verify ED on destination
 To retrieve information on whether the selected currency from specific account will meet existential deposit on destination chain you can use this query. 
 
-**Endpoint**: `POST /v5/verify-ed-on-destination`
+**Endpoint**: `POST /v1/verify-ed-on-destination`
 
   ::: details Parameters
 
@@ -2161,7 +2161,7 @@ options: ({
 **Example of request:**
 ```ts
 const response = await fetch(
-  'http://localhost:3001/v5/verify-ed-on-destination' , {
+  'http://localhost:3001/v1/verify-ed-on-destination' , {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -2177,7 +2177,7 @@ const response = await fetch(
 ## Best amount out
 Following endpoint gives you best amount out for specific dex. Works with swapOptions defined only.
 
-**Endpoint**: `POST /v5/best-amount-out`
+**Endpoint**: `POST /v1/best-amount-out`
 
   ::: details Parameters
 
@@ -2284,7 +2284,7 @@ options: ({
 **Example of request:**
 ```ts
 const response = await fetch(
-  'http://localhost:3001/v5/best-amount-out' , {
+  'http://localhost:3001/v1/best-amount-out' , {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -2306,7 +2306,7 @@ const response = await fetch(
 ## SS58 Address conversion
 Following functionality allows you to convert any SS58 address to Chain specific address.
 
- **Endpoint**: `GET /v5/convert-ss58?address=:address&chain=:chain`
+ **Endpoint**: `GET /v1/convert-ss58?address=:address&chain=:chain`
 
   ::: details Parameters
 
@@ -2325,7 +2325,7 @@ Following functionality allows you to convert any SS58 address to Chain specific
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/convert-ss58?address=:address&chain=:chain');
+const response = await fetch('http://localhost:3001/v1/convert-ss58?address=:address&chain=:chain');
 ```
 
 ## Asset queries
@@ -2335,7 +2335,7 @@ This functionality allows you to perform various asset queries with compatible C
 
 ```ts
 const response = await fetch(
-    "http://localhost:3001/v5/assets/<action>" + //Replace "action" with your desired action eg. "Acala/native" 
+    "http://localhost:3001/v1/assets/<action>" + //Replace "action" with your desired action eg. "Acala/native" 
 );
 
 console.log(response) //use response data as necessary
@@ -2344,7 +2344,7 @@ console.log(response) //use response data as necessary
 ### Query asset paths
 The following endpoint allows you to query the asset paths related to origin chain.
 
-**Endpoint**: `POST /v5/assets/:chain/supported-destinations`
+**Endpoint**: `POST /v1/assets/:chain/supported-destinations`
 
   ::: details Currency spec options
   
@@ -2401,7 +2401,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/:chain/supported-destinations", {
+const response = await fetch("http://localhost:3001/v1/assets/:chain/supported-destinations", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -2415,7 +2415,7 @@ const response = await fetch("http://localhost:3001/v5/assets/:chain/supported-d
 ### Query asset reserve
 The following endpoint allows you to query the asset reserve for specific asset on specific chain.
 
-**Endpoint**: `POST /v5/assets/:chain/reserve-chain`
+**Endpoint**: `POST /v1/assets/:chain/reserve-chain`
 
   ::: details Currency spec options
   
@@ -2472,7 +2472,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/:chain/reserve-chain", {
+const response = await fetch("http://localhost:3001/v1/assets/:chain/reserve-chain", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -2486,7 +2486,7 @@ const response = await fetch("http://localhost:3001/v5/assets/:chain/reserve-cha
 ### Query asset balance
 The following endpoint allows you to query asset balance for on specific chain.
 
-**Endpoint**: `POST /v5/balance/:chain`
+**Endpoint**: `POST /v1/balance/:chain`
 
   ::: details Parameters
 
@@ -2546,7 +2546,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/balance/:chain/asset", {
+const response = await fetch("http://localhost:3001/v1/balance/:chain/asset", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -2561,7 +2561,7 @@ const response = await fetch("http://localhost:3001/v5/balance/:chain/asset", {
 ### Query asset existential deposit
 The following endpoint allows you to query the existential deposit for currency in a specific chain.
 
-**Endpoint**: `POST /v5/balance/:chain/existential-deposit`
+**Endpoint**: `POST /v1/balance/:chain/existential-deposit`
 
   ::: details Parameters
 
@@ -2619,7 +2619,7 @@ Asset selection of multiple assets:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/balance/:chain/existential-deposit", {
+const response = await fetch("http://localhost:3001/v1/balance/:chain/existential-deposit", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -2633,7 +2633,7 @@ const response = await fetch("http://localhost:3001/v5/balance/:chain/existentia
 ### Query Fee assets
 The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee on specific chain)
 
-**Endpoint**: `GET /v5/assets/:chain/fee-assets`
+**Endpoint**: `GET /v1/assets/:chain/fee-assets`
 
   ::: details Parameters
 
@@ -2650,13 +2650,13 @@ The following endpoint retrieves Fee asset queries (Assets accepted as XCM Fee o
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/assets/:chain/fee-assets');
+const response = await fetch('http://localhost:3001/v1/assets/:chain/fee-assets');
 ```
 
 ### Query assets object
 The following endpoint retrieves all assets on a specific Chain as an object.
 
-**Endpoint**: `GET /v5/assets/:chain`
+**Endpoint**: `GET /v1/assets/:chain`
 
   ::: details Parameters
 
@@ -2673,13 +2673,13 @@ The following endpoint retrieves all assets on a specific Chain as an object.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Moonbeam");
+const response = await fetch("http://localhost:3001/v1/assets/Moonbeam");
 ```
 
 ### Query asset Location
 The following endpoint retrieves asset location from the asset ID or asset symbol.
 
-**Endpoint**: `POST /v5/assets/:chain/location`
+**Endpoint**: `POST /v1/assets/:chain/location`
 
   ::: details Parameters
 
@@ -2730,7 +2730,7 @@ Asset selection by asset Symbol:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/:chain/location", {
+const response = await fetch("http://localhost:3001/v1/assets/:chain/location", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -2744,7 +2744,7 @@ const response = await fetch("http://localhost:3001/v5/assets/:chain/location", 
 ### Query asset Location
 The following endpoint retrieves asset location from the asset ID or asset symbol.
 
-**Endpoint**: `POST /v5/assets/:chain/asset-info`
+**Endpoint**: `POST /v1/assets/:chain/asset-info`
 
   ::: details Parameters
 
@@ -2799,7 +2799,7 @@ Asset selection by asset Symbol:
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/:chain/asset-info", {
+const response = await fetch("http://localhost:3001/v1/assets/:chain/asset-info", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -2814,7 +2814,7 @@ const response = await fetch("http://localhost:3001/v5/assets/:chain/asset-info"
 ### Query asset ID
 The following endpoint returns the asset id for the specific asset on a specific Chain.
 
-**Endpoint**: `GET /v5/assets/:chain/id?symbol=:symbol`
+**Endpoint**: `GET /v1/assets/:chain/id?symbol=:symbol`
 
   ::: details Parameters
 
@@ -2833,13 +2833,13 @@ The following endpoint returns the asset id for the specific asset on a specific
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Interlay/id?symbol=USDT");
+const response = await fetch("http://localhost:3001/v1/assets/Interlay/id?symbol=USDT");
 ```
 
 ### Query Relay chain asset symbol
 The following endpoint returns the Relay chain asset symbol for a specific Chain.
 
-**Endpoint**: `GET /v5/assets/:chain/relay-chain-symbol`
+**Endpoint**: `GET /v1/assets/:chain/relay-chain-symbol`
 
   ::: details Parameters
 
@@ -2856,13 +2856,13 @@ The following endpoint returns the Relay chain asset symbol for a specific Chain
     
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Astar/relay-chain-symbol");
+const response = await fetch("http://localhost:3001/v1/assets/Astar/relay-chain-symbol");
 ```
 
 ### Query native assets
 The following endpoint returns native assets of specific Chain.
 
-**Endpoint**: `GET /v5/assets/:chain/native`
+**Endpoint**: `GET /v1/assets/:chain/native`
 
   ::: details Parameters
 
@@ -2879,13 +2879,13 @@ The following endpoint returns native assets of specific Chain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Hydration/native");
+const response = await fetch("http://localhost:3001/v1/assets/Hydration/native");
 ```
 
 ### Query foreign assets
 The following endpoint returns foreign assets of specific Chain.
 
-**Endpoint**: `GET /v5/assets/:chain/other`
+**Endpoint**: `GET /v1/assets/:chain/other`
 
   ::: details Parameters
 
@@ -2902,13 +2902,13 @@ The following endpoint returns foreign assets of specific Chain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Astar/other");
+const response = await fetch("http://localhost:3001/v1/assets/Astar/other");
 ```
 
 ### Query all asset symbols
 The following endpoint returns all asset symbols for specific Chain.
 
-**Endpoint**: `GET /v5/assets/:chain/all-symbols`
+**Endpoint**: `GET /v1/assets/:chain/all-symbols`
 
   ::: details Parameters
 
@@ -2925,13 +2925,13 @@ The following endpoint returns all asset symbols for specific Chain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Moonbeam/all-symbols");
+const response = await fetch("http://localhost:3001/v1/assets/Moonbeam/all-symbols");
 ```
 
 ### Query asset support
 The following endpoint returns a boolean value that confirms if the asset is registered on a specific Chain or not.
 
-**Endpoint**: `GET /v5/assets/:chain/has-support?symbol=:symbol`
+**Endpoint**: `GET /v1/assets/:chain/has-support?symbol=:symbol`
 
   ::: details Parameters
 
@@ -2950,13 +2950,13 @@ The following endpoint returns a boolean value that confirms if the asset is reg
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Hydration/has-support?symbol=DOT");
+const response = await fetch("http://localhost:3001/v1/assets/Hydration/has-support?symbol=DOT");
 ```
 
 ### Query asset support between two chains
 The following endpoint retrieves assets supported by both chains.
 
-**Endpoint**: `GET /v5/supported-assets?origin=:chain&destination=:chain`
+**Endpoint**: `GET /v1/supported-assets?origin=:chain&destination=:chain`
 
   ::: details Parameters
 
@@ -2974,13 +2974,13 @@ The following endpoint retrieves assets supported by both chains.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/supported-assets?origin=Acala&destination=Astar");
+const response = await fetch("http://localhost:3001/v1/supported-assets?origin=Acala&destination=Astar");
 ```
 
 ### Query asset decimals
 The following endpoint retrieves specific asset decimals on specific Chain.
 
-**Endpoint**: `GET /v5/assets/:chain/decimals?symbol=:symbol`
+**Endpoint**: `GET /v1/assets/:chain/decimals?symbol=:symbol`
 
   ::: details Parameters
 
@@ -2999,13 +2999,13 @@ The following endpoint retrieves specific asset decimals on specific Chain.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/assets/Basilisk/decimals?symbol=BSX");
+const response = await fetch("http://localhost:3001/v1/assets/Basilisk/decimals?symbol=BSX");
 ```
 
 ### Query Chain ws endpoints
 The following endpoint retrieves the Chain's WS endpoints.
 
-**Endpoint**: `GET /v5/chains/:chain/ws-endpoints`
+**Endpoint**: `GET /v1/chains/:chain/ws-endpoints`
 
   ::: details Parameters
 
@@ -3022,13 +3022,13 @@ The following endpoint retrieves the Chain's WS endpoints.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/chains/Acala/ws-endpoints");
+const response = await fetch("http://localhost:3001/v1/chains/Acala/ws-endpoints");
 ```
 
 ### Query Chain ID
 The following endpoint retrieves Chain's ID from Chain's name
 
- **Endpoint**: `GET /v5/chains/:chain/para-id`
+ **Endpoint**: `GET /v1/chains/:chain/para-id`
 
   ::: details Parameters
 
@@ -3045,13 +3045,13 @@ The following endpoint retrieves Chain's ID from Chain's name
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/chains/Acala/para-id");
+const response = await fetch("http://localhost:3001/v1/chains/Acala/para-id");
 ```
 
 ### Query Chain name
 The following endpoint retrieves the Chain's name from the Chain's ID. (Options for ecosystem - Polkadot, Kusama, Passeo, Westend, Ethereum)
 
-**Endpoint**: `GET /v5/chains/:paraId?ecosystem=eco`
+**Endpoint**: `GET /v1/chains/:paraId?ecosystem=eco`
 
   ::: details Parameters
 
@@ -3068,13 +3068,13 @@ The following endpoint retrieves the Chain's name from the Chain's ID. (Options 
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/chains/2090?ecosystem=Polkadot");
+const response = await fetch("http://localhost:3001/v1/chains/2090?ecosystem=Polkadot");
 ```
 
 ### Query list of implemented Chains
 The following endpoint retrieves an array of implemented Chains.
 
-**Endpoint**: `GET /v5/chains`
+**Endpoint**: `GET /v1/chains`
 
    - **Parameters**: None.
    - **Errors**: 
@@ -3083,7 +3083,7 @@ The following endpoint retrieves an array of implemented Chains.
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/chains");
+const response = await fetch("http://localhost:3001/v1/chains");
 ```
 
 ## XCM pallet queries
@@ -3094,7 +3094,7 @@ This functionality allows you to query the `XCM pallets` that Chains currently s
 
 ```ts
 const response = await fetch(
-    "http://localhost:3001/v5/pallets/<action>" + //Replace "action" with your desired action eg. "Acala/default" 
+    "http://localhost:3001/v1/pallets/<action>" + //Replace "action" with your desired action eg. "Acala/default" 
 );
 
 console.log(response) //use response data as necessary
@@ -3103,7 +3103,7 @@ console.log(response) //use response data as necessary
 ### Get default XCM pallet
 The following endpoint returns the default pallet for specific Chain
 
-**Endpoint**: `GET /v5/pallets/:chain/default`
+**Endpoint**: `GET /v1/pallets/:chain/default`
 
   ::: details Parameters
 
@@ -3120,13 +3120,13 @@ The following endpoint returns the default pallet for specific Chain
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/pallets/Acala/default");
+const response = await fetch("http://localhost:3001/v1/pallets/Acala/default");
 ```
 
 ### Get XCM pallet index
 The following endpoint returns the index of specific cross-chain pallet for specific chain.
 
-**Endpoint**: `GET /v5/pallets/:chain/index`
+**Endpoint**: `GET /v1/pallets/:chain/index`
 
   ::: details Parameters
 
@@ -3145,13 +3145,13 @@ The following endpoint returns the index of specific cross-chain pallet for spec
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/pallets/Acala/index?pallet=XTokens');
+const response = await fetch('http://localhost:3001/v1/pallets/Acala/index?pallet=XTokens');
 ```
 
 ### Get all supported XCM pallets
 The following endpoint returns all XCM Pallets that are supported on specific Chain
 
-**Endpoint**: `GET /v5/pallets/:chain`
+**Endpoint**: `GET /v1/pallets/:chain`
 
   ::: details Parameters
 
@@ -3168,13 +3168,13 @@ The following endpoint returns all XCM Pallets that are supported on specific Ch
 
 **Example of request:**
 ```ts
-const response = await fetch("http://localhost:3001/v5/pallets/Basilisk");
+const response = await fetch("http://localhost:3001/v1/pallets/Basilisk");
 ```
 
 ### Get chain DryRun support
 The following endpoint returns whether selected Chain has DryRun support
 
-**Endpoint**: `GET /v5/chains/:chain/has-dry-run-support`
+**Endpoint**: `GET /v1/chains/:chain/has-dry-run-support`
 
   ::: details Parameters
 
@@ -3191,13 +3191,13 @@ The following endpoint returns whether selected Chain has DryRun support
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/chains/:chain/has-dry-run-support');
+const response = await fetch('http://localhost:3001/v1/chains/:chain/has-dry-run-support');
 ```
 
 ### Print local pallets for native assets
 Following endpoint returns all pallets for local transfers of native assets for specific chain.
 
-**Endpoint**: `GET /v5/pallets/:chain/native-assets`
+**Endpoint**: `GET /v1/pallets/:chain/native-assets`
 
   ::: details Parameters
 
@@ -3214,14 +3214,14 @@ Following endpoint returns all pallets for local transfers of native assets for 
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/pallets/:chain/native-assets');
+const response = await fetch('http://localhost:3001/v1/pallets/:chain/native-assets');
 ```
 
 
 ### Print local pallets for foreign assets
 Following endpoint returns all pallets for local transfers of foreign assets for specific chain.
 
-**Endpoint**: `GET /v5/pallets/:chain/other-assets`
+**Endpoint**: `GET /v1/pallets/:chain/other-assets`
 
   ::: details Parameters
 
@@ -3238,5 +3238,5 @@ Following endpoint returns all pallets for local transfers of foreign assets for
 
 **Example of request:**
 ```ts
-const response = await fetch('http://localhost:3001/v5/pallets/:chain/other-assets');
+const response = await fetch('http://localhost:3001/v1/pallets/:chain/other-assets');
 ```
