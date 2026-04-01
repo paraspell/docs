@@ -560,7 +560,7 @@ const response = await fetch('http://localhost:3001/v1/x-transfers', {
     sender: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
     swapOptions: {
       currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
-      // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+      // exchange: ['AssetHubPolkadot'], - Optional parameter - 'Hydration' | 'Acala' | 'AssetHubPolkadot' | ...
       // slippage: 1, - Optional - 1 by default
       // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
     },
