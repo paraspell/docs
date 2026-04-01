@@ -471,7 +471,7 @@ const builder = Builder(/*client | builder_config |ws_url | [ws_url, ws_url,..] 
       .sender(address | PAPI_SIGNER /*Only in PAPI SDK*/ | {address, PJS_SIGNER} /*Only in PJS SDK*/) // - OPTIONAL but strongly recommended as it is automatically ignored when not needed - Used when origin is AssetHub/Hydration with feeAsset or when sending to AssetHub to prevent asset traps by auto-swapping to DOT to have DOT ED.
       .swap({
           currencyTo: CURRENCY_SPEC, //Reffer to currency spec options above
-          // exchange: ['AssetHubPolkadotDex'], - Optional parameter - 'HydrationDex' | 'AcalaDex' | 'AssetHubPolkadotDex' | ...
+          // exchange: ['AssetHubPolkadot'], - Optional parameter - 'Hydration' | 'Acala' | 'AssetHubPolkadot' | ...
           // slippage: 1, - Optional - 1 by default
           // evmSenderAddress: '0x000', - Optional parameter when origin CHAIN is EVM based (Required with evmSigner)
           // evmSigner: Signer, - Optional parameter when origin CHAIN is EVM based (Required with evmInjectorAddress)
