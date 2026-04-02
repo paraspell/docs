@@ -1693,72 +1693,11 @@ await builder.disconnect()
 ```
 :::
 
-## Asset claim
-Claim XCM trapped assets from the selected chain.
-
-```ts
-const builder = Builder(/*client | ws_url | [ws_url, ws_url,..] - Optional*/)
-      .claimfrom(TSubstrateChain) // 'AssetHubPolkadot' | 'AssetHubKusama' | 'Polkadot' | 'Kusama' 
-      .currency(CURRENCY_SPEC) // Refer to currency spec options below
-      .recipient(address | Location object)
-      /*.xcmVersion(Version.V3) Optional parameter, by default chain specific version. XCM Version ENUM if a different XCM version is needed (Supported V3, V4, V5). Requires importing Version enum.*/
-
-const tx = await builder.build()
-
-// Make sure to disconnect API after it is no longer used (eg. after transaction)
-await builder.disconnect()
-```
-
-**Initial setup:**
-
-::: details Currency spec options
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
-{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-```
-
-Asset selection of multiple assets:
-```ts
-[{currencySelection /*for example symbol: symbol or id: id, or location: location*/, amount: amount /*Use "ALL" to transfer everything*/}, {currencySelection}, ..]
-```
-
-:::
-
-
 ## Convert SS58 address 
 The following functionality allows you to convert any SS58 address to a Parachain-specific address. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
 
 ```ts
-//PAPI
-import { convertSs58 } from "@paraspell/sdk";
-//PJS
-import { convertSs58 } from "@paraspell/sdk-pjs";
-//Dedot
-import { convertSs58 } from "@paraspell/sdk-dedot";
+import { convertSs58 } from "@paraspell/sdk"; // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
 
 const result = convertSs58(ADDRESS, TChain) 
 ```
@@ -1773,12 +1712,7 @@ const result = convertSs58(ADDRESS, TChain)
 Following query allows you to query asset reserve for specific asset on specific chain.
 
 ```ts
-//PAPI
-import { getAssetReserveChain } from "@paraspell/sdk";
-//PJS
-import { getAssetReserveChain } from "@paraspell/sdk-pjs";
-//Dedot
-import { getAssetReserveChain } from "@paraspell/sdk-dedot";
+import { getAssetReserveChain } from "@paraspell/sdk"; // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
 
 getAssetReserveChain(chain: TSubstrateChain, location: TLocation)
 ```
@@ -1787,4 +1721,50 @@ getAssetReserveChain(chain: TSubstrateChain, location: TLocation)
 
 ```
 "moonbeam"
+```
+
+## Import Chains as types
+There are 6 options for types you can choose based on your prefference
+
+```ts
+// Import all exchange chains (Swap)
+import type { TExchangeChain } from "@paraspell/sdk" // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
+
+// Import all Parachains
+import type { TParachain } from "@paraspell/sdk" // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
+
+// Import all Relay chains
+import type { TRelaychain } from "@paraspell/sdk" // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
+
+// Import all Substrate chains (Parachains + Relays)
+import type { TSubstrateChain } from "@paraspell/sdk" // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
+
+// Import chains outside Polkadot ecosystem (Ethereum)
+import type { TExternalChain } from "@paraspell/sdk" // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
+
+// Import all chains implemented in ParaSpell
+import type { TChain } from "@paraspell/sdk" // || @paraspell/sdk-pjs || @paraspell/sdk-dedot
+```
+
+## Import Chains as constants
+There are 6 options for constants you can choose based on your prefference
+
+```ts
+// Print all exchange chains (Swap)
+console.log(EXCHANGE_CHAINS)
+
+// Print all Parachains
+console.log(PARACHAINS)
+
+// Print all Relay chains
+console.log(RELAYCHAINS)
+
+// Print all Substrate chains (Parachains + Relays)
+console.log(SUBSTRATE_CHAINS)
+
+// Print chains outside Polkadot ecosystem (Ethereum)
+console.log(EXTERNAL_CHAINS)
+
+// Print all chains implemented in ParaSpell
+console.log(CHAINS)
 ```

@@ -33,12 +33,6 @@ import {
   getParaId,
   getTChain,
   getAssetLocation,
-  TParachain,
-  TRelaychain,
-  TSubstrateChain,
-  TExternalChain,
-  TChain,
-  TExchangeChain,
   findAssetInfo,
   findAssetInfoOrThrow
 } from '@paraspell/assets'
@@ -798,48 +792,4 @@ getTChain(paraId: number, ecosystem: 'Polkadot' | 'Kusama' | 'Passeo' | 'Westend
 
 ```json
 "Astar"
-```
-
-## Import Chains as types
-There are 5 options for types you can choose based on your prefference
-```ts
-// Export all exchange chains (Swap)
-console.log(TExchangeChain)
-
-// Export all Parachains
-console.log(TParachain)
-
-// Export all Relay chains
-console.log(TRelaychain)
-
-// Export all Substrate chains (Parachains + Relays)
-console.log(TSubstrateChain)
-
-// Export chains outside Polkadot ecosystem (Ethereum)
-console.log(TExternalChain)
-
-// Export all chains implemented in ParaSpell
-console.log(TChain)
-```
-
-## Import Chains as constants
-There are 5 options for constants you can choose based on your prefference
-```ts
-// Export all exchange chains (Swap)
-console.log(EXCHANGE_CHAINS)
-
-// Export all Parachains
-console.log(PARACHAINS)
-
-// Export all Relay chains
-console.log(RELAYCHAINS)
-
-// Export all Substrate chains (Parachains + Relays)
-console.log(SUBSTRATE_CHAINS)
-
-// Export chains outside Polkadot ecosystem (Ethereum)
-console.log(EXTERNAL_CHAINS)
-
-// Export all chains implemented in ParaSpell
-console.log(CHAINS)
 ```
