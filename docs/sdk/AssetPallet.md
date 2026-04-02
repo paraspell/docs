@@ -38,6 +38,7 @@ import {
   TSubstrateChain,
   TExternalChain,
   TChain,
+  TExchangeChain,
   findAssetInfo,
   findAssetInfoOrThrow
 } from '@paraspell/assets'
@@ -802,6 +803,9 @@ getTChain(paraId: number, ecosystem: 'Polkadot' | 'Kusama' | 'Passeo' | 'Westend
 ## Import Chains as types
 There are 5 options for types you can choose based on your prefference
 ```ts
+// Export all exchange chains (Swap)
+console.log(TExchangeChain)
+
 // Export all Parachains
 console.log(TParachain)
 
@@ -821,6 +825,9 @@ console.log(TChain)
 ## Import Chains as constants
 There are 5 options for constants you can choose based on your prefference
 ```ts
+// Export all exchange chains (Swap)
+console.log(EXCHANGE_CHAINS)
+
 // Export all Parachains
 console.log(PARACHAINS)
 
