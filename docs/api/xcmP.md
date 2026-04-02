@@ -1026,19 +1026,19 @@ const response = await fetch("http://localhost:3001/v1/x-transfer-batch", {
     })
 });
 
-//Example of JSON body
-/*{
+/*Example of JSON body
+{
 	"transfers": [
 		{
 			"from": "Kusama"
 			"to": "Moonriver",
-			"currency": { symbol: "DOT", amount: amount /*Use "ALL" to transfer everything*/},
+			"currency": { symbol: "DOT", amount: amount Use "ALL" to transfer everything},
 			"recipient": "0x939229F9c6E2b97589c4a5A0B3Eb8664FFc00502"
 		},
 		{
 			"from": "Kusama"
 			"to": "Basilisk",
-			"currency": { symbol: "DOT", amount: amount /*Use "ALL" to transfer everything*/},
+			"currency": { symbol: "DOT", amount: amount Use "ALL" to transfer everything},
 			"recipient": "bXgnPigqWnUTb9PxgCvnt61bsQoRQFnzLYYyRPV1bvB6DLu87"
 		}
 	],
@@ -1046,60 +1046,6 @@ const response = await fetch("http://localhost:3001/v1/x-transfer-batch", {
 		"mode": "BATCH"
 	}
 }*/
-```
-
-## Asset claim
-Assets that have been trapped in the cross-chain transfers can be recovered through the asset claim feature.
-
-**Endpoint**: `POST /v1/asset-claim`
-
-  ::: details Parameters
-
-  - `from` (Inside JSON body): (required): Represents the Chain on which the asset will be claimed.
-  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
-  - `currency` (Inside JSON body): (required): Represents the asset being claimed. It should be a location.
-
-
-  :::
-
-  ::: details Errors
-
-  - `400`  (Bad request exception) - Returned when parameter 'from' is not provided
-  - `400`  (Bad request exception) - Returned when parameter 'recipient' is not provided
-  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
-  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
-    
-  :::
-
-**Example of request:**
-```ts
-const response = await fetch("http://localhost:3001/v1/asset-claim", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        from: "Chain", // Replace "from" with the numeric value you wish to transfer
-        recipient: "Address", // Replace "recipient" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
-        currency: "Asset Location array" //Replace "Asset location array" with specific asset location along with amount specification
-    })
-});
-
-//Example of asset location array:
-/*"fungible": [
-{
-  "id": {
-    "Concrete": {
-      "parents": 0,
-      "interior": {
-        "Here": null
-      }
-    }
-  },
-  "fun": {
-    "Fungible": "10000"
-  }
-}]*/
 ```
 
 ## Localhost testing setup
