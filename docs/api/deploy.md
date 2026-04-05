@@ -64,10 +64,10 @@ Based on the UserID received in the email you can edit the maximum request amoun
 <img width="437" alt="Screenshot 2023-08-21 at 21 58 57" src="https://user-images.githubusercontent.com/55763425/262140588-8353a1a5-e4be-4be7-92bd-a37cfe26ca39.png">
 
 ## Setting up Sentry
-Recently, LightSpell introduced the Sentry error tracking service implementation. This guide covers how to use it.
+Recently, XCM API introduced the Sentry error tracking service implementation. This guide covers how to use it.
 
 - First step is to register at this [website](https://sentry.io/lcome/).
-- Create a new project to get the DSN token for the .env file used by LightSpell
+- Create a new project to get the DSN token for the .env file used by XCM API
   
 <img width="420" alt="Screenshot 2023-11-16 at 10 23 28" src="https://user-images.githubusercontent.com/55763425/283396658-98339f19-04ab-4ee8-9dfa-a0efec722e73.png">
 
@@ -80,7 +80,7 @@ Open your REST API client, client we use is [Insomnia](https://insomnia.rest/).
 Paste in the following details and input the following link to test out Sentry:
 `http://localhost:3001/v1/sentry-test`
 
-LightSpell has integrated this test for you so you can test out error 500 in localhost mode.
+XCM API has integrated this test for you so you can test out error 500 in localhost mode.
 Once you paste the link into the browser, Sentry should notify you about a new error 500. It should look like this in your project:
 
 <img width="1223" alt="Snímka obrazovky 2024-03-08 o 19 16 35" src="https://gist.github.com/assets/55763425/c342e184-a7df-4a58-ad70-9d08fd7c59ff">

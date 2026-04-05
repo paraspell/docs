@@ -6,7 +6,7 @@
 [SDK link](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) |  
 The SDK unifies various pallets, including `XCM`, `Transact`, `Swap` and `Asset pallet`, in a cohesive manner. It supports all XCM-compatible Parachains within the Kusama and the Polkadot ecosystems and is designed for ease of implementation, abstracting much of the complex logic and requiring only a few simple, user-friendly inputs.
 
-### XCM-API (LightSpell⚡️)
+### XCM-API ⚡️
 [API link](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api) |  
 The XCM API serves as an enhancement for `XCM` and `Asset pallet`, designed to simplify the development process. By integrating the `XCM SDK` and its swap capabilities also, it enables dApp developers to incorporate XCM interoperability without the need to install additional packages, thereby saving both time and costs by offloading heavy computing tasks (such as call generation) from the application.
 
@@ -26,11 +26,6 @@ A sandbox environment that allows users to test all ParaSpell applications and p
 [ParaSpell page link](https://github.com/paraspell/xcm-tools/tree/main/apps/site) |
 
 A professional landing page for the XCM Tools, providing a clear overview of the capabilities that can be achieved through the XCM Tools.
-
-### XCM-API Landing page 🛬
-[Landing page link](https://github.com/paraspell/xcm-tools/tree/main/apps/lightspell-site) |  
-
-A professional landing page for the XCM API, providing a clear overview of the capabilities that can be achieved through the XCM API.
 
 ## Other repositories 🛠️
 

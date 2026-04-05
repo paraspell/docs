@@ -1,6 +1,6 @@
 # XCM Analyser🔎
 
-Following section covers implementation of XCM Analyser in LightSpell XCM API. Users can analyse either independent locations or entire XCM Calls.
+Following section covers implementation of XCM Analyser in XCM API. Users can analyse either independent locations or entire XCM Calls.
 
 ## Analyse Location
 **Endpoint**: `POST /v1/xcm-analyser`
