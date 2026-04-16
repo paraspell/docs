@@ -8,25 +8,27 @@ Don't want to go through setup and build from ground up?
 
 This template is programmed with React & Vite framework. It contains basic components ready to set you off on your cross-chain dApp journey.
 
-## Install Dependencies
+## Install XCM SDK and its dependencies
 
-Install peer dependencies according to the API package you choose.
+XCM SDK supports three different Javascript client providers. It is advised to use PAPI JS provider or Dedot JS provider, but in case your project heavily relies on Polkadot JS you can also install PJS SDK version.
 
-ParaSpell XCM SDK is the 🥇 first in the ecosystem to support **PolkadotJS**, **Polkadot API** and **Dedot**.
 
 **Choose your package manager:**
 
 <PackageManagerSwitch />
 
-### Polkadot API (PAPI) Peer Dependencies
+### Polkadot API (PAPI) version of SDK and Peer Dependencies
+**BEWARE: SDK uses PAPI V2 since 13.2.1 onwards!**
 
-<InstallCommand pkg="polkadot-api" />
+
+<InstallCommand :pkg="['@paraspell/sdk','polkadot-api']" />
 
 ---
 
-### PolkadotJS (PJS) Peer Dependencies
+### PolkadotJS (PJS) version of SDK and Peer Dependencies
 
 <InstallCommand :pkg="[
+  '@paraspell/sdk-pjs',
   '@polkadot/api',
   '@polkadot/types',
   '@polkadot/api-base',
@@ -34,29 +36,13 @@ ParaSpell XCM SDK is the 🥇 first in the ecosystem to support **PolkadotJS**, 
   '@polkadot/util-crypto'
 ]" />
 
-### Dedot Peer Dependencies
+### Dedot version of SDK and Peer Dependencies
 
 <InstallCommand :pkg="[
+  '@paraspell/sdk-dedot',
   'dedot',
   '@polkadot/keyring',
 ]" />
-
-
-## Install XCM SDK package
-XCM SDK supports three different Javascript client providers. It is advised to use PAPI JS provider or Dedot JS provider, but in case your project heavily relies on Polkadot JS you can also install PJS SDK version. Please note, that PJS and Dedot version does not have Swap functionality yet.
-
-### Polkadot API (PAPI) client version
-**BEWARE: SDK uses PAPI V2 since 13.2.0 onwards!**
-
-<InstallCommand pkg="@paraspell/sdk" />
-
-### PolkadotJS (PJS) client version
-
-<InstallCommand pkg="@paraspell/sdk-pjs" />
-
-### Dedot client version
-
-<InstallCommand pkg="@paraspell/sdk-dedot" />
 
 ## Install swap extension
 If you plan to [do Swap XCMs](https://paraspell.github.io/docs/sdk/xcmPallet.html#swap) you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Now available in **ALL** versions of SDK.
