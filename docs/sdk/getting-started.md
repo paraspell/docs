@@ -18,7 +18,7 @@ XCM SDK supports three different Javascript client providers. It is advised to u
 <PackageManagerSwitch />
 
 ### Polkadot API (PAPI) version of SDK and Peer Dependencies
-**BEWARE: SDK uses PAPI V2 since 13.2.1 onwards!**
+**BEWARE: SDK uses PAPI V2 since 13.2.2 onwards!**
 
 
 <InstallCommand :pkg="['@paraspell/sdk','polkadot-api']" />
