@@ -46,6 +46,7 @@ ParaSpell XCM SDK is the 🥇 first in the ecosystem to support **PolkadotJS**, 
 XCM SDK supports three different Javascript client providers. It is advised to use PAPI JS provider or Dedot JS provider, but in case your project heavily relies on Polkadot JS you can also install PJS SDK version. Please note, that PJS and Dedot version does not have Swap functionality yet.
 
 ### Polkadot API (PAPI) client version
+**BEWARE: SDK uses PAPI V2 since 13.2.0 onwards!**
 
 <InstallCommand pkg="@paraspell/sdk" />
 
