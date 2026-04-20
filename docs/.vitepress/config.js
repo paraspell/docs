@@ -26,50 +26,50 @@ export default {
           {
             text: '<div style="display: flex; align-items: center;"><img width="90" alt="ParaSpell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png"><span>XCM SDK</span></div>',
             items: [
-              { text: 'Getting started', link: '/sdk/getting-started' },
-              { text: 'Sending XCM', link: '/sdk/xcmPallet' },
-              { text: 'XCM fee queries', link: '/sdk/xcmUtils' },
-              { text: 'Asset queries', link: '/sdk/AssetPallet' },
-              { text: 'XCM pallet queries', link: '/sdk/NodePallets' },
+              { text: 'Getting started', link: '/xcm-sdk/getting-started' },
+              { text: 'Sending XCM', link: '/xcm-sdk/send-xcm' },
+              { text: 'XCM fee queries', link: '/xcm-sdk/xcm-utils' },
+              { text: 'Asset queries', link: '/xcm-sdk/asset-package' },
+              { text: 'XCM pallet queries', link: '/xcm-sdk/pallet-package' },
             ]
           },
           {
             text: ' <div style="display: flex; align-items: center;"><img width="90" alt="Lightspell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png"><span>XCM API</span></div>',
             items: [
-              { text: 'Getting started', link: '/api/g-started' },
-              { text: 'XCM SDK🪄', link: '/api/xcmP' },
-              { text: 'XCM Analyser🔎', link: '/api/xcmAnalyser' },
-              { text: 'Upgrade request amount', link: '/api/upgrade' },
-              { text: 'Deploy API yourself', link: '/api/deploy' },
+              { text: 'Getting started', link: '/xcm-api/getting-started' },
+              { text: 'XCM SDK🪄', link: '/xcm-api/xcm-sdk-functionality' },
+              { text: 'XCM Analyser🔎', link: '/xcm-api/xcm-analyser-functionality' },
+              { text: 'Upgrade request amount', link: '/xcm-api/upgrade-xcm-request-amount' },
+              { text: 'Deploy API yourself', link: '/xcm-api/deploy-api-yourself' },
             ]
           },
           {
             text: 'XCM analyser 🔎',
             items: [
-              { text: 'Getting started', link: '/analyser/getng-strtd' },
-              { text: 'Convert locations', link: '/analyser/analyser-use' },
+              { text: 'Getting started', link: '/xcm-analyser/getting-started' },
+              { text: 'Convert locations', link: '/xcm-analyser/how-to-use' },
             ]
           },
           {
             text: 'XCM visualizer 🖼️',
             items: [
-              { text: 'Getting started', link: '/visualizer/getting-start' },
-              { text: 'User guide', link: '/visualizer/user-guide' },
+              { text: 'Getting started', link: '/xcm-visualizer/getting-started' },
+              { text: 'User guide', link: '/xcm-visualizer/user-guide' },
             ]
           },
           {
             text: 'XCM playground 🛝',
             items: [
-              { text: 'Getting started', link: '/tools/playground' },
+              { text: 'Getting started', link: '/xcm-playground/getting-started' },
 
             ]
           },
           {
             text: 'Might interest you 🔭',
             items: [
-              { text: 'Interesting links', link: '/links' },
-              { text: 'List of supported chains', link: '/supported' },
-              { text: 'Bug bounty 💸', link: '/contribution' },
+              { text: 'Interesting links', link: '/interesting-links' },
+              { text: 'List of supported chains', link: '/supported-chains' },
+              { text: 'Bug bounty 💸', link: '/contribution-guidelines' },
             ]
           },
           {
