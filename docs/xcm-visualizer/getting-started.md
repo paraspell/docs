@@ -8,7 +8,7 @@ The XCM Visualizer is available at the following URL:
 https://xcm-visualizer.paraspell.xyz/
 
 Application usage instructions are available in the documentation:
-[User Guide](https://paraspell.github.io/docs/visualizer/user-guide.html)
+[User Guide](https://paraspell.github.io/docs/xcm-visualizer/user-guide.html)
 
 ## Developer startup guide
 

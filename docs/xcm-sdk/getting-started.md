@@ -45,7 +45,7 @@ XCM SDK supports three different Javascript client providers. It is advised to u
 ]" />
 
 ## Install swap extension
-If you plan to [do Swap XCMs](https://paraspell.github.io/docs/sdk/xcmPallet.html#swap) you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Now available in **ALL** versions of SDK.
+If you plan to [do Swap XCMs](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#swap) you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Now available in **ALL** versions of SDK.
 
 > [!IMPORTANT]
 > - ⚠️  **WebAssembly (Wasm) must be enabled in your project** because of the Hydration SDK (One of the exchanges implemented in XCM Router). Wasm can be enabled either through the web application configuration or through the appropriate plugin. 

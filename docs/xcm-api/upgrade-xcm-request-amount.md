@@ -36,7 +36,7 @@ If 100 requests per minute is not enough for your project you can request a limi
 
 ::: tip
 Before you proceed with the request note the following:
-- Freshly hashed and generated UserID associated with your captcha-generated API key will be stored in our database for simple monitoring (only request amount monitoring) to prevent malicious behaviour (You can find out the format of data we store in the [deploy section](https://paraspell.github.io/docs/api/deploy.html)).  
+- Freshly hashed and generated UserID associated with your captcha-generated API key will be stored in our database for simple monitoring (only request amount monitoring) to prevent malicious behaviour (You can find out the format of data we store in the [deploy section](https://paraspell.github.io/docs/xcm-api/deploy-api-yourself.html)).  
 - You will have to provide a few details (Your email address, the reason for the higher limit, the amount you wish to set as your limit and the token you received in captcha verification)
 - Once your request is reviewed you receive an email response which will tell you if your request was accepted or rejected (with reason). 
 - If you already have your token implemented in your project you do not need to change anything, a higher API request limit will automatically start working.
@@ -58,7 +58,7 @@ Confirmation about successful form submission:
 You should receive an email similar to this one:
 <img width="803" alt="Screenshot 2023-08-21 at 21 58 07" src="https://user-images.githubusercontent.com/55763425/262140612-7b6a0663-382a-4d87-b3aa-c7ee6decac7a.png">
 
-**Please verify** that confirmation email comes from address `info.lightspell@gmail.com`. **This only applies to the official deployed version**. If you plan on deploying your own XCM-API fork you can set a custom email address. More on this in the [Deploy API yourself](https://paraspell.github.io/docs/api/deploy.html) section.
+**Please verify** that confirmation email comes from address `info.lightspell@gmail.com`. **This only applies to the official deployed version**. If you plan on deploying your own XCM-API fork you can set a custom email address. More on this in the [Deploy API yourself](https://paraspell.github.io/docs/xcm-api/deploy-api-yourself.html) section.
 
 ## Implement into dApp/REST API
 

@@ -48,7 +48,7 @@ If you already have the SDK installed, you can directly import the functionality
 <AssetsImportBlock />
 
 ## Query asset paths
-Following query lets you query paths that should be supported for specific asset related to origin chain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+Following query lets you query paths that should be supported for specific asset related to origin chain. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 
 ```ts
 getSupportedDestinations(TChain, CURRENCY)
@@ -68,7 +68,7 @@ getSupportedDestinations(TChain, CURRENCY)
 ```
 
 ## Query assets supported between chains
-Following query lets you query assets supported between two selected Parachains. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+Following query lets you query assets supported between two selected Parachains. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getSupportedAssets(TChain, TChain)
 ```
@@ -396,7 +396,7 @@ getSupportedAssets(TChain, TChain)
 :::
 
 ## Query fee assets
-This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+This function returns `assets object` from `assets.json` for `particular Parachain` for assets that have `feeAsset` property. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getFeeAssets(TChain)
 ```
@@ -431,7 +431,7 @@ getFeeAssets(TChain)
 ```
 
 ## Convert id or symbol to location
-Get location for asset id or symbol. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+Get location for asset id or symbol. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getAssetLocation(TChain, { symbol: symbol } | { id: assetId })
 ```
@@ -448,7 +448,7 @@ getAssetLocation(TChain, { symbol: symbol } | { id: assetId })
 ```
 
 ## Query assets object
-This function returns `assets object` from `assets.json` for `particular Parachain` including information about `native` and `foreign` assets. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+This function returns `assets object` from `assets.json` for `particular Parachain` including information about `native` and `foreign` assets. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getAssetsObject(TChain)
 ```
@@ -550,7 +550,7 @@ getAssetsObject(TChain)
 ```
 
 ## Query Relay chain asset symbol
-This function returns the `symbol` of the Relay chain for a particular Parachain. Either `DOT` or `KSM` or `WND` or `PAS`. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+This function returns the `symbol` of the Relay chain for a particular Parachain. Either `DOT` or `KSM` or `WND` or `PAS`. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getRelayChainSymbol(TChain)
 ```
@@ -562,7 +562,7 @@ getRelayChainSymbol(TChain)
 ```
 
 ## Query native assets
-This function returns a string array of `native` assets symbols for a particular Parachain. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+This function returns a string array of `native` assets symbols for a particular Parachain. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getNativeAssets(TChain)
 ```
@@ -591,7 +591,7 @@ getNativeAssets(TChain)
 ```
 
 ## Query foreign assets
-This function returns an object array of foreign assets for a particular Parachain. Each object has a symbol and assetId property. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+This function returns an object array of foreign assets for a particular Parachain. Each object has a symbol and assetId property. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getOtherAssets(TChain)
 ```
@@ -672,7 +672,7 @@ getOtherAssets(TChain)
 :::
 
 ## Query all asset symbols
-Function returns string array of all asset symbols for a specific Parachain. (Native and foreign assets are merged into a single array). Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+Function returns string array of all asset symbols for a specific Parachain. (Native and foreign assets are merged into a single array). Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getAllAssetsSymbols(TChain)
 ```
@@ -708,7 +708,7 @@ getAllAssetsSymbols(TChain)
 ```
 
 ## Query asset support
-The function checks if Parachain supports a particular asset. Returns asset object or null. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+The function checks if Parachain supports a particular asset. Returns asset object or null. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 
 ```ts
 findAssetInfo(TChain, CURRENCY, DESTINATION?)
@@ -740,7 +740,7 @@ findAssetInfo(TChain, CURRENCY, DESTINATION?)
 
 
 ## Query asset support III
-The function checks if Parachain supports a particular asset. Returns asset object or error. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+The function checks if Parachain supports a particular asset. Returns asset object or error. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 
 ```ts
 findAssetInfoOrThrow(TChain, CURRENCY, DESTINATION?)
@@ -771,7 +771,7 @@ findAssetInfoOrThrow(TChain, CURRENCY, DESTINATION?)
 ```
 
 ## Query Parachain ID
-The function returns specific Parachain id. Function uses [TChain](https://paraspell.github.io/docs/sdk/AssetPallet.html#import-chains-as-types) types.
+The function returns specific Parachain id. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
 getParaId(TChain)
 ```
