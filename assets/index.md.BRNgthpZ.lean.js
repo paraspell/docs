@@ -1,1 +1,0 @@
-import{_ as r,o as a,c as t,ag as o}from"./chunks/framework.Vng7Hdlh.js";const g=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),n={name:"index.md"};function l(s,e,i,p,c,h){return a(),t("div",null,[...e[0]||(e[0]=[o("",22)])])}const u=r(n,[["render",l]]);export{g as __pageData,u as default};
