@@ -291,7 +291,7 @@ The Api gives the ability to perform Transact, which enables execution of calls 
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
   - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
   - `sender` (Inside JSON body): (required): Specifies the address of the sender.
-  - `transact` (Inside JSON body): (required): Specifies the transact which should execute on destination.
+  - `transactOptions` (Inside JSON body): (required): Specifies the transact which should execute on destination.
 
   :::
 
@@ -305,7 +305,7 @@ The Api gives the ability to perform Transact, which enables execution of calls 
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
   - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
   - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
-  - `400`  (Bad request exception) - Returned when body of 'transact' is not a valid
+  - `400`  (Bad request exception) - Returned when body of 'transactOptions' is not a valid
   - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
     
   :::
@@ -389,7 +389,7 @@ const response = await fetch('http://localhost:3001/v1/x-transfer', {
     currency: { currencySpec }, // Refer to currency spec options above
     recipient: 'Address', // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
     sender: 'SenderAddress' //Replace "SenderAddress" with sender wallet address (In AccountID32 or AccountKey20 Format)
-    transact: {
+    transactOptions: {
       hex: Destination call hex //Function that should execute on destination
     /*originKind: "SovereignAccount" || "XCM" || "Native" || "SuperUser" - Optional, "SovereignAccount" by default
       maxWeight: { proofSize: string, refTime: string } - Optional, autofilled by default (Utilized in V3 and V4 as maxFallbackWeight parameter) */
