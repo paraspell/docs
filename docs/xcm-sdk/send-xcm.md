@@ -1482,35 +1482,77 @@ const builder = await Builder({
 
 #### Ethereum -> Polkadot transfer
 
-Currently only available in PJS version of XCM SDK (Until Snowbridge migrates to PAPI and VIEM).
+Available as a [Snowbridge extension](https://paraspell.github.io/docs/xcm-sdk/getting-started.html#install-snowbridge-extension) in all XCM SDK versions. **Uses VIEM package.**
 
 ```ts
-const provider = new ethers.BrowserProvider(window.ethereum);
-const signer = await provider.getSigner();
+  import { Builder } from '@paraspell/sdk'
+  import '@paraspell/evm-snowbridge'
 
-await EvmBuilder(provider)   // Ethereum provider
-  .from('Ethereum')   
-  .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types
-  .currency({symbol: 'WETH', amount: amount /*Use "ALL" to transfer everything*/})    // Any supported asset by bridge eg. WETH, WBTC, SHIB and more - {symbol: currencySymbol} | {id: currencyID}
-  .recipient(address)   // AccountID32 recipient address
-  //.ahAddress(ahAddress) - ahAddress is optional and used in Ethereum>EVM Substrate chain (eg. Moonbeam) transfer.
-  .signer(signer)     // Ethereum signer address
-  .build();
+  import { createWalletClient, custom, parseUnits } from 'viem'
+  import { mainnet } from 'viem/chains'
+
+  const walletClient = createWalletClient({
+    chain: mainnet,
+    transport: custom(window.ethereum),
+  })
+
+  const txHash = await Builder()
+    .from('Ethereum')
+    .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types
+    .currency(CURRENCY_SPEC)  // Refer to currency spec options below
+    .recipient(address)   // AccountID32 recipient address
+    .sender(walletClient) //EVM Signer
+    .signAndSubmit()
 ```
 
 
 ::: tip
 **Helper functions:**
 ```js
-await depositToken(signer: Signer, amount: bigint, symbol: string); // Deposit token to contract
+//Needs to be imported from @paraspell/evm-snowbridge
 await getTokenBalance(signer: Signer, symbol: string); // Get token balance
 await approveToken(signer: Signer, amount: bigint, symbol: string); // Approve token
+```
+:::
+
+**Initial setup:**
+
+::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
 ```
 
 #### Snowbridge status check
 Query for Snowbridge status 
 
 ```ts
+//Needs to be imported from @paraspell/evm-snowbridge
 const status = await getBridgeStatus(/*optional parameter Bridge Hub API*/)
 ```
 
@@ -1575,17 +1617,63 @@ Asset selection by asset Symbol:
 :::
 
 ## Moonbeam xTokens smart-contract
-If you need to sign Moonbeam or Moonriver transactions using wallets other than Polkadot-native wallets (for example, MetaMask), you can interact directly with their smart contracts to perform the required operations. Both `ethers.js` and `viem` libraries are supported for this purpose.
+Available as a [EVM extension](https://paraspell.github.io/docs/xcm-sdk/getting-started.html#install-evm-extension) in all XCM SDK versions. **Uses VIEM package.**
 
 ```ts
-const hash = await EvmBuilder()
-      .from('Moonbeam') // 'Moonbeam' | 'Polkadot' |  'Moonriver'
-      .to(TChain) // 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types
-      .currency({id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} | {symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/}) //Select currency by ID or Symbol
+
+  import { Builder } from '@paraspell/sdk'
+  import '@paraspell/evm'
+
+  import { createWalletClient, custom, parseUnits } from 'viem'
+  import { moonbeam } from 'viem/chains'
+
+  const walletClient = createWalletClient({
+    chain: moonbeam,
+    transport: custom(window.ethereum),
+  })
+
+  const txHash = await Builder()
+    .from('Moonbeam') // 'Moonriver'
+    .to(TChain) // 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types
+    .currency(CURRENCY_SPEC)  // Refer to currency spec options below
       .recipient(address)
-      .signer(signer) // Ethers Signer or Viem Wallet Client
-      .build()
+      .sender(signer) // Viem Wallet Client
+    .signAndSubmit()
 ```
+
+**Initial setup:**
+
+::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
+{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} // Advanced override of asset registry
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
+```
+:::
 
 ## Localhost testing setup
 

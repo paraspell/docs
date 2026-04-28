@@ -45,7 +45,7 @@ XCM SDK supports three different Javascript client providers. It is advised to u
 ]" />
 
 ## Install swap extension
-If you plan to [do Swap XCMs](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#swap) you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Now available in **ALL** versions of SDK.
+If you plan to [do Swap XCMs](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#swap) you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Available in **ALL** versions of SDK.
 
 > [!IMPORTANT]
 > - ⚠️  **WebAssembly (Wasm) must be enabled in your project** because of the Hydration SDK (One of the exchanges implemented in XCM Router). Wasm can be enabled either through the web application configuration or through the appropriate plugin. 
@@ -61,6 +61,42 @@ Add the `@paraspell/swap` import to your application's root component (Usually `
 ```ts
 // Import swap extension here
 import '@paraspell/swap';
+
+export default function App() {
+  return {/* Your app here */};
+}
+```
+
+## Install EVM extension
+If you plan to [do EVM contract transfers](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#moonbeam-xtokens-smart-contract) you can install EVM package which allows you to interact with EVM contract based XCMs on Moonbeam, Moonriver and Darwinia. Available in **ALL** versions of SDK.
+
+<InstallCommand pkg="@paraspell/evm" />
+
+### Setup EVM extension
+
+Add the `@paraspell/evm` import to your application's root component (Usually `App.tsx`). This ensures the extension is registered before using Builder.
+
+```ts
+// Import EVM extension here
+import '@paraspell/evm';
+
+export default function App() {
+  return {/* Your app here */};
+}
+```
+
+## Install Snowbridge extension
+If you plan to [do Snowbridge transfers from Ethereum](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#ethereum-polkadot-transfer) you can install Snowbridge package which allows you to input "Ethereum" as from chain parameter. Available in **ALL** versions of SDK.
+
+<InstallCommand pkg="@paraspell/evm-snowbridge" />
+
+### Setup Snowbridge extension
+
+Add the `@paraspell/evm-snowbridge` import to your application's root component (Usually `App.tsx`). This ensures the extension is registered before using Builder.
+
+```ts
+// Import Snowbridge extension here
+import '@paraspell/evm-snowbridge';
 
 export default function App() {
   return {/* Your app here */};
