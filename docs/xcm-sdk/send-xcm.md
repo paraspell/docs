@@ -1634,7 +1634,7 @@ Available as a [EVM extension](https://paraspell.github.io/docs/xcm-sdk/getting-
 
   const txHash = await Builder()
     .from('Moonbeam') // 'Moonriver'
-    .to(TChain) // 'Polkadot' | 'AssetHubPolkadot' | 'Hydration' | 'Moonbeam' | 'Polkadot' |  ... https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types
+    .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Polkadot' |  ... https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types
     .currency(CURRENCY_SPEC)  // Refer to currency spec options below
       .recipient(address)
       .sender(signer) // Viem Wallet Client
