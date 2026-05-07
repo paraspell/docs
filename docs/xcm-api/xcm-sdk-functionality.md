@@ -2274,6 +2274,73 @@ Following functionality allows you to convert any SS58 address to Chain specific
 const response = await fetch('http://localhost:3001/v1/convert-ss58?address=:address&chain=:chain');
 ```
 
+## Swap helper queries
+Following set of queries are helpers for swap functionality.
+
+### Exchange chains list
+Following query lists all supported exchange chains
+
+ **Endpoint**: `GET /v1/swap/exchange-chains`
+
+   ::: details Errors
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  :::
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v1/swap/exchange-chains');
+```
+
+### Supported assets for currency from
+Following endpoint allows you to query supported assets for currency from when doing swap.
+
+ **Endpoint**: `GET /v1/swap/supported-assets-from?from=:chain&exchange=:exchange`
+
+  ::: details Parameters
+  - `from` (query parameter): Optional - origin chain.
+  - `exchange` (query parameter): Optional - exchange chain (array of them or standalone).
+
+  :::
+
+  ::: details Errors
+
+  - `400` (Bad request): When a specified from does not exist.
+  - `400` (Bad request): When a specified exchange is not provided.
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  :::
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v1/swap/supported-assets-from?from=:chain&exchange=:exchange');
+```
+
+
+### Supported assets for currency to
+Following endpoint allows you to query supported assets to currency from when doing swap.
+
+ **Endpoint**: `GET /v1/swap/supported-assets-from?exchange=:exchange&to=:chain`
+
+  ::: details Parameters
+  - `to` (query parameter): Optional - destination chain.
+  - `exchange` (query parameter): Optional - exchange chain (array of them or standalone).
+
+  :::
+
+  ::: details Errors
+
+  - `400` (Bad request): When a specified to does not exist.
+  - `400` (Bad request): When a specified exchange is not provided.
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  :::
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v1/swap/supported-assets-from?exchange=:exchange&to=:chain');
+```
+
 ## Asset queries
 This functionality allows you to perform various asset queries with compatible Chains.
 
