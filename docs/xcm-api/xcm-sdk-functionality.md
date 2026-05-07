@@ -569,7 +569,7 @@ const response = await fetch('http://localhost:3001/v1/x-transfers', {
 });
 ```
 
-### Sending EVM XCM
+## Sending EVM XCM
 The following endpoint enables the creation of a variety of `EVM>Substrate` (for example Ethereum > AssetHubPolkadot or Moonbeam > Hydration (through xTokens smart contract)) cross-chain transfers.
 
 **Endpoint**: `POST /v1/evm-x-transfer`
