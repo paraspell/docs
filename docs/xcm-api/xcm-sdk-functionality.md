@@ -51,6 +51,7 @@ The following endpoint enables the creation of a variety of `Substrate-to-Substr
   - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
   - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
   - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender.
   - `xcmVersion` (Inside JSON body): (optional): Specifies manually selected XCM version if pre-selected does not work. Format: Vx - where x = version number eg. V4.
 
  :::
@@ -566,6 +567,159 @@ const response = await fetch('http://localhost:3001/v1/x-transfers', {
     },
   }),
 });
+```
+
+### Sending EVM XCM
+The following endpoint enables the creation of a variety of `EVM>Substrate` (for example Ethereum > AssetHubPolkadot or Moonbeam > Hydration (through xTokens smart contract)) cross-chain transfers.
+
+**Endpoint**: `POST /v1/evm-x-transfer`
+
+  ::: details Parameters
+
+  - `from` (Inside JSON body): (required): Represents the Chain from which the assets will be transferred.
+  - `to` (Inside JSON body): (required): Represents the Chain to which the assets will be transferred.
+  - `currency` (Inside JSON body): (required): Represents the asset being sent. It should be a string value.
+  - `sender` (Inside JSON body): (required): Specifies the address of the sender.
+  - `recipient` (Inside JSON body): (required): Specifies the address of the recipient.
+ :::
+
+  ::: details Errors
+
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not provided
+  - `400`  (Bad request exception) - Returned when query parameters 'from' or 'to' are not a valid Chains
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'currency' is not a valid currency
+  - `400`  (Bad request exception) - Returned when entered chains 'from' and 'to' are not compatible for the transaction
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is expected but not provided
+  - `400`  (Bad request exception) - Returned when query parameter 'amount' is not a valid amount
+  - `400`  (Bad request exception) - Returned when query parameter 'recipient' is not a valid address
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+    
+  :::
+
+
+  ::: details Currency spec options
+  
+**Following options are possible for currency specification:**
+
+Asset selection by Location:
+```ts
+{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} //Recommended
+{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} //Recommended 
+```
+
+Asset selection by asset ID:
+```ts
+{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
+```
+
+Asset selection by asset Symbol:
+```ts
+// For basic symbol selection
+{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
+{symbol: {type: Native, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/}
+
+// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
+{symbol: {type: Foreign, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+
+// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
+{symbol: {type: ForeignAbstract, value: 'currencySymbol'}, amount: amount /*Use "ALL" to transfer everything*/} 
+```
+  :::
+
+  ::: details Advanced API settings
+
+You can customize following API settings, to further tailor your experience with API. You can do this by adding options parameter into request body.
+
+```ts
+options: ({
+  abstractDecimals: true, // TURNED ON BY DEFAULT Abstracts decimals from amount - so 1 in amount for DOT equals 10_000_000_000 
+  xcmFormatCheck: true, // Dryruns each call under the hood with dryrun bypass to confirm message passes with fictional balance
+  apiOverrides: {    //ONLY TO OVERRIDE SUBSTRATE CHAINS - Does not work on Ethereum
+    Hydration: // ws_url | [ws_url, ws_url,..]
+    AssetHubPolkadot: // ws_url | [ws_url, ws_url,..]
+    BridgeHubPolkadot: // ws_url | [ws_url, ws_url,..]
+  },
+})
+```
+
+:::
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v1/evm-x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        from: "TChain", // Replace "TChain" with sender EVM Chain, for example, "Ethereum" or "Moonbeam"
+        to: "TChain",   // Replace "TChain" with destination Chain, for example, "Hydration" or custom Location
+        currency: {currency spec} //Refer to currency spec options above
+        recipient: "Address" // Replace "Address" with destination wallet address (In AccountID32 or AccountKey20 Format) or custom Location
+        sender: "sender" // Sender address
+    })
+});
+```
+
+**Example implementation:**
+```ts
+ import {
+    createWalletClient,
+    custom,
+    parseTransaction,
+    type Hex,
+    type WalletClient,
+  } from 'viem';
+  import { mainnet, moonbeam } from 'viem/chains';
+
+  const walletClient: WalletClient = createWalletClient({
+    chain: moonbeam, 
+    transport: custom(window.ethereum),
+  });
+  const [account] = await walletClient.requestAddresses();
+
+  const res = await fetch('https://localhost:3001/v1/evm-x-transfer', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: 'Moonbeam',
+      to: 'AssetHubPolkadot',
+      sender: account,
+      recipient: '5FNDaod3wYTvg48s73H1zSB3gVoKNg2okr6UsbyTuLutTXFz',
+      currency: { symbol: 'xcUSDT', amount: '1000000' },
+    }),
+  });
+  const hex = (await res.json()) as Hex;
+
+  const parsed = parseTransaction(hex);
+
+  //  Estimate gas + fees + nonce in parallel
+  const [gas, fees, nonce] = await Promise.all([
+    publicClient.estimateGas({
+      account,
+      to: parsed.to ?? undefined,
+      data: parsed.data,
+      value: parsed.value,
+    }),
+    publicClient.estimateFeesPerGas(),
+    publicClient.getTransactionCount({ address: account, blockTag: 'pending' }),
+  ]);
+
+  // Send with the explicit values
+  const txHash = await walletClient.sendTransaction({
+    account,
+    chain,
+    to: parsed.to ?? undefined,
+    data: parsed.data,
+    value: parsed.value,
+    gas,
+    maxFeePerGas: fees.maxFeePerGas,
+    maxPriorityFeePerGas: fees.maxPriorityFeePerGas,
+    nonce,
+  });
 ```
 
 ## Dry run
