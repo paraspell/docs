@@ -1202,6 +1202,110 @@ const response = await fetch("http://localhost:3001/v1/x-transfer-batch", {
 }*/
 ```
 
+## Adding chain and/or assets
+API features ability to add custom chain and/or custom assets simply by adding its config to the request.
+
+**Endpoint**: `Any that can leverage this feature` (From transfers, dry-run to xcm-fee queries)
+
+  ::: details Parameters
+
+  - Inherited from concrete endpoint
+
+  :::
+
+  ::: details Errors
+
+  - Inherited from concrete endpoint
+    
+  :::  
+
+**Example of request:**
+```ts
+const response = await fetch("http://localhost:3001/v1/x-transfer", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+    
+    // Custom chains can be fitted into both from and to parameters
+    "from": "MyChain", 
+    "to": "AssetHubPolkadot",
+    "address": "address",
+    "currency": { "symbol": "USDC", "amount": "1000000" },
+    "options": {
+
+      // Adding custom chain
+      "customChains": {
+        "MyChain": {
+          "paraId": 4242,
+          "ecosystem": "Polkadot",
+          "xcmVersion": "V5",
+          "providers": [
+            { "name": "Primary", "endpoint": "wss://rpc.mychain.example/ws" }
+          ],
+          // Everything below is optional — auto-fetched from runtime `system.properties` when omitted
+          "nativeAssetSymbol": "MYC",
+          "nativeAssetDecimals": 12,
+          "ss58Prefix": 42,
+          “pallets”: {
+              nativeAssets: “Balances”,
+              otherAssets: “Assets,
+          },
+          "assets": [
+            {
+              "symbol": "USDC",
+              "decimals": 6,
+              "assetId": "1337",
+              "location": {
+                "parents": 1,
+                "interior": {
+                  "X3": [
+                    { "Parachain": 1000 },
+                    { "PalletInstance": 50 },
+                    { "GeneralIndex": 1337 }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+
+      // Adding assets to existing chains
+      "customAssets": {
+        "AssetHubPolkadot": [
+          {
+            "symbol": "MYNEWUSD",
+            "decimals": 6,
+            "assetId": "9999",
+            "location": {
+              "parents": 0,
+              "interior": {
+                "X2": [{ "PalletInstance": 50 }, { "GeneralIndex": 9999 }]
+              }
+            }
+          },
+          // Replace an existing registry asset that shares the same location
+          {
+            "symbol": "USDT",
+            "decimals": 6,
+            "assetId": "1984",
+            "location": {
+              "parents": 0,
+              "interior": {
+                "X2": [{ "PalletInstance": 50 }, { "GeneralIndex": 1984 }]
+              }
+            },
+            "forceOverride": true
+          }
+        ]
+      }
+    }
+  })
+});
+```
+
 ## Localhost testing setup
 
 API offers enhanced localhost support. You can pass an object called options containing overrides for all WS endpoints (Including hops) used in the test transfer. This allows for advanced localhost testing such as localhost dry-run or xcm-fee queries.
