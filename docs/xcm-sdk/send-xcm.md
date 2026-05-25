@@ -1692,8 +1692,8 @@ SDK features ability to add custom chain and/or custom assets simply by adding i
         nativeAssetDecimals: 12,
         ss58Prefix: 42,
         pallets: {
-            nativeAssets: “Balances”,
-            otherAssets: “Assets,
+            nativeAssets: "Balances”,
+            otherAssets: "Assets",
         }
         assets: [
           {
