@@ -1248,9 +1248,9 @@ const response = await fetch("http://localhost:3001/v1/x-transfer", {
           "nativeAssetSymbol": "MYC",
           "nativeAssetDecimals": 12,
           "ss58Prefix": 42,
-          “pallets”: {
-              nativeAssets: “Balances”,
-              otherAssets: “Assets,
+          "pallets”: {
+              "nativeAssets": "Balances”,
+              "otherAssets": "Assets",
           },
           "assets": [
             {
