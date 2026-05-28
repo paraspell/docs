@@ -44,7 +44,7 @@ XCM SDK supports three different Javascript client providers. It is advised to u
   '@polkadot/keyring',
 ]" />
 
-## Install swap extension
+## Install Swap extension
 If you plan to [do Swap XCMs](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#swap) you can install Swap package which allows you to do cross-chain swaps on popular Polkadot, Kusama, Paseo, Westend exchanges. Available in **ALL** versions of SDK.
 
 > [!IMPORTANT]
