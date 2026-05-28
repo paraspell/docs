@@ -1,0 +1,1 @@
+import{c as r,Q as t,j as a,m as o}from"./chunks/framework.DVkeSyfh.js";const g=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),n={name:"index.md"};function l(s,e,i,p,c,h){return t(),a("div",null,[...e[0]||(e[0]=[o("",22)])])}const u=r(n,[["render",l]]);export{g as __pageData,u as default};
