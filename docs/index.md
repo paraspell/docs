@@ -65,8 +65,10 @@ We take great pride in our achievements, which reflect our commitment to enhanci
 - 📕 [IEEE Enhancing XCMP Interoperability Across Polkadot Paraverse](https://ieeexplore.ieee.org/document/10174872)
 - 📘 [ParaSpell XCM SDK: A New Protocol for Interoperability in Polkadot Paraverse](https://ieeexplore.ieee.org/document/10338906)
 - 📗 [Cross-Chain Payments on Blockchain Networks: An Apartment Booking Use-Case](https://dl.acm.org/doi/10.1145/3605098.3636137)
-- 📝 [Protocol for unifying cross-chain liquidity on Polkadot](https://www.frontiersin.org/journals/blockchain/articles/10.3389/fbloc.2024.1413840/full)
-- 📑 [Unispell: universal adapter for interoperability in Polkadot Paraverse](https://link.springer.com/article/10.1007/s10586-025-05183-6)
+- 📓 [Protocol for unifying cross-chain liquidity on Polkadot](https://www.frontiersin.org/journals/blockchain/articles/10.3389/fbloc.2024.1413840/full)
+- 📑 [Decentralized Bridge Between Polkadot and Cosmos](https://dl.acm.org/doi/10.1145/3672608.3708011)
+- 📝 [Unispell: universal adapter for interoperability in Polkadot Paraverse](https://link.springer.com/article/10.1007/s10586-025-05183-6)
+- 📋 [Understanding Cross-Chain Message Passing Delays in Polkadot: An Experimental Perspective](https://ieeexplore.ieee.org/abstract/document/11229575)
 
 ### Maintenance and development funding
 
