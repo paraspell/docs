@@ -3393,6 +3393,22 @@ The following endpoint returns whether selected Chain has DryRun support
 const response = await fetch('http://localhost:3001/v1/chains/:chain/has-dry-run-support');
 ```
 
+### Get EVM compatible chains
+Returns a JSON array of true EVM compatible chains (Chains that support only substrate EVM are not included. For example 'Crab'). Useful for `evm-x-transfer` endpoint.
+
+**Endpoint**: `GET /v1/chains/evm`
+
+  ::: details Errors
+
+  - `500`  (Internal server error) - Returned when an unknown error has occurred. In this case please open an issue.
+
+  :::
+
+**Example of request:**
+```ts
+const response = await fetch('http://localhost:3001/v1/chains/evm');
+```
+
 ### Print local pallets for native assets
 Following endpoint returns all pallets for local transfers of native assets for specific chain.
 
