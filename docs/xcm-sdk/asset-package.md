@@ -549,6 +549,8 @@ getAssetsObject(TChain)
 }
 ```
 
+:::
+
 ## Query Relay chain asset symbol
 This function returns the `symbol` of the Relay chain for a particular Parachain. Either `DOT` or `KSM` or `WND` or `PAS`. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 ```ts
@@ -739,8 +741,8 @@ findAssetInfo(TChain, CURRENCY, DESTINATION?)
 ```
 
 
-## Query asset support III
-The function checks if Parachain supports a particular asset. Returns asset object or error. `Destination` parameter is optional and should be set to Ethereum when using snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
+## Query asset support II
+The function checks if Parachain supports a particular asset. Returns asset object or error. `Destination` parameter is optional and should be set to Ethereum when using Snowbridge assets. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 
 ```ts
 findAssetInfoOrThrow(TChain, CURRENCY, DESTINATION?)
