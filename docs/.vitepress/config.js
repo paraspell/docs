@@ -75,6 +75,7 @@ export default {
           {
             text: 'Migration guides ⬆',
             items: [
+              { text: 'From v13 to v14', link: '/migration/v13-to-v14' },
               { text: 'From v12 to v13', link: '/migration/v12-to-v13' },
               { text: 'From v11 to v12', link: '/migration/v11-to-v12' },
               { text: 'From v10 to v11', link: '/migration/v10-to-v11' },
