@@ -3,7 +3,7 @@
 Following section covers implementation of XCM Analyser in XCM API. Users can analyse either independent locations or entire XCM Calls.
 
 ## Analyse Location
-**Endpoint**: `POST /v1/xcm-analyser`
+**Endpoint**: `POST /v2/xcm-analyser`
 
 ::: details Parameters
 
@@ -20,7 +20,7 @@ Following section covers implementation of XCM Analyser in XCM API. Users can an
 :::
   
 ```ts
-const response = await fetch("http://localhost:3001/v1/xcm-analyser", {
+const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const response = await fetch("http://localhost:3001/v1/xcm-analyser", {
 });
 ```
 ## Analyse XCM call
-**Endpoint**: `POST /v1/xcm-analyser`
+**Endpoint**: `POST /v2/xcm-analyser`
 
 ::: details Parameters
 
@@ -48,7 +48,7 @@ const response = await fetch("http://localhost:3001/v1/xcm-analyser", {
 :::
 
 ```ts
-const response = await fetch("http://localhost:3001/v1/xcm-analyser", {
+const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
