@@ -78,7 +78,7 @@ Recently, XCM API introduced the Sentry error tracking service implementation. T
 Open your REST API client, client we use is [Insomnia](https://insomnia.rest/).
 
 Paste in the following details and input the following link to test out Sentry:
-`https://api.paraspell.xyz/v2/sentry-test`
+`http://localhost:3001/v2/sentry-test`
 
 XCM API has integrated this test for you so you can test out error 500 in localhost mode.
 Once you paste the link into the browser, Sentry should notify you about a new error 500. It should look like this in your project:
