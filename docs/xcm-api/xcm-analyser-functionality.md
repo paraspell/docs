@@ -20,7 +20,7 @@ Following section covers implementation of XCM Analyser in XCM API. Users can an
 :::
   
 ```ts
-const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
+const response = await fetch("https://api.paraspell.xyz/v2/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
 :::
 
 ```ts
-const response = await fetch("http://localhost:3001/v2/xcm-analyser", {
+const response = await fetch("https://api.paraspell.xyz/v2/xcm-analyser", {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
