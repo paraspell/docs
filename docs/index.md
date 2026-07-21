@@ -85,6 +85,8 @@ We take great pride in our achievements, which reflect our commitment to enhanci
 
 - 🫀 Maintenance funded by Polkadot from August 2025 to July 2026 [Referenda link](https://polkadot.subsquare.io/referenda/1641), [August report](https://docs.google.com/document/d/11W3keTVFBCdyoE12eyB1I1yCPONHBGmCdjTvfPszr-Y/edit?usp=sharing), [September report](https://docs.google.com/document/d/1FLusxQYk2oT5o-YpocGnExO2c1pw1bY4u0faITrMnAM/edit?usp=sharing), [October report](https://docs.google.com/document/d/1Chhl1KNJqsnc-0At7Lg7tG2XPsO2SaA5UVYsFeYuPLs/edit?usp=sharing), [November report](https://docs.google.com/document/d/1jLnSJO5tYWgI5ud02kUYx6Trr-l-COXEJHqaPY9joJw/edit?usp=sharing), [December report](https://docs.google.com/document/d/1jFvBVHdQ50whvFU_Nm6nf94AZ7RfHI_DzlhHUPHt8gA/edit?usp=sharing), [January report](https://docs.google.com/document/d/1Ga6utP2r2eaNgTEutUVDnQyvNWr_L6P5Q6cf194aCPk/edit?usp=sharing), [February report](https://docs.google.com/document/d/1ScfhL6SUIitIWwSS7PXODlxrloqwRyiye4uyPmgO_9o/edit?usp=sharing), [March report](https://docs.google.com/document/d/1AujeX0eBbvk45Y8IFGyg4GZ83Vmk3yGTeMISGMvwNfk/edit?usp=sharing), [April report](https://docs.google.com/document/d/1Ge8Ysuwj_sXH8M8IbNDF9wRQuT4x9O0dl1dAQHHH4wE/edit?usp=sharing), [May report](https://docs.google.com/document/d/1k9hbqmT9Y2Y0jS9FXOxzUMj90DI8v0cUxUolTZtNwhM/edit?usp=sharing), [June report](https://docs.google.com/document/d/1isVkXaWMVKVJAU1Z5F9QLWMv0JWrZLCai6ffUag4QYs/edit?usp=sharing)
 
+- 🔬 Maintenance funded by Polkadot from August 2026 to July 2027 [Referenda link](https://polkadot.subsquare.io/referenda/1916)
+
 <div>
   <h3 align="center">Project is supported by</h3>
 
