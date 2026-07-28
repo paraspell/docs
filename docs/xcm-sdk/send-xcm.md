@@ -1616,65 +1616,6 @@ Asset selection by asset Symbol:
 
 :::
 
-## Moonbeam x-smart-contract
-Available as a [EVM extension](https://paraspell.github.io/docs/xcm-sdk/getting-started.html#install-evm-extension) in all XCM SDK versions. **Uses VIEM package.**
-
-```ts
-
-  import { Builder } from '@paraspell/sdk'
-  import '@paraspell/evm'
-
-  import { createWalletClient, custom, parseUnits } from 'viem'
-  import { moonbeam } from 'viem/chains'
-
-  const walletClient = createWalletClient({
-    chain: moonbeam,
-    transport: custom(window.ethereum),
-  })
-
-  const txHash = await Builder()
-    .from('Moonbeam') // 'Moonriver'
-    .to(TChain) // 'AssetHubPolkadot' | 'Hydration' | 'Polkadot' |  ... https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types
-    .currency(CURRENCY_SPEC)  // Refer to currency spec options below
-      .recipient(address)
-      .sender(signer) // Viem Wallet Client
-    .signAndSubmit()
-```
-
-**Initial setup:**
-
-::: details Currency spec options
-  
-**Following options are possible for currency specification:**
-
-Asset selection by Location:
-```ts
-{location: AssetLocationString, amount: amount /*Use "ALL" to transfer everything*/} // Recommended
-{location: AssetLocationJson, amount: amount /*Use "ALL" to transfer everything*/} // Recommended 
-{location: Override('Custom Location'), amount: amount /*Use "ALL" to transfer everything*/} // Advanced override of asset registry
-```
-
-Asset selection by asset ID:
-```ts
-{id: currencyID, amount: amount /*Use "ALL" to transfer everything*/} // Not all chains register assets under IDs
-```
-
-Asset selection by asset Symbol:
-```ts
-// For basic symbol selection
-{symbol: currencySymbol, amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains native assets
-{symbol: Native('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/}
-
-// Used when multiple assets under same symbol are registered, this selection will prefer chains foreign assets
-{symbol: Foreign('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-
-// Used when multiple foreign assets under same symbol are registered, this selection will prefer selected abstract asset (They are given as option when error is displayed)
-{symbol: ForeignAbstract('currencySymbol'), amount: amount /*Use "ALL" to transfer everything*/} 
-```
-:::
-
 ## Adding chain and/or assets
 SDK features ability to add custom chain and/or custom assets simply by adding its config to the Builder.
 
