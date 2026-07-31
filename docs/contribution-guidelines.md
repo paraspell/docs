@@ -1,6 +1,6 @@
 # 🛠️ Contributing to `xcm-tools`
 
-# ⚠️ BUG BOUNTY IS CURRENTLY BEING RESTRUCTURALIZED TO PREVENT AI AGENTS FROM OPENING MULTIPLE ISSUES AND PRS.
+# ⚠️ BUG BOUNTY IS CURRENTLY BEING RESTRUCTURALIZED TO PREVENT AI AGENTS FROM OPENING MULTIPLE ISSUES AND PRS. CONSIDER BUG BOUNTY INACTIVE AT THE MOMENT. WE WILL DO OUR BEST TO BRING IT BACK ASAP!
 
 Thank you for your interest in contributing to `xcm-tools`!  
 We run an open Bug Bounty Program that rewards contributors for reporting and fixing bugs in the project.
