@@ -1,5 +1,7 @@
 # 🛠️ Contributing to `xcm-tools`
 
+# ⚠️ BUG BOUNTY IS CURRENTLY BEING RESTRUCTURALIZED TO PREVENT AI AGENTS FROM OPENING MULTIPLE ISSUES AND PRS.
+
 Thank you for your interest in contributing to `xcm-tools`!  
 We run an open Bug Bounty Program that rewards contributors for reporting and fixing bugs in the project.
 
@@ -16,8 +18,6 @@ You can contribute in two ways:
 - [SWAP](https://github.com/paraspell/xcm-tools/tree/main/packages/swap)
 - [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
 - [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
-- [XCM Visualizer FE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-fe)
-- [XCM Visualizer BE](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-be)
 - [XCM Playground](https://github.com/paraspell/xcm-tools/tree/main/apps/playground)
 
 ## 🔍 Bug Reporting
