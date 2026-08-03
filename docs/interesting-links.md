@@ -14,10 +14,6 @@ The XCM API serves as an enhancement for `XCM` and `Asset pallet`, designed to s
 [Analyser link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) |  
 A tool designed to convert XCM locations into a human-readable format.
 
-### XCM-Visualizer 🖼️
-[Visualizer link](https://github.com/paraspell/xcm-tools/tree/main/apps/visualizer-fe) |  
-A visualization tool for exploring XCM within the Polkadot ecosystem. It allows users to browse history, explore selected Parachains, filter accounts most engaged in XCM, and more, all within an exciting 3D universe-like visualization.
-
 ### XCM-Playground 🛝
 [Playground link](https://github.com/paraspell/xcm-tools/tree/main/apps/playground) |  
 A sandbox environment that allows users to test all ParaSpell applications and packages, including the XCM SDK, XCM API, XCM Router, and XCM Analyser.
