@@ -1,0 +1,39 @@
+# List of interesting ParaSpell✨ repositories
+
+## Packages and applications 🧰
+
+### XCM SDK 🪄
+[SDK link](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) |  
+The SDK unifies various pallets, including `XCM`, `Transact`, `Swap` and `Asset pallet`, in a cohesive manner. It supports all XCM-compatible Parachains within the Kusama and the Polkadot ecosystems and is designed for ease of implementation, abstracting much of the complex logic and requiring only a few simple, user-friendly inputs.
+
+### XCM API ⚡️
+[API link](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api) |  
+The XCM API serves as an enhancement for `XCM` and `Asset pallet`, designed to simplify the development process. By also integrating the `XCM SDK` and its swap capabilities, it enables dApp developers to incorporate XCM interoperability without the need to install additional packages, thereby saving both time and costs by offloading heavy computing tasks (such as call generation) from the application.
+
+### ParaSpell CLI ⌨️
+[CLI link](https://github.com/paraspell/cli) |  
+A wizard-driven CLI that scaffolds ready-to-run `XCM SDK` and `XCM API` starter apps, so you can go from zero to a working cross-chain dApp in minutes.
+
+### XCM Analyser 🔎
+[Analyser link](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser) |  
+A tool designed to convert XCM locations into a human-readable format.
+
+### XCM Playground 🛝
+[Playground link](https://github.com/paraspell/xcm-tools/tree/main/apps/playground) |  
+A sandbox environment that allows users to test all ParaSpell applications and packages, including the XCM SDK, XCM API, XCM Router, and XCM Analyser.
+
+### ParaSpell XCM Tools Landing page 🛬
+[ParaSpell page link](https://github.com/paraspell/xcm-tools/tree/main/apps/site) |
+
+A professional landing page for the XCM Tools, providing a clear overview of the capabilities that can be achieved through the XCM Tools.
+
+## Other repositories 🛠️
+
+### Presskit 🤵‍♂️
+[Presskit link](https://github.com/paraspell/presskit) |
+
+The Presskit contains ParaSpell logos for media and press use.
+
+### Docs 📖
+[Docs link](https://github.com/paraspell/docs) |  
+The documentation provides guidance on how to use the XCM Tool stack. It also includes useful links and important information about ParaSpell.

@@ -1,0 +1,13 @@
+/* Default = light mode */
+.supporter-logos .dark {
+  display: none;
+}
+
+/* Dark mode */
+.dark .supporter-logos .light {
+  display: none;
+}
+
+.dark .supporter-logos .dark {
+  display: inline-block;
+}

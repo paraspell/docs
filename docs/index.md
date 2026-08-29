@@ -1,0 +1,105 @@
+<h1 align="center">
+Welcome XCM Magicians 👋
+</h1>
+
+<h3 align="center">
+let us introduce you to 
+</h3>
+
+<p align="center">
+<img width="400" alt="ParaSpell logo" src="https://user-images.githubusercontent.com/55763425/251588903-bcf72b05-bdf7-46d8-b804-16b0e3236792.png">
+</p>
+
+<h3 align="center">
+Set of XCM tools for Polkadot, Kusama, Westend & Paseo Paraverses
+</h3>
+
+## 🧰 Our Development Focus
+<ul style="list-style-type: none; padding: 0;">
+  <li>
+    <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk">XCM SDK</a> 🪄:  A tool designed to unify the cross-chain experience on Polkadot and serve as a layer 2 protocol that enables seamless integration of XCM into your decentralized applications, having <strong>three</strong> versions: <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk">PolkadotAPI Version</a>, <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk-pjs">PolkadotJS Version</a> & <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/sdk-dedot">Dedot Version</a> as the <code>first</code> and <code>only</code> XCM SDK in the ecosystem. All of the SDKs support extension packages called <a href="https://paraspell.github.io/docs/xcm-sdk/getting-started.html#install-swap-extension">Swap</a> (formerly known as XCM Router), <a href="https://paraspell.github.io/docs/xcm-sdk/getting-started.html#install-evm-extension">EVM</a>, and <a href="https://paraspell.github.io/docs/xcm-sdk/getting-started.html#install-snowbridge-extension">Snowbridge</a>.
+  </li>
+  <li>
+    <a href="https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api">XCM API</a> ⚡️: An API that provides the ability to integrate XCM interoperability into your decentralized application in a package-less way, offloading heavy computing tasks from your decentralized application and reducing associated costs.
+  </li>
+    <li>
+    <a href="https://github.com/paraspell/cli">ParaSpell CLI</a> ⌨: A wizard-driven CLI that scaffolds ready-to-run <code>XCM SDK</code> and <code>XCM API</code> starter apps, so you can go from zero to a working cross-chain dApp in minutes.
+  </li>
+  <li>
+    <a href="https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser">XCM Analyser</a> 🔎: An analyser package to convert XCM Locations into a human-readable format.
+  </li>
+</ul>
+
+::: info
+- All of our tools are **completely free** and **fully open source** 🧙‍♂️🪄
+
+- Tired of reading? Listen to this [AI Podcast about ParaSpell XCM Tools](https://github.com/paraspell/presskit/blob/main/podcasts_notebooklm/ParaSpell_Podcast_by_NotebookLM.wav).
+- Find out more about these tools at our [landing page](https://paraspell.xyz)!
+- A complete guide on how to use these tools will be mentioned throughout the document.
+
+:::
+
+## What is [ParaSpell✨](https://paraspell.xyz)?
+
+ParaSpell is dedicated to enhancing `XCM` functionality by conducting in-depth research on every XCM-compatible Parachain. This research is then consolidated into `XCM Tools`, which standardize the diverse XCM implementations into easy-to-use, uniform tools. These tools enable you to seamlessly integrate the interoperability benefits of the Polkadot and Kusama ecosystems into your application within moments.
+
+**Why should I use ParaSpell✨?**
+
+Implementing Polkadot's flagship feature, XCM, into your application can sometimes be a complex task. Each Parachain may customize its XCM Pallets to meet specific needs, resulting in a wide variety of implementations. Supporting multiple Parachains in a consistent manner is therefore time-consuming. Fortunately, ParaSpell has already conducted this research and wrapped the necessary pallets from every compatible Parachain into its tools. **Saving time is crucial when delivering a product, and ParaSpell helps you use it wisely.**
+
+## 📞 How to reach out to us
+- Contact form on our [landing page](https://paraspell.xyz/#contact-us).
+- Message us on our [X](https://x.com/paraspell).
+- Support channel on [telegram](https://t.me/paraspell).
+
+## Project achievements 🏆
+
+We take great pride in our achievements, which reflect our commitment to enhancing cross-chain communication and our dedication to building a strong reputation through diligent effort. These achievements are sorted in chronological order (oldest to latest) ⌛️.
+
+### International research articles and journals
+- 📙 [IEEE Sharing Fungible Assets Across Polkadot Paraverse](https://ieeexplore.ieee.org/document/9872938/)
+- 📕 [IEEE Enhancing XCMP Interoperability Across Polkadot Paraverse](https://ieeexplore.ieee.org/document/10174872)
+- 📘 [ParaSpell XCM SDK: A New Protocol for Interoperability in Polkadot Paraverse](https://ieeexplore.ieee.org/document/10338906)
+- 📗 [Cross-Chain Payments on Blockchain Networks: An Apartment Booking Use-Case](https://dl.acm.org/doi/10.1145/3605098.3636137)
+- 📓 [Protocol for unifying cross-chain liquidity on Polkadot](https://www.frontiersin.org/journals/blockchain/articles/10.3389/fbloc.2024.1413840/full)
+- 📑 [Decentralized Bridge Between Polkadot and Cosmos](https://dl.acm.org/doi/10.1145/3672608.3708011)
+- 📝 [Unispell: universal adapter for interoperability in Polkadot Paraverse](https://link.springer.com/article/10.1007/s10586-025-05183-6)
+- 📋 [Understanding Cross-Chain Message Passing Delays in Polkadot: An Experimental Perspective](https://ieeexplore.ieee.org/abstract/document/11229575)
+
+### Maintenance and development funding
+
+- 🎈 Web 3 Foundation base grant [Application](https://github.com/w3f/Grants-Program/pull/1118), [Delivery](https://github.com/w3f/Grant-Milestone-Delivery/pull/584)
+- 🔭 Web 3 Foundation phase 2 grant [Application](https://github.com/w3f/Grants-Program/pull/1245), [Delivery 1](https://github.com/w3f/Grant-Milestone-Delivery/pull/670), [Delivery 2 & 3](https://github.com/w3f/Grant-Milestone-Delivery/pull/715) 
+- 🏗️ Web 3 Foundation phase 3 grant (Make SDK better) [Application](https://github.com/w3f/Grants-Program/pull/1589), [Delivery](https://github.com/w3f/Grant-Milestone-Delivery/pull/836)
+- 🚀 Web 3 Foundation phase 4 grant (Build XCM-API) [Application](https://github.com/w3f/Grants-Program/pull/1817), [Delivery](https://github.com/w3f/Grant-Milestone-Delivery/pull/972)
+- 🏭 Web 3 Foundation phase 5 grant (Implement XCM-Router) [Application](https://github.com/w3f/Grants-Program/pull/2057), [Delivery 1](https://github.com/w3f/Grant-Milestone-Delivery/pull/1081), [Delivery 2](https://github.com/w3f/Grant-Milestone-Delivery/pull/1087)
+- 🪜 Maintenance funded by Kusama from March 2024 until July 2024 [Referenda link](https://kusama.polkassembly.io/referenda/344 ), [March report](https://docs.google.com/document/d/1AAukuZ-H2ecb1kahwO5beMHL5dKo74OC5JA-przJgqA/edit?usp=sharing), [April report](https://docs.google.com/document/d/15cRKcqdNAJFhpfon4brvIKpaJoomnFIET2eI9AgYlIo/edit?usp=sharing), [May report](https://docs.google.com/document/d/1I5mKA_t7uLW7I2ujF8JagfpYA2s97ADUZKDdv9ITnJE/edit?usp=sharing), [June report](https://docs.google.com/document/d/1vy696HHpgiFVn3Xr4eP40NGg-PY5S05aP-yZZEMHI2U/edit?usp=sharing), [July report](https://docs.google.com/document/d/17_6JjysvPLbiZiD7gvKdH_hAyWHpTmEiEX9ytQoSAII/edit?usp=sharing)
+- 🧱 Maintenance funded by Kusama from August 2024 until January 2025 [Referenda link](https://kusama.polkassembly.io/referenda/417), [August report](https://docs.google.com/document/d/1yaNIXZOPTSaMGTqahvcEt7gAqlSqsIVCydvkf7T1dbQ/edit?usp=sharing), [September report](https://docs.google.com/document/d/1KRzXq9jB5WamLcgjVUtjI80SC2RC6PnB0SFEjyrAZdw/edit?usp=sharing), [October report](https://docs.google.com/document/d/1ZzvD03XeR7Z43wHCQlgDfGCUXFA0jab5wdPTT1dy9QU/edit?usp=sharing), [November report](https://docs.google.com/document/d/14IExOdqajGJSnvCRqL5XeTLYlPGVd6hwZ35MeG0TK_g/edit?usp=sharing), [December report](https://docs.google.com/document/d/1ApjuM85Nv83Ha_9wSfxLn8iZNqiw37V8shTRLzzrWNo/edit?usp=sharing), [January report](https://docs.google.com/document/d/1-5__OtE60ue-h4QeDmG24MxagsgAgrtUmQLkeLTvNt0/edit?usp=sharing)
+
+- 🐦‍⬛ Maintenance funded by Kusama from February 2025 to July 2025 [Referenda link](https://kusama.polkassembly.io/referenda/485), [February report](https://docs.google.com/document/d/1WmpErT8SyIXApdwtCeB0X28XgUSoR2qXeJSec3c-4dA/edit?usp=sharing), [March report](https://docs.google.com/document/d/1gbVz8yMbesRlE5KHUce1DYmi0UcSMhUICtEsgXIrevA/edit?usp=sharing), [April report](https://docs.google.com/document/d/1FxUdJcUUOQjcd5bHyASGLGpj9Im4Ex06Osk6ixcfi_8/edit?usp=sharing), [May report](https://docs.google.com/document/d/1yhsSCSaOqR7zCWNPM7wvBrpimUxaeb76tmA21wmtxvE/edit?usp=sharing), [June report](https://docs.google.com/document/d/196SwN4cJ03BAjWg6alzt1MW5fSEnnVbSxCx03qjMuYo/edit?usp=sharing), [July report](https://docs.google.com/document/d/1inuXzdJs2I1vfh6GuO9yQxWcJB2vlVDfDngscwudi3o/edit?usp=sharing)
+
+- 🫀 Maintenance funded by Polkadot from August 2025 to July 2026 [Referenda link](https://polkadot.subsquare.io/referenda/1641), [August report](https://docs.google.com/document/d/11W3keTVFBCdyoE12eyB1I1yCPONHBGmCdjTvfPszr-Y/edit?usp=sharing), [September report](https://docs.google.com/document/d/1FLusxQYk2oT5o-YpocGnExO2c1pw1bY4u0faITrMnAM/edit?usp=sharing), [October report](https://docs.google.com/document/d/1Chhl1KNJqsnc-0At7Lg7tG2XPsO2SaA5UVYsFeYuPLs/edit?usp=sharing), [November report](https://docs.google.com/document/d/1jLnSJO5tYWgI5ud02kUYx6Trr-l-COXEJHqaPY9joJw/edit?usp=sharing), [December report](https://docs.google.com/document/d/1jFvBVHdQ50whvFU_Nm6nf94AZ7RfHI_DzlhHUPHt8gA/edit?usp=sharing), [January report](https://docs.google.com/document/d/1Ga6utP2r2eaNgTEutUVDnQyvNWr_L6P5Q6cf194aCPk/edit?usp=sharing), [February report](https://docs.google.com/document/d/1ScfhL6SUIitIWwSS7PXODlxrloqwRyiye4uyPmgO_9o/edit?usp=sharing), [March report](https://docs.google.com/document/d/1AujeX0eBbvk45Y8IFGyg4GZ83Vmk3yGTeMISGMvwNfk/edit?usp=sharing), [April report](https://docs.google.com/document/d/1Ge8Ysuwj_sXH8M8IbNDF9wRQuT4x9O0dl1dAQHHH4wE/edit?usp=sharing), [May report](https://docs.google.com/document/d/1k9hbqmT9Y2Y0jS9FXOxzUMj90DI8v0cUxUolTZtNwhM/edit?usp=sharing), [June report](https://docs.google.com/document/d/1isVkXaWMVKVJAU1Z5F9QLWMv0JWrZLCai6ffUag4QYs/edit?usp=sharing), [July report](https://docs.google.com/document/d/1cfPc6lMywuWDzKP6kVyBbx1T9lQug2NjVFLGnI2y_0M/edit?usp=sharing)
+
+- 🔬 Maintenance funded by Polkadot from August 2026 to July 2027 [Referenda link](https://polkadot.subsquare.io/referenda/1916), [August report](https://docs.google.com/document/d/13qI4iDfigJV70PztlzYRiJAhrrD6d87qCdlOse7vG_U/edit?usp=sharing)
+
+<div>
+  <h3 align="center">Project is supported by</h3>
+
+  <div align="center" class="supporter-logos">
+    <img
+      src="https://raw.githubusercontent.com/paraspell/presskit/main/logos_supporters/polkadot_kusama_w3f_standard.png"
+      alt="Logo"
+      class="logo light"
+    />
+    <img
+      src="https://raw.githubusercontent.com/paraspell/presskit/main/logos_supporters/polkadot_kusama_transparent.png"
+      alt="Logo2"
+      class="logo dark"
+    />
+  </div>
+</div>
+
+
+
+
+
