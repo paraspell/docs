@@ -227,10 +227,6 @@ Implementing Polkadot's flagship feature, XCM, into your application can sometim
 
 <HomeMedia v-bind="$frontmatter.media" />
 
-## Packages
-
-<HomePackages :items="$frontmatter.packages" />
-
 ## Project achievements <MagicEmoji emoji="🏆" />
 
 We take great pride in our achievements, which reflect our commitment to enhancing cross-chain communication and our dedication to building a strong reputation through diligent effort.

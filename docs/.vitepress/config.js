@@ -23,12 +23,12 @@ export default {
       ]
     },
     themeConfig: {
-        logo: { src: '/paraspell-wordmark.png', alt: 'ParaSpell' },
-        siteTitle: false,
+        logo: { src: '/paraspell.png', alt: 'ParaSpell logo' },
         search: {
           provider: 'local'
         },
         nav: [
+          { text: 'Home', link: '/', activeMatch: '^/$' },
           { text: 'XCM SDK', link: '/xcm-sdk/getting-started', activeMatch: '^/xcm-sdk/' },
           { text: 'XCM API', link: '/xcm-api/getting-started', activeMatch: '^/xcm-api/' },
           {
@@ -55,7 +55,7 @@ export default {
                 items: [
                   { text: 'ParaSpell website', link: 'https://paraspell.xyz' },
                   { text: 'Playground app', link: 'https://playground.paraspell.xyz' },
-                  { text: 'XCM API status', link: 'https://status.paraspell.xyz' },
+                  { text: 'Status page', link: 'https://status.paraspell.xyz' },
                 ]
               }
             ]

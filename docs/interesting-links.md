@@ -55,10 +55,10 @@ other:
 
 Following subpage summarizes repositories worth checking.
 
-## Packages and applications {#packages-and-applications-🧰}
+## Packages and applications 
 
 <LinkCards :items="$frontmatter.packages" layout="list" />
 
-## Other repositories {#other-repositories-🛠️}
+## Other repositories 
 
 <LinkCards :items="$frontmatter.other" />

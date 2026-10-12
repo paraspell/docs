@@ -29,9 +29,28 @@
   --vp-code-color: var(--vp-c-text-1);
 }
 
-/* The nav shows the ParaSpell wordmark instead of a text title */
+/* Round ParaSpell logo next to the site title */
 :root {
-  --vp-nav-logo-height: 30px;
+  --vp-nav-logo-height: 32px;
+}
+
+/* Wider search button; flex-grow only takes free space, so it still shrinks
+   when the nav menu needs room (below 768px VitePress shows just the icon) */
+@media (min-width: 768px) {
+  #local-search {
+    flex-grow: 1;
+    max-width: 280px;
+  }
+
+  .DocSearch-Button .DocSearch-Button-Keys {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  #local-search {
+    max-width: 340px;
+  }
 }
 
 /* Sparkles cast by <MagicEmoji> */
