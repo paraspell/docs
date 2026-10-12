@@ -23,12 +23,12 @@ export default {
       ]
     },
     themeConfig: {
-        logo: { src: '/paraspell-wordmark.png', alt: 'ParaSpell' },
-        siteTitle: false,
+        logo: { src: '/paraspell.png', alt: 'ParaSpell logo' },
         search: {
           provider: 'local'
         },
         nav: [
+          { text: 'Home', link: '/', activeMatch: '^/$' },
           { text: 'XCM SDK', link: '/xcm-sdk/getting-started', activeMatch: '^/xcm-sdk/' },
           { text: 'XCM API', link: '/xcm-api/getting-started', activeMatch: '^/xcm-api/' },
           {
