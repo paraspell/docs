@@ -23,7 +23,8 @@ export default {
       ]
     },
     themeConfig: {
-        logo: { src: '/paraspell.png', alt: 'ParaSpell logo' },
+        logo: { src: '/paraspell-wordmark.png', alt: 'ParaSpell' },
+        siteTitle: false,
         search: {
           provider: 'local'
         },
@@ -90,7 +91,7 @@ export default {
 
         sidebar: [
           {
-            text: '<span class="sidebar-logo-title"><img width="90" alt="ParaSpell logo" src="/docs/paraspell-wordmark.png"><span>XCM SDK</span></span>',
+            text: 'XCM SDK 🪄',
             items: [
               { text: 'Getting started', link: '/xcm-sdk/getting-started' },
               { text: 'Sending XCM', link: '/xcm-sdk/send-xcm' },
@@ -100,7 +101,7 @@ export default {
             ]
           },
           {
-            text: '<span class="sidebar-logo-title"><img width="90" alt="ParaSpell logo" src="/docs/paraspell-wordmark.png"><span>XCM API</span></span>',
+            text: 'XCM API ⚡️',
             items: [
               { text: 'Getting started', link: '/xcm-api/getting-started' },
               { text: 'XCM SDK endpoints', link: '/xcm-api/xcm-sdk-functionality' },
@@ -138,7 +139,7 @@ export default {
             ]
           },
           {
-            text: 'Migration guides ⬆',
+            text: 'Migration guides',
             collapsed: true,
             items: [
               { text: 'From v13 to v14', link: '/migration/v13-to-v14' },

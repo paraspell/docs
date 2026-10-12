@@ -207,7 +207,7 @@ supporters:
   dark: https://raw.githubusercontent.com/paraspell/presskit/main/logos_supporters/polkadot_kusama_transparent.png
 ---
 
-# ![ParaSpell](/paraspell-wordmark.png) XCM Tools Documentation <MagicEmoji emoji="🧙‍♂️" :tilt="10" />
+# ![ParaSpell](/paraspell-wordmark.png) XCM Tools <span class="nowrap">Documentation <MagicEmoji emoji="🧙‍♂️" :tilt="10" /></span>
 
 <p class="lead">Guides and references for the ParaSpell XCM Tools.</p>
 

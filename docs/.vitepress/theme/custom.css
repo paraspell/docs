@@ -29,9 +29,9 @@
   --vp-code-color: var(--vp-c-text-1);
 }
 
-/* Round ParaSpell logo next to the site title */
+/* The nav shows the ParaSpell wordmark instead of a text title */
 :root {
-  --vp-nav-logo-height: 32px;
+  --vp-nav-logo-height: 30px;
 }
 
 /* Wider search button; flex-grow only takes free space, so it still shrinks
@@ -62,11 +62,18 @@
   will-change: transform, opacity;
 }
 
-/* Sidebar group titles with the ParaSpell wordmark */
-.sidebar-logo-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* Sidebar section titles (XCM SDK, XCM API, ...): bold grey, brand pink for the
+   section of the current page. The id outranks VitePress's own title colors. */
+#VPSidebarNav .VPSidebarItem.level-0 > .item > .text,
+#VPSidebarNav .VPSidebarItem.level-0 > .item > .link > .text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--vp-c-text-2);
+}
+
+#VPSidebarNav .VPSidebarItem.level-0.has-active > .item > .text,
+#VPSidebarNav .VPSidebarItem.level-0.has-active > .item > .link > .text {
+  color: var(--vp-c-brand-1);
 }
 
 /**
@@ -151,12 +158,32 @@
   color: var(--vp-c-text-2);
 }
 
-/* The ParaSpell wordmark replaces the plain-text name in the start page title */
+/* Centered title block: wordmark on its own line, then the title and the lead */
+.docs-home .vp-doc h1,
+.docs-home .vp-doc .lead {
+  text-align: center;
+}
+
 .docs-home .vp-doc h1 img {
-  display: inline-block;
-  height: 1.3em;
-  margin-right: 0.1em;
-  vertical-align: -0.38em;
+  display: block;
+  height: 64px;
+  margin: 0 auto 12px;
+}
+
+@media (min-width: 768px) {
+  .docs-home .vp-doc h1 img {
+    height: 80px;
+  }
+}
+
+/* Keeps the emoji on the same line as the last word */
+.docs-home .vp-doc h1 .nowrap {
+  white-space: nowrap;
+}
+
+/* The hover anchor would sit at the far left edge, away from the centered text */
+.docs-home .vp-doc h1 .header-anchor {
+  display: none;
 }
 
 /**
