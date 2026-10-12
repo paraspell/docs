@@ -55,7 +55,7 @@ export default {
                 items: [
                   { text: 'ParaSpell website', link: 'https://paraspell.xyz' },
                   { text: 'Playground app', link: 'https://playground.paraspell.xyz' },
-                  { text: 'XCM API status', link: 'https://status.paraspell.xyz' },
+                  { text: 'Status page', link: 'https://status.paraspell.xyz' },
                 ]
               }
             ]
