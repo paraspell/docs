@@ -1,13 +1,193 @@
-/* Default = light mode */
-.supporter-logos .dark {
-  display: none;
+/**
+ * Brand colors
+ * Derived from the logo pink (#ff5c8c). Text and button shades are darkened
+ * (light mode) or lightened (dark mode) to stay above WCAG AA contrast.
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --ps-c-pink: #ff5c8c;
+
+  --vp-c-brand-1: #b8144b;
+  --vp-c-brand-2: #cf1754;
+  --vp-c-brand-3: #dc185a;
+  --vp-c-brand-soft: rgba(255, 92, 140, 0.14);
 }
 
-/* Dark mode */
-.dark .supporter-logos .light {
-  display: none;
+.dark {
+  --vp-c-brand-1: #ff7aa2;
+  --vp-c-brand-2: #ff5c8c;
+  --vp-c-brand-3: #cd1d52;
+  --vp-c-brand-soft: rgba(255, 92, 140, 0.16);
+
+  /* brand-1 and brand-2 are too light behind white button text */
+  --vp-button-brand-hover-bg: #bb1b4b;
+  --vp-button-brand-active-bg: #aa1844;
 }
 
-.dark .supporter-logos .dark {
+/* Neutral inline code keeps identifier-heavy pages calm; links stay branded */
+:root {
+  --vp-code-color: var(--vp-c-text-1);
+}
+
+/* The nav shows the ParaSpell wordmark instead of a text title */
+:root {
+  --vp-nav-logo-height: 30px;
+}
+
+/* Sparkles cast by <MagicEmoji> */
+.magic-particle {
+  position: fixed;
+  z-index: 100;
+  line-height: 1;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Sidebar group titles with the ParaSpell wordmark */
+.sidebar-logo-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/**
+ * Doc pages
+ * -------------------------------------------------------------------------- */
+
+/* Use the full content column on wide screens; helps code samples and tables */
+@media (min-width: 1440px) {
+  .VPContent.has-sidebar .VPDoc.has-aside .content-container {
+    max-width: 784px;
+  }
+}
+
+.vp-doc a {
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  transition: color 0.25s, text-decoration-color 0.25s;
+}
+
+.vp-doc a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Tables: rounded outline and row dividers instead of a full cell grid */
+.vp-doc table {
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.vp-doc tr,
+.vp-doc tr:nth-child(2n) {
+  border-top: none;
+  background-color: transparent;
+}
+
+.vp-doc th,
+.vp-doc td {
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+  padding: 10px 16px;
+}
+
+.vp-doc thead th {
+  border-top: none;
+  background-color: var(--vp-c-bg-soft);
+}
+
+.vp-doc tbody tr:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+
+/* Keep flags such as `--package-manager` from breaking at their hyphens */
+.vp-doc td code {
+  white-space: nowrap;
+}
+
+/**
+ * Start page (docs/index.md, pageClass: docs-home)
+ * -------------------------------------------------------------------------- */
+
+.docs-home .vp-doc h1 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 44px;
+}
+
+@media (min-width: 768px) {
+  .docs-home .vp-doc h1 {
+    font-size: 48px;
+    line-height: 58px;
+  }
+}
+
+.docs-home .vp-doc .lead {
+  font-size: 18px;
+  line-height: 30px;
+  color: var(--vp-c-text-2);
+}
+
+/* The ParaSpell wordmark replaces the plain-text name in the start page title */
+.docs-home .vp-doc h1 img {
   display: inline-block;
+  height: 1.3em;
+  margin-right: 0.1em;
+  vertical-align: -0.38em;
+}
+
+/**
+ * Supported chains (pageClass: supported-chains)
+ * Website and GitHub columns show icons; the link text stays for screen readers.
+ * -------------------------------------------------------------------------- */
+
+.supported-chains .vp-doc th:nth-child(2),
+.supported-chains .vp-doc th:nth-child(3),
+.supported-chains .vp-doc td:nth-child(2),
+.supported-chains .vp-doc td:nth-child(3) {
+  padding-right: 8px;
+  padding-left: 8px;
+  text-align: center;
+}
+
+.supported-chains .vp-doc td:nth-child(2) a,
+.supported-chains .vp-doc td:nth-child(3) a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  font-size: 0;
+  color: var(--vp-c-text-2);
+  transition: color 0.25s, background-color 0.25s;
+}
+
+.supported-chains .vp-doc td:nth-child(2) a:hover,
+.supported-chains .vp-doc td:nth-child(3) a:hover {
+  background-color: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+
+.supported-chains .vp-doc td:nth-child(2) a::before,
+.supported-chains .vp-doc td:nth-child(3) a::before {
+  width: 18px;
+  height: 18px;
+  background-color: currentColor;
+  -webkit-mask: var(--chain-link-icon) center / contain no-repeat;
+  mask: var(--chain-link-icon) center / contain no-repeat;
+  content: '';
+}
+
+.supported-chains .vp-doc td:nth-child(2) a {
+  --chain-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z'/%3E%3C/svg%3E");
+}
+
+.supported-chains .vp-doc td:nth-child(3) a {
+  --chain-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' d='M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
 }

@@ -1,172 +1,177 @@
-# 🛠️ Contributing to `xcm-tools`
+---
+overview:
+  - icon: bug
+    title: Report bugs
+    badge: $5–30
+    details: Earn rewards based on bug severity.
+    link: '#🔍-bug-reporting'
+  - icon: pull-request
+    title: Fix bugs
+    badge: $5–250+
+    details: Earn additional rewards based on fix complexity.
+    link: '#🛠️-fixing-bugs'
 
-Thank you for your interest in contributing to `xcm-tools`!  
-We run an open Bug Bounty Program that rewards contributors for reporting and fixing bugs in the project.
+eligible:
+  - icon: code
+    title: XCM SDK
+    details: PAPI version only
+    link: https://github.com/paraspell/xcm-tools/tree/main/packages/sdk
+  - icon: swap
+    title: Swap
+    link: https://github.com/paraspell/xcm-tools/tree/main/packages/swap
+  - icon: zap
+    title: XCM API
+    link: https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api
+  - icon: search
+    title: XCM Analyser
+    link: https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser
+  - icon: play
+    title: XCM Playground
+    link: https://github.com/paraspell/xcm-tools/tree/main/apps/playground
 
-## 📋 Bug Bounty Overview
+# Lowest tier first; tone is gray, green, orange or red
+reportRewards:
+  - tone: gray
+    level: Very low
+    reward: $5–10
+    details: Very minor errors in docs / text / code
+  - tone: green
+    level: Low
+    reward: $10–15
+    details: Minor UI issues, typos, or cosmetic bugs
+  - tone: orange
+    level: Medium
+    reward: $15–20
+    details: Bugs affecting user features or causing functional issues
+  - tone: red
+    level: High
+    reward: $20–30
+    details: Crashes, data loss, security vulnerabilities, or major broken functionality
 
-You can contribute in two ways:
+fixRewards:
+  - tone: gray
+    level: Very low
+    reward: $5
+    details: Very minor errors in docs / text / code
+  - tone: green
+    level: Low
+    reward: $10–20
+    details: Small fix (e.g., 1-2 lines), config changes
+  - tone: orange
+    level: Medium
+    reward: $30–70
+    details: Logic changes, multi-file fixes, test additions
+  - tone: red
+    level: High
+    reward: $80–250+
+    details: Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs
+---
 
-1. **Report bugs** – Earn rewards based on bug severity.
-2. **Fix bugs** – Earn additional rewards based on fix complexity.
+# Bug bounty program <MagicEmoji emoji="💸" />
 
-**Which tools/apps from the monorepo are eligible in the Bug Bounty?**
+Thank you for your interest in contributing to `xcm-tools`! We reward contributors for reporting and fixing bugs in the project.
 
-- [XCM SDK](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk) (Papi version only)
-- [SWAP](https://github.com/paraspell/xcm-tools/tree/main/packages/swap)
-- [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
-- [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
-- [XCM Playground](https://github.com/paraspell/xcm-tools/tree/main/apps/playground)
+<div id="📋-bug-bounty-overview"></div>
 
-## ✅ Contributor Eligibility
+<LinkCards :items="$frontmatter.overview" />
 
-To keep this program focused on genuine human contributors and prevent bulk/automated AI-agent submissions, both bug reports and fixes must meet **all** of the following requirements. Submissions that don't meet them will be closed without review.
+## Eligible tools
 
-- **Established account:** Your GitHub commit history must be at least **6 months** old.
-- **Proof of personhood:** Set an on-chain identity on the Polkadot People Chain for your AssetHub address (see the [official guide](https://support.polkadot.network/support/solutions/articles/65000181990-how-to-request-and-cancel-identity-judgement)) and request a registrar judgement. [dotID](https://dotid.app/) offers this for free, including social/email verification and optional KYC for a stronger judgement. Use the **same address** you provide for payment below. Maintainers verify your judgement is at least `Reasonable` via [Subscan](https://people-polkadot.subscan.io/). No separate wallet or platform outside the Polkadot ecosystem required.
-- **[Signed commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits):** Every commit in your PR must include these trailers and must be signed with the `-S` flag:
+These tools and apps from the [xcm-tools](https://github.com/paraspell/xcm-tools) monorepo are part of the Bug Bounty Program:
+
+<LinkCards :items="$frontmatter.eligible" layout="inline" />
+
+## Requirements {#✅-contributor-eligibility}
+
+To keep the program focused on genuine human contributors, every bug report and fix must meet **all** of these requirements. Submissions that don't are closed without review.
+
+- **Established account:** your GitHub commit history is at least **6 months** old.
+- **Proof of personhood:** set an on-chain identity on the Polkadot People Chain for your AssetHub address and request a registrar judgement ([official guide](https://support.polkadot.network/support/solutions/articles/65000181990-how-to-request-and-cancel-identity-judgement)). [dotID](https://dotid.app/) does this for free, with social/email verification and optional KYC for a stronger judgement. Maintainers check on [Subscan](https://people-polkadot.subscan.io/) that the judgement is at least `Reasonable`. Use the **same address** for payment; nothing outside the Polkadot ecosystem is needed.
+- **[Signed commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits):** sign every commit in your PR with the `-S` flag and include this trailer:
   ```
   AI-Assisted-By: <tool name(s), e.g. "GitHub Copilot", "ChatGPT"> (or "None" if you didn't use one)
   ```
-- **AI tools are welcome, autonomous agents are not:** Using AI tools (Copilot, ChatGPT, Claude, etc.) to help you write a fix is completely fine as long as you disclose it, understand the resulting code, and can explain and defend it yourself. Autonomous agents that scan issues and open PRs without a human reviewing and understanding the change first are **not eligible**, regardless of disclosure.
-- **Be ready to explain your work:** Maintainers may ask clarifying questions during review. You're expected to give specific, on-topic answers within **5 days** (see "Reserving an Issue" below). Generic, evasive, or clearly disconnected answers will result in the PR being closed and your reservation forfeited.
-- **Extra verification for high-severity fixes:** For 🔴 High complexity fixes, maintainers may request a brief live chat/call walkthrough of your change before payout, to confirm that a human authored it and understands it.
-- **One reservation at a time:** You may only reserve one bug bounty issue at a time. Submit or drop your current one before reserving another.
+- **AI tools are welcome, autonomous agents are not:** using AI tools (Copilot, ChatGPT, Claude, etc.) is fine if you disclose it, understand the resulting code, and can explain and defend it yourself. Autonomous agents that open PRs without a human reviewing and understanding the change are **not eligible**, regardless of disclosure.
+- **Be ready to explain your work:** answer maintainers' review questions specifically and on topic within **5 days**. Without an answer, the reservation expires and the issue reopens for others. Generic, evasive, or off-topic answers get the PR closed and the reservation forfeited.
+- **Extra verification for high-severity fixes:** for 🔴 High complexity fixes, maintainers may ask for a brief live chat or call walkthrough before payout, to confirm that a human authored the change and understands it.
 
-> ⚠️ Repeated low-effort, undisclosed-AI, or automated submissions will result in a permanent ban from the Bug Bounty Program.
+::: danger
+Repeated low-effort, undisclosed-AI, or automated submissions will result in a permanent ban from the Bug Bounty Program.
+:::
 
-## 🔍 Bug Reporting
+## Report a bug {#🔍-bug-reporting}
 
-To report a bug:
-
-1. Open an [issue in the repository](https://github.com/paraspell/xcm-tools/issues) and select `Bug bounty report`
+1. Open an [issue in the repository](https://github.com/paraspell/xcm-tools/issues) and select `Bug bounty report`.
 2. Fill in all required sections.
-3. Submit the issue. Maintainers will review and assign a severity level.
+3. Submit the issue. Maintainers review it and assign a severity level.
 
-### 💰 Rewards for Reporting Bugs
+### Rewards for reports {#💰-rewards-for-reporting-bugs}
 
-| Severity Level | Description                                                                 | Reward |
-|----------------|-----------------------------------------------------------------------------|--------|
-| ⚪️ Very low           | Very minor errors in docs / text / code                              | $5-10     |
-| 🟢 Low         | Minor UI issues, typos, or cosmetic bugs                                    | $10-15    |
-| 🟠 Medium      | Bugs affecting user features or causing functional issues                   | $15-20    |
-| 🔴 High        | Crashes, data loss, security vulnerabilities, or major broken functionality | $20-30    |
+Maintainers determine severity based on impact and may contact you for clarification.
 
-> Maintainers determine severity based on impact. Contributors may be contacted for clarification.
+<RewardTiers :tiers="$frontmatter.reportRewards" />
 
-> Please note that reporting and fixing grammar errors in documentation that do not affect functionality or clarity to the user is not rewarded; you are, however, very welcome to open a PR fixing them.
+Reporting or fixing grammar errors in the documentation that don't affect functionality or clarity isn't rewarded, but you're very welcome to open a PR fixing them.
 
-## 🛠️ Fixing Bugs
+## Fix a bug {#🛠️-fixing-bugs}
 
-You can contribute fixes to open bug bounty issues.
+### Reserve the issue first {#🔒-reserving-an-issue}
 
-### 🔒 Reserving an Issue
+- Only issues with the "Bug bounty 💰" tag are eligible.
+- Comment `I would like to reserve this issue.` on the issue. It is assigned to you and reserved for **48 hours**; if no PR is opened by then, the reservation expires.
+- You may reserve **one issue at a time**. Submit or drop your current reservation before reserving another; issues reserved in violation of this are reassigned.
+- <span id="🔁-contributing-to-your-own-report"></span>Reported the bug yourself? You still need to reserve the issue before fixing it.
+- <span id="👥-collaborating-on-existing-issues"></span>Someone already reported it or opened a PR? Comment to express intent and, if allowed, follow the same reservation and PR process. Keep your contribution additive and clearly explained.
 
-Before working on a fix:
+### Submit the fix {#📦-submitting-a-fix}
 
-- Ensure that the issue has a "Bug bounty 💰" tag on it.
-- Comment on the issue with:  
-  > `I would like to reserve this issue.`  
-- The issue will be assigned to you and reserved for **48 hours**.
-- If no PR is opened within 48 hours, the reservation expires.
-- **You may only reserve one issue at a time.** Submit or drop your current reservation before reserving another. Issues reserved in violation of this will be reassigned.
-- Once your PR is opened, respond to maintainer review questions with specific, on-topic answers within **5 days**. If you don't, the reservation expires and the issue reopens for others.
-
-### 🔁 Contributing to Your Own Report
-
-If you reported a bug and want to fix it:
-
-- You still need to **reserve the issue**.
-- Submit your PR as outlined below.
-
-## 📦 Submitting a Fix
-
-**Please make sure your PR follows the rules and has high-quality code. We will not check your PR if it doesn't follow our quality standards.**
+::: warning
+Make sure your PR follows these rules and has high-quality code. We will not review PRs that don't meet our quality standards.
+:::
 
 1. Fork the repository and create a new branch.
-2. Make your changes and **commit using a Conventional Commit message** with one of the **supported tags** listed below, including the `Signed-off-by` and `AI-Assisted-By` trailers described in Contributor Eligibility above.
-3. In your PR description, explain **in your own words** the root cause of the bug and why your change fixes it. A plain summary of the diff is not enough.
-4. Open a [Pull Request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue.
-5. **Tag `@michaeldev5`** in the PR description to request a review.
+2. Commit using a [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) message with a type and scope (see below), including the `Signed-off-by` and `AI-Assisted-By` trailers.
+3. In the PR description, explain **in your own words** the root cause of the bug and why your change fixes it. A plain summary of the diff is not enough.
+4. Open a [pull request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue and tag `@michaeldev5` to request a review.
 
-### ✅ Commit Guidelines
+### Commit messages {#✅-commit-guidelines}
 
-Please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification when writing your commit messages. This helps automate changelog generation and improves project consistency.
+Write commit messages as `type(scope): description`. This helps automate changelog generation and keeps the project consistent.
 
-Use **one of the following commit types**:
+- **type** is one of `feat`, `fix`, `perf`, `revert`, `docs`, `style`, `chore`, `refactor`, `test`, `build` or `ci`.
+- **scope** is the package or app you changed, named after its folder in `packages/` or `apps/`, for example `sdk-core`, `sdk`, `assets`, `swap`, `xcm-api`, `xcm-analyser` or `playground`.
+- **description** says briefly what the commit does.
 
-| Type       | Section                   | Description                                                   |
-|------------|---------------------------|---------------------------------------------------------------|
-| `feat`     | Features                  | New features                                                  |
-| `fix`      | Bug Fixes                 | Bug fixes                                                     |
-| `perf`     | Performance Improvements  | Code changes that improve performance                         |
-| `revert`   | Reverts                   | Revert a previous commit                                      |
-| `docs`     | Documentation             | Changes to documentation only                                 |
-| `style`    | Styles                    | Code style changes (formatting, whitespace, etc.)             |
-| `chore`    | Miscellaneous Chores      | Routine tasks (note: these are hidden in changelogs)          |
-| `refactor` | Code Refactoring          | Code changes that neither fix bugs nor add features           |
-| `test`     | Tests                     | Adding or updating tests                                      |
-| `build`    | Build System              | Changes that affect the build system or external dependencies |
-| `ci`       | Continuous Integration    | CI configuration and scripts                                  |
+<div id="example"></div>
 
-#### Example:
+For example, a signed fix in the SDK core package, with the `Signed-off-by` (`-s`) and `AI-Assisted-By` trailers:
+
 ```bash
-git commit -m "fix: Handle null case in token parser"
+git commit -S -s -m "fix(sdk-core): Handle null case in token parser" \
+  --trailer "AI-Assisted-By: None"
 ```
 
-### 💵 Rewards for Fixes
+::: details What each commit type means
+- `feat`: new features (Features)
+- `fix`: bug fixes (Bug Fixes)
+- `perf`: code changes that improve performance (Performance Improvements)
+- `revert`: revert a previous commit (Reverts)
+- `docs`: changes to documentation only (Documentation)
+- `style`: code style changes such as formatting or whitespace (Styles)
+- `chore`: routine tasks, hidden in changelogs (Miscellaneous Chores)
+- `refactor`: code changes that neither fix bugs nor add features (Code Refactoring)
+- `test`: adding or updating tests (Tests)
+- `build`: changes that affect the build system or external dependencies (Build System)
+- `ci`: CI configuration and scripts (Continuous Integration)
+:::
 
-| Complexity | Description                                                                                         | Reward Range |
-|------------|-----------------------------------------------------------------------------------------------------|--------------|
-| ⚪️ Very low | Very minor errors in docs / text / code                                   | $5     |
-| 🟢 Low     | Small fix (e.g., 1-2 lines), config changes                                | $10–$20      |
-| 🟠 Medium  | Logic changes, multi-file fixes, test additions                                                      | $30–$70      |
-| 🔴 High    | Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs   | $80–$250+     |
+### Rewards for fixes {#💵-rewards-for-fixes}
 
+Rewards depend on code complexity and quality, as determined by maintainers. The $250 for High complexity is not a hard cap: the final amount depends on the task and can be higher.
 
-> The reward is based on code complexity and quality, as determined by maintainers.
+<RewardTiers :tiers="$frontmatter.fixRewards" />
 
-> The High complexity tasks only have a theoretical cap of $250, because the final amount depends on the complexity of the task. The amount can be higher.
-
-> Please note that reporting and fixing grammar errors in documentation that do not affect functionality or clarity to the user is not rewarded; you are, however, very welcome to open a PR fixing them.
-
-## 👥 Collaborating on Existing Issues
-
-If someone has already reported an issue or opened a PR and you want to contribute:
-
-- Comment to express intent.
-- If allowed, follow the same reservation/PR process.
-- Make sure your contribution is additive and clearly explained.
-
-## ❓ FAQ
-
-### 💡 Can I report and fix the same bug?
-
-Yes! You can both **report and fix** the bug. Be sure to reserve it as outlined above before working on the fix.
-
-
-### 🤖 Can I use AI tools to help with my fix?
-
-Yes, using tools like GitHub Copilot, ChatGPT, or Claude to help you write a fix is fine, as long as you disclose it via the `AI-Assisted-By` commit trailer, understand the code you're submitting, and can explain and defend it during review. Submissions from autonomous agents that open PRs without a human reviewing and understanding the change first are not eligible, and repeated attempts will result in a permanent ban.
-
-
-### 🕒 What happens if I reserve an issue but don’t submit a PR in 48 hours?
-
-The issue becomes **unreserved and open** for others to claim. You may re-reserve it if it's still unassigned.
-
-
-### 🧾 How do you determine reward amounts?
-
-- **Bug reports** are evaluated based on user impact and severity.
-- **Fixes** are evaluated based on code complexity, design quality, and completeness (tests, documentation).
-
-
-### 🏦 How do I receive payment?
-
-Your payment will be sent to the `AssetHub Polkadot address` you provided in the issue or PR, and the amount will be paid in `USDC`. Please ensure you only provide non-cex addresses in the PR, because the payment may not arrive correctly. The payment should be processed within 2 business days after the issue is resolved or the PR is merged.
-
-
-## 🧠 Tips
+### Tips {#🧠-tips}
 
 - Follow the existing code style and structure.
 - Write meaningful commit messages.
@@ -175,14 +180,42 @@ Your payment will be sent to the `AssetHub Polkadot address` you provided in the
 - Add inline comments on important changes and new functions.
 - Be respectful and collaborative in discussions.
 
+## FAQ {#❓-faq}
 
-## 📫 Need Help?
+<div id="💡-can-i-report-and-fix-the-same-bug"></div>
 
-If you're unsure how to start or have questions about an issue or PR you can use one of the following ways to reach out to us:
+::: details Can I report and fix the same bug?
+Yes! You can both **report and fix** the bug. Be sure to reserve it as outlined above before working on the fix.
+:::
 
-- Contact form on our [landing page](https://paraspell.xyz/#contact-us).
-- Message us on our [X](https://x.com/paraspell).
-- Support channel on [telegram](https://t.me/paraspell).
+<div id="🤖-can-i-use-ai-tools-to-help-with-my-fix"></div>
+
+::: details Can I use AI tools to help with my fix?
+Yes, using tools like GitHub Copilot, ChatGPT, or Claude to help you write a fix is fine, as long as you disclose it via the `AI-Assisted-By` commit trailer, understand the code you're submitting, and can explain and defend it during review. Submissions from autonomous agents that open PRs without a human reviewing and understanding the change first are not eligible, and repeated attempts will result in a permanent ban.
+:::
+
+<div id="🕒-what-happens-if-i-reserve-an-issue-but-don-t-submit-a-pr-in-48-hours"></div>
+
+::: details What happens if I reserve an issue but don’t submit a PR in 48 hours?
+The issue becomes **unreserved and open** for others to claim. You may re-reserve it if it's still unassigned.
+:::
+
+<div id="🧾-how-do-you-determine-reward-amounts"></div>
+
+::: details How do you determine reward amounts?
+- **Bug reports** are evaluated based on user impact and severity.
+- **Fixes** are evaluated based on code complexity, design quality, and completeness (tests, documentation).
+:::
+
+<div id="🏦-how-do-i-receive-payment"></div>
+
+::: details How do I receive payment?
+Your payment will be sent to the `AssetHub Polkadot address` you provided in the issue or PR, and the amount will be paid in `USDC`. Please ensure you only provide non-cex addresses in the PR, because the payment may not arrive correctly. The payment should be processed within 2 business days after the issue is resolved or the PR is merged.
+:::
+
+## Need help? {#📫-need-help}
+
+If you're unsure how to start or have questions about an issue or PR, reach out through the contact form on our [landing page](https://paraspell.xyz/#contact-us), on our [X](https://x.com/paraspell), or in our [Telegram](https://t.me/paraspell) support channel.
 
 We appreciate your support and contributions!
 

@@ -1,5 +1,6 @@
-# Use XCM SDK🪄 within XCM API
-This guide walks you through the XCM SDK functionality implemented in XCM API.
+# XCM SDK endpoints 🪄
+
+These XCM API endpoints let you perform XCM SDK actions over REST: build and send XCM, dry run calls, and query fees, assets and pallets without installing the SDK. This guide walks you through each of them.
 
 ## Send XCM
 This functionality allows you to send XCM messages across the Paraverse.

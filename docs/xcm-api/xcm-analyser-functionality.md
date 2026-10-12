@@ -1,6 +1,6 @@
-# XCM Analyser🔎
+# XCM Analyser endpoints 🔎
 
-The following section covers the implementation of XCM Analyser in XCM API. Users can analyse either independent locations or entire XCM Calls.
+These XCM API endpoints let you perform XCM Analyser actions over REST. You can analyse either independent locations or entire XCM calls.
 
 ## Analyse Location
 **Endpoint**: `POST /v2/xcm-analyser`

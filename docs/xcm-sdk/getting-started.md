@@ -1,4 +1,4 @@
-# Getting started with your journey across Paraverse 👨‍🚀
+# Starting with your journey across Paraverse 👨‍🚀
 
 This guide walks you through the implementation of XCM SDK, which allows you to do various exciting actions on Polkadot and Kusama chains. To start, proceed with the steps mentioned below. Good luck adventurer!
 
@@ -25,7 +25,6 @@ XCM SDK supports three different JavaScript client providers. It is advised to u
   '@paraspell/sdk-pjs',
   '@polkadot/api',
   '@polkadot/types',
-  '@polkadot/api-base',
   '@polkadot/util',
   '@polkadot/util-crypto'
 ]" />
