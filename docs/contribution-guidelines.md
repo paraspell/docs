@@ -79,11 +79,17 @@ Thank you for your interest in contributing to `xcm-tools`! We reward contributo
 
 These tools and apps from the [xcm-tools](https://github.com/paraspell/xcm-tools) monorepo are part of the Bug Bounty Program:
 
-<LinkCards :items="$frontmatter.eligible" layout="inline" />
+- [XCM SDK (PAPI Version)](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk)
+- [SWAP Extension](https://github.com/paraspell/xcm-tools/tree/main/packages/swap)
+- [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
+- [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
+- [XCM Playground](https://github.com/paraspell/xcm-tools/tree/main/apps/playground)
 
-## Requirements {#✅-contributor-eligibility}
+## Requirements 
 
 To keep the program focused on genuine human contributors, every bug report and fix must meet **all** of these requirements. Submissions that don't are closed without review.
+
+::: details Minimal Contributor Requirements
 
 - **Established account:** your GitHub commit history is at least **6 months** old.
 - **Proof of personhood:** set an on-chain identity on the Polkadot People Chain for your AssetHub address and request a registrar judgement ([official guide](https://support.polkadot.network/support/solutions/articles/65000181990-how-to-request-and-cancel-identity-judgement)). [dotID](https://dotid.app/) does this for free, with social/email verification and optional KYC for a stronger judgement. Maintainers check on [Subscan](https://people-polkadot.subscan.io/) that the judgement is at least `Reasonable`. Use the **same address** for payment; nothing outside the Polkadot ecosystem is needed.
@@ -99,13 +105,14 @@ To keep the program focused on genuine human contributors, every bug report and 
 Repeated low-effort, undisclosed-AI, or automated submissions will result in a permanent ban from the Bug Bounty Program.
 :::
 
-## Report a bug {#🔍-bug-reporting}
+
+## Report a bug
 
 1. Open an [issue in the repository](https://github.com/paraspell/xcm-tools/issues) and select `Bug bounty report`.
 2. Fill in all required sections.
 3. Submit the issue. Maintainers review it and assign a severity level.
 
-### Rewards for reports {#💰-rewards-for-reporting-bugs}
+### Rewards for reports
 
 Maintainers determine severity based on impact and may contact you for clarification.
 
@@ -113,9 +120,9 @@ Maintainers determine severity based on impact and may contact you for clarifica
 
 Reporting or fixing grammar errors in the documentation that don't affect functionality or clarity isn't rewarded, but you're very welcome to open a PR fixing them.
 
-## Fix a bug {#🛠️-fixing-bugs}
+## Fix a bug
 
-### Reserve the issue first {#🔒-reserving-an-issue}
+::: details Reserving the Issue
 
 - Only issues with the "Bug bounty 💰" tag are eligible.
 - Comment `I would like to reserve this issue.` on the issue. It is assigned to you and reserved for **48 hours**; if no PR is opened by then, the reservation expires.
@@ -123,18 +130,19 @@ Reporting or fixing grammar errors in the documentation that don't affect functi
 - <span id="🔁-contributing-to-your-own-report"></span>Reported the bug yourself? You still need to reserve the issue before fixing it.
 - <span id="👥-collaborating-on-existing-issues"></span>Someone already reported it or opened a PR? Comment to express intent and, if allowed, follow the same reservation and PR process. Keep your contribution additive and clearly explained.
 
-### Submit the fix {#📦-submitting-a-fix}
-
-::: warning
-Make sure your PR follows these rules and has high-quality code. We will not review PRs that don't meet our quality standards.
 :::
+
+::: details Submitting the Fix 
+
+**Make sure your PR follows these rules and has high-quality code. We will not review PRs that don't meet our quality standards.**
+
 
 1. Fork the repository and create a new branch.
 2. Commit using a [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) message with a type and scope (see below), including the `Signed-off-by` and `AI-Assisted-By` trailers.
 3. In the PR description, explain **in your own words** the root cause of the bug and why your change fixes it. A plain summary of the diff is not enough.
 4. Open a [pull request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue and tag `@michaeldev5` to request a review.
 
-### Commit messages {#✅-commit-guidelines}
+### Commit messages
 
 Write commit messages as `type(scope): description`. This helps automate changelog generation and keeps the project consistent.
 
@@ -163,15 +171,16 @@ git commit -S -s -m "fix(sdk-core): Handle null case in token parser" \
 - `test`: adding or updating tests (Tests)
 - `build`: changes that affect the build system or external dependencies (Build System)
 - `ci`: CI configuration and scripts (Continuous Integration)
+
 :::
 
-### Rewards for fixes {#💵-rewards-for-fixes}
+### Rewards for fixes
 
 Rewards depend on code complexity and quality, as determined by maintainers. The $250 for High complexity is not a hard cap: the final amount depends on the task and can be higher.
 
 <RewardTiers :tiers="$frontmatter.fixRewards" />
 
-### Tips {#🧠-tips}
+## Tips 
 
 - Follow the existing code style and structure.
 - Write meaningful commit messages.
@@ -180,7 +189,7 @@ Rewards depend on code complexity and quality, as determined by maintainers. The
 - Add inline comments on important changes and new functions.
 - Be respectful and collaborative in discussions.
 
-## FAQ {#❓-faq}
+## FAQ 
 
 <div id="💡-can-i-report-and-fix-the-same-bug"></div>
 
@@ -213,7 +222,7 @@ The issue becomes **unreserved and open** for others to claim. You may re-reserv
 Your payment will be sent to the `AssetHub Polkadot address` you provided in the issue or PR, and the amount will be paid in `USDC`. Please ensure you only provide non-cex addresses in the PR, because the payment may not arrive correctly. The payment should be processed within 2 business days after the issue is resolved or the PR is merged.
 :::
 
-## Need help? {#📫-need-help}
+## Need help?
 
 If you're unsure how to start or have questions about an issue or PR, reach out through the contact form on our [landing page](https://paraspell.xyz/#contact-us), on our [X](https://x.com/paraspell), or in our [Telegram](https://t.me/paraspell) support channel.
 
