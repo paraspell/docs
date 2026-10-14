@@ -30,10 +30,16 @@ tools:
 
 media:
   video:
-    poster: /intro-video-poster.jpg
+    poster:
+      dark: /intro-video-poster-dark.jpg
+      light: /intro-video-poster-light.jpg
     sources:
-      - https://cdn.jsdelivr.net/gh/paraspell/presskit@main/introvideo_claude/paraspell-intro.mp4
-      - https://raw.githubusercontent.com/paraspell/presskit/main/introvideo_claude/paraspell-intro.mp4
+      dark:
+        - https://cdn.jsdelivr.net/gh/paraspell/presskit@main/introvideo_claude/paraspell-intro-dark.mp4
+        - https://raw.githubusercontent.com/paraspell/presskit/main/introvideo_claude/paraspell-intro-dark.mp4
+      light:
+        - https://cdn.jsdelivr.net/gh/paraspell/presskit@main/introvideo_claude/paraspell-intro-light.mp4
+        - https://raw.githubusercontent.com/paraspell/presskit/main/introvideo_claude/paraspell-intro-light.mp4
 
 packages:
   - name: '@paraspell/sdk'
