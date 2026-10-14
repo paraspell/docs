@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
 
 const props = defineProps({
@@ -12,6 +12,11 @@ const props = defineProps({
 
 const { isDark } = useData()
 
+// The page is prerendered in light mode and hydration keeps those attributes,
+// so the theme-specific video is only rendered once mounted on the client
+const mounted = ref(false)
+onMounted(() => (mounted.value = true))
+
 const theme = computed(() => (isDark.value ? 'dark' : 'light'))
 const poster = computed(() => withBase(props.video.poster[theme.value]))
 const sources = computed(() => props.video.sources[theme.value])
@@ -20,7 +25,7 @@ const sources = computed(() => props.video.sources[theme.value])
 <template>
   <div class="HomeMedia">
     <!-- keyed by theme so the browser reloads the video when the theme is toggled -->
-    <video :key="theme" controls playsinline preload="none" :poster="poster">
+    <video v-if="mounted" :key="theme" controls playsinline preload="none" :poster="poster">
       <source v-for="src in sources" :key="src" :src="src" type="video/mp4" />
     </video>
   </div>
