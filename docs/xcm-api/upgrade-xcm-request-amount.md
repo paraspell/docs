@@ -20,7 +20,7 @@ Before you proceed with verification note the following:
  
  You can claim your token on the following site (API has to be running):  
 
-`https://api.paraspell.xyz/v2/app/generate-api-key`
+`https://api.paraspell.xyz/v2/app/generate-api-key/`
 
 The limit for this level is:
 `100 requests per minute`
@@ -44,7 +44,7 @@ Before you proceed with the request note the following:
 
 A request for a higher limit can be done using the following form (API and Database have to be running. Both need to be correctly configured):
 
-`https://api.paraspell.xyz/v2/app/higher-request-limit`
+`https://api.paraspell.xyz/v2/app/higher-request-limit/`
 
 The limit for this level is:
 `Per request`

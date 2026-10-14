@@ -32,6 +32,7 @@ $ pnpm run:playground
 
 Once launched, you should see the following user interface and be able to perform various actions offered by Playground:
 
-<img width="1896" height="1283" alt="Playground" src="https://github.com/user-attachments/assets/c259bedf-74c5-4394-be16-a4ffb35f8b86" />
+<img class="img-light" width="3272" height="1838" alt="Playground" src="/playground-light.png" />
+<img class="img-dark" width="3272" height="1838" alt="Playground" src="/playground-dark.png" />
 
 
