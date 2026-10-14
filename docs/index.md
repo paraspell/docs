@@ -35,11 +35,9 @@ media:
       light: /intro-video-poster-light.jpg
     sources:
       dark:
-        - https://cdn.jsdelivr.net/gh/paraspell/presskit@main/introvideo_claude/paraspell-intro-dark.mp4
-        - https://raw.githubusercontent.com/paraspell/presskit/main/introvideo_claude/paraspell-intro-dark.mp4
+        - /intro-video-dark.mp4
       light:
-        - https://cdn.jsdelivr.net/gh/paraspell/presskit@main/introvideo_claude/paraspell-intro-light.mp4
-        - https://raw.githubusercontent.com/paraspell/presskit/main/introvideo_claude/paraspell-intro-light.mp4
+        - /intro-video-light.mp4
 
 packages:
   - name: '@paraspell/sdk'

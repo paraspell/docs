@@ -19,7 +19,7 @@ onMounted(() => (mounted.value = true))
 
 const theme = computed(() => (isDark.value ? 'dark' : 'light'))
 const poster = computed(() => withBase(props.video.poster[theme.value]))
-const sources = computed(() => props.video.sources[theme.value])
+const sources = computed(() => props.video.sources[theme.value].map(withBase))
 </script>
 
 <template>
