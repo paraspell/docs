@@ -4,12 +4,12 @@ overview:
     title: Report bugs
     badge: $5–30
     details: Earn rewards based on bug severity.
-    link: '#🔍-bug-reporting'
+    link: '#report-a-bug'
   - icon: pull-request
     title: Fix bugs
     badge: $5–250+
     details: Earn additional rewards based on fix complexity.
-    link: '#🛠️-fixing-bugs'
+    link: '#fix-a-bug'
 
 eligible:
   - icon: code
