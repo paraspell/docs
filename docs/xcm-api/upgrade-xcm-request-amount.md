@@ -1,78 +1,94 @@
 # Upgrade amount of requests per minute 🔢
 
-As the requested amount per minute is limited to prevent possibilities of DDoS attacks, we offer three different levels of limits to best suit your project needs. All levels are completely free, and this page covers a guide on how to acquire each one of them. 
+To keep the XCM API fast and fair for everyone (and to prevent DDoS attacks), the number of requests per minute is limited. There are three levels of limits to suit your project's needs. All of them are completely free, and this page shows how to get each one.
+
+| Level | Requests per minute | How to get it |
+| --- | --- | --- |
+| [Standard user](#standard-user) | `20` | No action needed |
+| [API key user](#api-key-user) | `100` | Generate an API key in one click |
+| [Higher request limit user](#higher-request-limit-user) | Per request | Submit a request form, reviewed by our team |
 
 ## Standard user
-As a standard user, you do not need to do any action and are free to use XCM API right away.
+As a standard user, you do not need to do anything and are free to use the XCM API right away.
 
 The limit for this level is:
 `20 requests per minute`
 
-## Captcha verified user
-To become a verified user you have to complete simple captcha verification.
+## API key user
+To raise your limit, generate an API key. No account is needed — the page is protected by reCAPTCHA, so a single click is all it takes.
 
 ::: tip
-Before you proceed with verification note the following:
-- After you verify with the captcha you will receive your authentication token which you can use to unlock the higher request limit.
-- This token is only visible once so make sure to save it properly.
-- These tokens are not saved anywhere by us so we could not restore them for you.
+Before you generate your key, note the following:
+- The API key is shown only once. Copy it right away and keep it somewhere safe.
+- Keys are not stored by us, so we cannot restore a lost key for you.
+- Send the key in the `X-API-KEY` header with every request to unlock the higher limit (see [Implement into dApp/REST API](#implement-into-dapp-rest-api)).
 :::
- 
- You can claim your token on the following site (API has to be running):  
+
+You can generate your key on the following site (API has to be running):
 
 `https://api.paraspell.xyz/v2/app/generate-api-key/`
 
 The limit for this level is:
 `100 requests per minute`
 
-The verification website should look like this:
-<img width="835" alt="Screenshot 2023-08-21 at 21 56 01" src="https://user-images.githubusercontent.com/55763425/262140640-ed942d5e-3e33-493f-a6b1-0245b9665179.png">
+The page compares both limits and lets you generate your key with the **Generate API key** button:
 
-Your generated API key will be in the following box:
-<img width="835" alt="Screenshot 2023-08-21 at 21 56 12" src="https://user-images.githubusercontent.com/55763425/262140604-7fcead1e-58fd-4364-ba40-9b057ec22746.png">
+<img class="img-light" width="900" height="640" alt="Generate your API key page" src="/api-key-generate-light.png" />
+<img class="img-dark" width="900" height="640" alt="Generate your API key page" src="/api-key-generate-dark.png" />
+
+Once generated, your API key appears in the **Your API key** box. Use the **Copy API key** button to copy it — the page also shows how to send it as a request header:
+
+<img class="img-light" width="900" height="680" alt="Your API key is ready page" src="/api-key-ready-light.png" />
+<img class="img-dark" width="900" height="680" alt="Your API key is ready page" src="/api-key-ready-dark.png" />
 
 ## Higher request limit user
-If 100 requests per minute is not enough for your project you can request a limit that will suit your needs.
+If 100 requests per minute is not enough for your project, you can request a limit that suits your needs.
 
 ::: tip
-Before you proceed with the request note the following:
-- Freshly hashed and generated UserID associated with your captcha-generated API key will be stored in our database for simple monitoring (only request amount monitoring) to prevent malicious behaviour (you can find out the format of data we store in the [deploy section](https://paraspell.github.io/docs/xcm-api/deploy-api-yourself.html)).  
-- You will have to provide a few details (Your email address, the reason for the higher limit, the amount you wish to set as your limit and the token you received in captcha verification)
-- Once your request is reviewed, you receive an email response which will tell you if your request was accepted or rejected (with reason). 
-- If you already have your token implemented in your project, you do not need to change anything; a higher API request limit will automatically start working.
-::: 
+Before you submit the request, note the following:
+- You need an API key first. If you don't have one yet, [generate it](#api-key-user) (the form links to the generator via **No key yet? Generate one**).
+- A freshly hashed UserID associated with your API key will be stored in our database for simple monitoring (request amount only) to prevent malicious behaviour. You can find the format of the stored data in the [deploy section](https://paraspell.github.io/docs/xcm-api/deploy-api-yourself.html).
+- Each request is reviewed by hand. Once reviewed, you will receive an email telling you whether your request was accepted or rejected (with a reason).
+- If approved, the higher limit applies to your existing API key. If your key is already implemented in your project, you do not need to change anything.
+:::
 
-A request for a higher limit can be done using the following form (API and Database have to be running. Both need to be correctly configured):
+A request for a higher limit can be made using the following form (API and Database have to be running and both need to be correctly configured):
 
 `https://api.paraspell.xyz/v2/app/higher-request-limit/`
 
 The limit for this level is:
 `Per request`
 
-The form submission website should look like this:
-<img width="808" alt="Screenshot 2023-08-21 at 21 56 45" src="https://user-images.githubusercontent.com/55763425/262140598-22ddf07c-b68b-40c6-bc6c-b433d39ab4ce.png">
+Fill in the form with the following details:
+- **Email** – the address where we send the result of the review.
+- **API key** – the key you generated in the previous step.
+- **Reason for higher limit** – what you are building and how you will use the API.
+- **Requested limit** – the number of requests per minute you need (e.g. `500`).
 
-Confirmation about successful form submission:
-<img width="813" alt="Screenshot 2023-08-21 at 21 57 30" src="https://user-images.githubusercontent.com/55763425/262140580-0f5196dd-e9cc-4534-866c-003e2999c3fa.png">
+<img class="img-light" width="900" height="839" alt="Request a higher limit form" src="/api-limit-request-light.png" />
+<img class="img-dark" width="900" height="839" alt="Request a higher limit form" src="/api-limit-request-dark.png" />
 
-You should receive an email similar to this one:
-<img width="803" alt="Screenshot 2023-08-21 at 21 58 07" src="https://user-images.githubusercontent.com/55763425/262140612-7b6a0663-382a-4d87-b3aa-c7ee6decac7a.png">
+After you click **Submit request**, you will see a confirmation summarizing what happens next:
 
-**Please verify** that the confirmation email comes from the address `info.lightspell@gmail.com`. **This only applies to the official deployed version**. If you plan on deploying your own XCM API fork, you can set a custom email address. More on this in the [Deploy API yourself](https://paraspell.github.io/docs/xcm-api/deploy-api-yourself.html) section.
+<img class="img-light" width="900" height="700" alt="Request submitted confirmation" src="/api-limit-submitted-light.png" />
+<img class="img-dark" width="900" height="700" alt="Request submitted confirmation" src="/api-limit-submitted-dark.png" />
 
 ## Implement into dApp/REST API
 
 ### REST API Client
-This guide shows how to implement the token into the API Client ([Insomnia](https://insomnia.rest/download) in this case)
-There are two ways. 
+This guide shows how to implement the token into the API Client ([Insomnia](https://insomnia.rest/download) in this case). There are two ways.
 
-The first is to implement the key into the API-KEY section.
-<img width="717" alt="Screenshot 2023-08-10 at 20 58 02" src="https://user-images.githubusercontent.com/55763425/259851206-26862032-2cd3-46fb-a5f7-f59c33405174.png">
+The first is to open the **Auth** tab of your request, select **API Key**, set the key to `X-API-KEY`, paste your API key as the value, and add it to **Header**.
 
-The second way is to implement the key into the HEADERS section.
-<img width="717" alt="Screenshot 2023-08-10 at 20 57 47" src="https://user-images.githubusercontent.com/55763425/259851194-34a78830-697c-4c20-901f-9b230fb278b1.png">
+<img class="img-light" width="550" height="350" alt="API Key auth in Insomnia" src="/api-key-insomnia-auth-light.png" />
+<img class="img-dark" width="550" height="350" alt="API Key auth in Insomnia" src="/api-key-insomnia-auth-dark.png" />
 
-Make sure to name the key as `X-API-KEY`, otherwise your key won't be recognized.
+The second is to open the **Headers** tab of your request and add a new header named `X-API-KEY` with your API key as its value.
+
+<img class="img-light" width="550" height="350" alt="X-API-KEY header in Insomnia" src="/api-key-insomnia-headers-light.png" />
+<img class="img-dark" width="550" height="350" alt="X-API-KEY header in Insomnia" src="/api-key-insomnia-headers-dark.png" />
+
+Make sure to name the key `X-API-KEY`, otherwise your key won't be recognized.
 
 ### In-app token integration
 The following snippet can be observed. See the `Headers` section where the API key is inserted.
