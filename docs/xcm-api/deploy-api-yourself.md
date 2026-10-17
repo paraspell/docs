@@ -19,6 +19,7 @@ RATE_LIMIT_REQ_COUNT_PUBLIC=20
 RATE_LIMIT_REQ_COUNT_AUTH=100
 JWT_SECRET_KEY=YourSecretPhrase
 RECAPTCHA_SECRET_KEY=YourRecaptchaSecretKey
+VITE_RECAPTCHA_SITE_KEY=YourRecaptchaSiteKey
 PORT=YourHTTPServerPort
 DATABASE_URL="yourDbUrl"
 EMAIL_ADDRESS_SENDER=sender@gmail.com
@@ -40,6 +41,7 @@ Each variable listed below **must be configured** unless explicitly marked as op
 | `RATE_LIMIT_REQ_COUNT_AUTH` | Defines the maximum number of requests allowed within the specified time window for authenticated requests. | Yes |
 | `JWT_SECRET_KEY` | Secret key used to derive and validate JWT tokens (Defined by you, can be any string). Must be set before the server starts. | Yes |
 | `RECAPTCHA_SECRET_KEY` | Secret key for Google reCAPTCHA. Ensure **reCAPTCHA v3** is selected when generating the key. (Guide on how to [obtain](https://docs.cloud.google.com/recaptcha/docs/create-key-website?fbclid=IwAR0wbzgUfKo-ih12jfNAC8MJIUUEMX15vszzfMdwvizXgqBdcrQW_9nCtx4)) | Yes |
+| `VITE_RECAPTCHA_SITE_KEY` | Site key for Google reCAPTCHA (generated together with the secret key above). It is used by the API key forms and is embedded when they are built, so rebuild the forms after changing it. | Yes |
 | `PORT` | Port on which the API server runs. Defaults to `3001` if not provided. | No |
 | `DATABASE_URL` | Database connection URL. Refer to the [documentation](https://www.prisma.io/docs/orm/reference/connection-urls#env) for instructions on generating this value. | Yes |
 | `EMAIL_ADDRESS_SENDER` | Email address used to send responses to submitted forms. | Yes |
@@ -51,6 +53,27 @@ Each variable listed below **must be configured** unless explicitly marked as op
 | `MIXPANEL_PROJECT_TOKEN` | Token used for request-level analytics (no amounts or wallet addresses are stored). | No |
 | `SENTRY_DSN` | DSN token for Sentry error tracking and debugging. | No |
 
+
+## Build the API
+
+The API key forms (generate API key and request a higher limit) live in a separate app, [`apps/xcm-api-forms`](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api-forms), which the API serves under `/app`. The forms must be built together with the API, otherwise these pages will not be available.
+
+Run the following command from the root of the [xcm-tools](https://github.com/paraspell/xcm-tools) monorepo. The `...` suffix tells pnpm to also build every workspace package the API depends on, including the forms:
+
+```bash
+# Install dependencies
+pnpm install
+
+# Build XCM API together with its dependencies (including the forms)
+pnpm --filter xcm-api... build
+
+# Start the built API
+pnpm --filter xcm-api start:prod
+```
+
+::: tip
+The forms read `VITE_RECAPTCHA_SITE_KEY` from the API's `.env` file at build time. Make sure the `.env` file is filled in before you build.
+:::
 
 If you have configured everything correctly, you should receive emails similar to the one showcased below. These should be received at the email addresses you specified in the `EMAIL_ADDRESS_RECIPIENT_ARR` configuration line.
 
