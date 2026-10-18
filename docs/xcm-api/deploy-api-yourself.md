@@ -82,9 +82,10 @@ If you have configured everything correctly, you should receive emails similar t
 Based on the UserID received in the email you can edit the maximum request amount for a specific API key. 
 
 > [!NOTE] Database overrides maximum request count. 
-> If the value is left on `null`, the user can generate a default of 100 requests per minute just like before, as a Captcha-verified user.
+> If the value is left on `null`, the user keeps the default of 100 requests per minute of an [API key user](./upgrade-xcm-request-amount.md#api-key-user).
 
-<img width="437" alt="Screenshot 2023-08-21 at 21 58 57" src="https://user-images.githubusercontent.com/55763425/262140588-8353a1a5-e4be-4be7-92bd-a37cfe26ca39.png">
+<img class="img-light" width="437" height="299" alt="Request limits stored in the database" src="/api-db-request-limit-light.png" />
+<img class="img-dark" width="437" height="299" alt="Request limits stored in the database" src="/api-db-request-limit-dark.png" />
 
 ## Setting up Sentry
 Recently, XCM API introduced the Sentry error tracking service implementation. This guide covers how to use it.
@@ -92,7 +93,8 @@ Recently, XCM API introduced the Sentry error tracking service implementation. T
 - The first step is to register at this [website](https://sentry.io/lcome/).
 - Create a new project to get the DSN token for the `.env` file used by XCM API.
   
-<img width="420" alt="Screenshot 2023-11-16 at 10 23 28" src="https://user-images.githubusercontent.com/55763425/283396658-98339f19-04ab-4ee8-9dfa-a0efec722e73.png">
+<img class="img-light" width="291" height="40" alt="Create Project button in Sentry" src="/sentry-create-project-light.png" />
+<img class="img-dark" width="306" height="43" alt="Create Project button in Sentry" src="/sentry-create-project-dark.png" />
 
 - Monitor your issues through the dashboard. If you receive any unhandled issues, you should also be notified by email.
 
