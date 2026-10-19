@@ -77,7 +77,7 @@ The forms read `VITE_RECAPTCHA_SITE_KEY` from the API's `.env` file at build tim
 
 If you have configured everything correctly, you should receive emails similar to the one showcased below. These should be received at the email addresses you specified in the `EMAIL_ADDRESS_RECIPIENT_ARR` configuration line.
 
-<img width="784" alt="Screenshot 2023-08-21 at 22 40 34" src="https://user-images.githubusercontent.com/55763425/262149103-cb3398c0-b186-452f-bb67-b8aac9608173.png">
+<img width="553" height="703" alt="New higher limit request email" src="/api-limit-admin-email.png" />
 
 Based on the UserID received in the email you can edit the maximum request amount for a specific API key. 
 
