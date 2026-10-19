@@ -108,7 +108,8 @@ Paste in the following details and input the following link to test out Sentry:
 XCM API has integrated this test for you so you can test out error 500 in localhost mode.
 Once you paste the link into the browser, Sentry should notify you about a new error 500. It should look like this in your project:
 
-<img width="1223" alt="Snímka obrazovky 2024-03-08 o 19 16 35" src="https://gist.github.com/assets/55763425/c342e184-a7df-4a58-ad70-9d08fd7c59ff">
+<img class="img-light" width="874" height="991" alt="Error event in Sentry" src="/sentry-error-light.png" />
+<img class="img-dark" width="874" height="991" alt="Error event in Sentry" src="/sentry-error-dark.png" />
 
 You can see that the exact line where the error was triggered is shown, and you can even try to ask AI for help with resolving the task for you.
 
