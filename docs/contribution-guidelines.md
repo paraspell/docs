@@ -2,7 +2,7 @@
 overview:
   - icon: bug
     title: Report bugs
-    badge: $5–30
+    badge: $5–70
     details: Earn rewards based on bug severity.
     link: '#report-a-bug'
   - icon: pull-request
@@ -36,39 +36,39 @@ eligible:
 # Lowest tier first; tone is gray, green, orange or red
 reportRewards:
   - tone: gray
-    level: Very low
+    level: Low
     reward: $5–10
     details: Very minor errors in docs / text / code
   - tone: green
-    level: Low
+    level: Medium
     reward: $10–15
     details: Minor UI issues, typos, or cosmetic bugs
   - tone: orange
-    level: Medium
+    level: High
     reward: $15–20
     details: Bugs affecting user features or causing functional issues
   - tone: red
-    level: High
-    reward: $20–30
+    level: Critical
+    reward: $20–70
     details: Crashes, data loss, security vulnerabilities, or major broken functionality
 
 fixRewards:
   - tone: gray
-    level: Very low
-    reward: $5
-    details: Very minor errors in docs / text / code
-  - tone: green
     level: Low
-    reward: $10–20
+    reward: $5–10
     details: Small fix (e.g., 1-2 lines), config changes
-  - tone: orange
+  - tone: green
     level: Medium
-    reward: $30–70
+    reward: $10–50
+    details: Contained fix in one module (e.g., edge cases, validation, error handling)
+  - tone: orange
+    level: High
+    reward: $50–250+
     details: Logic changes, multi-file fixes, test additions
   - tone: red
-    level: High
-    reward: $80–250+
-    details: Complex refactors, deep bug fixes, architectural or security-critical changes with tests and docs
+    level: Critical
+    reward: No bounty
+    details: Fixed by the ParaSpell team, as critical issues need to be assessed immediately
 ---
 
 # Bug bounty program <MagicEmoji emoji="💸" />
@@ -104,7 +104,7 @@ To keep the program focused on genuine human contributors, every bug report and 
   ```
 - **AI tools are welcome, autonomous agents are not:** using AI tools (Copilot, ChatGPT, Claude, etc.) is fine if you disclose it, understand the resulting code, and can explain and defend it yourself. Autonomous agents that open PRs without a human reviewing and understanding the change are **not eligible**, regardless of disclosure.
 - **Be ready to explain your work:** answer maintainers' review questions specifically and on topic within **5 days**. Without an answer, the reservation expires and the issue reopens for others. Generic, evasive, or off-topic answers get the PR closed and the reservation forfeited.
-- **Extra verification for high-severity fixes:** for 🔴 High complexity fixes, maintainers may ask for a brief live chat or call walkthrough before payout, to confirm that a human authored the change and understands it.
+- **Extra verification for high-severity fixes:** for 🟠 High fixes, maintainers may ask for a brief live chat or call walkthrough before payout, to confirm that a human authored the change and understands it.
 
 ::: danger
 Repeated low-effort, undisclosed-AI, or automated submissions will result in a permanent ban from the Bug Bounty Program.
@@ -112,6 +112,10 @@ Repeated low-effort, undisclosed-AI, or automated submissions will result in a p
 
 
 ## Report a bug
+
+::: warning Critical issues
+Please don't open a public issue for 🔴 Critical bugs such as security vulnerabilities. If you think that the issue is critical, report it privately by email to [info.paraspell@gmail.com](mailto:info.paraspell@gmail.com) or through the contact form on [paraspell.xyz](https://paraspell.xyz/#contact-us), so that we can assess it immediately.
+:::
 
 1. Open an [issue in the repository](https://github.com/paraspell/xcm-tools/issues) and select `Bug bounty report`.
 2. Fill in all required sections.
@@ -181,7 +185,7 @@ git commit -S -s -m "fix(sdk-core): Handle null case in token parser" \
 
 ### Rewards for fixes
 
-Rewards depend on code complexity and quality, as determined by maintainers. The $250 for High complexity is not a hard cap: the final amount depends on the task and can be higher.
+Rewards depend on code complexity and quality, as determined by maintainers. The $250 for High is not a hard cap: the final amount depends on the task and can be higher. Critical issues are fixed by the ParaSpell team, so they carry no fix bounty.
 
 <RewardTiers :tiers="$frontmatter.fixRewards" />
 
