@@ -14,8 +14,12 @@ overview:
 eligible:
   - icon: code
     title: XCM SDK
-    details: PAPI version only
+    details: PAPI version
     link: https://github.com/paraspell/xcm-tools/tree/main/packages/sdk
+  - icon: code
+    title: XCM SDK
+    details: Dedot version
+    link: https://github.com/paraspell/xcm-tools/tree/main/packages/sdk-dedot
   - icon: swap
     title: Swap
     link: https://github.com/paraspell/xcm-tools/tree/main/packages/swap
@@ -80,6 +84,7 @@ Thank you for your interest in contributing to `xcm-tools`! We reward contributo
 These tools and apps from the [xcm-tools](https://github.com/paraspell/xcm-tools) monorepo are part of the Bug Bounty Program:
 
 - [XCM SDK (PAPI Version)](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk)
+- [XCM SDK (Dedot Version)](https://github.com/paraspell/xcm-tools/tree/main/packages/sdk-dedot)
 - [SWAP Extension](https://github.com/paraspell/xcm-tools/tree/main/packages/swap)
 - [XCM API](https://github.com/paraspell/xcm-tools/tree/main/apps/xcm-api)
 - [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
