@@ -90,6 +90,8 @@ These tools and apps from the [xcm-tools](https://github.com/paraspell/xcm-tools
 - [XCM Analyser](https://github.com/paraspell/xcm-tools/tree/main/packages/xcm-analyser)
 - [XCM Playground](https://github.com/paraspell/xcm-tools/tree/main/apps/playground)
 
+<div id="✅-contributor-eligibility"></div>
+
 ## Requirements 
 
 To keep the program focused on genuine human contributors, every bug report and fix must meet **all** of these requirements. Submissions that don't are closed without review.
@@ -97,7 +99,7 @@ To keep the program focused on genuine human contributors, every bug report and 
 ::: details Minimal Contributor Requirements
 
 - **Established account:** your GitHub commit history is at least **6 months** old.
-- **Proof of personhood:** set an on-chain identity on the Polkadot People Chain for your AssetHub address and request a registrar judgement ([official guide](https://support.polkadot.network/support/solutions/articles/65000181990-how-to-request-and-cancel-identity-judgement)). [dotID](https://dotid.app/) does this for free, with social/email verification and optional KYC for a stronger judgement. Maintainers check on [Subscan](https://people-polkadot.subscan.io/) that the judgement is at least `Reasonable`. Use the **same address** for payment; nothing outside the Polkadot ecosystem is needed.
+- **Proof of personhood:** set an on-chain identity on the Polkadot People Chain for your AssetHub address and request a registrar judgement ([official guide](https://support.polkadot.network/support/solutions/articles/65000181990-how-to-request-and-cancel-identity-judgement)). [dotID](https://dotid.app/) does this for free, with social/email verification and optional KYC for a stronger judgement. Maintainers check on [Subscan](https://people-polkadot.subscan.io/) that the judgement is at least `Reasonable`. Use the **same address** for payment. Nothing outside the Polkadot ecosystem is needed.
 - **[Signed commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits):** sign every commit in your PR with the `-S` flag and include this trailer:
   ```
   AI-Assisted-By: <tool name(s), e.g. "GitHub Copilot", "ChatGPT"> (or "None" if you didn't use one)
@@ -118,8 +120,8 @@ Please don't open a public issue for 🔴 Critical bugs such as security vulnera
 :::
 
 1. Open an [issue in the repository](https://github.com/paraspell/xcm-tools/issues) and select `Bug bounty report`.
-2. Fill in all required sections.
-3. Submit the issue. Maintainers review it and assign a severity level.
+2. Please fill in every section of the issue template and keep the sections as they are. Issues that don't follow the template will be closed. Reports that don't meet every point of the Contributor Eligibility checklist won't receive a reward.
+3. Submit the issue. Maintainers review it and assign a severity level. Once they confirm the bug, they add the "Confirmed bug 🪲" label, which opens the issue for reservation.
 
 ### Rewards for reports
 
@@ -133,10 +135,9 @@ Reporting or fixing grammar errors in the documentation that don't affect functi
 
 ::: details Reserving the Issue
 
-- Only issues with the "Bug bounty 💰" tag are eligible.
-- Comment `I would like to reserve this issue.` on the issue. It is assigned to you and reserved for **48 hours**; if no PR is opened by then, the reservation expires.
-- You may reserve **one issue at a time**. Submit or drop your current reservation before reserving another; issues reserved in violation of this are reassigned.
-- <span id="🔁-contributing-to-your-own-report"></span>Reported the bug yourself? You still need to reserve the issue before fixing it.
+- Only issues that maintainers have confirmed with the "Confirmed bug 🪲" label can be reserved.
+- Comment `I would like to reserve this issue.` on the issue. It is assigned to you and reserved for **48 hours**. If no PR is opened by then, the reservation expires.
+- You may reserve **one issue at a time**. Submit or drop your current reservation before reserving another. Issues reserved in violation of this are reassigned.
 - <span id="👥-collaborating-on-existing-issues"></span>Someone already reported it or opened a PR? Comment to express intent and, if allowed, follow the same reservation and PR process. Keep your contribution additive and clearly explained.
 
 :::
@@ -145,11 +146,16 @@ Reporting or fixing grammar errors in the documentation that don't affect functi
 
 **Make sure your PR follows these rules and has high-quality code. We will not review PRs that don't meet our quality standards.**
 
+**Please open PRs only for issues reserved for you.** This way, no two contributors end up working on the same fix.
+
 
 1. Fork the repository and create a new branch.
 2. Commit using a [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) message with a type and scope (see below), including the `Signed-off-by` and `AI-Assisted-By` trailers.
-3. In the PR description, explain **in your own words** the root cause of the bug and why your change fixes it. A plain summary of the diff is not enough.
-4. Open a [pull request](https://github.com/paraspell/xcm-tools/pulls) referencing the issue and tag `@michaeldev5` to request a review.
+3. Open a [pull request](https://github.com/paraspell/xcm-tools/pulls) and fill in every section of the PR template, keeping the sections as they are. PRs that don't follow the template will be closed. Fixes that don't meet every point of the Contributor Eligibility checklist won't receive a reward.
+   - Under **Related Issue**, link your reserved issue with `Closes #<issue number>`.
+   - Under **Description of the Fix**, explain **in your own words** what caused the bug and why your change fixes it, rather than only summarizing the diff.
+   - Complete the **Contributor Eligibility** and **Checklist** sections and add your Polkadot Asset Hub address.
+4. Tag `@michaeldev5` to request a review.
 
 ### Commit messages
 
@@ -201,9 +207,10 @@ Rewards depend on code complexity and quality, as determined by maintainers. The
 ## FAQ 
 
 <div id="💡-can-i-report-and-fix-the-same-bug"></div>
+<div id="🔁-contributing-to-your-own-report"></div>
 
 ::: details Can I report and fix the same bug?
-Yes! You can both **report and fix** the bug. Be sure to reserve it as outlined above before working on the fix.
+Yes! You can both **report and fix** the bug. Once maintainers confirm it with the "Confirmed bug 🪲" label, please reserve it as outlined above before working on the fix.
 :::
 
 <div id="🤖-can-i-use-ai-tools-to-help-with-my-fix"></div>
