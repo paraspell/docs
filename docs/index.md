@@ -196,6 +196,7 @@ treasury:
     reports:
       - { month: Aug, link: https://docs.google.com/document/d/13qI4iDfigJV70PztlzYRiJAhrrD6d87qCdlOse7vG_U/edit?usp=sharing }
       - { month: Sep, link: https://docs.google.com/document/d/1hBKzP1B5eiWZscVIWC0AvS6KZSmO9EU7bxXvL1ZiauA/edit?usp=sharing }
+      - { month: Oct, link: https://docs.google.com/document/d/1-qAi9p0GWzVWrrfny8kYAMRl1TZjkBy5v2BXyBKbGRE/edit?usp=sharing }
 
 contact:
   title: How to reach out to us
